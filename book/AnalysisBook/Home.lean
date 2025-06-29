@@ -1,23 +1,23 @@
 import VersoBlog
 open Verso Genre Blog
 
-#doc (Page) " Partial Lean formalization of Analysis I" =>
+#doc (Page) " Часткова формалізація в Lean книги Аналіз I" =>
 
-The files in this directory contain a formalization of selected portions of my text [_Analysis I_](https://terrytao.wordpress.com/books/analysis-i/) into [Lean](https://lean-lang.org/). The formalization is intended to be as faithful a paraphrasing as possible to the original text, while also showcasing Lean's features and syntax.  In particular, the formalization is _not_ optimized for efficiency, and in some cases may deviate from idiomatic Lean usage.
+Файли в цьому каталозі містять формалізацію вибраних частин мого *(пр.перекл. тут і далі це Терренс Тао)* тексту [_Аналіз I_](https://terrytao.wordpress.com/books/analysis-i/) у [Lean](https://lean-lang.org/). Формалізація має на меті максимально точно перефразувати оригінальний текст, а також продемонструвати особливості та синтаксис Lean. Зокрема, формалізація _не_ оптимізована під ефективність, а в деяких випадках може відхилятися від ідіоматичного використання Lean.
 
-Portions of the text that were left as exercises to the reader are rendered in this translation as `sorry`s.  Readers are welcome to fork the repository here to try their hand at these exercises, but I do not intend to place solutions in this repository directly.
+Частини тексту, залишені як вправи для читача, у цьому перекладі передаються як тактика `sorry`. Читачі можуть створити форк репозиторію, щоб спробувати свої сили у виконанні цих вправ, але я не маю наміру розміщувати рішення безпосередньо в цьому репозиторії.
 
-While the arrangement of definitions, theorems, and proofs here are closely paraphrasing the textbook, I am refraining from directly quoting material from the textbook, instead providing references to the original text where appropriate.  As such, this formalization should be viewed as an annotated companion to the primary text, rather than a replacement for it.
+Хоча розташування визначень, теорем і доказів тут є близьким перефразуванням підручника, я утримуюся від прямого цитування матеріалу з підручника, натомість наводжу посилання на оригінальний текст, де це доречно. Таким чином, цю формалізацію слід розглядати як анотоване доповнення до основного тексту, а не як його заміну.
 
-Much of the material in this text is duplicated in Lean's standard math library [Mathlib](https://leanprover-community.github.io/mathlib4_docs/), though with slightly different definitions.  To reconcile these discrepancies, this formalization will gradually transition from the textbook-provided definitions to the Mathlib-provided definitions as one progresses further into the text, thus sacrificing the self-containedness of the formalization in favor of compatibility with Mathlib.  For instance, Chapter 2 develops a theory of the natural numbers independent of Mathlib, but all subsequent chapters will use the Mathlib natural numbers instead.  (An epilogue to Chapter 2 is provided to show that the two notions of the natural numbers are isomorphic.)  As such, this formalization can also be used as an introduction to various portions of Mathlib.
+Значна частина матеріалу в цьому тексті продубльована у стандартній математичній бібліотеці Lean [Mathlib](https://leanprover-community.github.io/mathlib4_docs/), хоча й з дещо іншими визначеннями. Щоб усунути ці розбіжності, ця формалізація поступово переходитиме від визначень, наданих підручником, до визначень, наданих Mathlib, у міру просування в тексті, жертвуючи таким чином самодостатністю формалізації на користь сумісності з Mathlib. Наприклад, у розділі 2 розвивається теорія натуральних чисел незалежно від Mathlib, але в усіх наступних розділах замість неї використовуватимуть натуральні числа Mathlib. (Епілог до розділу 2 надається, щоб показати, що два поняття натуральних чисел ізоморфні.) Таким чином, цю формалізація також може бути використана як вступ до різних частин Mathlib.
 
-In order to align the formalization with Mathlib conventions, a small number of technical changes have been made to some of the definitions as compared with the textbook version.  Most notably:
-- Sequences are indexed to start from zero rather than from one, as Mathlib has much more support for the 0-based natural numbers `ℕ` than the 1-based natural numbers.
-- Many operations that are left undefined in the text, such as division by zero, or taking the formal limit of a non-Cauchy sequence, are instead assigned a "junk" value (e.g., `0`) to make the operation totally defined.  This is because Lean has better support for total functions than partial functions (indiscriminate use of the latter can lead into "dependent type hell" in which even very basic manipulations require quite subtle and delicate proofs).  See for instance [this blog post](https://xenaproject.wordpress.com/2020/07/05/division-by-zero-in-type-theory-a-faq/) by Kevin Buzzard for more discussion.
+Для узгодження формалізації з домовленостями Mathlib, до деяких визначень було внесено невелику кількість технічних змін порівняно з версією підручника. Найбільш помітні:
+- Послідовності індексуються з нуля, а не з одиниці, оскільки Mathlib має набагато більше підтримки для натуральних чисел `ℕ` з нульовою нумерацією, ніж для натуральних чисел з одиничною нумерацією.
+- Багатьом операціям, які залишилися невизначеними в тексті, таким як ділення на нуль або отримання формальної границі не-Коші послідовності, замість цього присвоюється "сміттєве" значення (наприклад, `0`), щоб зробити операцію повністю визначеною. Це пояснюється тим, що Lean має кращу підтримку повних функцій *(пр.перекл. total functions)*, ніж часткових функцій *(пр.перекл. partial functions)* (нерозбірливе використання останніх може призвести до "пекла залежних типів", в якому навіть дуже прості маніпуляції вимагають досить тонких і делікатних доказів). Дивіться, наприклад, [цю публікацію в блозі](https://xenaproject.wordpress.com/2020/07/05/division-by-zero-in-type-theory-a-faq/) Кевіна Баззарда для отримання додаткової інформації.
 
-Currently formalized sections:
+Поточні формалізовані розділи:
 
-- [Section 2.1: The Peano axioms](./sec21/)
+- [Section 2.1: Аксіоми Пеано](./sec21/)
 - [Section 2.2: Addition](./sec22/)
 - [Section 2.3: Multiplication](./sec23/)
 - [Chapter 2 epilogue: Isomorphism with the Mathlib natural numbers](./sec2e)
