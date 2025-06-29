@@ -64,11 +64,11 @@ theorem CauchySequence.coe_to_sequence (a: CauchySequence) :
 @[simp]
 theorem CauchySequence.coe_coe {a:ℕ → ℚ} (ha: (a:Sequence).isCauchy) : mk' ha = a := by rfl
 
-/-- Твердження 5.3.3 / Exercise 5.3.1 -/
+/-- Твердження 5.3.3 / Вправа 5.3.1 -/
 theorem Sequence.equiv_trans {a b c:ℕ → ℚ} (hab: Sequence.equiv a b) (hbc: Sequence.equiv b c) :
   Sequence.equiv a c := by sorry
 
-/-- Твердження 5.3.3 / Exercise 5.3.1 -/
+/-- Твердження 5.3.3 / Вправа 5.3.1 -/
 instance CauchySequence.instSetoid : Setoid CauchySequence where
   r := fun a b ↦ Sequence.equiv a b
   iseqv := {
@@ -211,18 +211,18 @@ theorem Sequence.mul_cauchy {a b:ℕ → ℚ}  (ha: (a:Sequence).isCauchy) (hb: 
     (a * b:Sequence).isCauchy := by
   sorry
 
-/-- Твердження 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/-- Твердження 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (haa': Sequence.equiv a a') :
   Sequence.equiv (a * b) (a' * b) := by
   sorry
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_right {b b':ℕ → ℚ} (a:ℕ → ℚ) (hbb': Sequence.equiv b b') :
   Sequence.equiv (a * b) (a * b') := by
   simp_rw [mul_comm]
   exact mul_equiv_left a hbb'
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv {a b a' b':ℕ → ℚ} (haa': Sequence.equiv a a')
   (hbb': Sequence.equiv b b') :
     Sequence.equiv (a * b) (a' * b') :=

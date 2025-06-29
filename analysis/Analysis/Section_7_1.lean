@@ -68,27 +68,27 @@ example (a: ℤ → ℝ) (m:ℤ) : ∑ i ∈ Icc m (m+2), a i = a m + a (m+1) + 
 /-- Remark 7.1.3 -/
 example (a: ℤ → ℝ) (m n:ℤ) : ∑ i ∈ Icc m n, a i = ∑ j ∈ Icc m n, a j := rfl
 
-/-- Лема 7.1.4(a) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(a) / Вправа 7.1.1 -/
 theorem concat_finite_series {m n p:ℤ} (hmn: m ≤ n+1) (hpn : n ≤ p) (a: ℤ → ℝ) :
   ∑ i ∈ Icc m n, a i + ∑ i ∈ Icc (n+1) p, a i = ∑ i ∈ Icc m p, a i := by sorry
 
-/-- Лема 7.1.4(b) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(b) / Вправа 7.1.1 -/
 theorem shift_finite_series {m n k:ℤ} (a: ℤ → ℝ) :
   ∑ i ∈ Icc m n, a i = ∑ i ∈ Icc (m+k) (n+k), a (i-k) := by sorry
 
-/-- Лема 7.1.4(c) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(c) / Вправа 7.1.1 -/
 theorem finite_series_add {m n:ℤ} (a b: ℤ → ℝ) :
   ∑ i ∈ Icc m n, (a i + b i) = ∑ i ∈ Icc m n, a i + ∑ i ∈ Icc m n, b i := by sorry
 
-/-- Лема 7.1.4(d) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(d) / Вправа 7.1.1 -/
 theorem finite_series_const_mul {m n:ℤ}  (a: ℤ → ℝ) (c:ℝ) :
   ∑ i ∈ Icc m n, c * a i = c * ∑ i ∈ Icc m n, a i := by sorry
 
-/-- Лема 7.1.4(e) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(e) / Вправа 7.1.1 -/
 theorem abs_finite_series_le {m n:ℤ}   (a: ℤ → ℝ) (c:ℝ) :
   |∑ i ∈ Icc m n, a i| ≤ ∑ i ∈ Icc m n, |a i| := by sorry
 
-/-- Лема 7.1.4(f) / Exercise 7.1.1 -/
+/-- Лема 7.1.4(f) / Вправа 7.1.1 -/
 theorem finite_series_of_le {m n:ℤ}  {a b: ℤ → ℝ} (h: ∀ i, m ≤ i → i ≤ n → a i ≤ b i) :
   ∑ i ∈ Icc m n, a i ≤ ∑ i ∈ Icc m n, b i := by sorry
 
@@ -218,10 +218,10 @@ theorem finite_series_eq {n:ℕ} {Y:Type*} (X: Finset Y) (f: Y → ℝ) (g: Icc 
     use i, hi; simp [h]
   intro i hi; simp [hi]
 
-/-- Твердження 7.1.11(a) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(a) / Вправа 7.1.2 -/
 theorem finite_series_of_empty {X':Type*} (f: X' → ℝ) : ∑ i ∈ ∅, f i = 0 := by sorry
 
-/-- Твердження 7.1.11(b) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(b) / Вправа 7.1.2 -/
 theorem finite_series_of_singleton {X':Type*} (f: X' → ℝ) (x₀:X') : ∑ i ∈ {x₀}, f i = f x₀ := by
   sorry
 
@@ -232,30 +232,30 @@ theorem finite_series_of_singleton {X':Type*} (f: X' → ℝ) (x₀:X') : ∑ i 
 theorem finite_series_of_fintype {X':Type*} (f: X' → ℝ) (X: Finset X') :
     ∑ x ∈ X, f x = ∑ x:X, f x.val := (sum_coe_sort X f).symm
 
-/-- Твердження 7.1.11(c) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(c) / Вправа 7.1.2 -/
 theorem map_finite_series {X:Type*} [Fintype X] [Fintype Y] (f: X → ℝ) {g:Y → X}
   (hg: Function.Bijective g) :
     ∑ x, f x = ∑ y, f (g y) := by sorry
 
 -- Proposition 7.1.11(d) is `rfl` in our formalism and is therefore omitted.
 
-/-- Твердження 7.1.11(e) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(e) / Вправа 7.1.2 -/
 theorem finite_series_of_disjoint_union {Z:Type*} {X Y: Finset Z} (hdisj: Disjoint X Y) (f: Z → ℝ) :
     ∑ z ∈ X ∪ Y, f z = ∑ z ∈ X, f z + ∑ z ∈ Y, f z := by sorry
 
-/-- Твердження 7.1.11(f) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(f) / Вправа 7.1.2 -/
 theorem finite_series_of_add {X':Type*} (f g: X' → ℝ) (X: Finset X') :
     ∑ x ∈ X, (f + g) x = ∑ x ∈ X, f x + ∑ x ∈ X, g x := by sorry
 
-/-- Твердження 7.1.11(g) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(g) / Вправа 7.1.2 -/
 theorem finite_series_of_const_mul {X':Type*} (f: X' → ℝ) (X: Finset X') (c:ℝ) :
     ∑ x ∈ X, c * f x = c * ∑ x ∈ X, f x := by sorry
 
-/-- Твердження 7.1.11(h) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(h) / Вправа 7.1.2 -/
 theorem finite_series_of_le' {X':Type*} (f g: X' → ℝ) (X: Finset X') (h: ∀ x ∈ X, f x ≤ g x) :
     ∑ x ∈ X, f x ≤ ∑ x ∈ X, g x := by sorry
 
-/-- Твердження 7.1.11(i) / Exercise 7.1.2 -/
+/-- Твердження 7.1.11(i) / Вправа 7.1.2 -/
 theorem abs_finite_series_le' {X':Type*} (f: X' → ℝ) (X: Finset X') :
     |∑ x ∈ X, f x| ≤ ∑ x ∈ X, |f x| := by sorry
 

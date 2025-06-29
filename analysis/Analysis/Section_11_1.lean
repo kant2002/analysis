@@ -71,11 +71,11 @@ example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 
 
 
-/-- Лема 11.1.4 / Exercise 11.1.1 -/
+/-- Лема 11.1.4 / Вправа 11.1.1 -/
 theorem BoundedInterval.ordConnected_iff (X:Set ℝ) : Bornology.IsBounded X ∧ X.OrdConnected ↔ ∃ I: BoundedInterval, X = I := by
   sorry
 
-/-- Наслідок 11.1.6 / Exercise 11.1.2 -/
+/-- Наслідок 11.1.6 / Вправа 11.1.2 -/
 theorem BoundedInterval.inter (I J: BoundedInterval) : ∃ K : BoundedInterval, (I:Set ℝ) ∩ (J:Set ℝ) = (K:Set ℝ) := by
   sorry
 
@@ -587,7 +587,7 @@ example : ∃ P P' : Partition (Icc 1 4),
   (P' ⊔ P).intervals = {Icc 1 2, Ioo 2 3, Icc 3 4, ∅} := by
   sorry
 
-/-- Лема 11.1.8 / Exercise 11.1.4 -/
+/-- Лема 11.1.8 / Вправа 11.1.4 -/
 theorem BoundedInterval.le_max {I: BoundedInterval} (P P': Partition I) :
   P ≤ P ⊔ P' ∧ P' ≤ P ⊔ P' := by
   sorry

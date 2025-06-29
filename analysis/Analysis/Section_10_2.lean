@@ -76,13 +76,13 @@ theorem IsLocalMinOn.of_restrict {X Y:Set ℝ} (hXY: Y ⊆ X) (f:ℝ → ℝ) (x
   (h: IsLocalMinOn f X x₀) : IsLocalMinOn f Y x₀ := by
   sorry
 
-/-- Твердження 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
+/-- Твердження 10.2.6 (Local extrema are stationary) / Вправа 10.2.1 -/
 theorem IsLocalMaxOn.deriv_eq_zero {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} {x₀:ℝ}
   (hx₀: x₀ ∈ Set.Ioo a b) (h: IsLocalMaxOn f (Set.Ioo a b) x₀) {L:ℝ}
   (hderiv: HasDerivWithinAt f L (Set.Ioo a b) x₀) : L = 0 := by
   sorry
 
-/-- Твердження 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
+/-- Твердження 10.2.6 (Local extrema are stationary) / Вправа 10.2.1 -/
 theorem IsLocalMinOn.deriv_eq_zero {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} {x₀:ℝ}
   (hx₀: x₀ ∈ Set.Ioo a b) (h: IsLocalMinOn f (Set.Ioo a b) x₀) {L:ℝ}
   (hderiv: HasDerivWithinAt f L (Set.Ioo a b) x₀) : L = 0 := by
@@ -93,13 +93,13 @@ theorem IsMaxOn.deriv_eq_zero_counter : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → �
   (hderiv: HasDerivWithinAt f L (Set.Icc a b) x₀), L ≠ 0 := by
   sorry
 
-/-- Теорема 10.2.7 (Rolle's theorem) / Exercise 10.2.4 -/
+/-- Теорема 10.2.7 (Rolle's theorem) / Вправа 10.2.4 -/
 theorem HasDerivWithinAt.exist_zero {a b:ℝ} (hab: a < b) {g:ℝ → ℝ}
   (hcont: ContinuousOn g (Set.Icc a b)) (hderiv: DifferentiableOn ℝ g (Set.Ioo a b))
   (hgab: g a = g b) : ∃ x ∈ Set.Ioo a b, HasDerivWithinAt g 0 (Set.Ioo a b) x := by
   sorry
 
-/-- Наслідок 10.2.9 (Mean value theorem ) / Exercise 10.2.5 -/
+/-- Наслідок 10.2.9 (Mean value theorem ) / Вправа 10.2.5 -/
 theorem HasDerivWithinAt.mean_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (Set.Icc a b)) (hderiv: DifferentiableOn ℝ f (Set.Ioo a b)) :
   ∃ x ∈ Set.Ioo a b, HasDerivWithinAt f ((f b - f a) / (b - a)) (Set.Ioo a b) x := by

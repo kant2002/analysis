@@ -72,10 +72,10 @@ theorem Real.isPos_def (x:Real) :
 theorem Real.isNeg_def (x:Real) :
     Real.isNeg x ↔ ∃ a:ℕ → ℚ, bounded_away_neg a ∧ (a:Sequence).isCauchy ∧ x = LIM a := by rfl
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.trichotomous (x:Real) : x = 0 ∨ x.isPos ∨ x.isNeg := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_zero_pos (x:Real) : ¬ (x = 0 ∧ x.isPos) := by sorry
 
 theorem Real.nonzero_of_pos {x:Real} (hx: x.isPos) : x ≠ 0 := by
@@ -83,7 +83,7 @@ theorem Real.nonzero_of_pos {x:Real} (hx: x.isPos) : x ≠ 0 := by
     simp [hx] at this ⊢
     assumption
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_zero_neg (x:Real) : ¬ (x = 0 ∧ x.isNeg) := by sorry
 
 theorem Real.nonzero_of_neg {x:Real} (hx: x.isNeg) : x ≠ 0 := by
@@ -91,17 +91,17 @@ theorem Real.nonzero_of_neg {x:Real} (hx: x.isNeg) : x ≠ 0 := by
     simp [hx] at this ⊢
     assumption
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_pos_neg (x:Real) : ¬ (x.isPos ∧ x.isNeg) := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 @[simp]
 theorem Real.neg_iff_pos_of_neg (x:Real) : x.isNeg ↔ (-x).isPos := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1-/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1-/
 theorem Real.pos_add {x y:Real} (hx: x.isPos) (hy: y.isPos) : (x+y).isPos := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.pos_mul {x y:Real} (hx: x.isPos) (hy: y.isPos) : (x*y).isPos := by sorry
 
 theorem Real.pos_of_coe (q:ℚ) : (q:Real).isPos ↔ q > 0 := by sorry
@@ -156,34 +156,34 @@ theorem Real.gt_of_coe (q q':ℚ): q > q' ↔ (q:Real) > (q':Real) := Real.lt_of
 theorem Real.isPos_iff (x:Real) : x.isPos ↔ x > 0 := by sorry
 theorem Real.isNeg_iff (x:Real) : x.isNeg ↔ x < 0 := by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
 theorem Real.trichotomous' (x y:Real) : x > y ∨ x < y ∨ x = y := by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
 theorem Real.not_gt_and_lt (x y:Real) : ¬ (x > y ∧ x < y):= by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
 theorem Real.not_gt_and_eq (x y:Real) : ¬ (x > y ∧ x = y):= by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
 theorem Real.not_lt_and_eq (x y:Real) : ¬ (x < y ∧ x = y):= by sorry
 
-/-- Твердження 5.4.7(b) (order is anti-symmetric) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(b) (order is anti-symmetric) / Вправа 5.4.2 -/
 theorem Real.antisymm (x y:Real) : x < y ↔ (y - x).isPos := by sorry
 
-/-- Твердження 5.4.7(c) (order is transitive) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(c) (order is transitive) / Вправа 5.4.2 -/
 theorem Real.lt_trans {x y z:Real} (hxy: x < y) (hyz: y < z) : x < z := by sorry
 
-/-- Твердження 5.4.7(d) (addition preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(d) (addition preserves order) / Вправа 5.4.2 -/
 theorem Real.add_lt_add_right {x y:Real} (z:Real) (hxy: x < y) : x + z < y + z := by sorry
 
-/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
 theorem Real.mul_lt_mul_right {x y z:Real} (hxy: x < y) (hz: z.isPos) : x * z < y * z := by
   rw [antisymm] at hxy ⊢
   convert pos_mul hxy hz using 1
   ring
 
-/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
 theorem Real.mul_le_mul_left {x y z:Real} (hxy: x ≤ y) (hz: z.isPos) : z * x ≤ z * y := by sorry
 
 theorem Real.mul_pos_neg {x y:Real} (hx: x.isPos) (hy: y.isNeg) : (x * y).isNeg := by
@@ -344,7 +344,7 @@ theorem Real.le_mul {ε:Real} (hε: ε.isPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M 
   simp [hx]
   linarith
 
-/-- Твердження 5.4.14 / Exercise 5.4.5 -/
+/-- Твердження 5.4.14 / Вправа 5.4.5 -/
 theorem Real.rat_between {x y:Real} (hxy: x < y) : ∃ q:ℚ, x < (q:Real) ∧ (q:Real) < y := by sorry
 
 /-- Вправа 5.4.3 -/

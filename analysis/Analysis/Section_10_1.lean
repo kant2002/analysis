@@ -114,13 +114,13 @@ example : DifferentiableWithinAt ℝ f_10_1_6 (Set.Iio 0) 0 := by
 example : derivWithin f_10_1_6 (Set.Iio 0) 0 = -1 := by
   sorry
 
-/-- Твердження 10.1.7 (Newton's approximation) / Exercise 10.1.2 -/
+/-- Твердження 10.1.7 (Newton's approximation) / Вправа 10.1.2 -/
 theorem _root_.HasDerivWithinAt.iff_approx_linear (X: Set ℝ) (x₀ :ℝ) (f: ℝ → ℝ) (L:ℝ) :
   HasDerivWithinAt f L X x₀ ↔
   ∀ ε > 0, ∃ δ > 0, ∀ x ∈ X, |x - x₀| < δ → |f x - f x₀ - L * (x - x₀)| ≤ ε * |x - x₀| := by
   sorry
 
-/-- Твердження 10.0.1 / Exercise 10.1.3 -/
+/-- Твердження 10.0.1 / Вправа 10.1.3 -/
 theorem _root_.ContinuousWithinAt.of_differentiableWithinAt {X: Set ℝ} {x₀ : ℝ} {f: ℝ → ℝ}
   (h: DifferentiableWithinAt ℝ f X x₀) :
   ContinuousWithinAt f X x₀ := by
@@ -137,45 +137,45 @@ theorem _root_.ContinuousOn.of_differentiableOn {X: Set ℝ} {f: ℝ → ℝ}
   have hdiff := h x hx
   exact ContinuousWithinAt.of_differentiableWithinAt hdiff
 
-/-- Теорема 10.1.13 (a) (Differential calculus) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (a) (Differential calculus) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_const (X: Set ℝ) (x₀ : ℝ) (c:ℝ) :
   HasDerivWithinAt (fun x ↦ c) 0 X x₀ := by sorry
 
-/-- Теорема 10.1.13 (b) (Differential calculus) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (b) (Differential calculus) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_id (X: Set ℝ) (x₀ : ℝ) :
   HasDerivWithinAt (fun x ↦ x) 1 X x₀ := by sorry
 
-/-- Теорема 10.1.13 (c) (Sum rule) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (c) (Sum rule) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_add {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f + g) (f'x₀ + g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (d) (Product rule) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (d) (Product rule) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_mul {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f * g) (f'x₀ * (g x₀) + (f x₀) * g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (e) (Differential calculus) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (e) (Differential calculus) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_smul {X: Set ℝ} {x₀ f'x₀: ℝ} (c:ℝ)
   {f: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) :
   HasDerivWithinAt (c • f) (c * f'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (f) (Difference rule) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (f) (Difference rule) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_sub {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f - g) (f'x₀ - g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (g) (Differential calculus) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (g) (Differential calculus) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_inv {X: Set ℝ} {x₀ g'x₀: ℝ}
   {g: ℝ → ℝ} (hgx₀ : g x₀ ≠ 0) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (1/g) (-g'x₀ / (g x₀)^2) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (h) (Quotient rule) / Exercise 10.1.4 -/
+/-- Теорема 10.1.13 (h) (Quotient rule) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_div {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hgx₀ : g x₀ ≠ 0) (hf: HasDerivWithinAt f f'x₀ X x₀)
   (hg: HasDerivWithinAt g g'x₀ X x₀) :
@@ -185,7 +185,7 @@ theorem _root_.HasDerivWithinAt.of_div {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
 example (x₀:ℝ) (hx₀: x₀ ≠ 1): HasDerivWithinAt (fun x ↦ (x-2)/(x-1)) (1 /(x₀-1)^2) (Set.univ \ {1}) x₀ := by
   sorry
 
-/-- Теорема 10.1.15 (Chain rule) / Exercise 10.1.7 -/
+/-- Теорема 10.1.15 (Chain rule) / Вправа 10.1.7 -/
 theorem _root_.HasDerivWithinAt.of_comp {X Y: Set ℝ} {x₀ y₀ f'x₀ g'y₀: ℝ}
   {f g: ℝ → ℝ} (hfx₀: f x₀ = y₀) (hfX : ∀ x ∈ X, f x ∈ Y)
   (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'y₀ Y y₀) :

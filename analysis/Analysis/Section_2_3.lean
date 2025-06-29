@@ -53,14 +53,14 @@ lemma Nat.mul_zero (n: Nat) : n * 0 = 0 := by
 lemma Nat.mul_succ (n m:Nat) : n * m++ = n * m + n := by
   sorry
 
-/-- Лема 2.3.2 (Multiplication is commutative) / Exercise 2.3.1 -/
+/-- Лема 2.3.2 (Multiplication is commutative) / Вправа 2.3.1 -/
 lemma Nat.mul_comm (n m: Nat) : n * m = m * n := by
   sorry
 
 theorem Nat.mul_one (m: Nat) : m * 1 = m := by
   rw [mul_comm, one_mul]
 
-/-- Лема 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2 -/
+/-- Лема 2.3.3 (Positive natural numbers have no zero divisors) / Вправа 2.3.2 -/
 lemma Nat.mul_eq_zero_iff (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
   sorry
 
@@ -81,7 +81,7 @@ theorem Nat.mul_add (a b c: Nat) : a * (b + c) = a * b + a * c := by
 theorem Nat.add_mul (a b c: Nat) : (a + b)*c = a*c + b*c := by
   simp only [mul_comm, mul_add]
 
-/-- Твердження 2.3.5 (Multiplication is associative) / Exercise 2.3.3 -/
+/-- Твердження 2.3.5 (Multiplication is associative) / Вправа 2.3.3 -/
 theorem Nat.mul_assoc (a b c: Nat) : (a * b) * c = a * (b * c) := by
   sorry
 
@@ -142,7 +142,7 @@ instance Nat.isOrderedRing : IsOrderedRing Nat where
   mul_le_mul_of_nonneg_right := by sorry
 
 
-/-- Твердження 2.3.9 (Euclid's division lemma) / Exercise 2.3.5 -/
+/-- Твердження 2.3.9 (Euclid's division lemma) / Вправа 2.3.5 -/
 theorem Nat.exists_div_mod (n :Nat) {q: Nat} (hq: q.isPos) :
     ∃ m r: Nat, 0 ≤ r ∧ r < q ∧ n = m * q + r := by
   sorry

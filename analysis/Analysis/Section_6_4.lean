@@ -66,7 +66,7 @@ example : Example_6_4_4.limit_point (-1) := by sorry
 /-- Example 6.4.4 -/
 example : ¬ Example_6_4_4.limit_point 0 := by sorry
 
-/-- Твердження 6.4.5 / Exercise 6.4.1 -/
+/-- Твердження 6.4.5 / Вправа 6.4.1 -/
 theorem Sequence.limit_point_of_limit {a:Sequence} {x:ℝ} (h: a.tendsTo x) : a.limit_point x := by
   sorry
 
@@ -176,52 +176,52 @@ theorem Sequence.gt_liminf_bounds {a:Sequence} {x:EReal} (h: x > a.liminf) {N:�
     ∃ n ≥ N, a n < x := by
   sorry
 
-/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Вправа 6.4.3 -/
 theorem Sequence.inf_le_liminf (a:Sequence) : a.inf ≤ a.liminf := by sorry
 
-/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Вправа 6.4.3 -/
 theorem Sequence.liminf_le_limsup (a:Sequence) : a.liminf ≤ a.limsup := by sorry
 
-/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Вправа 6.4.3 -/
 theorem Sequence.limsup_le_sup (a:Sequence) : a.limsup ≤ a.sup := by sorry
 
-/-- Твердження 6.4.12(d) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(d) / Вправа 6.4.3 -/
 theorem Sequence.limit_point_between_liminf_limsup {a:Sequence} {c:ℝ} (h: a.limit_point c) :
   a.liminf ≤ c ∧ c ≤ a.limsup := by
   sorry
 
-/-- Твердження 6.4.12(e) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(e) / Вправа 6.4.3 -/
 theorem Sequence.limit_point_of_limsup {a:Sequence} {L_plus:ℝ} (h: a.limsup = L_plus) :
     a.limit_point L_plus := by
   sorry
 
-/-- Твердження 6.4.12(e) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(e) / Вправа 6.4.3 -/
 theorem Sequence.limit_point_of_liminf {a:Sequence} {L_minus:ℝ} (h: a.liminf = L_minus) :
     a.limit_point L_minus := by
   sorry
 
-/-- Твердження 6.4.12(f) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(f) / Вправа 6.4.3 -/
 theorem Sequence.tendsTo_iff_eq_limsup_liminf {a:Sequence} (c:ℝ) :
   a.tendsTo c ↔ a.liminf = c ∧ a.limsup = c := by
   sorry
 
-/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Вправа 6.4.4 -/
 theorem Sequence.sup_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.sup ≤ b.sup := by sorry
 
-/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Вправа 6.4.4 -/
 theorem Sequence.inf_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.inf ≤ b.inf := by sorry
 
-/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Вправа 6.4.4 -/
 theorem Sequence.limsup_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.limsup ≤ b.limsup := by sorry
 
-/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Вправа 6.4.4 -/
 theorem Sequence.liminf_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.liminf ≤ b.liminf := by sorry
 
-/-- Наслідок 6.4.14 (Squeeze test) / Exercise 6.4.5 -/
+/-- Наслідок 6.4.14 (Squeeze test) / Вправа 6.4.5 -/
 theorem Sequence.lim_of_between {a b c:Sequence} {L:ℝ} (hm: b.m = a.m ∧ c.m = a.m)
   (hab: ∀ n ≥ a.m, a n ≤ b n ∧ b n ≤ c n) (ha: a.tendsTo L) (hb: b.tendsTo L) :
     c.tendsTo L := by sorry
@@ -250,7 +250,7 @@ abbrev Sequence.abs (a:Sequence) : Sequence where
     simp [a.vanish n hn]
 
 
-/-- Наслідок 6.4.17 (Zero test for sequences) / Exercise 6.4.7 -/
+/-- Наслідок 6.4.17 (Zero test for sequences) / Вправа 6.4.7 -/
 theorem Sequence.tendsTo_zero_iff (a:Sequence) :
   a.tendsTo (0:ℝ) ↔ a.abs.tendsTo (0:ℝ) := by
   sorry

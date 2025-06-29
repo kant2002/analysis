@@ -313,7 +313,7 @@ theorem Sequence.lim_harmonic :
       rw [gt_iff_lt, ←inv_eq_one_div _] at hN
       assumption
 
-/-- Твердження 6.1.12 / Exercise 6.1.5 -/
+/-- Твердження 6.1.12 / Вправа 6.1.5 -/
 theorem Sequence.Cauchy_of_convergent {a:Sequence} (h:a.convergent) : a.isCauchy := by
   sorry
 
@@ -326,7 +326,7 @@ example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).isCauchy := by sorry
 /-- Example 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).convergent := by sorry
 
-/-- Твердження 6.1.15 / Exercise 6.1.6 (Formal limits are genuine limits)-/
+/-- Твердження 6.1.15 / Вправа 6.1.6 (Formal limits are genuine limits)-/
 theorem Sequence.lim_eq_LIM {a:ℕ → ℚ} (h: (a:Chapter5.Sequence).isCauchy) :
     ((a:Chapter5.Sequence):Sequence).tendsTo (Chapter5.Real.equivR (Chapter5.LIM a)) := by sorry
 

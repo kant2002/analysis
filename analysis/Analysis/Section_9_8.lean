@@ -76,7 +76,7 @@ example : ∃ (X:Set ℝ) (f:ℝ → ℝ), ContinuousOn f X ∧ ¬ MonotoneOn f 
 
 example : ∃ (X:Set ℝ) (f:ℝ → ℝ), MonotoneOn f X ∧ ¬ ContinuousOn f X := by sorry
 
-/-- Твердження 9.8.3 / Exercise 9.8.4 -/
+/-- Твердження 9.8.3 / Вправа 9.8.4 -/
 theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (Set.Icc a b)) (hmono: StrictMonoOn f (Set.Icc a b)) :
   f '' (Set.Icc a b) = Set.Icc (f a) (f b) ∧
   ∃ finv: ℝ → ℝ, ContinuousOn finv (Set.Icc (f a) (f b)) ∧ StrictMonoOn finv (Set.Icc (f a) (f b)) ∧

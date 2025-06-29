@@ -243,17 +243,17 @@ theorem SetTheory.Set.union_congr_left (A A' B:Set) (h: A = A') : A ∪ B = A' �
 -/
 theorem SetTheory.Set.union_congr_right (A B B':Set) (h: B = B') : A ∪ B = A ∪ B' := by sorry
 
-/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Вправа 3.1.3 -/
 theorem SetTheory.Set.singleton_union_singleton (a b:Object) :
     ({a}:Set) ∪ ({b}:Set) = {a,b} := by
   sorry
 
-/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Вправа 3.1.3 -/
 theorem SetTheory.Set.union_comm (A B:Set) : A ∪ B = B ∪ A := by sorry
 
-/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Вправа 3.1.3 -/
 theorem SetTheory.Set.union_assoc (A B C:Set) : (A ∪ B) ∪ C = A ∪ (B ∪ C) := by
-  -- this proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   apply ext
   intro x
   constructor
@@ -319,7 +319,7 @@ theorem SetTheory.Set.empty_subset (A:Set) : ∅ ⊆ A := by sorry
 
 /-- Твердження 3.1.17 (Partial ordering by set inclusion) -/
 theorem SetTheory.Set.subset_trans {A B C:Set} (hAB:A ⊆ B) (hBC:B ⊆ C) : A ⊆ C := by
-  -- this proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [subset_def]
   intro x hx
   rw [subset_def] at hAB
@@ -428,7 +428,7 @@ theorem SetTheory.Set.mem_sdiff (x:Object) (X Y:Set) : x ∈ (X \ Y) ↔ (x ∈ 
   intro ⟨ hX, hY ⟩
   exact (specification_axiom' (fun x ↦ x.val ∉ Y) ⟨ x, hX⟩ ).mpr hY
 
-/-- Твердження 3.1.27(d) / Exercise 3.1.6 -/
+/-- Твердження 3.1.27(d) / Вправа 3.1.6 -/
 theorem SetTheory.Set.inter_comm (A B:Set) : A ∩ B = B ∩ A := by sorry
 
 /-- Твердження 3.1.27(b) -/

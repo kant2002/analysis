@@ -17,7 +17,7 @@ Many of the results here can be established more quickly by relying more heavily
 API; one can set oneself the exercise of doing so.
 -/
 
-/-- Твердження 4.4.1 (Interspersing of integers by rationals) / Exercise 4.4.1 -/
+/-- Твердження 4.4.1 (Interspersing of integers by rationals) / Вправа 4.4.1 -/
 
 theorem Rat.between_int (x:ℚ) : ∃! n:ℤ, n ≤ x ∧ x < n+1 := by
   sorry
@@ -61,7 +61,7 @@ theorem Nat.not_even_and_odd (n:ℕ) : ¬ (Even n ∧ Odd n) := by
   sorry
 
 #check Nat.rec
-/-- Твердження 4.4.4 / Exercise 4.4.3  -/
+/-- Твердження 4.4.4 / Вправа 4.4.3  -/
 theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   -- This proof is written to follow the structure of the original text.
   by_contra h

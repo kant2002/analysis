@@ -99,17 +99,17 @@ theorem Series.root_test_neg {s : Series}
     rw [(show (1:EReal) = (1:ℝ) by simp), EReal.coe_lt_coe_iff] at hs
     linarith
 
-/-- Теорема 7.5.1(c) (Root test) / Exercise 7.5.3 -/
+/-- Теорема 7.5.1(c) (Root test) / Вправа 7.5.3 -/
 theorem Series.root_test_inconclusive: ∃ s:Series,
   Filter.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) Filter.atTop (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Теорема 7.5.1 (Root test) / Exercise 7.5.3 -/
+/-- Теорема 7.5.1 (Root test) / Вправа 7.5.3 -/
 theorem Series.root_test_inconclusive' : ∃ s:Series,
   Filter.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry
 
-/-- Лема 7.5.2 / Exercise 7.5.1 -/
+/-- Лема 7.5.2 / Вправа 7.5.1 -/
 theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
   Filter.liminf (fun n ↦ ((c (n+1) / c n:ℝ): EReal)) Filter.atTop ≤
     Filter.liminf (fun n ↦ (((c n)^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop
@@ -228,12 +228,12 @@ theorem Series.ratio_test_neg {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
     . rfl
     all_goals convert hnon using 1 with n; simp
 
-/-- Наслідок 7.5.3 (Ratio test) / Exercise 7.5.3 -/
+/-- Наслідок 7.5.3 (Ratio test) / Вправа 7.5.3 -/
 theorem Series.ratio_test_inconclusive: ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   Filter.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) Filter.atTop (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Наслідок 7.5.3 (Ratio test) / Exercise 7.5.3 -/
+/-- Наслідок 7.5.3 (Ratio test) / Вправа 7.5.3 -/
 theorem Series.ratio_test_inconclusive' : ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   Filter.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry

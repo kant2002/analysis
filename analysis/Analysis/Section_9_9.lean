@@ -96,7 +96,7 @@ theorem Chapter6.Sequence.equiv_iff_rat (a b: Sequence) :
   Sequence.equiv a b ↔ ∀ ε > (0:ℚ), (ε:ℝ).eventually_close_seqs a b := by
   sorry
 
-/-- Лема 9.9.7 / Exercise 9.9.1 -/
+/-- Лема 9.9.7 / Вправа 9.9.1 -/
 theorem Chapter6.Sequence.equiv_iff (a b: Sequence) :
   Sequence.equiv a b ↔ Filter.Tendsto (fun n ↦ a n - b n) Filter.atTop (nhds 0) := by
   sorry
@@ -105,7 +105,7 @@ theorem Chapter6.Sequence.equiv_iff (a b: Sequence) :
 namespace Chapter9
 
 
-/-- Твердження 9.9.8 / Exercise 9.9.2 -/
+/-- Твердження 9.9.8 / Вправа 9.9.2 -/
 theorem UniformContinuousOn.iff_preserves_equiv {X:Set ℝ} (f: ℝ → ℝ) :
   UniformContinuousOn f X ↔
   ∀ x y: ℕ → ℝ, (∀ n, x n ∈ X) → (∀ n, y n ∈ X) →
@@ -144,7 +144,7 @@ example : ¬ Sequence.equiv ((fun n:ℕ ↦ f_9_9_11 (n+1:ℝ)):Sequence) ((fun 
 example : ¬ UniformContinuousOn f_9_9_11 Set.univ := by
   sorry
 
-/-- Твердження 9.9.12 / Exercise 9.9.3  -/
+/-- Твердження 9.9.12 / Вправа 9.9.3  -/
 theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x: ℕ → ℝ} (hx: (x:Sequence).isCauchy) (hmem : ∀ n, x n ∈ X) :
   (f ∘ x:Sequence).isCauchy := by
@@ -163,13 +163,13 @@ example : ¬ ((fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ))):Sequence).isCauchy := by
 example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
   sorry
 
-/-- Наслідок 9.9.14 / Exercise 9.9.4 -/
+/-- Наслідок 9.9.14 / Вправа 9.9.4 -/
 theorem UniformContinuousOn.limit_at_adherent  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x₀:ℝ} (hx₀: AdherentPt x₀ X) :
   ∃ L:ℝ, Filter.Tendsto f (nhds x₀ ⊓ Filter.principal X) (nhds L) := by
   sorry
 
-/-- Твердження 9.9.15 / Exercise 9.9.5 -/
+/-- Твердження 9.9.15 / Вправа 9.9.5 -/
 theorem UniformContinuousOn.of_bounded {E X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) (hEX: E ⊆ X) (hE: Bornology.IsBounded E) :
   Bornology.IsBounded (f '' E) := by

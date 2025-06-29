@@ -36,7 +36,7 @@ theorem SetTheory.Set.Example_3_6_2 : equal_card {0,1,2} {3,4,5} := by sorry
 /-- Example 3.6.3 -/
 theorem SetTheory.Set.Example_3_6_3 : equal_card nat (nat.specify (fun x ↦ Even (x:ℕ))) := by sorry
 
-/-- Твердження 3.6.4 / Exercise 3.6.1 -/
+/-- Твердження 3.6.4 / Вправа 3.6.1 -/
 instance SetTheory.Set.inst_setoid : Setoid SetTheory.Set := {
   r := equal_card,
   iseqv := {
@@ -179,39 +179,39 @@ noncomputable abbrev SetTheory.Set.card (X:Set) : ℕ := by
 theorem SetTheory.Set.has_card_card {X:Set} (hX: X.finite) : X.has_card (SetTheory.Set.card X) := by
   simp [card, hX, hX.choose_spec]
 
-/-- Твердження 3.6.14 (a) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (a) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_insert {X:Set} (hX: X.finite) {x:Object} (hx: x ∉ X) :
     (X ∪ {x}).finite ∧ (X ∪ {x}).card = X.card + 1 := by sorry
 
-/-- Твердження 3.6.14 (b) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (b) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_union {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ∪ Y).finite ∧ (X ∪ Y).card ≤ X.card + Y.card := by sorry
 
-/-- Твердження 3.6.14 (b) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (b) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_union_disjoint {X Y:Set} (hX: X.finite) (hY: Y.finite)
   (hdisj: Disjoint X Y) : (X ∪ Y).card = X.card + Y.card := by sorry
 
-/-- Твердження 3.6.14 (c) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (c) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_subset {X Y:Set} (hX: X.finite) (hY: Y ⊆ X) :
     Y.finite ∧ Y.card ≤ X.card := by sorry
 
-/-- Твердження 3.6.14 (c) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (c) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_ssubset {X Y:Set} (hX: X.finite) (hY: Y ⊂ X) :
     Y.card < X.card := by sorry
 
-/-- Твердження 3.6.14 (d) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (d) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_image {X Y:Set} (hX: X.finite) (f: X → Y) :
     (image f X).finite ∧ (image f X).card ≤ X.card := by sorry
 
-/-- Твердження 3.6.14 (d) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (d) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_image_inj {X Y:Set} (hX: X.finite) {f: X → Y}
   (hf: Function.Injective f) : (image f X).card = X.card := by sorry
 
-/-- Твердження 3.6.14 (e) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (e) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_prod {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ×ˢ Y).finite ∧ (X ×ˢ Y).card = X.card * Y.card := by sorry
 
-/-- Твердження 3.6.14 (f) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (f) / Вправа 3.6.4 -/
 theorem SetTheory.Set.card_pow {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ^ Y).finite ∧ (X ^ Y).card = X.card ^ Y.card := by sorry
 

@@ -95,16 +95,16 @@ theorem closure_def' (X:Set ℝ) (x :ℝ) : x ∈ closure X ↔ AdherentPt x X :
 theorem AdherentPt_def (x:ℝ) (X:Set ℝ) : AdherentPt x X = ClusterPt x (Filter.principal X) := by
   rw [←closure_def', mem_closure_iff_clusterPt]
 
-/-- Лема 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Вправа 9.1.2 -/
 theorem subset_closure (X:Set ℝ): X ⊆ closure X := by sorry
 
-/-- Лема 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Вправа 9.1.2 -/
 theorem closure_union (X Y:Set ℝ): closure (X ∪ Y) = closure X ∪ closure Y := by sorry
 
-/-- Лема 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Вправа 9.1.2 -/
 theorem closure_inter (X Y:Set ℝ): closure (X ∩ Y) ⊆ closure X ∩ closure Y := by sorry
 
-/-- Лема 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Вправа 9.1.2 -/
 theorem closure_subset {X Y:Set ℝ} (h: X ⊆ Y): closure X ⊆ closure Y := by sorry
 
 /-- Вправа 9.1.1 -/
@@ -159,22 +159,22 @@ theorem closure_of_Iic {a:ℝ} : closure (Set.Iic a) = Set.Iic a := by
 
 theorem closure_of_R : closure (Set.univ: Set ℝ) = Set.univ := by sorry
 
-/-- Лема 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Вправа 9.1.3 -/
 theorem closure_of_N :
   closure ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) = ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) := by
     sorry
 
-/-- Лема 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Вправа 9.1.3 -/
 theorem closure_of_Z :
   closure ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) = ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) := by
     sorry
 
-/-- Лема 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Вправа 9.1.3 -/
 theorem closure_of_Q :
   closure ((fun n:ℚ ↦ (n:ℝ)) '' Set.univ) = Set.univ := by
     sorry
 
-/-- Лема 9.1.14 / Exercise 9.1.5 -/
+/-- Лема 9.1.14 / Вправа 9.1.5 -/
 theorem limit_of_AdherentPt (X: Set ℝ) (x:ℝ) :
   AdherentPt x X ↔ ∃ a : ℕ → ℝ, (∀ n, a n ∈ X) ∧ Filter.Tendsto a Filter.atTop (nhds x) := by
     sorry
@@ -374,7 +374,7 @@ theorem Q_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℚ ↦ (n:ℝ)) '
 /-- Example 9.1.23 -/
 theorem R_unbounded (a: ℝ) : ¬ Bornology.IsBounded (Set.univ: Set ℝ) := by sorry
 
-/-- Теорема 9.1.24 / Exercise 9.1.13 (Heine-Borel theorem for the line)-/
+/-- Теорема 9.1.24 / Вправа 9.1.13 (Heine-Borel theorem for the line)-/
 theorem Heine_Borel (X: Set ℝ) :
   IsClosed X ∧ Bornology.IsBounded X ↔ ∀ a : ℕ → ℝ, (∀ n, a n ∈ X) →
   (∃ n : ℕ → ℕ, StrictMono n

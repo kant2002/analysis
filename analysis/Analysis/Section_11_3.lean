@@ -104,7 +104,7 @@ upper_integral f I
 noncomputable abbrev integrable (f:ℝ → ℝ) (I: BoundedInterval) : Prop :=
   BddOn f I ∧ lower_integral f I = upper_integral f I
 
-/-- Лема 11.3.7 / Exercise 11.3.3 -/
+/-- Лема 11.3.7 / Вправа 11.3.3 -/
 theorem integ_of_piecewise_const {f:ℝ → ℝ} {I: BoundedInterval} (hf: PiecewiseConstantOn f I) :
   integrable f I ∧ integ f I = PiecewiseConstantOn.integ f I := by
   sorry
@@ -126,7 +126,7 @@ noncomputable abbrev upper_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: 
 noncomputable abbrev lower_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sInf (f '' (J:Set ℝ))) * |J|ₗ
 
-/-- Лема 11.3.11 / Exercise 11.3.4 -/
+/-- Лема 11.3.11 / Вправа 11.3.4 -/
 theorem upper_riemann_sum_le {f g: ℝ → ℝ} {I:BoundedInterval} (P: Partition I)
   (hf: BddOn f I) (hgf: MajorizesOn g f I) (hg: PiecewiseConstantOn g I) :
   upper_riemann_sum f P ≤ integ g I := by
@@ -137,7 +137,7 @@ theorem lower_riemann_sum_ge {f h: ℝ → ℝ} {I:BoundedInterval} (P: Partitio
   integ h I ≤ lower_riemann_sum f P := by
    sorry
 
-/-- Твердження 11.3.12 / Exercise 11.3.5 -/
+/-- Твердження 11.3.12 / Вправа 11.3.5 -/
 theorem upper_integ_eq_inf_upper_sum {f:ℝ → ℝ} {I:BoundedInterval} (hf: BddOn f I) :
   upper_integral f I = sInf (Set.range (fun P : Partition I ↦ upper_riemann_sum f P)) := by
   sorry

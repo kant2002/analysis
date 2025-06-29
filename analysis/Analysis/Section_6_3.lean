@@ -32,10 +32,10 @@ example : ((fun (n:ℕ) ↦ (-1:ℝ)^(n+1)):Sequence).sup = 1 := by sorry
 /-- Example 6.3.3 -/
 example : ((fun (n:ℕ) ↦ (-1:ℝ)^(n+1)):Sequence).inf = -1 := by sorry
 
-/-- Example 6.3.4 / Exercise 6.3.1 -/
+/-- Example 6.3.4 / Вправа 6.3.1 -/
 example : ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)):Sequence).sup = 1 := by sorry
 
-/-- Example 6.3.4 / Exercise 6.3.1 -/
+/-- Example 6.3.4 / Вправа 6.3.1 -/
 example : ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)):Sequence).inf = 0 := by sorry
 
 /-- Example 6.3.5 -/
@@ -58,13 +58,13 @@ theorem Sequence.sup_of_bounded {a:Sequence} (h: a.isBounded) : a.sup.isFinite :
 
 theorem Sequence.inf_of_bounded {a:Sequence} (h: a.isBounded) : a.inf.isFinite := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Exercise 6.3.2 -/
+/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
 theorem Sequence.le_sup {a:Sequence} {n:ℤ} (hn: n ≥ a.m) : a n ≤ a.sup := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Exercise 6.3.2 -/
+/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
 theorem Sequence.sup_le_upper {a:Sequence} {M:EReal} (h: ∀ n ≥ a.m, a n ≤ M) : a.sup ≤ M := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Exercise 6.3.2 -/
+/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
 theorem Sequence.exists_between_lt_sup {a:Sequence} {y:EReal} (h: y < a.sup ) :
     ∃ n ≥ a.m, y < a n ∧ a n ≤ a.sup := by sorry
 
@@ -82,11 +82,11 @@ abbrev Sequence.isMonotone (a:Sequence) : Prop := ∀ n ≥ a.m, a (n+1) ≥ a n
 
 abbrev Sequence.isAntitone (a:Sequence) : Prop := ∀ n ≥ a.m, a (n+1) ≤ a n
 
-/-- Твердження 6.3.8 / Exercise 6.3.3 -/
+/-- Твердження 6.3.8 / Вправа 6.3.3 -/
 theorem Sequence.convergent_of_monotone {a:Sequence} (hbound: a.bddAbove) (hmono: a.isMonotone) :
     a.convergent := by sorry
 
-/-- Твердження 6.3.8 / Exercise 6.3.3 -/
+/-- Твердження 6.3.8 / Вправа 6.3.3 -/
 theorem Sequence.lim_of_monotone {a:Sequence} (hbound: a.bddAbove) (hmono: a.isMonotone) :
     lim a = a.sup := by sorry
 

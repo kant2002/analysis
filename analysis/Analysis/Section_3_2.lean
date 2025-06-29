@@ -34,7 +34,7 @@ abbrev axiom_of_universal_specification : Prop :=
   ∀ P : Object → Prop, ∃ A : Set, ∀ x : Object, x ∈ A ↔ P x
 
 theorem Russells_paradox : ¬ axiom_of_universal_specification := by
-  -- this proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   intro h
   set P : Object → Prop := fun x ↦ ∃ X:Set, x = X ∧ x ∉ X
   obtain ⟨Ω, hΩ⟩ := h P

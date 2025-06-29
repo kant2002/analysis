@@ -253,7 +253,7 @@ example : ¬ ((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).isCauchy := by sorry
 
 /-- Лема 5.1.14 -/
 lemma bounded_of_finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M := by
-  -- this proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   induction' n with n hn
   . use 0
     simp [BoundedBy_def]
@@ -275,7 +275,7 @@ lemma bounded_of_finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M
   convert h2
   simp [hm]
 
-/-- Лема 5.1.15 (Cauchy sequences are bounded) / Exercise 5.1.1 -/
+/-- Лема 5.1.15 (Cauchy sequences are bounded) / Вправа 5.1.1 -/
 lemma Sequence.isBounded_of_isCauchy {a:Sequence} (h: a.isCauchy) : a.isBounded := by
   sorry
 

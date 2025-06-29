@@ -35,19 +35,19 @@ example :
     (fun n ↦ (10:ℝ)^(-(n:ℤ)-1)) := by
   sorry
 
-/-- Лема 6.6.4 / Exercise 6.6.1 -/
+/-- Лема 6.6.4 / Вправа 6.6.1 -/
 theorem Sequence.subseq_self (a:ℕ → ℝ) : Sequence.subseq a a := by sorry
 
-/-- Лема 6.6.4 / Exercise 6.6.1 -/
+/-- Лема 6.6.4 / Вправа 6.6.1 -/
 theorem Sequence.subseq_trans {a b c:ℕ → ℝ} (hab: Sequence.subseq a b) (hbc: Sequence.subseq b c) :
     Sequence.subseq a c := by sorry
 
-/-- Твердження 6.6.5 / Exercise 6.6.4 -/
+/-- Твердження 6.6.5 / Вправа 6.6.4 -/
 theorem Sequence.convergent_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).tendsTo L ↔ ∀ b:ℕ → ℝ, Sequence.subseq a b → (b:Sequence).tendsTo L := by
   sorry
 
-/-- Твердження 6.6.6 / Exercise 6.6.5 -/
+/-- Твердження 6.6.6 / Вправа 6.6.5 -/
 theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).limit_point L ↔ ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).tendsTo L := by
   sorry

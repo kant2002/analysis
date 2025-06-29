@@ -85,20 +85,20 @@ theorem Sequence.lim_of_power_decay {k:ℕ} :
     field_simp
   simp only [lim_eq, ha', true_and, pow_eq_zero hlim]
 
-/-- Лема 6.5.2 / Exercise 6.5.2 -/
+/-- Лема 6.5.2 / Вправа 6.5.2 -/
 theorem Sequence.lim_of_geometric {x:ℝ} (hx: |x| < 1) : lim ((fun (n:ℕ) ↦ x^n):Sequence) = 0 := by
   sorry
 
-/-- Лема 6.5.2 / Exercise 6.5.2 -/
+/-- Лема 6.5.2 / Вправа 6.5.2 -/
 theorem Sequence.lim_of_geometric' {x:ℝ} (hx: x = 1) : lim ((fun (n:ℕ) ↦ x^n):Sequence) = 1 := by
   sorry
 
-/-- Лема 6.5.2 / Exercise 6.5.2 -/
+/-- Лема 6.5.2 / Вправа 6.5.2 -/
 theorem Sequence.lim_of_geometric'' {x:ℝ} (hx: x = -1 ∨ |x| > 1) :
     ((fun (n:ℕ) ↦ x^n):Sequence).divergent := by
   sorry
 
-/-- Лема 6.5.3 / Exercise 6.5.3 -/
+/-- Лема 6.5.3 / Вправа 6.5.3 -/
 theorem Sequence.lim_of_roots {x:ℝ} (hx: x > 0) :
     lim ((fun (n:ℕ) ↦ x^(1/(n+1))):Sequence) = 1 := by
   sorry

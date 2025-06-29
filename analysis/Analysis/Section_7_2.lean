@@ -107,12 +107,12 @@ theorem Series.example_7_2_4'a {N:ℤ} (hN: N ≥ 1) : example_7_2_4'.partial N 
 
 theorem Series.example_7_2_4'b : example_7_2_4'.diverges := by sorry
 
-/-- Твердження 7.2.5 / Exercise 7.2.2 -/
+/-- Твердження 7.2.5 / Вправа 7.2.2 -/
 theorem Series.converges_iff_tail_decay (s:Series) :
     s.converges ↔ ∀ ε > 0, ∃ N ≥ s.m, ∀ p ≥ N, ∀ q ≥ N, |∑ n ∈ Finset.Icc p q, s.seq n| ≤ ε := by
   sorry
 
-/-- Наслідок 7.2.6 (Zero test) / Exercise 7.2.3 -/
+/-- Наслідок 7.2.6 (Zero test) / Вправа 7.2.3 -/
 theorem Series.decay_of_converges {s:Series} (h: s.converges) :
     Filter.Tendsto s.seq Filter.atTop (nhds 0) := by
   sorry
@@ -224,7 +224,7 @@ instance Series.inst_add : Add Series where
       simp [hn]
   }
 
-/-- Твердження 7.2.14 (a) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (a) (Series laws) / Вправа 7.2.5 -/
 theorem Series.add {s t:Series} (hs: s.converges) (ht: t.converges) :
     (s + t).converges ∧ (s+t).sum = s.sum + t.sum := by sorry
 
@@ -237,14 +237,14 @@ instance Series.inst.smul : SMul ℝ Series where
       rw [lt_iff_not_ge] at hn
       simp [hn]
   }
-/-- Твердження 7.2.14 (b) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (b) (Series laws) / Вправа 7.2.5 -/
 theorem Series.smul {c:ℝ} {s:Series} (hs: s.converges) :
     (c • s).converges ∧ (c • s).sum = c * s.sum := by sorry
 
 abbrev Series.from (s:Series) (m₁:ℤ) : Series :=
   mk' (m := max s.m m₁) (fun n ↦ s.seq (n:ℤ))
 
-/-- Твердження 7.2.14 (c) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (c) (Series laws) / Вправа 7.2.5 -/
 theorem Series.converges_from (s:Series) (k:ℕ) : s.converges ↔ (s.from (s.m+k)).converges := by
   sorry
 
@@ -252,12 +252,12 @@ theorem Series.sum_from {s:Series} (k:ℕ) (h: s.converges) :
     s.sum = ∑ n ∈ Finset.Ico s.m (s.m+k), s.seq n + (s.from (s.m+k)).sum := by
   sorry
 
-/-- Твердження 7.2.14 (d) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (d) (Series laws) / Вправа 7.2.5 -/
 theorem Series.shift {s:Series} {x:ℝ} (h: s.convergesTo x) (L:ℤ) :
     (mk' (m := s.m + L) (fun n ↦ s.seq (n - L))).convergesTo x := by
   sorry
 
-/-- Лема 7.2.15 (telescoping series) / Exercise 7.2.6 -/
+/-- Лема 7.2.15 (telescoping series) / Вправа 7.2.6 -/
 theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.Tendsto a Filter.atTop (nhds 0)) :
     ((fun n:ℕ ↦ a (n+1) - a n):Series).convergesTo (a 0) := by
   sorry

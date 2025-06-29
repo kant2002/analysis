@@ -159,7 +159,7 @@ example : 3 = 4 —— 1 := by
 /-- (Не із книги) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
-/-- Визначення 4.1.4 (Negation of integers) / Exercise 4.1.2 -/
+/-- Визначення 4.1.4 (Negation of integers) / Вправа 4.1.2 -/
 instance Int.instNeg : Neg Int where
   neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by
     sorry)
@@ -207,15 +207,15 @@ theorem Int.not_pos_neg (x:Int) : x.isPos ∧ x.isNeg → False := by
   simp_rw [natCast_eq, neg_eq, eq] at hm'
   linarith
 
-/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
 instance Int.instAddGroup : AddGroup Int :=
 AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
-/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
 instance Int.instAddCommGroup : AddCommGroup Int where
   add_comm := by sorry
 
-/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
 instance Int.instCommMonoid : CommMonoid Int where
   mul_comm := by sorry
   mul_assoc := by
@@ -231,7 +231,7 @@ instance Int.instCommMonoid : CommMonoid Int where
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
 instance Int.instCommRing : CommRing Int where
   left_distrib := by sorry
   right_distrib := by sorry
@@ -243,10 +243,10 @@ theorem Int.sub_eq (a b:Int) : a - b = a + (-b) := by rfl
 
 theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by sorry
 
-/-- Твердження 4.1.8 (No zero divisors) / Exercise 4.1.5 -/
+/-- Твердження 4.1.8 (No zero divisors) / Вправа 4.1.5 -/
 theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 
-/-- Наслідок 4.1.9 (Cancellation law) / Exercise 4.1.6 -/
+/-- Наслідок 4.1.9 (Cancellation law) / Вправа 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
 /-- Визначення 4.1.10 (Ordering of the integers) -/
@@ -261,34 +261,34 @@ theorem Int.le_iff (a b:Int) : a ≤ b ↔ ∃ t:ℕ, b = a + t := by rfl
 
 theorem Int.lt_iff (a b:Int): a < b ↔ (∃ t:ℕ, b = a + t) ∧ a ≠ b := by rfl
 
-/-- Лема 4.1.11(a) (Properties of order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(a) (Properties of order) / Вправа 4.1.7 -/
 theorem Int.lt_iff_exists_positive_difference (a b:Int) : a < b ↔ ∃ n:ℕ, n ≠ 0 ∧ b = a + n := by sorry
 
-/-- Лема 4.1.11(b) (Addition preserves order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(b) (Addition preserves order) / Вправа 4.1.7 -/
 theorem Int.add_lt_add_right {a b:Int} (c:Int) (h: a < b) : a+c < b+c := by sorry
 
-/-- Лема 4.1.11(c) (Positive multiplication preserves order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(c) (Positive multiplication preserves order) / Вправа 4.1.7 -/
 theorem Int.mul_lt_mul_of_pos_right {a b c:Int} (hab : a < b) (hc: 0 < c) : a*c < b*c := by sorry
 
-/-- Лема 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(d) (Negation reverses order) / Вправа 4.1.7 -/
 theorem Int.neg_gt_neg {a b:Int} (h: b < a) : -a < -b := by sorry
 
-/-- Лема 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(d) (Negation reverses order) / Вправа 4.1.7 -/
 theorem Int.neg_ge_neg {a b:Int} (h: b ≤ a) : -a ≤ -b := by sorry
 
-/-- Лема 4.1.11(e) (Order is transitive) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(e) (Order is transitive) / Вправа 4.1.7 -/
 theorem Int.lt_trans {a b c:Int} (hab: a < b) (hbc: b < c) : a < c := by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
 theorem Int.trichotomous' (a b:Int) : a > b ∨ a < b ∨ a = b := by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
 theorem Int.not_gt_and_lt (a b:Int) : ¬ (a > b ∧ a < b):= by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
 theorem Int.not_gt_and_eq (a b:Int) : ¬ (a > b ∧ a = b):= by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
 theorem Int.not_lt_and_eq (a b:Int) : ¬ (a < b ∧ a = b):= by sorry
 
 /-- (Не із книги) Establish the decidability of this order. -/

@@ -76,25 +76,25 @@ example : ¬ (3:EReal) ≤ ⊥ := by sorry
 
 #check instCompleteLinearOrderEReal
 
-/-- Твердження 6.2.5(a) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(a) / Вправа 6.2.1 -/
 theorem EReal.refl (x:EReal) : x ≤ x := by sorry
 
-/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Вправа 6.2.1 -/
 theorem EReal.trichotomy (x y:EReal) : x < y ∨ x = y ∨ x > y := by sorry
 
-/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Вправа 6.2.1 -/
 theorem EReal.not_lt_and_eq (x y:EReal) : ¬ (x < y ∧ x = y) := by sorry
 
-/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Вправа 6.2.1 -/
 theorem EReal.not_gt_and_eq (x y:EReal) : ¬ (x > y ∧ x = y) := by sorry
 
-/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Вправа 6.2.1 -/
 theorem EReal.not_lt_and_gt (x y:EReal) : ¬ (x < y ∧ x > y) := by sorry
 
-/-- Твердження 6.2.5(c) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(c) / Вправа 6.2.1 -/
 theorem EReal.trans {x y z:EReal} (hxy : x ≤ y) (hyz: y ≤ z) : x ≤ z := by sorry
 
-/-- Твердження 6.2.5(d) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(d) / Вправа 6.2.1 -/
 theorem EReal.neg_of_lt {x y:EReal} (hxy : x ≤ y): -y ≤ -x := by sorry
 
 /-- Визначення 6.2.6 -/
@@ -179,16 +179,16 @@ example : sInf (∅ : Set EReal) = ⊤ := by sorry
 
 example (E: Set EReal) : sSup E < sInf E ↔ E = ∅ := by sorry
 
-/-- Теорема 6.2.11 (a) / Exercise 6.2.2 -/
+/-- Теорема 6.2.11 (a) / Вправа 6.2.2 -/
 theorem EReal.mem_le_sup (E: Set EReal) {x:EReal} (hx: x ∈ E) : x ≤ sSup E := by sorry
 
-/-- Теорема 6.2.11 (a) / Exercise 6.2.2 -/
+/-- Теорема 6.2.11 (a) / Вправа 6.2.2 -/
 theorem EReal.mem_ge_inf (E: Set EReal) {x:EReal} (hx: x ∈ E) : x ≤ sInf E := by sorry
 
-/-- Теорема 6.2.11 (b) / Exercise 6.2.2 -/
+/-- Теорема 6.2.11 (b) / Вправа 6.2.2 -/
 theorem EReal.sup_le_upper (E: Set EReal) {M:EReal} (hM: M ∈ upperBounds E) : sSup E ≤ M := by sorry
 
-/-- Теорема 6.2.11 (c) / Exercise 6.2.2 -/
+/-- Теорема 6.2.11 (c) / Вправа 6.2.2 -/
 theorem EReal.inf_ge_upper (E: Set EReal) {M:EReal} (hM: M ∈ upperBounds E) : sInf E ≥ M := by sorry
 
 #check isLUB_iff_sSup_eq
