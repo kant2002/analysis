@@ -68,7 +68,7 @@ example : ¬∃ M, IsLUB (∅: Set Real) M := by sorry
 
 /-- Твердження 5.5.8 (Uniqueness of least upper bound)-/
 theorem Real.LUB_unique {E: Set Real} {M M': Real} (h1: IsLUB E M) (h2: IsLUB E M') : M = M' := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [Real.isLUB_def] at h1 h2
   have h3 := h1.2 _ h2.1
   have h4 := h2.2 _ h1.1
@@ -101,7 +101,7 @@ theorem Real.LIM_of_Cauchy {q:ℕ → ℚ} (hq: ∀ M, ∀ n ≥ M, ∀ n' ≥ M
 
 /-- Теорема 5.5.9 (Existence of least upper bound)-/
 theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): ∃ S, IsLUB E S := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set x₀ := Set.Nonempty.some hE
   have hx₀ : x₀ ∈ E := Set.Nonempty.some_mem hE
   have claim1 (n:ℕ) : ∃! m:ℤ,
@@ -267,7 +267,7 @@ theorem ExtendedReal.sup_of_bounded_finite {E: Set Real} (hnon: E.Nonempty) (hb:
 
 /-- Твердження 5.5.12 -/
 theorem Real.exist_sqrt_two : ∃ x:Real, x^2 = 2 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set E := { y:Real | y ≥ 0 ∧ y^2 < 2 }
   have claim1: 2 ∈ upperBounds E := by
     rw [upperBound_def]

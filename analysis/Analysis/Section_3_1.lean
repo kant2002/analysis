@@ -151,7 +151,7 @@ theorem SetTheory.Set.empty_unique : ∃! (X:Set), ∀ x, x ∉ X := by
 
 /-- Лема 3.1.5 (Single choice) -/
 lemma SetTheory.Set.nonempty_def {X:Set} (h: X ≠ ∅) : ∃ x, x ∈ X := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra! this
   have claim (x:Object) : x ∈ X ↔ x ∈ (∅:Set) := by
     simp [this, not_mem_empty]

@@ -27,7 +27,7 @@ theorem Nat.exists_gt (x:ℚ) : ∃ n:ℕ, n > x := by
 
 /-- Твердження 4.4.3 (Interspersing of rationals) -/
 theorem Rat.exists_between_rat {x y:ℚ} (h: x < y) : ∃ z:ℚ, x < z ∧ z < y := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   -- The reader is encouraged to find quicker proofs, for instance
   -- using Mathlib's `linarith` tactic.
   use (x+y)/2
@@ -63,7 +63,7 @@ theorem Nat.not_even_and_odd (n:ℕ) : ¬ (Even n ∧ Odd n) := by
 #check Nat.rec
 /-- Твердження 4.4.4 / Вправа 4.4.3  -/
 theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra h
   obtain ⟨ x, hx ⟩ := h
   have hnon : x ≠ 0 := by aesop
@@ -130,7 +130,7 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
 
 /-- Твердження 4.4.5 -/
 theorem Rat.exist_approx_sqrt_two {ε:ℚ} (hε:ε>0) : ∃ x ≥ (0:ℚ), x^2 < 2 ∧ 2 < (x+ε)^2 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra! h
   have (n:ℕ): (n*ε)^2 < 2 := by
     induction' n with n hn

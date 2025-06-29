@@ -55,7 +55,7 @@ theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
 /-- Теорема 6.6.8 (Bolzano-Weierstrass theorem) -/
 theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).isBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).convergent := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   obtain ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ L_minus, hL_minus ⟩ ⟩ := finite_limsup_liminf_of_bounded ha
   have := limit_point_of_limsup hL_plus
   rw [limit_point_iff_subseq] at this

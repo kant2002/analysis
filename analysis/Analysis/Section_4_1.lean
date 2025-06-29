@@ -38,7 +38,7 @@ instance PreInt.instSetoid : Setoid PreInt where
     refl := by sorry
     symm := by sorry
     trans := by
-      -- This proof is written to follow the structure of the original text.
+      -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
       intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2
       simp at h1 h2 ⊢
       have h3 := congrArg₂ (· + ·) h1 h2
@@ -219,7 +219,7 @@ instance Int.instAddCommGroup : AddCommGroup Int where
 instance Int.instCommMonoid : CommMonoid Int where
   mul_comm := by sorry
   mul_assoc := by
-    -- This proof is written to follow the structure of the original text.
+    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
     intro x y z
     obtain ⟨ a, b, rfl ⟩ := eq_diff x
     obtain ⟨ c, d, rfl ⟩ := eq_diff y
@@ -246,7 +246,7 @@ theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by s
 /-- Твердження 4.1.8 (No zero divisors) / Вправа 4.1.5 -/
 theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 
-/-- Наслідок 4.1.9 (Cancellation law) / Вправа 4.1.6 -/
+/-- Наслідок 4.1.9 (Властивість скорочення) / Вправа 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
 /-- Визначення 4.1.10 (Ordering of the integers) -/

@@ -148,7 +148,7 @@ theorem Series.abs_le {s:Series} (h : s.absConverges) : |s.sum| ≤ s.abs.sum :=
 theorem Series.converges_of_alternating {m:ℤ} {a: { n // n ≥ m} → ℝ} (ha: ∀ n, a n ≥ 0)
   (ha': Antitone a) :
     ((mk' (fun n ↦ (-1)^(n:ℤ) * a n)).converges ↔ Filter.Tendsto a Filter.atTop (nhds 0)) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   constructor
   . intro h
     replace h := decay_of_converges h

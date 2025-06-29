@@ -61,7 +61,7 @@ theorem Series.converges_geom_iff (x : ℝ) : (fun n ↦ x ^ n : Series).converg
 
 /-- Твердження 7.3.4 (Cauchy criterion) -/
 theorem Series.cauchy_criterion {s:Series} (hm: s.m = 1) (hs:s.nonneg) (hmono: ∀ n ≥ 1, s.seq (n+1) ≤ s.seq n) : s.converges ↔ (fun k ↦ 2^k * s.seq (2^k): Series).converges := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set t := (fun k ↦ 2^k * s.seq (2^k):Series)
   have ht: t.nonneg := by
     intro n
@@ -176,7 +176,7 @@ theorem Series.cauchy_criterion {s:Series} (hm: s.m = 1) (hs:s.nonneg) (hmono: �
 
 /-- Наслідок 7.3.7 -/
 theorem Series.converges_qseries (q : ℝ) (hq : q > 0) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series).converges ↔ (q>1) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set s := (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series)
   have hs : s.nonneg := by intro n; simp [s]; by_cases h : 1 ≤ n <;> simp [h]; positivity
   have hmono : ∀ n ≥ 1, s.seq (n+1) ≤ s.seq n := by

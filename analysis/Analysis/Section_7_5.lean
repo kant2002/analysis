@@ -21,7 +21,7 @@ namespace Chapter7
 /-- Теорема 7.5.1(a) (Root test).  A technical condition `hbound` is needed to ensure the limsup is finite. -/
 theorem Series.root_test_pos {s : Series}
   (h : Filter.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop < 1) : s.absConverges := by
-    -- This proof is written to follow the structure of the original text.
+    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
     set α':EReal := Filter.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop
     have hpos : 0 ≤ α' := by
       apply Filter.le_limsup_of_frequently_le _ (by isBoundedDefault)
@@ -87,7 +87,7 @@ theorem Series.root_test_pos {s : Series}
 /-- Теорема 7.5.1(b) (Root test) -/
 theorem Series.root_test_neg {s : Series}
   (h : Filter.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop > 1) : s.diverges := by
-    -- This proof is written to follow the structure of the original text.
+    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
     replace h := Filter.frequently_lt_of_lt_limsup (by isBoundedDefault) h
     apply diverges_of_nodecay
     by_contra this
@@ -118,7 +118,7 @@ theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
   ∧ Filter.limsup (fun n ↦ (((c n)^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop ≤
     Filter.limsup (fun n ↦ ((c (n+1) / c n:ℝ):EReal)) Filter.atTop
     := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   refine ⟨ ?_, ?_, ?_ ⟩
   . sorry
   . apply Filter.liminf_le_limsup (by isBoundedDefault) (by isBoundedDefault)
@@ -240,7 +240,7 @@ theorem Series.ratio_test_inconclusive' : ∃ s:Series, (∀ n ≥ s.m, s.seq n 
 
 /-- Твердження 7.5.4 -/
 theorem Series.root_self_converges : (fun (n:ℕ) ↦ (n:ℝ)^(1 / n : ℝ) : Series).convergesTo 1 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   sorry
 
 /-- Вправа 7.5.2 -/

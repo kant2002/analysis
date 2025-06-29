@@ -412,7 +412,7 @@ Due to the excessive case analysis, `simp only` is used in place of `simp` in so
 to speed up elaboration. -/
 theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   ∑ J ∈ P.intervals, |J|ₗ = |I|ₗ := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   generalize hcard: P.intervals.card = n
   revert I
   induction' n with n hn

@@ -91,7 +91,7 @@ theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
 theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
   sorry
 
-/-- Твердження 2.2.6 (Правило відміни)
+/-- Твердження 2.2.6 (Властивість скорочення)
     Порівняйте із Mathlib-овським `Nat.add_left_cancel` -/
 theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.

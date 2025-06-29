@@ -112,7 +112,7 @@ theorem closure_of_subset_closure {X Y:Set ℝ} (h: X ⊆ Y) (h' : Y ⊆ closure
 
 /-- Лема 9.1.12 -/
 theorem closure_of_Ioo {a b:ℝ} (h:a < b) : closure (Set.Ioo a b) = Set.Icc a b := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   ext x; simp [closure_def, AdherentPt, Real.adherent']
   constructor
   . intro h

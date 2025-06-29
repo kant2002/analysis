@@ -146,7 +146,7 @@ theorem Sequence.is_eventuallySteady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
 
 /-- Твердження 6.1.4 -/
 theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.isCauchy ↔ (a:Sequence).isCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   constructor
   swap
   . intro h
@@ -219,7 +219,7 @@ example : seq_6_1_6.tendsTo 1 := by sorry
 /-- Твердження 6.1.7 (Uniqueness of limits) -/
 theorem Sequence.tendsTo_unique (a:Sequence) {L L':ℝ} (h:L ≠ L') :
     ¬ (a.tendsTo L ∧ a.tendsTo L') := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra this
   obtain ⟨ hL, hL' ⟩ := this
   replace h : L - L' ≠ 0 := by contrapose! h; linarith
@@ -287,7 +287,7 @@ a.tendsTo L ↔ a.convergent ∧ lim a = L := by
 /-- Твердження 6.1.11 -/
 theorem Sequence.lim_harmonic :
     ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence).convergent ∧ lim ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence) = 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [←lim_eq, tendsTo_iff]
   intro ε hε
   have : ∃ (N:ℤ), N > 1/ε := exists_int_gt (1 / ε)

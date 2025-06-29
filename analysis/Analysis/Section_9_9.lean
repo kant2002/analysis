@@ -179,7 +179,7 @@ theorem UniformContinuousOn.of_bounded {E X:Set ℝ} (f: ℝ → ℝ)
 theorem UniformContinuousOn.of_continuousOn {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (Set.Icc a b)) :
   UniformContinuousOn f (Set.Icc a b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra h
   rw [iff_preserves_equiv] at h
   simp only [ge_iff_le, Function.comp_apply, not_forall, Classical.not_imp, gt_iff_lt, not_exists,

@@ -38,7 +38,7 @@ theorem _root_.Filter.Tendsto.of_div' {a b L:ℝ} (hab: a < b) {f g f' g': ℝ �
   (hderiv: Filter.Tendsto (fun x ↦ f' x / g' x) (nhdsWithin a (Set.Icc a b)) (nhds L)) :
   (∀ x ∈ Set.Ioc a b, g x ≠ 0) ∧
   Filter.Tendsto (fun x ↦ f x / g x) (nhdsWithin a (Set.Ioc a b)) (nhds L) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have hfcon : ContinuousOn f (Set.Icc a b) := ContinuousOn.of_differentiableOn hf
   have hgcon : ContinuousOn g (Set.Icc a b) := ContinuousOn.of_differentiableOn hg
   have (x:ℝ) (hx: x ∈ Set.Ioc a b) : g x ≠ 0 := by

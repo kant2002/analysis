@@ -131,7 +131,7 @@ theorem Real.LIM_eq_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Se
 /--Lemma 5.3.6 (Sum of Cauchy sequences is Cauchy)-/
 theorem Sequence.add_cauchy {a b:ℕ → ℚ}  (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy) :
     (a + b:Sequence).isCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [isCauchy_def] at ha hb ⊢
   intro ε hε
   have : ε/2 > 0 := by exact half_pos hε
@@ -155,7 +155,7 @@ theorem Sequence.add_cauchy {a b:ℕ → ℚ}  (ha: (a:Sequence).isCauchy) (hb: 
 /--Lemma 5.3.7 (Sum of equivalent sequences is equivalent)-/
 theorem Sequence.add_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (haa': Sequence.equiv a a') :
     Sequence.equiv (a + b) (a' + b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [equiv_def] at haa' ⊢
   intro ε hε
   specialize haa' ε hε
@@ -365,7 +365,7 @@ example : ((fun (n:ℕ) ↦ (10:ℚ)^(n+1)):Sequence).isBounded := by sorry
 /-- Лема 5.3.14 -/
 theorem Real.bounded_away_zero_of_nonzero {x:Real} (hx: x ≠ 0) :
     ∃ a:ℕ → ℚ, (a:Sequence).isCauchy ∧ bounded_away_zero a ∧ x = LIM a := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   obtain ⟨ b, hb, rfl ⟩ := eq_lim x
   simp only [←LIM_zero, ne_eq] at hx
   rw [LIM_eq_LIM hb (by convert Sequence.isCauchy_of_const 0), Sequence.equiv_iff] at hx
@@ -405,7 +405,7 @@ theorem Real.bounded_away_zero_nonzero {a:ℕ → ℚ} (ha: bounded_away_zero a)
 theorem Real.inv_of_bounded_away_zero_cauchy {a:ℕ → ℚ} (ha: bounded_away_zero a)
   (ha_cauchy: (a:Sequence).isCauchy) :
     ((a⁻¹:ℕ → ℚ):Sequence).isCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have ha' (n:ℕ) : a n ≠ 0 := bounded_away_zero_nonzero ha n
   rw [bounded_away_zero_def] at ha
   obtain ⟨ c, hc, ha ⟩ := ha
@@ -438,7 +438,7 @@ theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: bounded_away_zero a)
   (ha_cauchy: (a:Sequence).isCauchy) (hb: bounded_away_zero b)
   (hb_cauchy: (b:Sequence).isCauchy) (hlim: LIM a = LIM b) :
     LIM a⁻¹ = LIM b⁻¹ := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set P := LIM a⁻¹ * LIM a * LIM b⁻¹
   have ha' (n:ℕ) : a n ≠ 0 := bounded_away_zero_nonzero ha n
   have hb' (n:ℕ) : b n ≠ 0 := bounded_away_zero_nonzero hb n

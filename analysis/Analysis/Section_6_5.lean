@@ -51,7 +51,7 @@ lemma Sequence.pow_succ (a:Sequence) (k:ℕ) : a^(k+1) = a^k * a := by
 /-- Наслідок 6.5.1 -/
 theorem Sequence.lim_of_power_decay {k:ℕ} :
     ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(1/(k+1:ℝ))):Sequence).tendsTo 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set a := ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(1/(k+1:ℝ))):Sequence)
   have ha : a.bddBelow := by
     use 0

@@ -81,7 +81,7 @@ theorem ContinuousAt.iff_eq_left_right_limit {X: Set ℝ} {f: ℝ → ℝ} {x₀
   (had_left: AdherentPt x₀ (X ∩ Set.Iio x₀)) (had_right: AdherentPt x₀ (X ∩ Set.Ioi x₀)) :
   ContinuousWithinAt f X x₀ ↔ right_limit_exists X f x₀ ∧ left_limit_exists X f x₀ ∧
   right_limit X f x₀ = f x₀ ∧ left_limit X f x₀ = f x₀ := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   constructor
   . sorry
   rintro ⟨ hre, hle, hright, lheft ⟩

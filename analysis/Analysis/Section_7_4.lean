@@ -30,7 +30,7 @@ theorem Series.sum_eq_sum (b:ℕ → ℝ) {N:ℤ} (hN: N ≥ 0) : ∑ n ∈ Fins
 theorem Series.converges_of_permute_nonneg {a:ℕ → ℝ} (ha: (a:Series).nonneg) (hconv: (a:Series).converges)
   {f: ℕ → ℕ} (hf: Function.Bijective f) :
     (fun n ↦ a (f n) : Series).converges ∧ (a:Series).sum = (fun n ↦ a (f n) : Series).sum := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set af : ℕ → ℝ := fun n ↦ a (f n)
   have haf : (af:Series).nonneg := by
     unfold nonneg at ha ⊢
@@ -184,7 +184,7 @@ theorem Series.permuted_zeta_2_eq_zeta_2 :
 theorem Series.absConverges_of_permute {a:ℕ → ℝ} (ha : (a:Series).absConverges)
   {f: ℕ → ℕ} (hf: Function.Bijective f) :
     (fun n ↦ a (f n):Series).absConverges  ∧ (a:Series).sum = (fun n ↦ a (f n) : Series).sum := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set L := (a:Series).abs.sum
   have hconv := converges_of_absConverges ha
   unfold absConverges at ha

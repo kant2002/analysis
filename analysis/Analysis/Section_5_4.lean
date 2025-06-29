@@ -244,7 +244,7 @@ instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
 /-- Твердження 5.4.9 (The non-negative reals are closed)-/
 theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:Sequence).isCauchy) :
     LIM a ≥ 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra! hlim
   set x := LIM a
   rw [←isNeg_iff, isNeg_def] at hlim
@@ -278,7 +278,7 @@ theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:
 theorem Real.LIM_mono {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy)
   (hmono: ∀ n, a n ≤ b n) :
     LIM a ≤ LIM b := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have := LIM_of_nonneg (a := b - a) (by intro n; simp [hmono n]) (sub_of_cauchy hb ha)
   rw [←Real.sub_of_LIM hb ha] at this
   linarith
@@ -296,7 +296,7 @@ theorem Real.LIM_mono_fail :
 /-- Твердження 5.4.12 (Bounding reals by rationals) -/
 theorem Real.exists_rat_le_and_nat_ge {x:Real} (hx: x.isPos) :
     (∃ q:ℚ, q > 0 ∧ (q:Real) ≤ x) ∧ ∃ N:ℕ, x < (N:Real) := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [isPos_def] at hx
   obtain ⟨ a, hbound, hcauchy, heq ⟩ := hx
   have := Sequence.isBounded_of_isCauchy hcauchy
@@ -326,7 +326,7 @@ theorem Real.exists_rat_le_and_nat_ge {x:Real} (hx: x.isPos) :
 
 /-- Наслідок 5.4.13 (Archimedean property ) -/
 theorem Real.le_mul {ε:Real} (hε: ε.isPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M * ε > x := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rcases trichotomous x with hx | hx | hx
   . use 1; rw [isPos_iff] at hε; simp [hx, hε]
   . obtain ⟨ N, hN ⟩ := (exists_rat_le_and_nat_ge (div_of_pos hx hε)).2

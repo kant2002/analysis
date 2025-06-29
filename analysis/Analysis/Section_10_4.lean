@@ -27,7 +27,7 @@ theorem _root_.HasDerivWithinAt.of_inverse {X Y: Set ℝ} {f: ℝ → ℝ} {g:�
   (hcluster: ClusterPt x₀ (Filter.principal (X \ {x₀})))
   (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'y₀ Y y₀) :
   g'y₀ * f'x₀ = 1 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have h1 : HasDerivWithinAt (fun x ↦ x) (g'y₀ * f'x₀) X x₀ := by
     apply HasDerivWithinAt.congr (HasDerivWithinAt.of_comp hfx₀ hfXY hf hg) _ (hgf x₀ hx₀).symm
     intro x hx; simp [hgf x hx]
@@ -65,7 +65,7 @@ theorem inverse_function_theorem {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
   (hcluster: ClusterPt x₀ (Filter.principal (X \ {x₀})))
   (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: ContinuousWithinAt g Y y₀) :
     HasDerivWithinAt g (1/f'x₀) Y y₀ := by
-    -- This proof is written to follow the structure of the original text.
+    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
     have had : AdherentPt y₀ (Y \ {y₀}) := by
       simp [←AdherentPt_def, limit_of_AdherentPt] at hcluster ⊢
       obtain ⟨ x, hx, hconv ⟩ := hcluster

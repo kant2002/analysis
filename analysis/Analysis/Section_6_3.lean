@@ -120,7 +120,7 @@ example : lim (Example_6_3_9:Sequence) ≤ 4 := by sorry
 /-- Твердження 6.3.1-/
 theorem lim_of_exp {x:ℝ} (hpos: 0 < x) (hbound: x < 1) :
     ((fun (n:ℕ) ↦ x^n):Sequence).convergent ∧ lim ((fun (n:ℕ) ↦ x^n):Sequence) = 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set a := ((fun (n:ℕ) ↦ x^n):Sequence)
   have why : a.isAntitone := sorry
   have hbound : a.bddBelowBy 0 := by
