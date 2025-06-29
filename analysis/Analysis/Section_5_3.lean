@@ -4,7 +4,7 @@ import Mathlib.Algebra.Group.MinimalAxioms
 
 
 /-!
-# Analysis I, Section 5.3
+# Аналіз I, Глава 5.3
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful

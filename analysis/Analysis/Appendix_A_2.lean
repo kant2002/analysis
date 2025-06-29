@@ -77,7 +77,7 @@ theorem theorem_A_2_4 (n:ℤ) : Even (n * (n+1)) := by
   have : Even (n+1) := Odd.add_one hodd
   exact Even.mul_left this _
 
-/-- Corollary A.2.5 -/
+/-- Наслідок A.2.5 -/
 example :
   let n:ℤ := (253+142)*123-(423+198)^342+538-213
   Even (n * (n+1)) := theorem_A_2_4 _

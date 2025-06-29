@@ -4,7 +4,7 @@ import Mathlib.Data.Nat.Nth
 import Analysis.Section_9_6
 
 /-!
-# Analysis I, Section 9.9
+# Аналіз I, Глава 9.9
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -163,7 +163,7 @@ example : ¬ ((fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ))):Sequence).isCauchy := by
 example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
   sorry
 
-/-- Corollary 9.9.14 / Exercise 9.9.4 -/
+/-- Наслідок 9.9.14 / Exercise 9.9.4 -/
 theorem UniformContinuousOn.limit_at_adherent  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x₀:ℝ} (hx₀: AdherentPt x₀ X) :
   ∃ L:ℝ, Filter.Tendsto f (nhds x₀ ⊓ Filter.principal X) (nhds L) := by

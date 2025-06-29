@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_3_1
 
 /-!
-# Analysis I, Section 3.2
+# Аналіз I, Глава 3.2
 
 In this section we set up a version of Zermelo-Frankel set theory (with atoms) that tries to be
 as faithful as possible to the original text of Analysis I, Section 3.1. All numbering refers to

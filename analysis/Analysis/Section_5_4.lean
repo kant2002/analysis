@@ -3,7 +3,7 @@ import Analysis.Section_5_3
 
 
 /-!
-# Analysis I, Section 5.4
+# Аналіз I, Глава 5.4
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -274,7 +274,7 @@ theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:
   simp_rw [x, LIM_eq_LIM hcauchy hb_cauchy] at hlim
   contradiction
 
-/-- Corollary 5.4.10 -/
+/-- Наслідок 5.4.10 -/
 theorem Real.LIM_mono {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy)
   (hmono: ∀ n, a n ≤ b n) :
     LIM a ≤ LIM b := by
@@ -324,7 +324,7 @@ theorem Real.exists_rat_le_and_nat_ge {x:Real} (hx: x.isPos) :
     _ < ((N:ℚ):Real) := by simp [←Real.lt_of_coe,hN]
     _ = N := by rfl
 
-/-- Corollary 5.4.13 (Archimedean property ) -/
+/-- Наслідок 5.4.13 (Archimedean property ) -/
 theorem Real.le_mul {ε:Real} (hε: ε.isPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M * ε > x := by
   -- This proof is written to follow the structure of the original text.
   rcases trichotomous x with hx | hx | hx

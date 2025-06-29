@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Section 7.1
+# Аналіз I, Глава 7.1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. hen there is a choice between a more idiomatic Lean solution and a more faithful
@@ -303,7 +303,7 @@ theorem finite_series_of_finite_series {XX YY:Type*} (X: Finset XX) (Y: Finset Y
       . sorry
       sorry
 
-/-- Corollary 7.1.14 (Fubini's theorem for finite series)-/
+/-- Наслідок 7.1.14 (Fubini's theorem for finite series)-/
 theorem finite_series_refl {XX YY:Type*} (X: Finset XX) (Y: Finset YY) (f: XX × YY → ℝ) :
     ∑ z ∈ Finset.product X Y, f z = ∑ z ∈ Finset.product Y X, f (z.2, z.1) := by
   set h : Finset.product Y X → Finset.product X Y :=

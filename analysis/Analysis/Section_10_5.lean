@@ -4,7 +4,7 @@ import Analysis.Section_10_1
 import Analysis.Section_10_2
 
 /-!
-# Analysis I, Section 10.5
+# Аналіз I, Глава 10.5
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful

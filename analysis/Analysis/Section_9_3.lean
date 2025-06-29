@@ -3,7 +3,7 @@ import Mathlib.Data.Real.Sign
 import Analysis.Section_9_1
 
 /-!
-# Analysis I, Section 9.3
+# Аналіз I, Глава 9.3
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -103,7 +103,7 @@ theorem Convergesto.comp {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Adh
 
 -- Remark 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems.  This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
 
-/-- Corollary 9.3.13 -/
+/-- Наслідок 9.3.13 -/
 theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hf': Convergesto E f L' x₀) : L = L' := by
   -- This proof is written to follow the structure of the original text.

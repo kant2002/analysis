@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_3
 
 /-!
-# Analysis I, Section 6.4
+# Аналіз I, Глава 6.4
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -221,7 +221,7 @@ theorem Sequence.limsup_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m,
 theorem Sequence.liminf_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.liminf ≤ b.liminf := by sorry
 
-/-- Corollary 6.4.14 (Squeeze test) / Exercise 6.4.5 -/
+/-- Наслідок 6.4.14 (Squeeze test) / Exercise 6.4.5 -/
 theorem Sequence.lim_of_between {a b c:Sequence} {L:ℝ} (hm: b.m = a.m ∧ c.m = a.m)
   (hab: ∀ n ≥ a.m, a n ≤ b n ∧ b n ≤ c n) (ha: a.tendsTo L) (hb: b.tendsTo L) :
     c.tendsTo L := by sorry
@@ -250,7 +250,7 @@ abbrev Sequence.abs (a:Sequence) : Sequence where
     simp [a.vanish n hn]
 
 
-/-- Corollary 6.4.17 (Zero test for sequences) / Exercise 6.4.7 -/
+/-- Наслідок 6.4.17 (Zero test for sequences) / Exercise 6.4.7 -/
 theorem Sequence.tendsTo_zero_iff (a:Sequence) :
   a.tendsTo (0:ℝ) ↔ a.abs.tendsTo (0:ℝ) := by
   sorry

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
-# Analysis I, Section 10.1
+# Аналіз I, Глава 10.1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -129,7 +129,7 @@ theorem _root_.ContinuousWithinAt.of_differentiableWithinAt {X: Set ℝ} {x₀ :
 /-Definition 10.1.11 (Differentiability on a domain)-/
 #check DifferentiableOn.eq_1
 
-/-- Corollary 10.1.12 -/
+/-- Наслідок 10.1.12 -/
 theorem _root_.ContinuousOn.of_differentiableOn {X: Set ℝ} {f: ℝ → ℝ}
   (h: DifferentiableOn ℝ f X) :
   ContinuousOn f X := by

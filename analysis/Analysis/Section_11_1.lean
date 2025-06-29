@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Section 11.1
+# Аналіз I, Глава 11.1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -75,7 +75,7 @@ example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 theorem BoundedInterval.ordConnected_iff (X:Set ℝ) : Bornology.IsBounded X ∧ X.OrdConnected ↔ ∃ I: BoundedInterval, X = I := by
   sorry
 
-/-- Corollary 11.1.6 / Exercise 11.1.2 -/
+/-- Наслідок 11.1.6 / Exercise 11.1.2 -/
 theorem BoundedInterval.inter (I J: BoundedInterval) : ∃ K : BoundedInterval, (I:Set ℝ) ∩ (J:Set ℝ) = (K:Set ℝ) := by
   sorry
 

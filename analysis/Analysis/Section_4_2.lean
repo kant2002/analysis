@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Group.MinimalAxioms
 
 /-!
-# Analysis I, Section 4.2
+# Аналіз I, Глава 4.2
 
 This file is a translation of Section 4.2 of Analysis I to Lean 4.
 All numbering refers to the original text.

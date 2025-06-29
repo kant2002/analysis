@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Group.MinimalAxioms
 
 /-!
-# Analysis I, Section 4.1
+# Аналіз I, Глава 4.1
 
 This file is a translation of Section 4.1 of Analysis I to Lean 4.
 All numbering refers to the original text.
@@ -246,7 +246,7 @@ theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by s
 /-- Твердження 4.1.8 (No zero divisors) / Exercise 4.1.5 -/
 theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 
-/-- Corollary 4.1.9 (Cancellation law) / Exercise 4.1.6 -/
+/-- Наслідок 4.1.9 (Cancellation law) / Exercise 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
 /-- Визначення 4.1.10 (Ordering of the integers) -/

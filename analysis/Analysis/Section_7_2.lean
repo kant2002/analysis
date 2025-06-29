@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Field.Power
 
 /-!
-# Analysis I, Section 7.2
+# Аналіз I, Глава 7.2
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -112,7 +112,7 @@ theorem Series.converges_iff_tail_decay (s:Series) :
     s.converges ↔ ∀ ε > 0, ∃ N ≥ s.m, ∀ p ≥ N, ∀ q ≥ N, |∑ n ∈ Finset.Icc p q, s.seq n| ≤ ε := by
   sorry
 
-/-- Corollary 7.2.6 (Zero test) / Exercise 7.2.3 -/
+/-- Наслідок 7.2.6 (Zero test) / Exercise 7.2.3 -/
 theorem Series.decay_of_converges {s:Series} (h: s.converges) :
     Filter.Tendsto s.seq Filter.atTop (nhds 0) := by
   sorry

@@ -134,7 +134,7 @@ theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.isPos) : (b + a).isPos := by
   rw [add_comm]
   exact add_pos_left _ ha
 
-/-- Corollary 2.2.9 (if sum vanishes, then summands vanish).
+/-- Наслідок 2.2.9 (if sum vanishes, then summands vanish).
     Порівняйте із Mathlib-овським `Nat.add_eq_zero` -/
 theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
   -- this proof is written to follow the structure of the original text.

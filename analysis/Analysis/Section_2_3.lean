@@ -122,7 +122,7 @@ theorem Nat.mul_gt_mul_of_pos_left {a b c: Nat} (h: a > b) (hc: c.isPos) :
 
 
 
-/-- Corollary 2.3.7 (Cancellation law) -/
+/-- Наслідок 2.3.7 (Cancellation law) -/
 lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.isPos) : a = b := by
   -- This proof is written to follow the structure of the original text.
   have := trichotomous a b

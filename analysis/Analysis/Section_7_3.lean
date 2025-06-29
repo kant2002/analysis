@@ -7,7 +7,7 @@ import Analysis.Section_6_epilogue
 import Analysis.Section_7_2
 
 /-!
-# Analysis I, Section 7.3
+# Аналіз I, Глава 7.3
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
 
@@ -45,7 +45,7 @@ theorem Series.converges_of_nonneg_iff {s : Series} (h : s.nonneg) : s.converges
     linarith
   exact hfin
 
-/-- Corollary 7.3.2 (Comparison test) / Exercise 7.3.1 -/
+/-- Наслідок 7.3.2 (Comparison test) / Exercise 7.3.1 -/
 theorem Series.converges_of_le {s t : Series} (hm : s.m = t.m) (hcomp : ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hconv : t.converges) : s.absConverges ∧ |s.sum| ≤ s.abs.sum ∧ s.abs.sum ≤ t.sum := by sorry
 
 theorem Series.diverges_of_ge {s t : Series} (hm : s.m = t.m) (hcomp : ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hdiv: ¬ s.absConverges) : t.diverges := by sorry
@@ -174,7 +174,7 @@ theorem Series.cauchy_criterion {s:Series} (hm: s.m = 1) (hs:s.nonneg) (hmono: �
     _ ≤ T K := (Lemma_7_3_6 K).1
     _ ≤ M := hM K
 
-/-- Corollary 7.3.7 -/
+/-- Наслідок 7.3.7 -/
 theorem Series.converges_qseries (q : ℝ) (hq : q > 0) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series).converges ↔ (q>1) := by
   -- This proof is written to follow the structure of the original text.
   set s := (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series)

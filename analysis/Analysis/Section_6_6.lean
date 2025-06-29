@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_5
 
 /-!
-# Analysis I, Section 6.6
+# Аналіз I, Глава 6.6
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_4
 
 /-!
-# Analysis I, Section 6.5
+# Аналіз I, Глава 6.5
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -48,7 +48,7 @@ lemma Sequence.pow_succ (a:Sequence) (k:ℕ) : a^(k+1) = a^k * a := by
   . simp [h]; rfl
   simp [h, a.vanish n (by linarith)]
 
-/-- Corollary 6.5.1 -/
+/-- Наслідок 6.5.1 -/
 theorem Sequence.lim_of_power_decay {k:ℕ} :
     ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(1/(k+1:ℝ))):Sequence).tendsTo 0 := by
   -- This proof is written to follow the structure of the original text.

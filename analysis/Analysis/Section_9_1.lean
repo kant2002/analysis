@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
-# Analysis I, Section 9.1
+# Аналіз I, Глава 9.1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -229,7 +229,7 @@ theorem Z_closed : IsClosed ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) := by sorry
 /-- Examples 9.1.16 -/
 theorem Q_not_closed : ¬ IsClosed ((fun n:ℚ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Corollary 9.1.17 -/
+/-- Наслідок 9.1.17 -/
 theorem isClosed_iff_limits_mem (X: Set ℝ) :
   IsClosed X ↔ ∀ (a:ℕ → ℝ) (L:ℝ), (∀ n, a n ∈ X) → Filter.Tendsto a Filter.atTop (nhds L) → L ∈ X := by
   rw [isClosed_def']

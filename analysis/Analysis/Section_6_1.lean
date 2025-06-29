@@ -4,7 +4,7 @@ import Analysis.Section_5_3
 import Analysis.Section_5_epilogue
 
 /-!
-# Analysis I, Section 6.1
+# Аналіз I, Глава 6.1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -348,7 +348,7 @@ lemma Sequence.isBounded_def (a:Sequence) :
 theorem Sequence.bounded_of_cauchy {a:Sequence} (h: a.isCauchy) : a.isBounded := by
   sorry
 
-/-- Corollary 6.1.17 -/
+/-- Наслідок 6.1.17 -/
 theorem Sequence.bounded_of_convergent {a:Sequence} (h: a.convergent) : a.isBounded := by
   sorry
 

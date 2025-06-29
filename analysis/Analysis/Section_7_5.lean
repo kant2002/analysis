@@ -4,7 +4,7 @@ import Mathlib.Topology.Instances.EReal.Lemmas
 import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 
 /-!
-# Analysis I, Section 7.5
+# Аналіз I, Глава 7.5
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
 
@@ -212,7 +212,7 @@ theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
 
 
 
-/-- Corollary 7.5.3 (Ratio test)-/
+/-- Наслідок 7.5.3 (Ratio test)-/
 theorem Series.ratio_test_pos {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
   (h : Filter.limsup (fun n ↦ ((|s.seq (n+1)| / |s.seq n|:ℝ):EReal)) Filter.atTop < 1) : s.absConverges := by
     apply Series.root_test_pos (lt_of_le_of_lt _ h)
@@ -220,7 +220,7 @@ theorem Series.ratio_test_pos {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
     convert hnon using 1 with n
     simp
 
-/-- Corollary 7.5.3 (Ratio test)-/
+/-- Наслідок 7.5.3 (Ratio test)-/
 theorem Series.ratio_test_neg {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
   (h : Filter.liminf (fun n ↦ ((|s.seq (n+1)| / |s.seq n|:ℝ):EReal)) Filter.atTop > 1) : s.diverges := by
     apply Series.root_test_neg (lt_of_lt_of_le h _)
@@ -228,12 +228,12 @@ theorem Series.ratio_test_neg {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
     . rfl
     all_goals convert hnon using 1 with n; simp
 
-/-- Corollary 7.5.3 (Ratio test) / Exercise 7.5.3 -/
+/-- Наслідок 7.5.3 (Ratio test) / Exercise 7.5.3 -/
 theorem Series.ratio_test_inconclusive: ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   Filter.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) Filter.atTop (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Corollary 7.5.3 (Ratio test) / Exercise 7.5.3 -/
+/-- Наслідок 7.5.3 (Ratio test) / Exercise 7.5.3 -/
 theorem Series.ratio_test_inconclusive' : ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   Filter.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry
