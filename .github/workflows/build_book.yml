@@ -3,7 +3,7 @@ name: Build book
 on:
   push:
     branches:
-    - main
+    - translation
   pull_request:
   workflow_dispatch:
 

@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Section 2.1
+# Аналіз I, Секція 2.1
 
 This file is a translation of Section 2.1 of Analysis I to Lean 4.  All numbering refers to the
 original text.
@@ -32,28 +32,28 @@ standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the pro
 namespace Chapter2
 
 /--
-  Assumption 2.6 (Existence of natural numbers).  Here we use an explicit construction of the
-  natural numbers (using an inductive type).  For a more axiomatic approach, see the epilogue to
-  this chapter.
+  Припущення 2.6 (Існування натуральних чисел).  Тут ми будемо використовувати явне побудування
+  натуральних чисел (використовуючи індуктивний тип).  Для більш аксіоматичного підходу, дивіться епілог
+  до цього розділу
 -/
 inductive Nat where
 | zero : Nat
 | succ : Nat → Nat
-deriving Repr, DecidableEq  -- this allows `decide` to work on `Nat`
+deriving Repr, DecidableEq  -- це дозволяє `decide` працювати із `Nat`
 
-/-- Axiom 2.1 (0 is a natural number) -/
+/-- Аксіома 2.1 (0 це натуральне число) -/
 instance Nat.instZero : Zero Nat := ⟨ zero ⟩
 #check (0:Nat)
 
-/-- Axiom 2.2 (Successor of a natural number is a natural number) -/
+/-- Аксіома 2.2 (Наступник натурального числа також є натуральним числом) -/
 postfix:100 "++" => Nat.succ
 #check (fun n ↦ n++)
 
 
 /--
-  Definition 2.1.3 (Definition of the numerals 0, 1, 2, etc.). Note: to avoid ambiguity, one may
-  need to use explicit casts such as (0:Nat), (1:Nat), etc. to refer to this Chapter's version of
-  the natural numbers.
+  Визначення 2.1.3 (Визначення чисел 0, 1, 2, etc.). Примітка: щоб уникнути неоднозначності, вам
+  може знадобитися явна конвертація як наприклад (0:Nat), (1:Nat), і т.д. щоб посилатися на версію натуральних чисел із
+  цього розділу.
 -/
 instance Nat.instOfNat {n:_root_.Nat} : OfNat Nat n where
   ofNat := _root_.Nat.rec 0 (fun _ n ↦ n++) n
@@ -65,13 +65,13 @@ lemma Nat.zero_succ : 0++ = 1 := by rfl
 lemma Nat.one_succ : 1++ = 2 := by rfl
 #check (2:Nat)
 
-/-- Proposition 2.1.4 (3 is a natural number)-/
+/-- Твердження 2.1.4 (3 є натуральним числом)-/
 lemma Nat.two_succ : 2++ = 3 := by rfl
 #check (3:Nat)
 
 /--
-  Axiom 2.3 (0 is not the successor of any natural number).
-  Compare with Mathlib's `Nat.succ_ne_zero`.
+  Аксіома 2.3 (0 не є наступником ніякого натурального числа).
+  Порівняйте із Mathlib-овбським `Nat.succ_ne_zero`.
 -/
 theorem Nat.succ_ne (n:Nat) : n++ ≠ 0 := by
   by_contra h
