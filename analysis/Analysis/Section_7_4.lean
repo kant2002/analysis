@@ -295,7 +295,7 @@ theorem Series.ex_7_4_4'_conv : (fun n ↦ a_7_4_4 (f_7_4_4 n) :Series).converge
 
 theorem Series.ex_7_4_4'_sum : (fun n ↦ a_7_4_4 (f_7_4_4 n) :Series).sum < 0 := by sorry
 
-/-- Exercise 7.4.1 -/
+/-- Вправа 7.4.1 -/
 theorem Series.absConverges_of_subseries {a:ℕ → ℝ} (ha: (a:Series).absConverges) {f: ℕ → ℕ} (hf: StrictMono f) :
   (fun n ↦ a (f n):Series).absConverges := by sorry
 

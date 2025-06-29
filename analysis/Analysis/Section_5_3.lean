@@ -259,7 +259,7 @@ theorem Real.ratCast_def (q:ℚ) : (q:Real) = LIM (fun _ ↦ q) := by
   rw [LIM_def]
   rfl
 
-/-- Exercise 5.3.3 -/
+/-- Вправа 5.3.3 -/
 @[simp]
 theorem Real.ratCast_inj (q r:ℚ) : (q:Real) = (r:Real) ↔ q = r := by
   sorry
@@ -505,14 +505,14 @@ theorem Real.mul_right_cancel₀ {x y z:Real} (hz: z ≠ 0) (h: x * z = y * z) :
 theorem Real.mul_right_nocancel : ¬ ∀ (x y z:Real), (hz: z = 0) → (x * z = y * z) → x = y := by
   sorry
 
-/-- Exercise 5.3.4 -/
+/-- Вправа 5.3.4 -/
 theorem Real.equiv_of_bounded {a b:ℕ → ℚ} (ha: (a:Sequence).isBounded) (hab: Sequence.equiv a b) :
     (b:Sequence).isBounded := by sorry
 
-/-- Exercise 5.3.5 -/
+/-- Вправа 5.3.5 -/
 theorem Real.Cauchy_of_harmonic : ((fun n ↦ 1/((n:ℚ)+1): ℕ → ℚ):Sequence).isCauchy := by sorry
 
-/-- Exercise 5.3.5 -/
+/-- Вправа 5.3.5 -/
 theorem Real.LIM_of_harmonic : LIM (fun n ↦ 1/((n:ℚ)+1)) = 0 := by sorry
 
 end Chapter5

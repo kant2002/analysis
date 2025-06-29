@@ -175,7 +175,7 @@ theorem UniformContinuousOn.of_bounded {E X:Set ℝ} (f: ℝ → ℝ)
   Bornology.IsBounded (f '' E) := by
   sorry
 
-/-- Theorem 9.9.16 -/
+/-- Теорема 9.9.16 -/
 theorem UniformContinuousOn.of_continuousOn {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (Set.Icc a b)) :
   UniformContinuousOn f (Set.Icc a b) := by
@@ -227,7 +227,7 @@ theorem UniformContinuousOn.of_continuousOn {a b:ℝ} (hab: a < b) {f:ℝ → �
   sorry
 
 
-/-- Exercise 9.9.6 -/
+/-- Вправа 9.9.6 -/
 theorem UniformContinuousOn.comp {X Y: Set ℝ} {f g:ℝ → ℝ}
   (hf: UniformContinuousOn f X) (hg: UniformContinuousOn g Y)
   (hrange: f '' X ⊆ Y) : UniformContinuousOn (g ∘ f) X := by

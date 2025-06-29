@@ -401,13 +401,13 @@ example : ¬ ∃ P:Partition (Ioo 1 5),
   sorry
 
 
-/-- Exercise 11.1.3.  The exercise only claims c ≤ b, but the stronger claim c < b is true and useful. -/
+/-- Вправа 11.1.3.  The exercise only claims c ≤ b, but the stronger claim c < b is true and useful. -/
 theorem Partition.exist_right {I: BoundedInterval} (hI: I.a < I.b) (hI': I.b ∉ I)
   {P: Partition I}
   : ∃ c ∈ Set.Ico I.a I.b, Ioo c I.b ∈ P ∨ Ico c I.b ∈ P := by
   sorry
 
-/-- Theorem 11.1.13 (Length is finitely additive).
+/-- Теорема 11.1.13 (Length is finitely additive).
 Due to the excessive case analysis, `simp only` is used in place of `simp` in some places
 to speed up elaboration. -/
 theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :

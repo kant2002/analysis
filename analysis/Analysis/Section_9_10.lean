@@ -62,12 +62,12 @@ theorem Filter.Tendsto.AtTop.iff {X: Set ℝ} (f:ℝ → ℝ) (L:ℝ) : Filter.T
   apply forall_congr'; intro x
   tauto
 
-/-- Exercise 9.10.4 -/
+/-- Вправа 9.10.4 -/
 example : Filter.Tendsto (fun x:ℝ ↦ 1/x) (Filter.atTop ⊓ Filter.principal (Set.Ioi 0)) (nhds 0) := by
   sorry
 
 open Classical in
-/-- Exercise 9.10.1 -/
+/-- Вправа 9.10.1 -/
 example (a:ℕ → ℝ) (L:ℝ) : Filter.Tendsto (fun x:ℝ ↦ (if h:(∃ n:ℕ, x = n) then a h.choose else 0)) (Filter.atTop ⊓ Filter.principal ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ)) (nhds L) ↔ Filter.Tendsto a Filter.atTop (nhds L) := by
   sorry
 

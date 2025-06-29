@@ -79,7 +79,7 @@ theorem Real.bddAbove_def (E: Set Real) : BddAbove E ↔ ∃ M, M ∈  upperBoun
 
 theorem Real.bddBelow_def (E: Set Real) : BddBelow E ↔ ∃ M, M ∈  lowerBounds E := Set.nonempty_def
 
-/-- Exercise 5.5.2 -/
+/-- Вправа 5.5.2 -/
 theorem Real.upperBound_between {E: Set Real} {n:ℕ} {L K:ℤ} (hLK: L < K)
   (hK: K*((1/(n+1):ℚ):Real) ∈ upperBounds E) (hL: L*((1/(n+1):ℚ):Real) ∉ upperBounds E) :
     ∃ m, L < m
@@ -87,7 +87,7 @@ theorem Real.upperBound_between {E: Set Real} {n:ℕ} {L K:ℤ} (hLK: L < K)
     ∧ m*((1/(n+1):ℚ):Real) ∈ upperBounds E
     ∧ (m-1)*((1/(n+1):ℚ):Real) ∉ upperBounds E := by sorry
 
-/-- Exercise 5.5.3 -/
+/-- Вправа 5.5.3 -/
 theorem Real.upperBound_discrete_unique {E: Set Real} {n:ℕ} {m m':ℤ}
   (hm1: (((m:ℚ) / (n+1):ℚ):Real) ∈ upperBounds E)
   (hm2: (((m:ℚ) / (n+1) - 1 / (n+1):ℚ):Real) ∉ upperBounds E)
@@ -95,11 +95,11 @@ theorem Real.upperBound_discrete_unique {E: Set Real} {n:ℕ} {m m':ℤ}
   (hm'2: (((m':ℚ) / (n+1) - 1 / (n+1):ℚ):Real) ∉ upperBounds E) :
     m = m' := by sorry
 
-/-- Exercise 5.5.4 -/
+/-- Вправа 5.5.4 -/
 theorem Real.LIM_of_Cauchy {q:ℕ → ℚ} (hq: ∀ M, ∀ n ≥ M, ∀ n' ≥ M, |q n - q n'| ≤ 1 / (M+1)) :
     (q:Sequence).isCauchy ∧ ∀ M, |q M - LIM q| ≤ 1 / (M+1) := by sorry
 
-/-- Theorem 5.5.9 (Existence of least upper bound)-/
+/-- Теорема 5.5.9 (Existence of least upper bound)-/
 theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): ∃ S, IsLUB E S := by
   -- This proof is written to follow the structure of the original text.
   set x₀ := Set.Nonempty.some hE
@@ -372,10 +372,10 @@ theorem ExtendedReal.inf_of_bounded_finite {E: Set Real} (hnon: E.Nonempty) (hb:
 /-- Helper lemma for Exercise 5.5.1. -/
 theorem Real.mem_neg (E: Set Real) (x:Real) : x ∈ -E ↔ -x ∈ E := Set.mem_neg
 
-/-- Exercise 5.5.1-/
+/-- Вправа 5.5.1-/
 theorem Real.inf_neg {E: Set Real} {M:Real} (h: IsLUB E M) : IsGLB (-E) (-M) := by sorry
 
-/-- Exercise 5.5.5 -/
+/-- Вправа 5.5.5 -/
 theorem Real.irrat_between {x y:Real} (hxy: x < y) :
     ∃ z, x < z ∧ z < y ∧ ¬ ∃ q:ℚ, z = (q:Real) := by sorry
 

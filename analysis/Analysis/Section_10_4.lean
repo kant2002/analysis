@@ -57,7 +57,7 @@ theorem _root_.HasDerivWithinAt.of_inverse_of_zero_deriv {X Y: Set ℝ} {f: ℝ 
 
 example : ¬ DifferentiableWithinAt ℝ (fun x:ℝ ↦ x^(1/3:ℝ)) (Set.Ici 0) 0 := by sorry
 
-/-- Theorem 10.4.2 (Inverse function theorem) -/
+/-- Теорема 10.4.2 (Inverse function theorem) -/
 theorem inverse_function_theorem {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
   (hfXY: ∀ x ∈ X, f x ∈ Y) (hgYX: ∀ y ∈ Y, g y ∈ X)
   (hgf: ∀ x ∈ X, g (f x) = x) (hfg: ∀ y ∈ Y, f (g y) = y)
@@ -99,29 +99,29 @@ theorem inverse_function_theorem {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
     . simp [hgy₀, x, ←hfx₀, hfg _ (hy' n), hgf _ hx₀]
     simp
 
-/-- Exercise 10.4.1(a) -/
+/-- Вправа 10.4.1(a) -/
 example {n:ℕ} (hn: n > 0) : ContinuousOn (fun x:ℝ ↦ x^(1/n:ℝ)) (Set.Ici 0) := by sorry
 
-/-- Exercise 10.4.1(b) -/
+/-- Вправа 10.4.1(b) -/
 example {n:ℕ} (hn: n > 0) {x:ℝ} (hx: x ∈ Set.Ici 0) : HasDerivWithinAt (fun x:ℝ ↦ x^(1/n:ℝ))
   ((n:ℝ)⁻¹ * x^((n:ℝ)⁻¹-1)) (Set.Ici 0) x := by sorry
 
-/-- Exercise 10.4.2(a) -/
+/-- Вправа 10.4.2(a) -/
 example (q:ℚ) {x:ℝ} (hx: x ∈ Set.Ici 0) :
   HasDerivWithinAt (fun x:ℝ ↦ x^(q:ℝ)) (q * x^(q-1:ℝ)) (Set.Ici 0) x := by
   sorry
 
-/-- Exercise 10.4.2(b) -/
+/-- Вправа 10.4.2(b) -/
 example (q:ℚ) : Filter.Tendsto (fun x:ℝ ↦ (x^(q:ℝ)-1)/(x-1))
                 (nhds 1 ⊓ Filter.principal (Set.Ici 0 \ {1})) (nhds q) := by
   sorry
 
-/-- Exercise 10.4.3(a) -/
+/-- Вправа 10.4.3(a) -/
 example (α:ℝ) : Filter.Tendsto (fun x:ℝ ↦ (x^α-1^α)/(x-1))
                 (nhds 1 ⊓ Filter.principal (Set.Ici 0 \ {1})) (nhds α) := by
   sorry
 
-/-- Exercise 10.4.2(b) -/
+/-- Вправа 10.4.2(b) -/
 example (α:ℝ) {x:ℝ} (hx: x ∈ Set.Ici 0) :
   HasDerivWithinAt (fun x:ℝ ↦ x^α) (α * x^(α-1)) (Set.Ici 0) x := by
   sorry

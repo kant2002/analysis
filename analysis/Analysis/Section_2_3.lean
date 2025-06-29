@@ -85,7 +85,7 @@ theorem Nat.add_mul (a b c: Nat) : (a + b)*c = a*c + b*c := by
 theorem Nat.mul_assoc (a b c: Nat) : (a * b) * c = a * (b * c) := by
   sorry
 
-/-- (Not from textbook)  Nat is a commutative semiring. -/
+/-- (Не із книги)  Nat is a commutative semiring. -/
 instance Nat.instCommSemiring : CommSemiring Nat where
   left_distrib := mul_add
   right_distrib := add_mul
@@ -135,7 +135,7 @@ lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.isPos) : a = b
   replace hgt := ne_of_gt _ _ hgt
   contradiction
 
-/-- (Not from textbook) Nat is an ordered semiring. -/
+/-- (Не із книги) Nat is an ordered semiring. -/
 instance Nat.isOrderedRing : IsOrderedRing Nat where
   zero_le_one := by sorry
   mul_le_mul_of_nonneg_left := by sorry
@@ -163,7 +163,7 @@ theorem Nat.zero_pow_zero : (0:Nat) ^ 0 = 1 := recurse_zero (fun _ prod ↦ prod
 theorem Nat.pow_succ (m n: Nat) : (m:Nat) ^ n++ = m^n * m :=
   recurse_succ (fun _ prod ↦ prod * m) _ _
 
-/-- Exercise 2.3.4-/
+/-- Вправа 2.3.4-/
 theorem Nat.sq_add_eq (a b: Nat) :
     (a + b) ^ (2 : Nat) = a ^ (2 : Nat) + 2 * a * b + b ^ (2 : Nat) := by
   sorry

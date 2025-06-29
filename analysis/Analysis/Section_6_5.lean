@@ -103,12 +103,12 @@ theorem Sequence.lim_of_roots {x:ℝ} (hx: x > 0) :
     lim ((fun (n:ℕ) ↦ x^(1/(n+1))):Sequence) = 1 := by
   sorry
 
-/-- Exercise 6.5.1 -/
+/-- Вправа 6.5.1 -/
 theorem Sequence.lim_of_rat_power_decay {q:ℚ} (hq: q > 0) :
     lim ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(q:ℝ)):Sequence) = 0 := by
   sorry
 
-/-- Exercise 6.5.1 -/
+/-- Вправа 6.5.1 -/
 theorem Sequence.lim_of_rat_power_growth {q:ℚ} (hq: q > 0) :
     ((fun (n:ℕ) ↦ ((n:ℝ)+1)^(q:ℝ)):Sequence).divergent := by
   sorry

@@ -156,7 +156,7 @@ example : 3 = 3 —— 0 := by rfl
 example : 3 = 4 —— 1 := by
   rw [Int.ofNat_eq, Int.eq]
 
-/-- (Not from textbook) 0 is the only natural whose cast is 0 -/
+/-- (Не із книги) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
 /-- Визначення 4.1.4 (Negation of integers) / Exercise 4.1.2 -/
@@ -291,7 +291,7 @@ theorem Int.not_gt_and_eq (a b:Int) : ¬ (a > b ∧ a = b):= by sorry
 /-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
 theorem Int.not_lt_and_eq (a b:Int) : ¬ (a < b ∧ a = b):= by sorry
 
-/-- (Not from textbook) Establish the decidability of this order. -/
+/-- (Не із книги) Establish the decidability of this order. -/
 instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := by
   intro n m
   have : ∀ (n:PreInt) (m: PreInt),
@@ -307,10 +307,10 @@ instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := b
         sorry
   exact Quotient.recOnSubsingleton₂ n m this
 
-/-- (Not from textbook) 0 is the only additive identity -/
+/-- (Не із книги) 0 is the only additive identity -/
 lemma Int.is_additive_identity_iff_eq_0 (b : Int) : (∀ a, a = a + b) ↔ b = 0 := by sorry
 
-/-- (Not from textbook) Int has the structure of a linear ordering. -/
+/-- (Не із книги) Int has the structure of a linear ordering. -/
 instance Int.instLinearOrder : LinearOrder Int where
   le_refl := sorry
   le_trans := sorry
@@ -319,19 +319,19 @@ instance Int.instLinearOrder : LinearOrder Int where
   le_total := sorry
   toDecidableLE := decidableRel
 
-/-- Exercise 4.1.3 -/
+/-- Вправа 4.1.3 -/
 theorem Int.neg_one_mul (a:Int) : -1 * a = -a := by sorry
 
-/-- Exercise 4.1.8 -/
+/-- Вправа 4.1.8 -/
 theorem Int.no_induction : ∃ P: Int → Prop, P 0 ∧ ∀ n, P n → P (n+1) ∧ ¬ ∀ n, P n := by sorry
 
 /-- A nonnegative number squared is nonnegative. This is a special case of 4.1.9 that's useful for proving the general case. --/
 lemma Int.sq_nonneg_of_pos (n:Int) (h: 0 ≤ n) : 0 ≤ n*n := by sorry
 
-/-- Exercise 4.1.9. The square of any integer is nonnegative. -/
+/-- Вправа 4.1.9. The square of any integer is nonnegative. -/
 theorem Int.sq_nonneg (n:Int) : 0 ≤ n*n := by sorry
 
-/-- Exercise 4.1.9 -/
+/-- Вправа 4.1.9 -/
 theorem Int.sq_nonneg' (n:Int) : ∃ (m:Nat), n*n = m := by sorry
 
 /--

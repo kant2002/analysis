@@ -41,10 +41,10 @@ theorem strictAnti_of_negative_derivative {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
 /-- Example 10.3.2 -/
 example : ∃ f : ℝ → ℝ, Continuous f ∧ StrictMono f ∧ ¬ DifferentiableAt ℝ f 0 := by sorry
 
-/-- Exercise 10.3.3 -/
+/-- Вправа 10.3.3 -/
 example : ∃ f: ℝ → ℝ, StrictMono f ∧ Differentiable ℝ f ∧ deriv f 0 = 0 := by sorry
 
-/-- Exercise 10.3.5 -/
+/-- Вправа 10.3.5 -/
 example : ∃ (X : Set ℝ) (f : ℝ → ℝ), DifferentiableOn ℝ f X ∧
   (∀ x ∈ X, derivWithin f X x > 0) ∧ ¬ StrictMonoOn f X  := by
   sorry

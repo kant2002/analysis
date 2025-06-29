@@ -29,7 +29,7 @@ export SetTheory (Set Object)
 
 variable [SetTheory]
 
-/-- Axiom 3.8 (Universal specification) -/
+/-- Аксіома 3.8 (Universal specification) -/
 abbrev axiom_of_universal_specification : Prop :=
   ∀ P : Object → Prop, ∃ A : Set, ∀ x : Object, x ∈ A ↔ P x
 
@@ -48,7 +48,7 @@ theorem Russells_paradox : ¬ axiom_of_universal_specification := by
   replace this := (hΩ _).mpr this
   contradiction
 
-/-- Axiom 3.9 (Regularity ) -/
+/-- Аксіома 3.9 (Regularity ) -/
 theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
     ∃ x:A, ∀ S:Set, x.val = S → Disjoint S A := by
   obtain ⟨ x, h, h' ⟩ := SetTheory.regularity_axiom A (nonempty_def h)
@@ -110,17 +110,17 @@ theorem SetTheory.Set.replace_exists (h: axiom_of_universal_specification) (A:Se
     ∃ (Z:Set), ∀ y, y ∈ Z ↔ ∃ a : A, P a y := by
   sorry
 
-/-- Exercise 3.2.2 -/
+/-- Вправа 3.2.2 -/
 theorem SetTheory.Set.not_mem_self (A:Set) : (A:Object) ∉ A := by sorry
 
-/-- Exercise 3.2.2 -/
+/-- Вправа 3.2.2 -/
 theorem SetTheory.Set.not_mem_mem (A B:Set) : (A:Object) ∉ B ∨ (B:Object) ∉ A := by sorry
 
-/-- Exercise 3.2.3 -/
+/-- Вправа 3.2.3 -/
 theorem SetTheory.Set.univ_imp (U: Set) (hU: ∀ x, x ∈ U) :
     axiom_of_universal_specification := by sorry
 
-/-- Exercise 3.2.3 -/
+/-- Вправа 3.2.3 -/
 theorem SetTheory.Set.no_univ : ¬ ∃ (U:Set), ∀ (x:Object), x ∈ U := by sorry
 
 

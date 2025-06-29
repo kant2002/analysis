@@ -77,7 +77,7 @@ theorem SetTheory.Set.pos_card_nonempty {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_
   -- obtain a contradiction from the fact that `f` is a bijection
   -- from the empty set to a non-empty set
 
-/-- Exercise 3.6.2a -/
+/-- Вправа 3.6.2a -/
 theorem SetTheory.Set.has_card_zero {X:Set} : X.has_card 0 ↔ X = ∅ := by sorry
 
 /-- Лема 3.6.9 -/
@@ -149,10 +149,10 @@ abbrev SetTheory.Set.finite (X:Set) : Prop := ∃ n:ℕ, X.has_card n
 
 abbrev SetTheory.Set.infinite (X:Set) : Prop := ¬ finite X
 
-/-- Exercise 3.6.3, phrased using Mathlib natural numbers -/
+/-- Вправа 3.6.3, phrased using Mathlib natural numbers -/
 theorem SetTheory.Set.bounded_on_finite {n:ℕ} (f: Fin n → nat) : ∃ M, ∀ i, (f i:ℕ) ≤ M := by sorry
 
-/-- Theorem 3.6.12 -/
+/-- Теорема 3.6.12 -/
 theorem SetTheory.Set.nat_infinite : infinite nat := by
   -- This proof is written to follow the structure of the original text.
   unfold infinite
@@ -215,15 +215,15 @@ theorem SetTheory.Set.card_prod {X Y:Set} (hX: X.finite) (hY: Y.finite) :
 theorem SetTheory.Set.card_pow {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ^ Y).finite ∧ (X ^ Y).card = X.card ^ Y.card := by sorry
 
-/-- Exercise 3.6.2 -/
+/-- Вправа 3.6.2 -/
 theorem SetTheory.Set.card_eq_zero {X:Set} (hX: X.finite) :
     X.card = 0 ↔ X = ∅ := by sorry
 
-/-- Exercise 3.6.5 -/
+/-- Вправа 3.6.5 -/
 theorem SetTheory.Set.prod_equal_card_prod (A B:Set) :
     equal_card (A ×ˢ B) (B ×ˢ A) := by sorry
 
-/-- Exercise 3.6.6 -/
+/-- Вправа 3.6.6 -/
 theorem SetTheory.Set.pow_pow_equal_card_pow_prod (A B C:Set) :
     equal_card ((A ^ B) ^ C) (A ^ (B ×ˢ C)) := by sorry
 
@@ -231,19 +231,19 @@ example (a b c:ℕ): (a^b)^c = a^(b*c) := by sorry
 
 example (a b c:ℕ): (a^b) * a^c = a^(b+c) := by sorry
 
-/-- Exercise 3.6.7 -/
+/-- Вправа 3.6.7 -/
 theorem SetTheory.Set.injection_iff_card_le {A B:Set} (hA: A.finite) (hB: B.finite) :
     (∃ f:A → B, Function.Injective f) ↔ A.card ≤ B.card := sorry
 
-/-- Exercise 3.6.8 -/
+/-- Вправа 3.6.8 -/
 theorem SetTheory.Set.surjection_from_injection {A B:Set} (hA: A ≠ ∅) (f: A → B)
   (hf: Function.Injective f) : ∃ g:B → A, Function.Surjective g := by sorry
 
-/-- Exercise 3.6.9 -/
+/-- Вправа 3.6.9 -/
 theorem SetTheory.Set.card_union_add_card_inter {A B:Set} (hA: A.finite) (hB: B.finite) :
     A.card + B.card = (A ∪ B).card + (A ∩ B).card := by  sorry
 
-/-- Exercise 3.6.10 -/
+/-- Вправа 3.6.10 -/
 theorem SetTheory.Set.pigeonhole_principle {n:ℕ} {A: Fin n → Set}
   (hA: ∀ i, (A i).finite) (hAcard: (iUnion _ A).card > n) : ∃ i, (A i).card ≥ 2 := by sorry
 

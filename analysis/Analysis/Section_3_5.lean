@@ -39,7 +39,7 @@ structure OrderedPair where
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
 
-/-- Exercise 3.5.1 -/
+/-- Вправа 3.5.1 -/
 abbrev OrderedPair.toObject : OrderedPair ↪ Object where
   toFun p := ({ (({p.fst}:Set):Object), (({p.fst, p.snd}:Set):Object) }:Set)
   inj' := by sorry
@@ -322,7 +322,7 @@ theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i �
         exact x' _
   exact nonempty_of_inhabited (tuple_mem_iProd x)
 
-/-- Exercise 3.5.1, second part (requires axiom of regularity) -/
+/-- Вправа 3.5.1, second part (requires axiom of regularity) -/
 abbrev OrderedPair.toObject' : OrderedPair ↪ Object where
   toFun p := ({ p.fst, (({p.fst, p.snd}:Set):Object) }:Set)
   inj' := by sorry
@@ -334,7 +334,7 @@ structure SetTheory.Set.Tuple (n:ℕ) where
   x: SetTheory.Set.Fin n → X
   surj: Function.Surjective x
 
-/-- Exercise 3.5.2 -/
+/-- Вправа 3.5.2 -/
 theorem SetTheory.Set.Tuple.eq {n:ℕ} (t t':Tuple n) :
     t = t' ↔ ∀ n : Fin n, ((t.x n):Object) = ((t'.x n):Object) := by sorry
 
@@ -365,25 +365,25 @@ theorem SetTheory.Set.tuple_trans {I:Set} {X: I → Set} {a b c: ∀ i, X i}
   (hab: tuple a = tuple b) (hbc : tuple b = tuple c) :
     tuple a = tuple c := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.prod_union (A B C:Set) : A ×ˢ (B ∪ C) = (A ×ˢ B) ∪ (A ×ˢ C) := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.prod_inter (A B C:Set) : A ×ˢ (B ∩ C) = (A ×ˢ B) ∩ (A ×ˢ C) := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.prod_diff (A B C:Set) : A ×ˢ (B \ C) = (A ×ˢ B) \ (A ×ˢ C) := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.union_prod (A B C:Set) : (A ∪ B) ×ˢ C = (A ×ˢ C) ∪ (B ×ˢ C) := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.inter_prod (A B C:Set) : (A ∩ B) ×ˢ C = (A ×ˢ C) ∩ (B ×ˢ C) := by sorry
 
-/-- Exercise 3.5.4 -/
+/-- Вправа 3.5.4 -/
 theorem SetTheory.Set.diff_prod (A B C:Set) : (A \ B) ×ˢ C = (A ×ˢ C) \ (A ×ˢ B) := by sorry
 
-/-- Exercise 3.5.5 -/
+/-- Вправа 3.5.5 -/
 theorem SetTheory.Set.inter_of_prod (A B C D:Set) :
     (A ×ˢ B) ∩ (C ×ˢ D) = (A ∩ C) ×ˢ (B ∩ D) := by sorry
 
@@ -413,23 +413,23 @@ def SetTheory.Set.prod_subset_prod' :
   -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
   sorry
 
-/-- Exercise 3.5.7 -/
+/-- Вправа 3.5.7 -/
 theorem SetTheory.Set.direct_sum {X Y Z:Set} (f: Z → X) (g: Z → Y) :
     ∃! h: Z → X ×ˢ Y, fst ∘ h = f ∧ snd ∘ h = g := by sorry
 
-/-- Exercise 3.5.8 -/
+/-- Вправа 3.5.8 -/
 @[simp]
 theorem SetTheory.Set.iProd_empty_iff {n:ℕ} {X: Fin n → Set} :
     iProd X = ∅ ↔ ∀ i, X i = ∅ := by sorry
 
-/-- Exercise 3.5.9-/
+/-- Вправа 3.5.9-/
 theorem SetTheory.Set.iUnion_inter_iUnion {I J: Set} (A: I → Set) (B: J → Set) :
     (iUnion I A) ∩ (iUnion J B) = iUnion (I ×ˢ J) (fun p ↦ (A (fst p)) ∩ (B (snd p))) := by sorry
 
 abbrev SetTheory.Set.graph {X Y:Set} (f: X → Y) : Set :=
   (X ×ˢ Y).specify (fun p ↦ (f (fst p) = snd p))
 
-/-- Exercise 3.5.10 -/
+/-- Вправа 3.5.10 -/
 theorem SetTheory.Set.graph_inj {X Y:Set} (f f': X → Y) :
     graph f = graph f' ↔ f = f' := by sorry
 
@@ -444,11 +444,11 @@ theorem SetTheory.Set.is_graph {X Y G:Set} (hG: G ⊆ X ×ˢ Y)
 theorem SetTheory.Set.power_set_axiom' (X Y:Set) :
     ∃! S:Set, ∀(F:Object), F ∈ S ↔ ∃ f: Y → X, object_of f = F := sorry
 
-/-- Exercise 3.5.12, with errata from web site incorporated -/
+/-- Вправа 3.5.12, with errata from web site incorporated -/
 theorem SetTheory.Set.recursion (X: Type) (f: nat → X → X) (c:X) :
     ∃! a: nat → X, a 0 = c ∧ ∀ n, a (n + 1:ℕ) = f n (a n) := by sorry
 
-/-- Exercise 3.5.13 -/
+/-- Вправа 3.5.13 -/
 theorem SetTheory.Set.nat_unique (nat':Set) (zero:nat') (succ:nat' → nat')
   (succ_ne: ∀ n:nat', succ n ≠ zero) (succ_of_ne: ∀ n m:nat', n ≠ m → succ n ≠ succ m)
   (ind: ∀ P: nat' → Prop, P zero → (∀ n, P n → P (succ n)) → ∀ n, P n) :

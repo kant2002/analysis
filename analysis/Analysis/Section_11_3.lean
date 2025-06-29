@@ -146,17 +146,17 @@ theorem lower_integ_eq_sup_lower_sum {f:ℝ → ℝ} {I:BoundedInterval} (hf: Bd
   lower_integral f I = sSup (Set.range (fun P : Partition I ↦ lower_riemann_sum f P)) := by
   sorry
 
-/-- Exercise 11.3.1 -/
+/-- Вправа 11.3.1 -/
 theorem MajorizesOn.trans {f g h: ℝ → ℝ} {I: BoundedInterval}
   (hfg: MajorizesOn f g I) (hgh: MajorizesOn g h I) : MajorizesOn f h I := by
   sorry
 
-/-- Exercise 11.3.1 -/
+/-- Вправа 11.3.1 -/
 theorem MajorizesOn.anti_symm {f g: ℝ → ℝ} {I: BoundedInterval}:
   ∀ x ∈ (I:Set ℝ), f x = g x ↔ MajorizesOn f g I ∧ MajorizesOn g f I := by
   sorry
 
-/-- Exercise 11.3.2 -/
+/-- Вправа 11.3.2 -/
 def MajorizesOn.of_add : Decidable ( ∀ (f g h:ℝ → ℝ) (I:BoundedInterval) (hfg: MajorizesOn f g I),
  MajorizesOn (f+h) (g+h) I) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.

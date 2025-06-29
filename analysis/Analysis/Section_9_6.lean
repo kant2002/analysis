@@ -175,25 +175,25 @@ theorem sInf.of_continuous_on_compact {a b:ℝ} (h:a < b) (f:ℝ → ℝ) (hf: C
   obtain ⟨ xmin, hmin, hhas ⟩ := IsMinOn.of_continuous_on_compact h hf
   exact ⟨ xmin, hmin, sInf.of_isMinOn hmin hhas ⟩
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ContinuousOn f (Set.Ioo 1 2) ∧ BddOn f (Set.Ioo 1 2) ∧
   ∃ x₀ ∈ Set.Ioo 1 2, IsMinOn f (Set.Ioo 1 2) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Ioo 1 2, IsMaxOn f (Set.Ioo 1 2) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ContinuousOn f (Set.Ioo 1 2) ∧ BddOn f (Set.Ioo 1 2) ∧
   ∃ x₀ ∈ Set.Ioo 1 2, IsMaxOn f (Set.Ioo 1 2) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Ioo 1 2, IsMinOn f (Set.Ioo 1 2) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, BddOn f (Set.Icc (-1) 1) ∧
   ¬ ∃ x₀ ∈ Set.Icc (-1) 1, IsMinOn f (Set.Icc (-1) 1) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Icc (-1) 1, IsMaxOn f (Set.Icc (-1) 1) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ¬ BddAboveOn f (Set.Icc (-1) 1) ∧ ¬ BddBelowOn f (Set.Icc (-1) 1) := by sorry
 
 

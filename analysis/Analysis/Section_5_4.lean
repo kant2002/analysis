@@ -190,7 +190,7 @@ theorem Real.mul_pos_neg {x y:Real} (hx: x.isPos) (hy: y.isNeg) : (x * y).isNeg 
   sorry
 
 /--
-  (Not from textbook) Real has the structure of a linear ordering. The order is not computable,
+  (Не із книги) Real has the structure of a linear ordering. The order is not computable,
   and so classical logic is required to impose decidability.
 -/
 noncomputable instance Real.instLinearOrder : LinearOrder Real where
@@ -232,7 +232,7 @@ theorem Real.inv_of_gt {x y:Real} (hx: x.isPos) (hy: y.isPos) (hxy: x > y) : x�
     _ = _ := inv_mul_self hynon
   simp at this
 
-/-- (Not from textbook) Real has the structure of a strict ordered ring. -/
+/-- (Не із книги) Real has the structure of a strict ordered ring. -/
 instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   add_le_add_left := by sorry
   add_le_add_right := by sorry
@@ -347,29 +347,29 @@ theorem Real.le_mul {ε:Real} (hε: ε.isPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M 
 /-- Твердження 5.4.14 / Exercise 5.4.5 -/
 theorem Real.rat_between {x y:Real} (hxy: x < y) : ∃ q:ℚ, x < (q:Real) ∧ (q:Real) < y := by sorry
 
-/-- Exercise 5.4.3 -/
+/-- Вправа 5.4.3 -/
 theorem Real.floor_exist (x:Real) : ∃ n:ℤ, (n:Real) ≤ x ∧ x < (n:Real)+1 := by sorry
 
-/-- Exercise 5.4.4 -/
+/-- Вправа 5.4.4 -/
 theorem Real.exist_inv_nat_le {x:Real} (hx: x.isPos) : ∃ N, N>0 ∧ (N:Real)⁻¹ < x := by sorry
 
-/-- Exercise 5.4.6 -/
+/-- Вправа 5.4.6 -/
 theorem Real.dist_lt_iff (ε x y:Real) : |x-y| < ε ↔ y-ε < x ∧ x < y+ε := by sorry
 
-/-- Exercise 5.4.6 -/
+/-- Вправа 5.4.6 -/
 theorem Real.dist_le_iff (ε x y:Real) : |x-y| ≤ ε ↔ y-ε ≤ x ∧ x ≤ y+ε := by sorry
 
-/-- Exercise 5.4.7 -/
+/-- Вправа 5.4.7 -/
 theorem Real.le_add_eps_iff (x y:Real) : ∀ ε > 0, x ≤ y+ε ↔ x ≤ y := by sorry
 
-/-- Exercise 5.4.7 -/
+/-- Вправа 5.4.7 -/
 theorem Real.dist_le_eps_iff (x y:Real) : ∀ ε > 0, |x-y| ≤ ε ↔ x = y := by sorry
 
-/-- Exercise 5.4.8 -/
+/-- Вправа 5.4.8 -/
 theorem Real.LIM_of_le {x:Real} {a:ℕ → ℚ} (hcauchy: (a:Sequence).isCauchy) (h: ∀ n, a n ≤ x) :
     LIM a ≤ x := by sorry
 
-/-- Exercise 5.4.8 -/
+/-- Вправа 5.4.8 -/
 theorem Real.LIM_of_ge {x:Real} {a:ℕ → ℚ} (hcauchy: (a:Sequence).isCauchy) (h: ∀ n, a n ≥ x) :
     LIM a ≥ x := by sorry
 
@@ -377,43 +377,43 @@ theorem Real.max_eq (x y:Real) : max x y = (if x ≥ y then x else y) :=  max_de
 
 theorem Real.min_eq (x y:Real) : min x y = (if x ≤ y then x else y) := rfl
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.neg_max (x y:Real) : max x y = - min (-x) (-y) := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.neg_min (x y:Real) : min x y = - max (-x) (-y) := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.max_comm (x y:Real) : max x y = max y x := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.max_self (x:Real) : max x x = x := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.max_add (x y z:Real) : max (x + z) (y + z) = max x y + z := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.max_mul (x y :Real) {z:Real} (hz: z.isPos) : max (x * z) (y * z) = max x y * z := by
   sorry
 /- Additional exercise: What happens if z is negative? -/
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.min_comm (x y:Real) : min x y = min y x := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.min_self (x:Real) : min x x = x := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.min_add (x y z:Real) : min (x + z) (y + z) = min x y + z := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.min_mul (x y :Real) {z:Real} (hz: z.isPos) : min (x * z) (y * z) = min x y * z := by
   sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.inv_max {x y :Real} (hx:x.isPos) (hy:y.isPos) : (max x y)⁻¹ = min x⁻¹ y⁻¹ := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.inv_min {x y :Real} (hx:x.isPos) (hy:y.isPos) : (min x y)⁻¹ = max x⁻¹ y⁻¹ := by sorry
 
 /-- Not from textbook: the rationals map as an ordered ring homomorphism into the reals. -/

@@ -25,21 +25,21 @@ import Analysis.Section_2_1
 namespace Chapter2
 
 /-- Визначення 2.2.1. (Addition of natural numbers).
-    Compare with Mathlib's `Nat.add` -/
+    Порівняйте із Mathlib-овським `Nat.add` -/
 abbrev Nat.add (n m : Nat) : Nat := Nat.recurse (fun _ sum ↦ sum++) m n
 
 /-- This instance allows for the `+` notation to be used for natural number addition. -/
 instance Nat.instAdd : Add Nat where
   add := add
 
-/-- Compare with Mathlib's `Nat.zero_add`-/
+/-- Порівняйте із Mathlib-овським `Nat.zero_add`-/
 @[simp]
 theorem Nat.zero_add (m: Nat) : 0 + m = m := recurse_zero (fun _ sum ↦ sum++) _
 
-/-- Compare with Mathlib's `Nat.succ_add` -/
+/-- Порівняйте із Mathlib-овським `Nat.succ_add` -/
 theorem Nat.succ_add (n m: Nat) : n++ + m = (n+m)++ := by rfl
 
-/-- Compare with Mathlib's `Nat.one_add` -/
+/-- Порівняйте із Mathlib-овським `Nat.one_add` -/
 theorem Nat.one_add (m:Nat) : 1 + m = m++ := by
   rw [show 1 = 0++ from rfl, succ_add, zero_add]
 
@@ -52,7 +52,7 @@ example : (2:Nat) + 3 = 5 := by
 -- sum of two natural numbers is again a natural number
 #check (fun (n m:Nat) ↦ n + m)
 
-/-- Лема 2.2.2 (n + 0 = n). Compare with Mathlib's `Nat.add_zero` -/
+/-- Лема 2.2.2 (n + 0 = n). Порівняйте із Mathlib-овським `Nat.add_zero` -/
 @[simp]
 lemma Nat.add_zero (n:Nat) : n + 0 = n := by
   -- this proof is written to follow the structure of the original text.
@@ -63,7 +63,7 @@ lemma Nat.add_zero (n:Nat) : n + 0 = n := by
     (n++) + 0 = (n + 0)++ := by rfl
     _ = n++ := by rw [ih]
 
-/-- Лема 2.2.3 (n+(m++) = (n+m)++). Compare with Mathlib's `Nat.add_succ` -/
+/-- Лема 2.2.3 (n+(m++) = (n+m)++). Порівняйте із Mathlib-овським `Nat.add_succ` -/
 lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
   -- this proof is written to follow the structure of the original text.
   revert n; apply induction
@@ -73,11 +73,11 @@ lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
   rw [succ_add]
 
 
-/-- n++ = n + 1 (Why?). Compare with Mathlib's `Nat.succ_eq_add_one` -/
+/-- n++ = n + 1 (Why?). Порівняйте із Mathlib-овським `Nat.succ_eq_add_one` -/
 theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
   sorry
 
-/-- Твердження 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
+/-- Твердження 2.2.4 (Addition is commutative). Порівняйте із Mathlib-овським `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
   -- this proof is written to follow the structure of the original text.
   revert n; apply induction
@@ -87,12 +87,12 @@ theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
   rw [add_succ, ih]
 
 /-- Твердження 2.2.5 (Addition is associative) / Exercise 2.2.1
-    Compare with Mathlib's `Nat.add_assoc` -/
+    Порівняйте із Mathlib-овським `Nat.add_assoc` -/
 theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
   sorry
 
 /-- Твердження 2.2.6 (Cancellation law)
-    Compare with Mathlib's `Nat.add_left_cancel` -/
+    Порівняйте із Mathlib-овським `Nat.add_left_cancel` -/
 theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   -- this proof is written to follow the structure of the original text.
   revert a; apply induction
@@ -105,7 +105,7 @@ theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   exact ih hbc
 
 
-/-- (Not from textbook) Nat can be given the structure of a commutative additive monoid. -/
+/-- (Не із книги) Nat can be given the structure of a commutative additive monoid. -/
 instance Nat.addCommMonoid : AddCommMonoid Nat where
   add_assoc := add_assoc
   add_comm := add_comm
@@ -119,7 +119,7 @@ def Nat.isPos (n:Nat) : Prop := n ≠ 0
 theorem Nat.isPos_iff (n:Nat) : n.isPos ↔ n ≠ 0 := by rfl
 
 /-- Твердження 2.2.8 (positive plus natural number is positive).
-    Compare with Mathlib's `Nat.add_pos_left` -/
+    Порівняйте із Mathlib-овським `Nat.add_pos_left` -/
 theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.isPos) : (a + b).isPos := by
   -- this proof is written to follow the structure of the original text.
   revert b; apply induction
@@ -129,13 +129,13 @@ theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.isPos) : (a + b).isPos := by
   have : (a+b)++ ≠ 0 := succ_ne _
   exact this
 
-/-- Compare with Mathlib's `Nat.add_pos_right` -/
+/-- Порівняйте із Mathlib-овським `Nat.add_pos_right` -/
 theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.isPos) : (b + a).isPos := by
   rw [add_comm]
   exact add_pos_left _ ha
 
 /-- Corollary 2.2.9 (if sum vanishes, then summands vanish).
-    Compare with Mathlib's `Nat.add_eq_zero` -/
+    Порівняйте із Mathlib-овським `Nat.add_eq_zero` -/
 theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
   -- this proof is written to follow the structure of the original text.
   by_contra h
@@ -176,16 +176,16 @@ lemma Nat.le_iff (n m:Nat) : n ≤ m ↔ ∃ a:Nat, m = n + a := by rfl
 
 lemma Nat.lt_iff (n m:Nat) : n < m ↔ (∃ a:Nat, m = n + a) ∧ n ≠ m := by rfl
 
-/-- Compare with Mathlib's `ge_iff_le` -/
+/-- Порівняйте із Mathlib-овським `ge_iff_le` -/
 lemma Nat.ge_iff_le (n m:Nat) : n ≥ m ↔ m ≤ n := by rfl
 
-/-- Compare with Mathlib's `gt_iff_lt` -/
+/-- Порівняйте із Mathlib-овським `gt_iff_lt` -/
 lemma Nat.gt_iff_lt (n m:Nat) : n > m ↔ m < n := by rfl
 
-/-- Compare with Mathlib's `Nat.le_of_lt` -/
+/-- Порівняйте із Mathlib-овським `Nat.le_of_lt` -/
 lemma Nat.le_of_lt {n m:Nat} (hnm: n < m) : n ≤ m := hnm.1
 
-/-- Compare with Mathlib's `Nat.le_iff_lt_or_eq` -/
+/-- Порівняйте із Mathlib-овським `Nat.le_iff_lt_or_eq` -/
 lemma Nat.le_iff_lt_or_eq (n m:Nat) : n ≤ m ↔ n < m ∨ n = m := by
   rw [Nat.le_iff, Nat.lt_iff]
   by_cases h : n = m
@@ -202,41 +202,41 @@ example : (8:Nat) > 5 := by
     use 3
   decide
 
-/-- Compare with Mathlib's `Nat.lt_succ_self`-/
+/-- Порівняйте із Mathlib-овським `Nat.lt_succ_self`-/
 theorem Nat.succ_gt_self (n:Nat) : n++ > n := by
   sorry
 
 /-- Твердження 2.2.12 (Basic properties of order for natural numbers) / Exercise 2.2.3
 
-(a) (Order is reflexive). Compare with Mathlib's `Nat.le_refl`-/
+(a) (Order is reflexive). Порівняйте із Mathlib-овським `Nat.le_refl`-/
 theorem Nat.ge_refl (a:Nat) : a ≥ a := by
   sorry
 
 /-- (b) (Order is transitive).  The `obtain` tactic will be useful here.
-    Compare with Mathlib's `Nat.le_trans` -/
+    Порівняйте із Mathlib-овським `Nat.le_trans` -/
 theorem Nat.ge_trans {a b c:Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
   sorry
 
-/-- (c) (Order is anti-symmetric). Compare with Mathlib's `Nat.le_antisymm`  -/
+/-- (c) (Order is anti-symmetric). Порівняйте із Mathlib-овським `Nat.le_antisymm`  -/
 theorem Nat.ge_antisymm {a b:Nat} (hab: a ≥ b) (hba: b ≥ a) : a = b := by
   sorry
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_right`  -/
+/-- (d) (Addition preserves order).  Порівняйте із Mathlib-овським `Nat.add_le_add_right`  -/
 theorem Nat.add_ge_add_right (a b c:Nat) : a ≥ b ↔ a + c ≥ b + c := by
   sorry
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_left`  -/
+/-- (d) (Addition preserves order).  Порівняйте із Mathlib-овським `Nat.add_le_add_left`  -/
 theorem Nat.add_ge_add_left (a b c:Nat) : a ≥ b ↔ c + a ≥ c + b := by
   simp only [add_comm]
   exact add_ge_add_right _ _ _
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_right`  -/
+/-- (d) (Addition preserves order).  Порівняйте із Mathlib-овським `Nat.add_le_add_right`  -/
 theorem Nat.add_le_add_right (a b c:Nat) : a ≤ b ↔ a + c ≤ b + c := add_ge_add_right _ _ _
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_left`  -/
+/-- (d) (Addition preserves order).  Порівняйте із Mathlib-овським `Nat.add_le_add_left`  -/
 theorem Nat.add_le_add_left (a b c:Nat) : a ≤ b ↔ c + a ≤ c + b := add_ge_add_left _ _ _
 
-/-- (e) a < b iff a++ ≤ b.  Compare with Mathlib's `Nat.succ_le_iff` -/
+/-- (e) a < b iff a++ ≤ b.  Порівняйте із Mathlib-овським `Nat.succ_le_iff` -/
 theorem Nat.lt_iff_succ_le (a b:Nat) : a < b ↔ a++ ≤ b := by
   sorry
 
@@ -261,7 +261,7 @@ theorem Nat.not_lt_of_gt (a b:Nat) : a < b ∧ a > b → False := by
 
 
 /-- Твердження 2.2.13 (Trichotomy of order for natural numbers) / Exercise 2.2.4
-    Compare with Mathlib's `trichotomous` -/
+    Порівняйте із Mathlib-овським `trichotomous` -/
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   -- this proof is written to follow the structure of the original text.
   revert a; apply induction
@@ -280,13 +280,13 @@ theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   tauto
 
 /--
-  (Not from textbook) Establish the decidability of this order computably.  The portion of the
+  (Не із книги) Establish the decidability of this order computably.  The portion of the
   proof involving decidability has been provided; the remaining sorries involve claims about the
   natural numbers.  One could also have established this result by the `classical` tactic
   followed by `exact Classical.decRel _`, but this would make this definition (as well as some
   instances below) noncomputable.
 
-  Compare with Mathlib's `Nat.decLe`
+  Порівняйте із Mathlib-овським `Nat.decLe`
 -/
 def Nat.decLe : (a b : Nat) → Decidable (a ≤ b)
   | 0, b => by
@@ -309,7 +309,7 @@ def Nat.decLe : (a b : Nat) → Decidable (a ≤ b)
 instance Nat.decidableRel : DecidableRel (· ≤ · : Nat → Nat → Prop) := Nat.decLe
 
 
-/-- (Not from textbook) Nat has the structure of a linear ordering. -/
+/-- (Не із книги) Nat has the structure of a linear ordering. -/
 instance Nat.linearOrder : LinearOrder Nat where
   le_refl := ge_refl
   le_trans a b c hab hbc := ge_trans hbc hab
@@ -318,29 +318,29 @@ instance Nat.linearOrder : LinearOrder Nat where
   le_total := sorry
   toDecidableLE := decidableRel
 
-/-- (Not from textbook) Nat has the structure of an ordered monoid. -/
+/-- (Не із книги) Nat has the structure of an ordered monoid. -/
 instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
   add_le_add_left := by
     intro a b hab c
     exact (add_le_add_left a b c).mp hab
 
 /-- Твердження 2.2.14 (Strong principle of induction) / Exercise 2.2.5
-    Compare with Mathlib's `Nat.strong_induction_on`
+    Порівняйте із Mathlib-овським `Nat.strong_induction_on`
 -/
 theorem Nat.strong_induction {m₀:Nat} {P: Nat → Prop}
   (hind: ∀ m, m ≥ m₀ → (∀ m', m₀ ≤ m' ∧ m' < m → P m') → P m) :
     ∀ m, m ≥ m₀ → P m := by
   sorry
 
-/-- Exercise 2.2.6 (backwards induction)
-    Compare with Mathlib's `Nat.decreasingInduction` -/
+/-- Вправа 2.2.6 (backwards induction)
+    Порівняйте із Mathlib-овським `Nat.decreasingInduction` -/
 theorem Nat.backwards_induction {n:Nat} {P: Nat → Prop}
   (hind: ∀ m, P (m++) → P m) (hn: P n) :
     ∀ m, m ≤ n → P m := by
   sorry
 
-/-- Exercise 2.2.7 (induction from a starting point)
-    Compare with Mathlib's `Nat.le_induction` -/
+/-- Вправа 2.2.7 (induction from a starting point)
+    Порівняйте із Mathlib-овським `Nat.le_induction` -/
 theorem Nat.induction_from {n:Nat} {P: Nat → Prop} (hind: ∀ m, P m → P (m++)) :
     P n → ∀ m, m ≥ n → P m := by
   sorry

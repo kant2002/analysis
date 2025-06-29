@@ -18,7 +18,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Theorem 9.7.1 (Intermediate value theorem) -/
+/-- Теорема 9.7.1 (Intermediate value theorem) -/
 theorem intermediate_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (Set.Icc a b)) {y:ℝ} (hy: y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b)) :
   ∃ c ∈ Set.Icc a b, f c = y := by
   -- This proof is written to follow the structure of the original text.
@@ -144,7 +144,7 @@ theorem continuous_image_Icc {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: Continu
 theorem continuous_image_Icc' {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (Set.Icc a b)) : f '' Set.Icc a b = Set.Icc (sInf (f '' Set.Icc a b)) (sSup (f '' Set.Icc a b)) := by
   sorry
 
-/-- Exercise 9.7.2 -/
+/-- Вправа 9.7.2 -/
 theorem exists_fixed_pt {f:ℝ → ℝ} (hf: ContinuousOn f (Set.Icc 0 1)) (hmap: f '' Set.Icc 0 1 ⊆ Set.Icc 0 1) : ∃ x ∈ Set.Icc 0 1, f x = x := by
   sorry
 

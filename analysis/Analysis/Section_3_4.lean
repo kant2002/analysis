@@ -133,7 +133,7 @@ theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
     ∨ x = ({b,c}:Set)
     ∨ x = ({a,b,c}:Set) := by sorry
 
-/-- Axiom 3.11 (Union) -/
+/-- Аксіома 3.11 (Union) -/
 theorem SetTheory.Set.union_axiom (A: Set) (x:Object) :
     x ∈ union A ↔ ∃ (S:Set), x ∈ S ∧ (S:Object) ∈ A := SetTheory.union_axiom A x
 
@@ -197,7 +197,7 @@ theorem SetTheory.Set.mem_iInter {I:Set} (hI: I ≠ ∅) (A: I → Set) (x:Objec
     x ∈ iInter I hI A ↔ ∀ α:I, x ∈ A α := by
   sorry
 
-/-- Exercise 3.4.1 -/
+/-- Вправа 3.4.1 -/
 theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y → X)
   (hf: Function.LeftInverse f_inv f ∧ Function.RightInverse f_inv f) (hV: V ⊆ Y) :
     image f_inv V = preimage f V := by sorry
@@ -220,7 +220,7 @@ theorem SetTheory.Set.image_of_diff {X Y:Set} (f:X → Y) (A B: Set) :
 theorem SetTheory.Set.image_of_union {X Y:Set} (f:X → Y) (A B: Set) :
     image f (A ∪ B) = (image f A) ∪ (image f B) := by sorry
 
-/-- Exercise 3.4.4 -/
+/-- Вправа 3.4.4 -/
 theorem SetTheory.Set.preimage_of_inter {X Y:Set} (f:X → Y) (A B: Set) :
     preimage f (A ∩ B) = (preimage f A) ∩ (preimage f B) := by sorry
 
@@ -230,15 +230,15 @@ theorem SetTheory.Set.preimage_of_union {X Y:Set} (f:X → Y) (A B: Set) :
 theorem SetTheory.Set.preimage_of_diff {X Y:Set} (f:X → Y) (A B: Set) :
     preimage f (A \ B) = (preimage f A) \ (preimage f B)  := by sorry
 
-/-- Exercise 3.4.5 -/
+/-- Вправа 3.4.5 -/
 theorem SetTheory.Set.image_preimage_of_surj {X Y:Set} (f:X → Y) :
     (∀ S, S ⊆ Y → image f (preimage f S) = S) ↔ Function.Surjective f := by sorry
 
-/-- Exercise 3.4.5 -/
+/-- Вправа 3.4.5 -/
 theorem SetTheory.Set.preimage_image_of_inj {X Y:Set} (f:X → Y) :
     (∀ S, S ⊆ X → preimage f (image f S) = S) ↔ Function.Injective f := by sorry
 
-/-- Exercise 3.4.7 -/
+/-- Вправа 3.4.7 -/
 theorem SetTheory.Set.partial_functions {X Y:Set} :
     ∃ Z:Set, ∀ F:Object, F ∈ Z ↔ ∃ X' Y':Set, X' ⊆ X ∧ Y' ⊆ Y ∧ ∃ f: X' → Y', F = object_of f := by
   sorry
@@ -250,30 +250,30 @@ theorem SetTheory.Set.partial_functions {X Y:Set} :
 theorem SetTheory.Set.union_pair_exists (X Y:Set) : ∃ Z:Set, ∀ x, x ∈ Z ↔ (x ∈ X ∨ x ∈ Y) := by
   sorry
 
-/-- Exercise 3.4.9 -/
+/-- Вправа 3.4.9 -/
 theorem SetTheory.Set.iInter'_insensitive {I:Set} (β β':I) (A: I → Set) :
     iInter' I β A = iInter' I β' A := by sorry
 
-/-- Exercise 3.4.10 -/
+/-- Вправа 3.4.10 -/
 theorem SetTheory.Set.union_iUnion {I J:Set} (A: (I ∪ J:Set) → Set) :
     iUnion I (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
     ∪ iUnion J (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
     = iUnion (I ∪ J) A := by sorry
 
-/-- Exercise 3.4.10 -/
+/-- Вправа 3.4.10 -/
 theorem SetTheory.Set.union_of_nonempty {I J:Set} (hI: I ≠ ∅) (hJ: J ≠ ∅) : I ∪ J ≠ ∅ := by sorry
 
-/-- Exercise 3.4.10 -/
+/-- Вправа 3.4.10 -/
 theorem SetTheory.Set.inter_iInter {I J:Set} (hI: I ≠ ∅) (hJ: J ≠ ∅) (A: (I ∪ J:Set) → Set) :
     iInter I hI (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
     ∪ iInter J hJ (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
     = iInter (I ∪ J) (union_of_nonempty hI hJ) A := by sorry
 
-/-- Exercise 3.4.11 -/
+/-- Вправа 3.4.11 -/
 theorem SetTheory.Set.compl_iUnion {X I: Set} (hI: I ≠ ∅) (A: I → Set) :
     X \ iUnion I A = iInter I hI (fun α ↦ X \ A α) := by sorry
 
-/-- Exercise 3.4.11 -/
+/-- Вправа 3.4.11 -/
 theorem SetTheory.Set.compl_iInter {X I: Set} (hI: I ≠ ∅) (A: I → Set) :
     X \ iInter I hI A = iUnion I (fun α ↦ X \ A α) := by sorry
 

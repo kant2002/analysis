@@ -46,7 +46,7 @@ theorem abs_of_neg {x: ℚ} (hx: x < 0) : abs x = -x := by
 theorem abs_of_zero : abs 0 = 0 := by rfl
 
 /--
-  (Not from textbook) This definition of absolute value agrees with the Mathlib one.
+  (Не із книги) This definition of absolute value agrees with the Mathlib one.
   Henceforth we use the Mathlib absolute value.
 -/
 theorem abs_eq_abs (x: ℚ) : abs x = |x| := by
@@ -238,5 +238,5 @@ theorem zpow_inj {x y:ℚ} {n:ℤ} (hx: x > 0) (hy : y > 0) (hn: n ≠ 0) (hxy: 
 /-- Твердження 4.3.12(d) (Properties of exponentiation, II) / Exercise 4.3.4 -/
 theorem zpow_abs (x:ℚ) (n:ℤ) (hx: x ≠ 0) : |x|^n = |x^n| := by sorry
 
-/-- Exercise 4.3.5 -/
+/-- Вправа 4.3.5 -/
 theorem two_pow_geq (N:ℕ) : 2^N ≥ N := by sorry

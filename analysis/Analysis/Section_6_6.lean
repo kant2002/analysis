@@ -52,7 +52,7 @@ theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).limit_point L ↔ ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).tendsTo L := by
   sorry
 
-/-- Theorem 6.6.8 (Bolzano-Weierstrass theorem) -/
+/-- Теорема 6.6.8 (Bolzano-Weierstrass theorem) -/
 theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).isBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).convergent := by
   -- This proof is written to follow the structure of the original text.

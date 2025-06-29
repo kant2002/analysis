@@ -190,28 +190,28 @@ example {X Y Z:Prop} (hXY: X ↔ Y) (hXZ: X ↔ Z) : [X,Y,Z].TFAE := by
 example {X Y Z:Prop} (h: [X,Y,Z].TFAE) : X ↔ Y := by
   exact h.out 0 1
 
-/-- Exercise A.1.1.  Fill in the first `sorry` with something reasonable. -/
+/-- Вправа A.1.1.  Fill in the first `sorry` with something reasonable. -/
 example {X Y:Prop} : ¬ ((X ∨ Y) ∧ ¬ (X ∧ Y)) ↔ sorry := by sorry
 
-/-- Exercise A.1.2.  Fill in the first `sorry` with something reasonable. -/
+/-- Вправа A.1.2.  Fill in the first `sorry` with something reasonable. -/
 example {X Y:Prop} : ¬ (X ↔ Y) ↔ sorry := by sorry
 
-/-- Exercise A.1.3. -/
+/-- Вправа A.1.3. -/
 def Exercise_A_1_3 : Decidable (∀ (X Y: Prop), (X → Y) → (¬X → ¬ Y) → (X ↔ Y)) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`, depending on whether you believe the given statement to be true or false.
   sorry
 
-/-- Exercise A.1.4. -/
+/-- Вправа A.1.4. -/
 def Exercise_A_1_4 : Decidable (∀ (X Y: Prop), (X → Y) → (¬Y → ¬ X) → (X ↔ Y)) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry
 
-/-- Exercise A.1.5. -/
+/-- Вправа A.1.5. -/
 def Exercise_A_1_5 : Decidable (∀ (X Y Z: Prop), (X ↔ Y) → (Y ↔ Z) → [X,Y,Z].TFAE) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry
 
-/-- Exercise A.1.6. -/
+/-- Вправа A.1.6. -/
 def Exercise_A_1_6 : Decidable (∀ (X Y Z: Prop), (X → Y) → (Y → Z) → (Z → X) → [X,Y,Z].TFAE) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry

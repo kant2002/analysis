@@ -237,7 +237,7 @@ theorem Series.Basel_problem :  (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ 2 : Series
   simpa [←Complex.ofReal_inj]
 
 
-/-- Exercise 7.3.3 -/
+/-- Вправа 7.3.3 -/
 theorem Series.nonneg_sum_zero {a:ℕ → ℝ} (ha: (a:Series).nonneg) (hconv: (a:Series).converges) : (a:Series).sum = 0 ↔ ∀ n, a n = 0 := by sorry
 
 

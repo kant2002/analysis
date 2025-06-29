@@ -241,70 +241,70 @@ theorem PiecewiseConstantOn.integ_congr {f g:ℝ → ℝ} {I: BoundedInterval}
 example : PiecewiseConstantOn.integ f_11_2_4 (Icc 1 6) = 10 := by
   sorry
 
-/-- Theorem 11.2.16 (a) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (a) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_add {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   PiecewiseConstantOn.integ (f + g) I = PiecewiseConstantOn.integ f I + PiecewiseConstantOn.integ g I := by
   sorry
 
-/-- Theorem 11.2.16 (b) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (b) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_smul {f: ℝ → ℝ} {I: BoundedInterval} (c:ℝ)
   (hf: PiecewiseConstantOn f I) :
   PiecewiseConstantOn.integ (c • f) I = c * PiecewiseConstantOn.integ f I
    := by
   sorry
 
-/-- Theorem 11.2.16 (c) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (c) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_sub {f g: ℝ → ℝ} {I: BoundedInterval} (c:ℝ)
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   PiecewiseConstantOn.integ (f - g) I = PiecewiseConstantOn.integ f I - PiecewiseConstantOn.integ g I
    := by
   sorry
 
-/-- Theorem 11.2.16 (d) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (d) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_of_nonneg {f: ℝ → ℝ} {I: BoundedInterval} (h: ∀ x ∈ I, 0 ≤ f x)
   (hf: PiecewiseConstantOn f I) :
   0 ≤ PiecewiseConstantOn.integ f I := by
   sorry
 
-/-- Theorem 11.2.16 (e) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (e) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_mono {f g: ℝ → ℝ} {I: BoundedInterval} (h: ∀ x ∈ I, f x ≤ g x)
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   PiecewiseConstantOn.integ f I ≤ PiecewiseConstantOn.integ g I := by
   sorry
 
 
-/-- Theorem 11.2.16 (f) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (f) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_const (c: ℝ) (I: BoundedInterval) :
   PiecewiseConstantOn.integ (fun _ ↦ c) I = c * |I|ₗ := by
   sorry
 
-/-- Theorem 11.2.16 (f) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (f) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_const' {f:ℝ → ℝ} {I: BoundedInterval} (h: ConstantOn f I) :
   PiecewiseConstantOn.integ f I = (constant_value_on f I) * |I|ₗ := by
   sorry
 
 open Classical in
-/-- Theorem 11.2.16 (g) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (g) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.of_extend {I J: BoundedInterval} (hIJ: I ⊆ J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) :
   PiecewiseConstantOn (fun x ↦ if x ∈ I then f x else 0) J := by
   sorry
 
 open Classical in
-/-- Theorem 11.2.16 (g) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (g) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_of_extend {I J: BoundedInterval} (hIJ: I ⊆ J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) :
   PiecewiseConstantOn.integ (fun x ↦ if x ∈ I then f x else 0) J = PiecewiseConstantOn.integ f I := by
   sorry
 
-/-- Theorem 11.2.16 (h) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (h) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.of_join {I J K: BoundedInterval} (hIJK: K.joins I J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f K) :
   PiecewiseConstantOn f I ∧ PiecewiseConstantOn f J := by
   sorry
 
-/-- Theorem 11.2.16 (h) (Laws of integration) / Exercise 11.2.4 -/
+/-- Теорема 11.2.16 (h) (Laws of integration) / Exercise 11.2.4 -/
 theorem PiecewiseConstantOn.integ_of_join {I J K: BoundedInterval} (hIJK: K.joins I J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f K) :
   PiecewiseConstantOn.integ f K = PiecewiseConstantOn.integ f I + PiecewiseConstantOn.integ f J := by

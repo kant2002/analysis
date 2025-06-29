@@ -18,7 +18,7 @@ A point that is only implicitly stated in the text is that for the root and rati
 
 namespace Chapter7
 
-/-- Theorem 7.5.1(a) (Root test).  A technical condition `hbound` is needed to ensure the limsup is finite. -/
+/-- Теорема 7.5.1(a) (Root test).  A technical condition `hbound` is needed to ensure the limsup is finite. -/
 theorem Series.root_test_pos {s : Series}
   (h : Filter.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop < 1) : s.absConverges := by
     -- This proof is written to follow the structure of the original text.
@@ -84,7 +84,7 @@ theorem Series.root_test_pos {s : Series}
     all_goals simp [hn]; intros; omega
 
 
-/-- Theorem 7.5.1(b) (Root test) -/
+/-- Теорема 7.5.1(b) (Root test) -/
 theorem Series.root_test_neg {s : Series}
   (h : Filter.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop > 1) : s.diverges := by
     -- This proof is written to follow the structure of the original text.
@@ -99,12 +99,12 @@ theorem Series.root_test_neg {s : Series}
     rw [(show (1:EReal) = (1:ℝ) by simp), EReal.coe_lt_coe_iff] at hs
     linarith
 
-/-- Theorem 7.5.1(c) (Root test) / Exercise 7.5.3 -/
+/-- Теорема 7.5.1(c) (Root test) / Exercise 7.5.3 -/
 theorem Series.root_test_inconclusive: ∃ s:Series,
   Filter.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) Filter.atTop (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Theorem 7.5.1 (Root test) / Exercise 7.5.3 -/
+/-- Теорема 7.5.1 (Root test) / Exercise 7.5.3 -/
 theorem Series.root_test_inconclusive' : ∃ s:Series,
   Filter.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry
@@ -243,7 +243,7 @@ theorem Series.root_self_converges : (fun (n:ℕ) ↦ (n:ℝ)^(1 / n : ℝ) : Se
   -- This proof is written to follow the structure of the original text.
   sorry
 
-/-- Exercise 7.5.2 -/
+/-- Вправа 7.5.2 -/
 theorem Series.poly_mul_geom_converges {x:ℝ} (hx: |x|<1) (q:ℝ) : (fun n:ℕ ↦ (n:ℝ)^q * x^n : Series).converges ∧ Filter.Tendsto (fun n:ℕ ↦ (n:ℝ)^q * x^n) Filter.atTop (nhds 0) := by
   sorry
 

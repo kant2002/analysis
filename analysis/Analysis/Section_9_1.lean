@@ -107,7 +107,7 @@ theorem closure_inter (X Y:Set ℝ): closure (X ∩ Y) ⊆ closure X ∩ closure
 /-- Лема 9.1.11 / Exercise 9.1.2 -/
 theorem closure_subset {X Y:Set ℝ} (h: X ⊆ Y): closure X ⊆ closure Y := by sorry
 
-/-- Exercise 9.1.1 -/
+/-- Вправа 9.1.1 -/
 theorem closure_of_subset_closure {X Y:Set ℝ} (h: X ⊆ Y) (h' : Y ⊆ closure X): closure Y = closure X := by sorry
 
 /-- Лема 9.1.12 -/
@@ -374,63 +374,63 @@ theorem Q_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℚ ↦ (n:ℝ)) '
 /-- Example 9.1.23 -/
 theorem R_unbounded (a: ℝ) : ¬ Bornology.IsBounded (Set.univ: Set ℝ) := by sorry
 
-/-- Theorem 9.1.24 / Exercise 9.1.13 (Heine-Borel theorem for the line)-/
+/-- Теорема 9.1.24 / Exercise 9.1.13 (Heine-Borel theorem for the line)-/
 theorem Heine_Borel (X: Set ℝ) :
   IsClosed X ∧ Bornology.IsBounded X ↔ ∀ a : ℕ → ℝ, (∀ n, a n ∈ X) →
   (∃ n : ℕ → ℕ, StrictMono n
     ∧ ∃ L ∈ X, Filter.Tendsto (fun j ↦ a (n j)) Filter.atTop (nhds L)) := by
   sorry
 
-/-- Exercise 9.1.4 -/
+/-- Вправа 9.1.4 -/
 example : ∃ (X Y:Set ℝ), closure (X ∩ Y) ≠ closure X ∩ closure Y := by
   sorry
 
-/-- Exercise 9.1.6 -/
+/-- Вправа 9.1.6 -/
 example (X:Set ℝ) : IsClosed (closure X) := by
   sorry
 
-/-- Exercise 9.1.6 -/
+/-- Вправа 9.1.6 -/
 example {X Y:Set ℝ} (hY: IsClosed Y) (hXY: X ⊆ Y) : closure X ⊆ Y := by
   sorry
 
-/-- Exercise 9.1.7 -/
+/-- Вправа 9.1.7 -/
 example {n:ℕ} (X: Fin n → Set ℝ) (hX: ∀ i, IsClosed (X i)) :
   IsClosed (⋃ i, X i) := by
   sorry
 
-/-- Exercise 9.1.8 -/
+/-- Вправа 9.1.8 -/
 example {I:Type} (X: I → Set ℝ) (hX: ∀ i, IsClosed (X i)) :
   IsClosed (⋂ i, X i) := by
   sorry
 
-/-- Exercise 9.1.9 -/
+/-- Вправа 9.1.9 -/
 example {X:Set ℝ} {x:ℝ} (hx: AdherentPt x X) : LimitPt x X ∨ IsolatedPt x X := by
   sorry
 
-/-- Exercise 9.1.9 -/
+/-- Вправа 9.1.9 -/
 example {X:Set ℝ} {x:ℝ} : ¬ (LimitPt x X ∧ IsolatedPt x X) := by
   sorry
 
-/-- Exercise 9.1.10 -/
+/-- Вправа 9.1.10 -/
 example {X:Set ℝ} (hX: X ≠ ∅) : Bornology.IsBounded X ↔
   sSup ((fun x:ℝ ↦ (x:EReal)) '' X) < ⊤ ∧
   sInf ((fun x:ℝ ↦ (x:EReal)) '' X) > ⊥ := by
   sorry
 
-/-- Exercise 9.1.11 -/
+/-- Вправа 9.1.11 -/
 example {X:Set ℝ} (hX: Bornology.IsBounded X) : Bornology.IsBounded (closure X) := by
   sorry
 
-/-- Exercise 9.1.12.  As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
+/-- Вправа 9.1.12.  As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
 example {I:Type} [Fintype I] (X: I → Set ℝ) (hX: ∀ i, Bornology.IsBounded (X i)) :
   Bornology.IsBounded (⋃ i, X i) := by
   sorry
 
-/-- Exercise 9.1.14 -/
+/-- Вправа 9.1.14 -/
 example (I: Finset ℝ) : IsClosed (I:Set ℝ) ∧ Bornology.IsBounded (I:Set ℝ) := by
   sorry
 
-/-- Exercise 9.1.15 -/
+/-- Вправа 9.1.15 -/
 example {E:Set ℝ} (hE: Bornology.IsBounded E) (hnon: E.Nonempty): AdherentPt (sSup E) E ∧ AdherentPt (sSup E) Eᶜ := by
   sorry
 

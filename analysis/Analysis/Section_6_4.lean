@@ -292,7 +292,7 @@ theorem Sequence.finite_limsup_liminf_of_bounded {a:Sequence} (hbound: a.isBound
   contrapose! hliminf_bound
   simp [hliminf_bound, ←EReal.coe_neg]
 
-/-- Theorem 6.4.18 (Completeness of the reals) -/
+/-- Теорема 6.4.18 (Completeness of the reals) -/
 theorem Sequence.Cauchy_iff_convergent (a:Sequence) :
   a.isCauchy ↔ a.convergent := by
   -- This proof is written to follow the structure of the original text.
@@ -351,7 +351,7 @@ theorem Sequence.Cauchy_iff_convergent (a:Sequence) :
 
 
 
-/-- Exercise 6.4.6 -/
+/-- Вправа 6.4.6 -/
 theorem Sequence.sup_not_strict_mono : ∃ (a b:ℕ → ℝ), (∀ n, a n < b n) ∧ (a:Sequence).sup ≠ (b:Sequence).sup := by
   sorry
 
@@ -366,20 +366,20 @@ def Sequence.tendsTo_real_iff :
 abbrev Sequence.extended_limit_point (a:Sequence) (x:EReal) : Prop := if x = ⊤ then ¬ a.bddAbove else if x = ⊥ then ¬ a.bddBelow else a.limit_point x.toReal
 
 
-/-- Exercise 6.4.8 -/
+/-- Вправа 6.4.8 -/
 theorem Sequence.extended_limit_point_of_limsup (a:Sequence) : a.extended_limit_point a.limsup := by sorry
 
-/-- Exercise 6.4.8 -/
+/-- Вправа 6.4.8 -/
 theorem Sequence.extended_limit_point_of_liminf (a:Sequence) : a.extended_limit_point a.liminf := by sorry
 
 theorem Sequence.extended_limit_point_le_limsup {a:Sequence} {L:EReal} (h:a.extended_limit_point L): L ≤ a.limsup := by sorry
 
 theorem Sequence.extended_limit_point_ge_liminf {a:Sequence} {L:EReal} (h:a.extended_limit_point L): L ≥ a.liminf := by sorry
 
-/-- Exercise 6.4.9 -/
+/-- Вправа 6.4.9 -/
 theorem Sequence.exists_three_limit_points : ∃ a:Sequence, ∀ L:EReal, a.extended_limit_point L ↔ L = ⊥ ∨ L = 0 ∨ L = ⊤ := by sorry
 
-/-- Exercise 6.4.10 -/
+/-- Вправа 6.4.10 -/
 theorem Sequence.limit_points_of_limit_points {a b:Sequence} {c:ℝ} (hab: ∀ n ≥ b.m, a.limit_point (b n)) (hbc: b.limit_point c) : a.limit_point c := by sorry
 
 

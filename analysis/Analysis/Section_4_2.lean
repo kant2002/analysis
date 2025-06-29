@@ -31,7 +31,7 @@ structure PreRat where
   denominator : ℤ
   nonzero : denominator ≠ 0
 
-/-- Exercise 4.2.1 -/
+/-- Вправа 4.2.1 -/
 instance PreRat.instSetoid : Setoid PreRat where
   r a b := a.numerator * b.denominator = b.numerator * a.denominator
   iseqv := {
@@ -240,7 +240,7 @@ def Rat.coe_int_hom : ℤ →+* Rat where
   map_mul' := by sorry
 
 /--
-  (Not from textbook) The textbook rationals are isomorphic (as a field) to the Mathlib rationals.
+  (Не із книги) The textbook rationals are isomorphic (as a field) to the Mathlib rationals.
 -/
 def Rat.equiv_rat : ℚ ≃+* Rat where
   toFun n := (n:Rat)
@@ -307,7 +307,7 @@ theorem Rat.add_lt_add_right {x y:Rat} (z:Rat) (hxy: x < y) : x + z < y + z := b
 /-- Твердження 4.2.9(e) (positive multiplication preserves order) / Exercise 4.2.5 -/
 theorem Rat.mul_lt_mul_right {x y z:Rat} (hxy: x < y) (hz: z.isPos) : x * z < y * z := by sorry
 
-/-- (Not from textbook) Establish the decidability of this order. -/
+/-- (Не із книги) Establish the decidability of this order. -/
 instance Rat.decidableRel : DecidableRel (· ≤ · : Rat → Rat → Prop) := by
   intro n m
   have : ∀ (n:PreRat) (m: PreRat),
@@ -335,7 +335,7 @@ instance Rat.decidableRel : DecidableRel (· ≤ · : Rat → Rat → Prop) := b
             sorry
   exact Quotient.recOnSubsingleton₂ n m this
 
-/-- (Not from textbook) Rat has the structure of a linear ordering. -/
+/-- (Не із книги) Rat has the structure of a linear ordering. -/
 instance Rat.instLinearOrder : LinearOrder Rat where
   le_refl := sorry
   le_trans := sorry
@@ -344,7 +344,7 @@ instance Rat.instLinearOrder : LinearOrder Rat where
   le_total := sorry
   toDecidableLE := decidableRel
 
-/-- (Not from textbook) Rat has the structure of a strict ordered ring. -/
+/-- (Не із книги) Rat has the structure of a strict ordered ring. -/
 instance Rat.instIsStrictOrderedRing : IsStrictOrderedRing Rat where
   add_le_add_left := by sorry
   add_le_add_right := by sorry
@@ -353,7 +353,7 @@ instance Rat.instIsStrictOrderedRing : IsStrictOrderedRing Rat where
   le_of_add_le_add_left := by sorry
   zero_le_one := by sorry
 
-/-- Exercise 4.2.6 -/
+/-- Вправа 4.2.6 -/
 theorem Rat.mul_lt_mul_right_of_neg (x y z:Rat) (hxy: x < y) (hz: z.isNeg) : x * z > y * z := by
   sorry
 

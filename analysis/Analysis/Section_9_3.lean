@@ -222,7 +222,7 @@ example : ¬ ∃ L, Convergesto Set.univ f_9_3_21 L 0 := by sorry
 
 /- Exercise 9.3.4: State a definition of limit superior and limit inferior for functions, and prove an analogue of Proposition 9.3.9 for those definitions. -/
 
-/-- Exercise 9.3.5 (Continuous version of squeeze test) -/
+/-- Вправа 9.3.5 (Continuous version of squeeze test) -/
 theorem Convergesto.squeeze {E:Set ℝ} {f g h: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (had: AdherentPt x₀ E)
   (hfg: ∀ x ∈ E, f x ≤ g x) (hgh: ∀ x ∈ E, g x ≤ h x)
   (hf: Convergesto E f L x₀) (hh: Convergesto E h L x₀) :

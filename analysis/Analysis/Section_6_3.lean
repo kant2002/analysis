@@ -144,7 +144,7 @@ theorem lim_of_exp {x:ℝ} (hpos: 0 < x) (hbound: x < 1) :
   simp only [mul_eq_mul_right_iff, hx, false_or] at why2
   simp [hconv, why2]
 
-/-- Exercise 6.3.4 -/
+/-- Вправа 6.3.4 -/
 theorem lim_of_exp' {x:ℝ} (hbound: x > 1) : ¬((fun (n:ℕ) ↦ x^n):Sequence).convergent := by sorry
 
 end Chapter6

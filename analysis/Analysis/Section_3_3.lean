@@ -381,7 +381,7 @@ theorem Function.inverse_eval {X Y: Set} {f: Function X Y} (h: f.bijective) (y: 
 theorem Function.inverse_eq {X Y: Set} [Nonempty X] {f: Function X Y} (h: f.bijective) :
     (f.inverse h).to_fn = Function.invFun f.to_fn := by sorry
 
-/-- Exercise 3.3.1 -/
+/-- Вправа 3.3.1 -/
 theorem Function.refl {X Y:Set} (f: Function X Y) : f = f := by sorry
 
 theorem Function.symm {X Y:Set} (f g: Function X Y) : f = g ↔ g = f := by sorry
@@ -391,7 +391,7 @@ theorem Function.trans {X Y:Set} {f g h: Function X Y} (hfg: f = g) (hgh: g = h)
 theorem Function.comp_congr {X Y Z:Set} {f f': Function X Y} (hff': f = f') {g g': Function Y Z}
   (hgg': g = g') : g ○ f = g' ○ f' := by sorry
 
-/-- Exercise 3.3.2 -/
+/-- Вправа 3.3.2 -/
 theorem Function.comp_of_inj {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (hf: f.one_to_one)
   (hg: g.one_to_one) : (g ○ f).one_to_one := by sorry
 
@@ -427,7 +427,7 @@ theorem Function.comp_injective {X Y Z:Set} {f: Function X Y} {g : Function Y Z}
 theorem Function.comp_surjective {X Y Z:Set} {f: Function X Y} {g : Function Y Z}
   (hinj : (g ○ f).onto) : g.onto := by sorry
 
-/-- Exercise 3.3.6 -/
+/-- Вправа 3.3.6 -/
 theorem Function.inverse_comp_self {X Y: Set} {f: Function X Y} (h: f.bijective) (x: X) :
     (f.inverse h) (f x) = x := by sorry
 
@@ -443,12 +443,12 @@ theorem Function.inverse_inverse {X Y: Set} {f: Function X Y} (h: f.bijective) :
 theorem Function.comp_bijective {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (hf: f.bijective)
   (hg: g.bijective) : (g ○ f).bijective := by sorry
 
-/-- Exercise 3.3.7 -/
+/-- Вправа 3.3.7 -/
 theorem Function.inv_of_comp {X Y Z:Set} {f: Function X Y} {g : Function Y Z}
   (hf: f.bijective) (hg: g.bijective) :
     (g ○ f).inverse (Function.comp_bijective hf hg) = (f.inverse hf) ○ (g.inverse hg) := by sorry
 
-/-- Exercise 3.3.8 -/
+/-- Вправа 3.3.8 -/
 abbrev Function.inclusion {X Y:Set} (h: X ⊆ Y) :
     Function X Y := Function.mk_fn (fun x ↦ ⟨ x.val, h x.val x.property ⟩ )
 

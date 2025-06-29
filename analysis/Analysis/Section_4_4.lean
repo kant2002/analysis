@@ -43,7 +43,7 @@ theorem Rat.exists_between_rat {x y:ℚ} (h: x < y) : ∃ z:ℚ, x < z ∧ z < y
   convert h' using 1
   all_goals ring
 
-/-- Exercise 4.4.2 -/
+/-- Вправа 4.4.2 -/
 theorem Nat.no_infinite_descent : ¬ ∃ a:ℕ → ℕ, ∀ n, a (n+1) < a n := by
   sorry
 

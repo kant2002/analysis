@@ -69,7 +69,7 @@ example : ((2+2:ℤ)=5) → (4=(10-4:ℤ)) := by
     convert h using 1
   rwa [←eq_sub_iff_add_eq] at this
 
-/-- Theorem A.2.4 -/
+/-- Теорема A.2.4 -/
 theorem theorem_A_2_4 (n:ℤ) : Even (n * (n+1)) := by
   have : Even n ∨ Odd n := Int.even_or_odd n
   rcases this with heven | hodd
