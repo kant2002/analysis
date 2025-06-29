@@ -4,23 +4,24 @@ import Analysis.Section_2_3
 /-!
 # Аналіз I, Розділ 2, Епілог
 
-In this (technical) epilogue, we show that the "Chapter 2" natural numbers `Chapter2.Nat` are
-isomorphic in various standard senses to the standard natural numbers `ℕ`.
+У цьому (технічному) епілозі ми показуємо, що натуральні числа `Chapter2.Nat` з "Розділу 2"
+ізоморфні стандартним натуральним числам `ℕ` у різних типових сенсах.
 
-From this point onwards, `Chapter2.Nat` will be deprecated, and we will use the standard natural
-numbers `ℕ` instead.  In particular, one should use the full Mathlib API for `ℕ` for all
-subsequent chapters, in lieu of the `Chapter2.Nat` API.
+З цього моменту `Chapter2.Nat` буде застарілим типом, і замість нього ми використовуватимемо
+стандартні натуральні числа `ℕ`. Зокрема, для всіх наступних розділів слід використовувати
+повний API Mathlib для `ℕ` замість API `Chapter2.Nat`.
 
-Filling the sorries here requires both the Chapter2.Nat API and the Mathlib API for the standard
-natural numbers `ℕ`.  As such, they are excellent exercises to prepare you for the aforementioned
-transition.
+Для заповнення цих вибачень потрібні як Chapter2.Nat API, так і Mathlib API для стандартних
+натуральних чисел `ℕ`. Таким чином, вони є чудовими вправами для підготовки до вищезгаданого
+переходу.
 
-In second half of this section we also give a fully axiomatic treatment of the natural numbers
-via the Peano axioms. The treatment in the preceding three sections was only partially
-axiomatic, because we used a specific construction `Chapter2.Nat` of the natural numbers that was
-an inductive type, and used that inductive type to construct a recursor.  Here, we give some
-exercises to show how one can accomplish the same tasks directly from the Peano axioms, without
-knowing the specific implementation of the natural numbers.
+У другій половині цього розділу ми також наводимо повністю аксіоматичне трактування
+натуральних чисел за допомогою аксіом Пеано. Розгляд у попередніх трьох розділах
+був лише частково аксіоматичним, оскільки ми використовували специфічну конструкцію
+`Chapter2.Nat` натуральних чисел, яка була індуктивного типу, і використовували цей
+індуктивний тип для побудови рекурсора. Тут ми наводимо кілька вправ, щоб показати,
+як можна виконати ті ж завдання безпосередньо з аксіом Пеано, не знаючи конкретної
+реалізації натуральних чисел.
 -/
 
 abbrev Chapter2.Nat.toNat (n : Chapter2.Nat) : ℕ := match n with
@@ -63,20 +64,20 @@ lemma Chapter2.Nat.pow_eq_pow (n m : Chapter2.Nat) :
   sorry
 
 
-/-- The Peano axioms for an abstract type `Nat` -/
+/-- Аксіоми Пеано для абстрактного типу `Nat` -/
 @[ext]
 class PeanoAxioms where
   Nat : Type
-  zero : Nat -- Axiom 2.1
-  succ : Nat → Nat -- Axiom 2.2
-  succ_ne : ∀ n : Nat, succ n ≠ zero -- Axiom 2.3
-  succ_cancel : ∀ {n m : Nat}, succ n = succ m → n = m -- Axiom 2.4
+  zero : Nat -- Аксіома 2.1
+  succ : Nat → Nat -- Аксіома 2.2
+  succ_ne : ∀ n : Nat, succ n ≠ zero -- Аксіома 2.3
+  succ_cancel : ∀ {n m : Nat}, succ n = succ m → n = m -- Аксіома 2.4
   induction : ∀ (P : Nat → Prop),
-    P zero → (∀ n : Nat, P n → P (succ n)) → ∀ n : Nat, P n -- Axiom 2.5
+    P zero → (∀ n : Nat, P n → P (succ n)) → ∀ n : Nat, P n -- Аксіома 2.5
 
 namespace PeanoAxioms
 
-/-- The Chapter 2 natural numbers obey the Peano axioms. -/
+/-- Натуральні числа розділу 2 дотримуються аксіом Пеано. -/
 def Chapter2.Nat : PeanoAxioms where
   Nat := _root_.Chapter2.Nat
   zero := Chapter2.Nat.zero
@@ -85,7 +86,7 @@ def Chapter2.Nat : PeanoAxioms where
   succ_cancel := Chapter2.Nat.succ_cancel
   induction := Chapter2.Nat.induction
 
-/-- The Mathlib natural numbers obey the Peano axioms. -/
+/-- Натуральні числа Mathlib дотримуються аксіом Пеано. -/
 def Mathlib.Nat : PeanoAxioms where
   Nat := ℕ
   zero := 0
@@ -94,7 +95,7 @@ def Mathlib.Nat : PeanoAxioms where
   succ_cancel := Nat.succ_inj.mp
   induction _ := Nat.rec
 
-/-- One can map the Mathlib natural numbers into any other structure obeying the Peano axioms. -/
+/-- Ви можете співставити натуральні числа Mathlib у іншу струкруту яка дотримується аксіом Пеано. -/
 abbrev natCast (P : PeanoAxioms) : ℕ → P.Nat := fun n ↦ match n with
   | Nat.zero => P.zero
   | Nat.succ n => P.succ (natCast P n)
@@ -105,7 +106,7 @@ theorem natCast_injective (P : PeanoAxioms) : Function.Injective P.natCast  := b
 theorem natCast_surjective (P : PeanoAxioms) : Function.Surjective P.natCast := by
   sorry
 
-/-- The notion of an equivalence between two structures obeying the Peano axioms -/
+/-- Поняття еквівалентності між двома структурами, що дотримуються аксіом Пеано -/
 class Equiv (P Q : PeanoAxioms) where
   equiv : P.Nat ≃ Q.Nat
   equiv_zero : equiv P.zero = Q.zero
@@ -121,7 +122,7 @@ abbrev Equiv.trans (equiv1 : Equiv P Q) (equiv2 : Equiv Q R) : Equiv P R where
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- Note: I suspect that this construction is non-computable and requires classical logic. -/
+/-- Примітка: Я підозрюю, що ця конструкція не є обчислювальною та вимагає класичної логіки. -/
 noncomputable abbrev Equiv.fromNat (P : PeanoAxioms) : Equiv Mathlib.Nat P where
   equiv := {
     toFun := P.natCast
@@ -138,7 +139,7 @@ theorem Equiv.uniq {P Q : PeanoAxioms} (equiv1 equiv2 : PeanoAxioms.Equiv P Q) :
     equiv1 = equiv2 := by
   sorry
 
-/-- A sample result: recursion is well-defined on any structure obeying the Peano axioms-/
+/-- Приклад результату: рекурсія коректно визначена на будь-якій структурі, що підпорядковується аксіомам Пеано.-/
 theorem Nat.recurse_uniq {P : PeanoAxioms} (f: P.Nat → P.Nat → P.Nat) (c: P.Nat) :
     ∃! (a: P.Nat → P.Nat), a P.zero = c ∧ ∀ n, a (P.succ n) = f n (a n) := by
   sorry
