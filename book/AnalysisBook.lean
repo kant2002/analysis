@@ -8,13 +8,10 @@ open Verso Genre Blog Site Syntax
 
 open Output Html Template Theme in
 def googleAnalytics : String :=
-  "<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX\"></script>" ++
-  "<script>" ++
-  "window.dataLayer = window.dataLayer || [];" ++
-  "function gtag(){dataLayer.push(arguments);}" ++
-  "gtag('js', new Date());" ++
-  "gtag('config', 'G-Q9C7QSY9LY');" ++
-  "</script>"
+  r#"window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q9C7QSY9LY');"#
 
 def theme : Theme := { Theme.default with
   primaryTemplate := do
@@ -26,7 +23,10 @@ def theme : Theme := { Theme.default with
           <link rel="stylesheet" href="/static/style.css"/>
           <script>"window.__versoSiteRoot=\"/analysis/\""</script>
           {{← builtinHeader }}
-          {{ googleAnalytics }}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9C7QSY9LY"></script>
+          <script>
+            {{ googleAnalytics }}
+          </script>
         </head>
         <body>
           <header>
