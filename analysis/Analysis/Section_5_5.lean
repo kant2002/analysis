@@ -21,7 +21,7 @@ Main constructions and results of this section:
 
 namespace Chapter5
 
-/-- Definition 5.5.1 (upper bounds).  Here we use the `upperBounds` set defined in Mathlib. -/
+/-- Визначення 5.5.1 (upper bounds).  Here we use the `upperBounds` set defined in Mathlib. -/
 theorem Real.upperBound_def (E: Set Real) (M: Real) : M ∈ upperBounds E ↔ ∀ x ∈ E, x ≤ M :=
   mem_upperBounds
 
@@ -50,7 +50,7 @@ example : ∀ M, M ∈ upperBounds (∅ : Set Real) := by sorry
 theorem Real.upperBound_upper {M M': Real} (h: M ≤ M') {E: Set Real} (hb: M ∈ upperBounds E) :
     M' ∈ upperBounds E := by sorry
 
-/-- Definition 5.5.5 (least upper bound).  Here we use the `isLUB` predicate defined in Mathlib. -/
+/-- Визначення 5.5.5 (least upper bound).  Here we use the `isLUB` predicate defined in Mathlib. -/
 theorem Real.isLUB_def (E: Set Real) (M: Real) :
     IsLUB E M ↔ M ∈ upperBounds E ∧ ∀ M' ∈ upperBounds E, M' ≥ M := by
   simp_rw [ge_iff_le]
@@ -66,7 +66,7 @@ example : IsLUB (Set.Icc 0 1) 1 := by sorry
 /-- Example 5.5.7 -/
 example : ¬∃ M, IsLUB (∅: Set Real) M := by sorry
 
-/-- Proposition 5.5.8 (Uniqueness of least upper bound)-/
+/-- Твердження 5.5.8 (Uniqueness of least upper bound)-/
 theorem Real.LUB_unique {E: Set Real} {M M': Real} (h1: IsLUB E M) (h2: IsLUB E M') : M = M' := by
   -- This proof is written to follow the structure of the original text.
   rw [Real.isLUB_def] at h1 h2
@@ -74,7 +74,7 @@ theorem Real.LUB_unique {E: Set Real} {M M': Real} (h1: IsLUB E M) (h2: IsLUB E 
   have h4 := h2.2 _ h1.1
   linarith
 
-/-- definition of "bounded above", using Mathlib notation -/
+/-- Визначення of "bounded above", using Mathlib notation -/
 theorem Real.bddAbove_def (E: Set Real) : BddAbove E ↔ ∃ M, M ∈  upperBounds E := Set.nonempty_def
 
 theorem Real.bddBelow_def (E: Set Real) : BddBelow E ↔ ∃ M, M ∈  lowerBounds E := Set.nonempty_def
@@ -238,24 +238,24 @@ theorem ExtendedReal.finite_eq_coe {X: ExtendedReal} (hX: X.is_finite) :
   simp [is_finite] at hX
 
 open Classical in
-/-- Definition 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 noncomputable abbrev ExtendedReal.sup (E: Set Real) : ExtendedReal :=
   dite E.Nonempty
   (fun h1 ↦ dite (BddAbove E) (fun h2 ↦ ((Real.LUB_exist h1 h2).choose:Real))
   (fun _ ↦ ⊤)) (fun _ ↦ ⊥)
 
-/-- Definition 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_empty : sup ∅ = ⊥ := by
   simp [sup]
 
-/-- Definition 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_unbounded {E: Set Real} (hb: ¬ BddAbove E) : sup E = ⊤ := by
   have hE : E.Nonempty := by
     contrapose! hb
     simp [hb]
   simp [sup, hE, hb]
 
-/-- Definition 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_bounded {E: Set Real} (hnon: E.Nonempty) (hb: BddAbove E) :
     IsLUB E (sup E) := by
   simp [hnon, hb, sup]
@@ -265,7 +265,7 @@ theorem ExtendedReal.sup_of_bounded_finite {E: Set Real} (hnon: E.Nonempty) (hb:
     (sup E).is_finite := by
   simp [sup, hnon, hb, is_finite]
 
-/-- Proposition 5.5.12 -/
+/-- Твердження 5.5.12 -/
 theorem Real.exist_sqrt_two : ∃ x:Real, x^2 = 2 := by
   -- This proof is written to follow the structure of the original text.
   set E := { y:Real | y ≥ 0 ∧ y^2 < 2 }

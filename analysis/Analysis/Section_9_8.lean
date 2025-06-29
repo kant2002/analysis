@@ -16,7 +16,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.8.1 -/
+/-- Визначення 9.8.1 -/
 theorem MonotoneOn.iff {X: Set ℝ} (f: ℝ → ℝ) : MonotoneOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y ≥ f x := by
   constructor
   . intro h x hx y hy hxy
@@ -76,7 +76,7 @@ example : ∃ (X:Set ℝ) (f:ℝ → ℝ), ContinuousOn f X ∧ ¬ MonotoneOn f 
 
 example : ∃ (X:Set ℝ) (f:ℝ → ℝ), MonotoneOn f X ∧ ¬ ContinuousOn f X := by sorry
 
-/-- Proposition 9.8.3 / Exercise 9.8.4 -/
+/-- Твердження 9.8.3 / Exercise 9.8.4 -/
 theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (Set.Icc a b)) (hmono: StrictMonoOn f (Set.Icc a b)) :
   f '' (Set.Icc a b) = Set.Icc (f a) (f b) ∧
   ∃ finv: ℝ → ℝ, ContinuousOn finv (Set.Icc (f a) (f b)) ∧ StrictMonoOn finv (Set.Icc (f a) (f b)) ∧

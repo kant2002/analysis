@@ -26,7 +26,7 @@ theorem Series.sum_eq_sum (b:ℕ → ℝ) {N:ℤ} (hN: N ≥ 0) : ∑ n ∈ Fins
         omega
       simp
 
-/-- Proposition 7.4.1 -/
+/-- Твердження 7.4.1 -/
 theorem Series.converges_of_permute_nonneg {a:ℕ → ℝ} (ha: (a:Series).nonneg) (hconv: (a:Series).converges)
   {f: ℕ → ℕ} (hf: Function.Bijective f) :
     (fun n ↦ a (f n) : Series).converges ∧ (a:Series).sum = (fun n ↦ a (f n) : Series).sum := by
@@ -180,7 +180,7 @@ theorem Series.permuted_zeta_2_eq_zeta_2 :
   (fun n:ℕ ↦ if Even n then 1/(n+2:ℝ)^2 else 1/(n:ℝ)^2 : Series).sum = (fun n:ℕ ↦ 1/(n+1:ℝ)^2 : Series).sum := by
     sorry
 
-/-- Proposition 7.4.3 (Rearrangement of series) -/
+/-- Твердження 7.4.3 (Rearrangement of series) -/
 theorem Series.absConverges_of_permute {a:ℕ → ℝ} (ha : (a:Series).absConverges)
   {f: ℕ → ℕ} (hf: Function.Bijective f) :
     (fun n ↦ a (f n):Series).absConverges  ∧ (a:Series).sum = (fun n ↦ a (f n) : Series).sum := by

@@ -23,7 +23,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Definition 3.4.1.  Interestingly, the definition does not require S to be a subset of X. -/
+/-- Визначення 3.4.1.  Interestingly, the definition does not require S to be a subset of X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
   X.replace (P := fun x y ↦ y = f x ∧ x.val ∈ S) (by
     intro x y y' ⟨ hy, hy' ⟩
@@ -31,7 +31,7 @@ abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
     rw [hy.1, hy'.1]
   )
 
-/-- Definition 3.4.1 -/
+/-- Визначення 3.4.1 -/
 theorem SetTheory.Set.mem_image {X Y:Set} (f:X → Y) (S: Set) (y:Object) :
     y ∈ image f S ↔ ∃ x:X, x.val ∈ S ∧ f x = y := by
   rw [SetTheory.Set.replacement_axiom]
@@ -115,7 +115,7 @@ theorem SetTheory.Set.example_3_4_8 (F:Object) :
     F ∈ ({4,7}:Set) ^ ({0,1}:Set) ↔ F = object_of f_3_4_8_a
     ∨ F = object_of f_3_4_8_b ∨ F = object_of f_3_4_8_c ∨ F = object_of f_3_4_8_d := by sorry
 
-/-- Lemma 3.4.9.  One needs to provide a suitable definition of the power set here. -/
+/-- Лема 3.4.9.  One needs to provide a suitable definition of the power set here. -/
 abbrev SetTheory.Set.powerset (X:Set) : Set := sorry
 
 theorem SetTheory.Set.mem_powerset {X:Set} (x:Object) :

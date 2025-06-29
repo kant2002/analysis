@@ -109,7 +109,7 @@ theorem Series.root_test_inconclusive' : ∃ s:Series,
   Filter.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry
 
-/-- Lemma 7.5.2 / Exercise 7.5.1 -/
+/-- Лема 7.5.2 / Exercise 7.5.1 -/
 theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
   Filter.liminf (fun n ↦ ((c (n+1) / c n:ℝ): EReal)) Filter.atTop ≤
     Filter.liminf (fun n ↦ (((c n)^(1/(n:ℝ)):ℝ):EReal)) Filter.atTop
@@ -238,7 +238,7 @@ theorem Series.ratio_test_inconclusive' : ∃ s:Series, (∀ n ≥ s.m, s.seq n 
   Filter.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) Filter.atTop (nhds 1) ∧ s.absConverges := by
     sorry
 
-/-- Proposition 7.5.4 -/
+/-- Твердження 7.5.4 -/
 theorem Series.root_self_converges : (fun (n:ℕ) ↦ (n:ℝ)^(1 / n : ℝ) : Series).convergesTo 1 := by
   -- This proof is written to follow the structure of the original text.
   sorry

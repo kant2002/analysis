@@ -7,7 +7,7 @@ Some examples of proofs
 
 -/
 
-/-- Proposition A.3.1 -/
+/-- Твердження A.3.1 -/
 example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B := by
   intro h
   replace h := hAC h
@@ -15,7 +15,7 @@ example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B :=
   replace h := hDB h
   exact h
 
-/-- Proposition A.3.2 -/
+/-- Твердження A.3.2 -/
 example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   intro h
   apply_fun (fun x ↦ x/2) at h
@@ -26,7 +26,7 @@ example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   norm_num
 
 
-/-- Proposition A.3.1, alternate proof -/
+/-- Твердження A.3.1, alternate proof -/
 example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B := by
   intro h
   suffices hD : D
@@ -35,7 +35,7 @@ example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B :=
   . exact hCD hC
   exact hAC h
 
-/-- Proposition A.3.2, alternate proof -/
+/-- Твердження A.3.2, alternate proof -/
 example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   intro h
   suffices h1 : Real.sin (x/2) = 1
@@ -45,7 +45,7 @@ example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   . simp [h2]
   simp [h]
 
-/-- Proposition A.3.3 -/
+/-- Твердження A.3.3 -/
 example {r:ℝ} (h: 0 < r) (h': r < 1) : Summable (fun n:ℕ ↦ n * r^n) := by
   apply summable_of_ratio_test_tendsto_lt_one h' _ _
   . simp [Filter.eventually_atTop]
@@ -77,7 +77,7 @@ example {r:ℝ} (h: 0 < r) (h': r < 1) : Summable (fun n:ℕ ↦ n * r^n) := by
     simp
   exact tendsto_one_div_atTop_nhds_zero_nat
 
-/-- Proposition A.3.1, third proof -/
+/-- Твердження A.3.1, third proof -/
 example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B := by
   intro h
   suffices hD : D
@@ -85,7 +85,7 @@ example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B :=
   have hC : C := hAC h
   exact hCD hC
 
-/-- Proposition A.3.4 -/
+/-- Твердження A.3.4 -/
 example {A B C D E F G H I:Prop} (hAE: A → E) (hEB: E ∧ B → F) (hADG : A → G → D) (hHI: H ∨ I) (hFHC : F ∧ H → C) (hAHG : A ∧ H → G) (hIG: I → G) (hIGC: G → C) : A ∧ B → C ∧ D := by
   rintro ⟨ hA, hB ⟩
   have hE : E := hAE hA
@@ -102,7 +102,7 @@ example {A B C D E F G H I:Prop} (hAE: A → E) (hEB: E ∧ B → F) (hADG : A �
   have hC := hIGC hG
   exact ⟨hC, hG⟩
 
-/-- Proposition A.3.5 -/
+/-- Твердження A.3.5 -/
 example {A B C D:Prop} (hBC: B → C) (hAD: A → D) (hCD: D → ¬ C) : A → ¬ B := by
   intro hA
   by_contra hB
@@ -110,5 +110,3 @@ example {A B C D:Prop} (hBC: B → C) (hAD: A → D) (hCD: D → ¬ C) : A → �
   have hD : D := hAD hA
   have hC' : ¬ C := hCD hD
   contradiction
-
-

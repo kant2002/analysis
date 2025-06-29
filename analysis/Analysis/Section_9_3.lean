@@ -20,11 +20,11 @@ Main constructions and results of this section:
 Technical point: in the text, the functions `f` studied are defined only on subsets `X` of `ℝ`, and left undefined elsewhere.  However, in Lean, this then creates some fiddly conversions when trying to restrict `f` to various subsets of `X` (which, technically, are not precisely subsets of `ℝ`, though they can be coerced to such).  To avoid this issue we will deviate from the text by having our functions defined on all of `ℝ` (with the understanding that they are assigned "junk" values outside of the domain `X` of interest).
 -/
 
-/-- Definition 9.3.1 -/
+/-- Визначення 9.3.1 -/
 abbrev Real.close_fn (ε:ℝ) (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) : Prop :=
   ∀ x ∈ X, |f x - L| < ε
 
-/-- Definition 9.3.3 -/
+/-- Визначення 9.3.3 -/
 abbrev Real.close_near (ε:ℝ) (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) : Prop :=
   ∃ δ > 0, ε.close_fn (X ∩ Set.Ioo (x₀-δ) (x₀+δ)) f L
 
@@ -52,7 +52,7 @@ example: ¬ (0.1:ℝ).close_fn (Set.Icc 1 3) (fun x ↦ x^2) 9 := by
 example: (0.1:ℝ).close_near (Set.Icc 1 3) (fun x ↦ x^2) 9 3 := by
   sorry
 
-/-- Definition 9.3.6 (Convergence of functions at a point)-/
+/-- Визначення 9.3.6 (Convergence of functions at a point)-/
 abbrev Convergesto (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) : Prop :=
   ∀ ε > (0:ℝ), ε.close_near X f L x₀
 
@@ -89,7 +89,7 @@ theorem Convergesto.iff (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) :
 example: Convergesto (Set.Icc 1 3) (fun x ↦ x^2) 4 2 := by
   sorry
 
-/-- Proposition 9.3.9 / Exercise 9.3.1 -/
+/-- Твердження 9.3.9 / Exercise 9.3.1 -/
 theorem Convergesto.iff_conv {E:Set ℝ} (f: ℝ → ℝ) (L:ℝ) {x₀:ℝ} (h: AdherentPt x₀ E) :
   Convergesto E f L x₀ ↔ ∀ a:ℕ → ℝ, (∀ n:ℕ, a n ∈ E) →
   Filter.Tendsto a Filter.atTop (nhds x₀) →
@@ -112,7 +112,7 @@ theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: 
   have hL' := hf'.comp h ha hconv
   exact tendsto_nhds_unique  hL hL'
 
-/-- Proposition 9.3.14 (Limit laws for functions) -/
+/-- Твердження 9.3.14 (Limit laws for functions) -/
 theorem Convergesto.add {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f + g) (L + M) x₀ := by
@@ -123,37 +123,37 @@ theorem Convergesto.add {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: 
     specialize hg a ha hconv
     convert Filter.Tendsto.add hf hg using 1
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
 theorem Convergesto.sub {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f - g) (L - M) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
 theorem Convergesto.max {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (max f g) (max L M) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
 theorem Convergesto.min {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (min f g) (min L M) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
 theorem Convergesto.smul {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (c:ℝ) :
   Convergesto E (c • f) (c * L) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2 -/
 theorem Convergesto.mul {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f * g) (L * M) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2.  The hypothesis in the book that g is non-vanishing on E can be dropped. -/
+/-- Твердження 9.3.14 (Limit laws for functions) / Exercise 9.3.2.  The hypothesis in the book that g is non-vanishing on E can be dropped. -/
 theorem Convergesto.div {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E) (hM: M ≠ 0)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f / g) (L / M) x₀ := by
@@ -199,7 +199,7 @@ theorem Convergesto.f_9_3_17_remove : Convergesto (Set.univ \ {0}) f_9_3_17 0 0 
 
 theorem Convergesto.f_9_3_17_all : ¬ ∃ L, Convergesto (Set.univ) f_9_3_17 L 0 := by sorry
 
-/-- Proposition 9.3.18 / Exercise 9.3.3 -/
+/-- Твердження 9.3.18 / Exercise 9.3.3 -/
 theorem Convergesto.local {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E) {δ:ℝ} (hδ: δ > 0) :
   Convergesto E f L x₀ ↔ Convergesto (E ∩ Set.Ioo (x₀-δ) (x₀+δ)) f L x₀ := by
     sorry

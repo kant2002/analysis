@@ -56,7 +56,7 @@ abbrev Series.mk' {m:ℤ} (a: { n // n ≥ m } → ℝ) : Series where
 theorem Series.eval_mk' {m:ℤ} (a : { n // n ≥ m } → ℝ) {n : ℤ} (h:n ≥ m) :
     (Series.mk' a).seq n = a ⟨ n, h ⟩ := by simp [h]
 
-/-- Definition 7.2.2 (Convergence of series) -/
+/-- Визначення 7.2.2 (Convergence of series) -/
 abbrev Series.partial (s : Series) (N:ℤ) : ℝ := ∑ n ∈ Finset.Icc s.m N, s.seq n
 
 theorem Series.partial_succ (s : Series) {N:ℤ} (h: N ≥ s.m-1) : s.partial (N+1) = s.partial N + s.seq (N+1) := by
@@ -107,7 +107,7 @@ theorem Series.example_7_2_4'a {N:ℤ} (hN: N ≥ 1) : example_7_2_4'.partial N 
 
 theorem Series.example_7_2_4'b : example_7_2_4'.diverges := by sorry
 
-/-- Proposition 7.2.5 / Exercise 7.2.2 -/
+/-- Твердження 7.2.5 / Exercise 7.2.2 -/
 theorem Series.converges_iff_tail_decay (s:Series) :
     s.converges ↔ ∀ ε > 0, ∃ N ≥ s.m, ∀ p ≥ N, ∀ q ≥ N, |∑ n ∈ Finset.Icc p q, s.seq n| ≤ ε := by
   sorry
@@ -130,21 +130,21 @@ theorem Series.example_7_2_7' : ((fun n:ℕ ↦ (-1:ℝ)^n):Series).diverges := 
   apply diverges_of_nodecay
   sorry
 
-/-- Definition 7.2.8 (Absolute convergence) -/
+/-- Визначення 7.2.8 (Absolute convergence) -/
 abbrev Series.abs (s:Series) : Series := mk' (m:=s.m) (fun n ↦ |s.seq n|)
 
 abbrev Series.absConverges (s:Series) : Prop := s.abs.converges
 
 abbrev Series.condConverges (s:Series) : Prop := s.converges ∧ ¬ s.absConverges
 
-/-- Proposition 7.2.9 (Absolute convergence test) / Example 7.2.4 -/
+/-- Твердження 7.2.9 (Absolute convergence test) / Example 7.2.4 -/
 theorem Series.converges_of_absConverges {s:Series} (h : s.absConverges) : s.converges := by
   sorry
 
 theorem Series.abs_le {s:Series} (h : s.absConverges) : |s.sum| ≤ s.abs.sum := by
   sorry
 
-/-- Proposition 7.2.12 (Alternating series test) -/
+/-- Твердження 7.2.12 (Alternating series test) -/
 theorem Series.converges_of_alternating {m:ℤ} {a: { n // n ≥ m} → ℝ} (ha: ∀ n, a n ≥ 0)
   (ha': Antitone a) :
     ((mk' (fun n ↦ (-1)^(n:ℤ) * a n)).converges ↔ Filter.Tendsto a Filter.atTop (nhds 0)) := by
@@ -224,7 +224,7 @@ instance Series.inst_add : Add Series where
       simp [hn]
   }
 
-/-- Proposition 7.2.14 (a) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (a) (Series laws) / Exercise 7.2.5 -/
 theorem Series.add {s t:Series} (hs: s.converges) (ht: t.converges) :
     (s + t).converges ∧ (s+t).sum = s.sum + t.sum := by sorry
 
@@ -237,14 +237,14 @@ instance Series.inst.smul : SMul ℝ Series where
       rw [lt_iff_not_ge] at hn
       simp [hn]
   }
-/-- Proposition 7.2.14 (b) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (b) (Series laws) / Exercise 7.2.5 -/
 theorem Series.smul {c:ℝ} {s:Series} (hs: s.converges) :
     (c • s).converges ∧ (c • s).sum = c * s.sum := by sorry
 
 abbrev Series.from (s:Series) (m₁:ℤ) : Series :=
   mk' (m := max s.m m₁) (fun n ↦ s.seq (n:ℤ))
 
-/-- Proposition 7.2.14 (c) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (c) (Series laws) / Exercise 7.2.5 -/
 theorem Series.converges_from (s:Series) (k:ℕ) : s.converges ↔ (s.from (s.m+k)).converges := by
   sorry
 
@@ -252,12 +252,12 @@ theorem Series.sum_from {s:Series} (k:ℕ) (h: s.converges) :
     s.sum = ∑ n ∈ Finset.Ico s.m (s.m+k), s.seq n + (s.from (s.m+k)).sum := by
   sorry
 
-/-- Proposition 7.2.14 (d) (Series laws) / Exercise 7.2.5 -/
+/-- Твердження 7.2.14 (d) (Series laws) / Exercise 7.2.5 -/
 theorem Series.shift {s:Series} {x:ℝ} (h: s.convergesTo x) (L:ℤ) :
     (mk' (m := s.m + L) (fun n ↦ s.seq (n - L))).convergesTo x := by
   sorry
 
-/-- Lemma 7.2.15 (telescoping series) / Exercise 7.2.6 -/
+/-- Лема 7.2.15 (telescoping series) / Exercise 7.2.6 -/
 theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.Tendsto a Filter.atTop (nhds 0)) :
     ((fun n:ℕ ↦ a (n+1) - a n):Series).convergesTo (a 0) := by
   sorry

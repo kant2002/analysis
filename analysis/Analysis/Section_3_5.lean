@@ -27,7 +27,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Definition 3.5.1 (Ordered pair) -/
+/-- Визначення 3.5.1 (Ordered pair) -/
 @[ext]
 structure OrderedPair where
   fst: Object
@@ -35,7 +35,7 @@ structure OrderedPair where
 
 #check OrderedPair.ext
 
-/-- Definition 3.5.1 (Ordered pair) -/
+/-- Визначення 3.5.1 (Ordered pair) -/
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
 
@@ -61,7 +61,7 @@ abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
 theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
     z ∈ (SetTheory.Set.slice x Y) ↔ ∃ y:Y, z = (⟨x, y⟩:OrderedPair) := replacement_axiom _ _
 
-/-- Definition 3.5.2 (Cartesian product) -/
+/-- Визначення 3.5.2 (Cartesian product) -/
 abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
   union (X.replace (P := fun x z ↦ z = slice x Y) (by
     intro x z z' ⟨ hz, hz' ⟩
@@ -144,15 +144,15 @@ noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
   right_inv := sorry
 
 
-/-- Definition 3.5.7 -/
+/-- Визначення 3.5.7 -/
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (a: ∀ i, X i) : Object :=
   object_of ((fun i ↦ ⟨ a i, by rw [mem_iUnion]; use i; exact (a i).property ⟩):I → iUnion I X)
 
-/-- Definition 3.5.7 -/
+/-- Визначення 3.5.7 -/
 abbrev SetTheory.Set.iProd {I: Set} (X: I → Set) : Set :=
   ((iUnion I X)^I).specify (fun t ↦ ∃ a : ∀ i, X i, t = tuple a)
 
-/-- Definition 3.5.7 -/
+/-- Визначення 3.5.7 -/
 theorem SetTheory.Set.mem_iProd {I: Set} {X: I → Set} (t:Object) :
     t ∈ iProd X ↔ ∃ a: ∀ i, X i, t = tuple a := by
   simp only [iProd, specification_axiom'']
@@ -275,7 +275,7 @@ noncomputable abbrev SetTheory.Set.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin 
   left_inv := sorry
   right_inv := sorry
 
-/-- Lemma 3.5.12 (finite choice) -/
+/-- Лема 3.5.12 (finite choice) -/
 theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i ≠ ∅) : iProd X ≠ ∅ := by
   -- This proof broadly follows the one in the text
   -- (although it is more convenient to induct from 0 rather than 1)

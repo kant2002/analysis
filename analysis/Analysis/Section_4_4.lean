@@ -17,7 +17,7 @@ Many of the results here can be established more quickly by relying more heavily
 API; one can set oneself the exercise of doing so.
 -/
 
-/-- Proposition 4.4.1 (Interspersing of integers by rationals) / Exercise 4.4.1 -/
+/-- Твердження 4.4.1 (Interspersing of integers by rationals) / Exercise 4.4.1 -/
 
 theorem Rat.between_int (x:ℚ) : ∃! n:ℤ, n ≤ x ∧ x < n+1 := by
   sorry
@@ -25,7 +25,7 @@ theorem Rat.between_int (x:ℚ) : ∃! n:ℤ, n ≤ x ∧ x < n+1 := by
 theorem Nat.exists_gt (x:ℚ) : ∃ n:ℕ, n > x := by
   sorry
 
-/-- Proposition 4.4.3 (Interspersing of rationals) -/
+/-- Твердження 4.4.3 (Interspersing of rationals) -/
 theorem Rat.exists_between_rat {x y:ℚ} (h: x < y) : ∃ z:ℚ, x < z ∧ z < y := by
   -- This proof is written to follow the structure of the original text.
   -- The reader is encouraged to find quicker proofs, for instance
@@ -61,7 +61,7 @@ theorem Nat.not_even_and_odd (n:ℕ) : ¬ (Even n ∧ Odd n) := by
   sorry
 
 #check Nat.rec
-/-- Proposition 4.4.4 / Exercise 4.4.3  -/
+/-- Твердження 4.4.4 / Exercise 4.4.3  -/
 theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   -- This proof is written to follow the structure of the original text.
   by_contra h
@@ -128,7 +128,7 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   exact Nat.no_infinite_descent ⟨ a, hlt ⟩
 
 
-/-- Proposition 4.4.5 -/
+/-- Твердження 4.4.5 -/
 theorem Rat.exist_approx_sqrt_two {ε:ℚ} (hε:ε>0) : ∃ x ≥ (0:ℚ), x^2 < 2 ∧ 2 < (x+ε)^2 := by
   -- This proof is written to follow the structure of the original text.
   by_contra! h

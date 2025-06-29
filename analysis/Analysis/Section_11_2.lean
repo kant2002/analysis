@@ -19,7 +19,7 @@ Main constructions and results of this section:
 namespace Chapter11
 open BoundedInterval
 
-/-- Definition 11.2.1 -/
+/-- Визначення 11.2.1 -/
 abbrev Constant {X Y:Type} (f: X → Y) : Prop := ∃ c, ∀ x, f x = c
 
 open Classical in
@@ -71,7 +71,7 @@ theorem constant_value_on_congr {f g: ℝ → ℝ} {X: Set ℝ} (h: ∀ x ∈ X,
   simp [constant_value_on]
   congr; ext ⟨ x, hx ⟩; simp [h x hx]
 
-/-- Definition 11.2.3 (Piecewise constant functions I) -/
+/-- Визначення 11.2.3 (Piecewise constant functions I) -/
 abbrev PiecewiseConstantWith (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : Prop := ∀ J ∈ P, ConstantOn f (J:Set ℝ)
 
 theorem PiecewiseConstantWith.def (f:ℝ → ℝ) {I: BoundedInterval} {P: Partition I} :
@@ -89,7 +89,7 @@ theorem PiecewiseConstantWith.congr {f g:ℝ → ℝ} {I: BoundedInterval} {P: P
   have := P.contains _ hJ; rw [subset_iff] at this
   exact h x (this hx)
 
-/-- Definition 11.2.5 (Piecewise constant functions I) -/
+/-- Визначення 11.2.5 (Piecewise constant functions I) -/
 abbrev PiecewiseConstantOn (f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∃ P : Partition I, PiecewiseConstantWith f P
 
 theorem PiecewiseConstantOn.def (f:ℝ → ℝ) (I: BoundedInterval):
@@ -124,47 +124,47 @@ example : PiecewiseConstantOn f_11_2_4 (Icc 1 6) := by
 theorem PiecewiseConstantOn.of_const {f:ℝ → ℝ} {I: BoundedInterval} (h: ConstantOn f (I:Set ℝ)) :
   PiecewiseConstantOn f I := by sorry
 
-/-- Lemma 11.2.7 / Exercise 11.2.1 -/
+/-- Лема 11.2.7 / Exercise 11.2.1 -/
 theorem PiecewiseConstantWith.mono {f:ℝ → ℝ} {I: BoundedInterval} {P P': Partition I} (hPP': P ≤ P')
   (hP: PiecewiseConstantWith f P) : PiecewiseConstantWith f P' := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.add {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f + g) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.sub {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f - g) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.max {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (max f g) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.min {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (min f g) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.mul {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f * g) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2 -/
+/-- Лема 11.2.8 / Exercise 11.2.2 -/
 theorem PiecewiseConstantOn.smul {f: ℝ → ℝ} {I: BoundedInterval}
   (c:ℝ) (hf: PiecewiseConstantOn f I) : PiecewiseConstantOn (c • f) I := by
   sorry
 
-/-- Lemma 11.2.8 / Exercise 11.2.2.  I believe the hypothesis that `g` does not vanish is not needed. -/
+/-- Лема 11.2.8 / Exercise 11.2.2.  I believe the hypothesis that `g` does not vanish is not needed. -/
 theorem PiecewiseConstantOn.div {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f / g) I := by
   sorry
 
-/-- Definition 11.2.9 (Piecewise constant integral I)-/
+/-- Визначення 11.2.9 (Piecewise constant integral I)-/
 noncomputable abbrev PiecewiseConstantWith.integ (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I)  :
   ℝ := ∑ J ∈ P.intervals, constant_value_on f (J:Set ℝ) * |J|ₗ
 
@@ -211,13 +211,13 @@ example : PiecewiseConstantWith f_11_2_12 P_11_2_12' := by
 example : PiecewiseConstantWith.integ f_11_2_12 P_11_2_12' = 10 := by
   sorry
 
-/-- Proposition 11.2.13 (Piecewise constant integral is independent of partition) / Exercise 11.2.3 -/
+/-- Твердження 11.2.13 (Piecewise constant integral is independent of partition) / Exercise 11.2.3 -/
 theorem PiecewiseConstantWith.integ_eq {f:ℝ → ℝ} {I: BoundedInterval} {P P': Partition I}
   (hP: PiecewiseConstantWith f P) (hP': PiecewiseConstantWith f P') : PiecewiseConstantWith.integ f P = PiecewiseConstantWith.integ f P' := by
   sorry
 
 open Classical in
-/-- Definition 11.2.14 (Piecewise constant integral II)  -/
+/-- Визначення 11.2.14 (Piecewise constant integral II)  -/
 noncomputable abbrev PiecewiseConstantOn.integ (f:ℝ → ℝ) (I: BoundedInterval) :
   ℝ := if h: PiecewiseConstantOn f I then PiecewiseConstantWith.integ f h.choose else 0
 

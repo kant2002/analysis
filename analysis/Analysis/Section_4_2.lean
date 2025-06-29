@@ -52,11 +52,11 @@ abbrev Rat.formalDiv (a b:ℤ)  : Rat :=
 
 infix:100 " // " => Rat.formalDiv
 
-/-- Definition 4.2.1 (Rationals) -/
+/-- Визначення 4.2.1 (Rationals) -/
 theorem Rat.eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0): a // b = c // d ↔ a * d = c * b := by
   simp [hb, hd, Setoid.r]
 
-/-- Definition 4.2.1 (Rationals) -/
+/-- Визначення 4.2.1 (Rationals) -/
 theorem Rat.eq_diff (n:Rat) : ∃ a b, b ≠ 0 ∧ n = a // b := by
   apply Quot.ind _ n; intro ⟨ a, b, h ⟩
   use a, b; refine ⟨ h, ?_ ⟩
@@ -71,7 +71,7 @@ theorem Rat.eq_diff (n:Rat) : ∃ a b, b ≠ 0 ∧ n = a // b := by
 instance Rat.decidableEq : DecidableEq Rat := by
   sorry
 
-/-- Lemma 4.2.3 (Addition well-defined) -/
+/-- Лема 4.2.3 (Addition well-defined) -/
 instance Rat.add_inst : Add Rat where
   add := Quotient.lift₂ (fun ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ↦ (a*d+b*c) // (b*d)) (by
     intro ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ⟨ a', b', h1' ⟩ ⟨ c', d', h2' ⟩ h3 h4
@@ -82,27 +82,27 @@ instance Rat.add_inst : Add Rat where
       _ = _ := by ring
   )
 
-/-- Definition 4.2.2 (Addition of rationals) -/
+/-- Визначення 4.2.2 (Addition of rationals) -/
 theorem Rat.add_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
     (a // b) + (c // d) = (a*d + b*c) // (b*d) := by
   convert Quotient.lift₂_mk _ _ _ _
   all_goals simp [hb, hd]
 
-/-- Lemma 4.2.3 (Multiplication well-defined) -/
+/-- Лема 4.2.3 (Multiplication well-defined) -/
 instance Rat.mul_inst : Mul Rat where
   mul := Quotient.lift₂ (fun ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ↦ (a*c) // (b*d)) (by sorry)
 
-/-- Definition 4.2.2 (Multiplication of rationals) -/
+/-- Визначення 4.2.2 (Multiplication of rationals) -/
 theorem Rat.mul_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
     (a // b) * (c // d) = (a*c) // (b*d) := by
   convert Quotient.lift₂_mk _ _ _ _
   all_goals simp [hb, hd]
 
-/-- Lemma 4.2.3 (Negation well-defined) -/
+/-- Лема 4.2.3 (Negation well-defined) -/
 instance Rat.neg_inst : Neg Rat where
   neg := Quotient.lift (fun ⟨ a, b, h1 ⟩ ↦ (-a) // b) (by sorry)
 
-/-- Definition 4.2.2 (Negation of rationals) -/
+/-- Визначення 4.2.2 (Negation of rationals) -/
 theorem Rat.neg_eq (a:ℤ) (hb: b ≠ 0) : - (a // b) = (-a) // b := by
   convert Quotient.lift_mk _ _ _
   all_goals simp [hb]
@@ -152,7 +152,7 @@ lemma Rat.inv_eq (a:ℤ) (hb: b ≠ 0) : (a // b)⁻¹ = b // a := by
 theorem Rat.inv_zero : (0:Rat)⁻¹ = 0 := by
   rfl
 
-/-- Proposition 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
+/-- Твердження 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
 instance Rat.addGroup_inst : AddGroup Rat :=
 AddGroup.ofLeftAxioms (by
   -- this proof is written to follow the structure of the original text.
@@ -170,18 +170,18 @@ AddGroup.ofLeftAxioms (by
 )
  (by sorry) (by sorry)
 
-/-- Proposition 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
+/-- Твердження 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
 instance Rat.instAddCommGroup : AddCommGroup Rat where
   add_comm := by sorry
 
-/-- Proposition 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
+/-- Твердження 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
 instance Rat.instCommMonoid : CommMonoid Rat where
   mul_comm := by sorry
   mul_assoc := by sorry
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Proposition 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
+/-- Твердження 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
 instance Rat.instCommRing : CommRing Rat where
   left_distrib := by sorry
   right_distrib := by sorry
@@ -212,7 +212,7 @@ instance Rat.instDivInvMonoid : DivInvMonoid Rat where
 
 theorem Rat.div_eq (q r:Rat) : q/r = q * r⁻¹ := by rfl
 
-/-- Proposition 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
+/-- Твердження 4.2.4 (laws of algebra) / Exercise 4.2.3 -/
 instance Rat.instField : Field Rat where
   exists_pair_ne := by sorry
   mul_inv_cancel := by sorry
@@ -251,29 +251,29 @@ def Rat.equiv_rat : ℚ ≃+* Rat where
   right_inv := by sorry
 
 
-/-- Definition 4.2.6 (positivity) -/
+/-- Визначення 4.2.6 (positivity) -/
 def Rat.isPos (q:Rat) : Prop := ∃ a b:ℤ, a > 0 ∧ b > 0 ∧ q = a/b
 
-/-- Definition 4.2.6 (negativity) -/
+/-- Визначення 4.2.6 (negativity) -/
 def Rat.isNeg (q:Rat) : Prop := ∃ r:Rat, r.isPos ∧ q = -r
 
-/-- Lemma 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
+/-- Лема 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
 theorem Rat.trichotomous (x:Rat) : x = 0 ∨ x.isPos ∨ x.isNeg := by sorry
 
-/-- Lemma 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
+/-- Лема 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
 theorem Rat.not_zero_and_pos (x:Rat) : ¬(x = 0 ∧ x.isPos) := by sorry
 
-/-- Lemma 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
+/-- Лема 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
 theorem Rat.not_zero_and_neg (x:Rat) : ¬(x = 0 ∧ x.isNeg) := by sorry
 
-/-- Lemma 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
+/-- Лема 4.2.7 (trichotomy of rationals) / Exercise 4.2.4 -/
 theorem Rat.not_pos_and_neg (x:Rat) : ¬(x.isPos ∧ x.isNeg) := by sorry
 
-/-- Definition 4.2.8 (Ordering of the rationals) -/
+/-- Визначення 4.2.8 (Ordering of the rationals) -/
 instance Rat.instLT : LT Rat where
   lt x y := (x-y).isNeg
 
-/-- Definition 4.2.8 (Ordering of the rationals) -/
+/-- Визначення 4.2.8 (Ordering of the rationals) -/
 instance Rat.instLE : LE Rat where
   le x y := (x < y) ∨ (x = y)
 
@@ -283,28 +283,28 @@ theorem Rat.le_iff (x y:Rat) : x ≤ y ↔ (x < y) ∨ (x = y) := by rfl
 theorem Rat.gt_iff (x y:Rat) : x > y ↔ (x-y).isPos := by sorry
 theorem Rat.ge_iff (x y:Rat) : x ≥ y ↔ (x > y) ∨ (x = y) := by sorry
 
-/-- Proposition 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
 theorem Rat.trichotomous' (x y z:Rat) : x > y ∨ x < y ∨ x = y := by sorry
 
-/-- Proposition 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
 theorem Rat.not_gt_and_lt (x y:Rat) : ¬ (x > y ∧ x < y):= by sorry
 
-/-- Proposition 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
 theorem Rat.not_gt_and_eq (x y:Rat) : ¬ (x > y ∧ x = y):= by sorry
 
-/-- Proposition 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(a) (order trichotomy) / Exercise 4.2.5 -/
 theorem Rat.not_lt_and_eq (x y:Rat) : ¬ (x < y ∧ x = y):= by sorry
 
-/-- Proposition 4.2.9(b) (order is anti-symmetric) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(b) (order is anti-symmetric) / Exercise 4.2.5 -/
 theorem Rat.antisymm (x y:Rat) : x < y ↔ (y - x).isPos := by sorry
 
-/-- Proposition 4.2.9(c) (order is transitive) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(c) (order is transitive) / Exercise 4.2.5 -/
 theorem Rat.lt_trans {x y z:Rat} (hxy: x < y) (hyz: y < z) : x < z := by sorry
 
-/-- Proposition 4.2.9(d) (addition preserves order) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(d) (addition preserves order) / Exercise 4.2.5 -/
 theorem Rat.add_lt_add_right {x y:Rat} (z:Rat) (hxy: x < y) : x + z < y + z := by sorry
 
-/-- Proposition 4.2.9(e) (positive multiplication preserves order) / Exercise 4.2.5 -/
+/-- Твердження 4.2.9(e) (positive multiplication preserves order) / Exercise 4.2.5 -/
 theorem Rat.mul_lt_mul_right {x y z:Rat} (hxy: x < y) (hz: z.isPos) : x * z < y * z := by sorry
 
 /-- (Not from textbook) Establish the decidability of this order. -/

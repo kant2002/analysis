@@ -27,7 +27,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Definition 3.6.1 (Equal cardinality) -/
+/-- Визначення 3.6.1 (Equal cardinality) -/
 abbrev SetTheory.Set.equal_card (X Y:Set) : Prop := ∃ f : X → Y, Function.Bijective f
 
 /-- Example 3.6.2 -/
@@ -36,7 +36,7 @@ theorem SetTheory.Set.Example_3_6_2 : equal_card {0,1,2} {3,4,5} := by sorry
 /-- Example 3.6.3 -/
 theorem SetTheory.Set.Example_3_6_3 : equal_card nat (nat.specify (fun x ↦ Even (x:ℕ))) := by sorry
 
-/-- Proposition 3.6.4 / Exercise 3.6.1 -/
+/-- Твердження 3.6.4 / Exercise 3.6.1 -/
 instance SetTheory.Set.inst_setoid : Setoid SetTheory.Set := {
   r := equal_card,
   iseqv := {
@@ -46,7 +46,7 @@ instance SetTheory.Set.inst_setoid : Setoid SetTheory.Set := {
   }
 }
 
-/-- Definition 3.6.5 -/
+/-- Визначення 3.6.5 -/
 abbrev SetTheory.Set.has_card (X:Set) (n:ℕ) : Prop := X ≈ Fin n
 
 /-- Remark 3.6.6 -/
@@ -63,7 +63,7 @@ theorem SetTheory.Set.has_card_iff (X:Set) (n:ℕ) :
     X.has_card n ↔ ∃ f: X → Fin n, Function.Bijective f := by
   simp [has_card, HasEquiv.Equiv, Setoid.r, equal_card]
 
-/-- Lemma 3.6.9 -/
+/-- Лема 3.6.9 -/
 theorem SetTheory.Set.pos_card_nonempty {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n) : X ≠ ∅ := by
   -- This proof is written to follow the structure of the original text.
   by_contra! this
@@ -80,7 +80,7 @@ theorem SetTheory.Set.pos_card_nonempty {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_
 /-- Exercise 3.6.2a -/
 theorem SetTheory.Set.has_card_zero {X:Set} : X.has_card 0 ↔ X = ∅ := by sorry
 
-/-- Lemma 3.6.9 -/
+/-- Лема 3.6.9 -/
 theorem SetTheory.Set.card_erase {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n) (x:X) :
     (X \ {x.val}).has_card (n-1) := by
   -- This proof is written to follow the structure of the original text, though with some extra
@@ -115,7 +115,7 @@ theorem SetTheory.Set.card_erase {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n)
   have : equal_card X' (Fin (n-1)) := by use g
   exact this
 
-/-- Proposition 3.6.8 (Uniqueness of cardinality) -/
+/-- Твердження 3.6.8 (Uniqueness of cardinality) -/
 theorem SetTheory.Set.card_uniq {X:Set} {n m:ℕ} (h1: X.has_card n) (h2: X.has_card m) : n = m := by
   -- This proof is written to follow the structure of the original text.
   revert X m
@@ -179,39 +179,39 @@ noncomputable abbrev SetTheory.Set.card (X:Set) : ℕ := by
 theorem SetTheory.Set.has_card_card {X:Set} (hX: X.finite) : X.has_card (SetTheory.Set.card X) := by
   simp [card, hX, hX.choose_spec]
 
-/-- Proposition 3.6.14 (a) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (a) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_insert {X:Set} (hX: X.finite) {x:Object} (hx: x ∉ X) :
     (X ∪ {x}).finite ∧ (X ∪ {x}).card = X.card + 1 := by sorry
 
-/-- Proposition 3.6.14 (b) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (b) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_union {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ∪ Y).finite ∧ (X ∪ Y).card ≤ X.card + Y.card := by sorry
 
-/-- Proposition 3.6.14 (b) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (b) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_union_disjoint {X Y:Set} (hX: X.finite) (hY: Y.finite)
   (hdisj: Disjoint X Y) : (X ∪ Y).card = X.card + Y.card := by sorry
 
-/-- Proposition 3.6.14 (c) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (c) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_subset {X Y:Set} (hX: X.finite) (hY: Y ⊆ X) :
     Y.finite ∧ Y.card ≤ X.card := by sorry
 
-/-- Proposition 3.6.14 (c) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (c) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_ssubset {X Y:Set} (hX: X.finite) (hY: Y ⊂ X) :
     Y.card < X.card := by sorry
 
-/-- Proposition 3.6.14 (d) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (d) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_image {X Y:Set} (hX: X.finite) (f: X → Y) :
     (image f X).finite ∧ (image f X).card ≤ X.card := by sorry
 
-/-- Proposition 3.6.14 (d) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (d) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_image_inj {X Y:Set} (hX: X.finite) {f: X → Y}
   (hf: Function.Injective f) : (image f X).card = X.card := by sorry
 
-/-- Proposition 3.6.14 (e) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (e) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_prod {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ×ˢ Y).finite ∧ (X ×ˢ Y).card = X.card * Y.card := by sorry
 
-/-- Proposition 3.6.14 (f) / Exercise 3.6.4 -/
+/-- Твердження 3.6.14 (f) / Exercise 3.6.4 -/
 theorem SetTheory.Set.card_pow {X Y:Set} (hX: X.finite) (hY: Y.finite) :
     (X ^ Y).finite ∧ (X ^ Y).card = X.card ^ Y.card := by sorry
 

@@ -20,7 +20,7 @@ Main constructions and results of this section:
 open Chapter9
 namespace Chapter10
 
-/-- Lemma 10.4.1 -/
+/-- Лема 10.4.1 -/
 theorem _root_.HasDerivWithinAt.of_inverse {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
   (hfXY: ∀ x ∈ X, f x ∈ Y) (hgf: ∀ x ∈ X, g (f x) = x)
   {x₀ y₀ f'x₀ g'y₀: ℝ} (hx₀: x₀ ∈ X) (hfx₀: f x₀ = y₀)

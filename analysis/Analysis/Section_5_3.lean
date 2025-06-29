@@ -64,11 +64,11 @@ theorem CauchySequence.coe_to_sequence (a: CauchySequence) :
 @[simp]
 theorem CauchySequence.coe_coe {a:ℕ → ℚ} (ha: (a:Sequence).isCauchy) : mk' ha = a := by rfl
 
-/-- Proposition 5.3.3 / Exercise 5.3.1 -/
+/-- Твердження 5.3.3 / Exercise 5.3.1 -/
 theorem Sequence.equiv_trans {a b c:ℕ → ℚ} (hab: Sequence.equiv a b) (hbc: Sequence.equiv b c) :
   Sequence.equiv a c := by sorry
 
-/-- Proposition 5.3.3 / Exercise 5.3.1 -/
+/-- Твердження 5.3.3 / Exercise 5.3.1 -/
 instance CauchySequence.instSetoid : Setoid CauchySequence where
   r := fun a b ↦ Sequence.equiv a b
   iseqv := {
@@ -100,7 +100,7 @@ theorem LIM_def {a:ℕ → ℚ} (ha: (a:Sequence).isCauchy) :
     LIM a = Quotient.mk _ (CauchySequence.mk' ha) := by
   rw [LIM, dif_pos ha]
 
-/-- Definition 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Real numbers) -/
 theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).isCauchy ∧ x = LIM a := by
   -- I had a lot of trouble with this proof; perhaps there is a more idiomatic way to proceed
   apply Quot.ind _ x; intro a
@@ -117,7 +117,7 @@ theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).isCauchy ∧ x 
   classical
   exact Classical.propDecidable _
 
-/-- Definition 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Real numbers) -/
 theorem Real.LIM_eq_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy) :
   LIM a = LIM b ↔ Sequence.equiv a b := by
   constructor
@@ -182,7 +182,7 @@ theorem Sequence.add_equiv {a b a' b':ℕ → ℚ} (haa': Sequence.equiv a a')
     Sequence.equiv (a + b) (a' + b') :=
   equiv_trans (add_equiv_left b haa') (add_equiv_right a' hbb')
 
-/-- Definition 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Addition of reals) -/
 noncomputable instance Real.add_inst : Add Real where
   add := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a + b)) (by
@@ -198,7 +198,7 @@ noncomputable instance Real.add_inst : Add Real where
       exact b'.cauchy
       )
 
-/-- Definition 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Addition of reals) -/
 theorem Real.add_of_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy) :
   LIM a + LIM b = LIM (a + b) := by
   have hab := Sequence.add_cauchy ha hb
@@ -206,12 +206,12 @@ theorem Real.add_of_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Se
   convert Quotient.liftOn₂_mk _ _ _ _
   rw [dif_pos _]
 
-/-- Proposition 5.3.10 (Product of Cauchy sequences is Cauchy) -/
+/-- Твердження 5.3.10 (Product of Cauchy sequences is Cauchy) -/
 theorem Sequence.mul_cauchy {a b:ℕ → ℚ}  (ha: (a:Sequence).isCauchy) (hb: (b:Sequence).isCauchy) :
     (a * b:Sequence).isCauchy := by
   sorry
 
-/-- Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/-- Твердження 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
 theorem Sequence.mul_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (haa': Sequence.equiv a a') :
   Sequence.equiv (a * b) (a' * b) := by
   sorry
@@ -228,7 +228,7 @@ theorem Sequence.mul_equiv {a b a' b':ℕ → ℚ} (haa': Sequence.equiv a a')
     Sequence.equiv (a * b) (a' * b') :=
   equiv_trans (mul_equiv_left b haa') (mul_equiv_right a' hbb')
 
-/-- Definition 5.3.9 (Product of reals) -/
+/-- Визначення 5.3.9 (Product of reals) -/
 noncomputable instance Real.mul_inst : Mul Real where
   mul := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a * b)) (by
@@ -294,7 +294,7 @@ theorem Real.neg_of_cauchy (a:ℕ → ℚ) (ha: (a:Sequence).isCauchy) :
     ((-a:ℕ → ℚ):Sequence).isCauchy := by sorry
 
 
-/-- Proposition 5.3.11 -/
+/-- Твердження 5.3.11 -/
 noncomputable instance Real.addGroup_inst : AddGroup Real :=
 AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
@@ -309,18 +309,18 @@ theorem Real.sub_of_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Se
 theorem Real.sub_of_ratCast (a b:ℚ) : (a:Real) - (b:Real) = (a-b:ℚ) := by sorry
 
 
-/-- Proposition 5.3.12 (laws of algebra) -/
+/-- Твердження 5.3.12 (laws of algebra) -/
 noncomputable instance Real.instAddCommGroup : AddCommGroup Real where
   add_comm := by sorry
 
-/-- Proposition 5.3.12 (laws of algebra) -/
+/-- Твердження 5.3.12 (laws of algebra) -/
 noncomputable instance Real.instCommMonoid : CommMonoid Real where
   mul_comm := by sorry
   mul_assoc := by sorry
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Proposition 5.3.12 (laws of algebra) -/
+/-- Твердження 5.3.12 (laws of algebra) -/
 noncomputable instance Real.instCommRing : CommRing Real where
   left_distrib := by sorry
   right_distrib := by sorry
@@ -362,7 +362,7 @@ example : bounded_away_zero (fun n ↦ 10^(n+1)) := by sorry
 /-- Examples 5.3.13 -/
 example : ((fun (n:ℕ) ↦ (10:ℚ)^(n+1)):Sequence).isBounded := by sorry
 
-/-- Lemma 5.3.14 -/
+/-- Лема 5.3.14 -/
 theorem Real.bounded_away_zero_of_nonzero {x:Real} (hx: x ≠ 0) :
     ∃ a:ℕ → ℚ, (a:Sequence).isCauchy ∧ bounded_away_zero a ∧ x = LIM a := by
   -- This proof is written to follow the structure of the original text.
@@ -401,7 +401,7 @@ theorem Real.bounded_away_zero_nonzero {a:ℕ → ℚ} (ha: bounded_away_zero a)
    obtain ⟨ c, hc, ha ⟩ := ha
    specialize ha n; contrapose! ha; simp [ha, hc]
 
-/-- Lemma 5.3.15 -/
+/-- Лема 5.3.15 -/
 theorem Real.inv_of_bounded_away_zero_cauchy {a:ℕ → ℚ} (ha: bounded_away_zero a)
   (ha_cauchy: (a:Sequence).isCauchy) :
     ((a⁻¹:ℕ → ℚ):Sequence).isCauchy := by
@@ -433,7 +433,7 @@ theorem Real.inv_of_bounded_away_zero_cauchy {a:ℕ → ℚ} (ha: bounded_away_z
     _ = ε := by
       field_simp [hc]
 
-/-- Lemma 5.3.17 (Reciprocation is well-defined) -/
+/-- Лема 5.3.17 (Reciprocation is well-defined) -/
 theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: bounded_away_zero a)
   (ha_cauchy: (a:Sequence).isCauchy) (hb: bounded_away_zero b)
   (hb_cauchy: (b:Sequence).isCauchy) (hlim: LIM a = LIM b) :

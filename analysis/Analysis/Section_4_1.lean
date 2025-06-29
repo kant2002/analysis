@@ -31,7 +31,7 @@ structure PreInt where
   minuend : ℕ
   subtrahend : ℕ
 
-/-- Definition 4.1.1 -/
+/-- Визначення 4.1.1 -/
 instance PreInt.instSetoid : Setoid PreInt where
   r a b := a.minuend + b.subtrahend = b.minuend + a.subtrahend
   iseqv := {
@@ -59,7 +59,7 @@ abbrev Int.formalDiff (a b:ℕ)  : Int := Quotient.mk PreInt.instSetoid ⟨ a,b 
 
 infix:100 " —— " => Int.formalDiff
 
-/-- Definition 4.1.1 (Integers) -/
+/-- Визначення 4.1.1 (Integers) -/
 theorem Int.eq (a b c d:ℕ): a —— b = c —— d ↔ a + d = c + b := by
   constructor
   . exact Quotient.exact
@@ -75,12 +75,12 @@ instance Int.decidableEq : DecidableEq Int := by
     exact decEq _ _
   exact Quotient.recOnSubsingleton₂ a b this
 
-/-- Definition 4.1.1 (Integers) -/
+/-- Визначення 4.1.1 (Integers) -/
 theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by
   apply Quot.ind _ n; intro ⟨ a, b ⟩
   use a, b; rfl
 
-/-- Lemma 4.1.3 (Addition well-defined) -/
+/-- Лема 4.1.3 (Addition well-defined) -/
 instance Int.instAdd : Add Int where
   add := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a+c) —— (b+d) ) (by
     intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2
@@ -90,10 +90,10 @@ instance Int.instAdd : Add Int where
       _ = (a'+b) + (c'+d) := by rw [h1,h2]
       _ = _ := by abel)
 
-/-- Definition 4.1.2 (Definition of addition) -/
+/-- Визначення 4.1.2 (Definition of addition) -/
 theorem Int.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) := Quotient.lift₂_mk _ _ _ _
 
-/-- Lemma 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Multiplication well-defined) -/
 theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') :
     (a*c+b*d) —— (a*d+b*c) = (a'*c+b'*d) —— (a'*d+b'*c) := by
   simp only [eq] at h ⊢
@@ -102,7 +102,7 @@ theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') 
     _ = c*(a'+b) + d*(a+b') := by rw [h]
     _ = _ := by ring
 
-/-- Lemma 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Multiplication well-defined) -/
 theorem Int.mul_congr_right (a b c d c' d' : ℕ) (h: c —— d = c' —— d') :
     (a*c+b*d) —— (a*d+b*c) = (a*c'+b*d') —— (a*d'+b*c') := by
   simp only [eq] at h ⊢
@@ -111,7 +111,7 @@ theorem Int.mul_congr_right (a b c d c' d' : ℕ) (h: c —— d = c' —— d')
     _ = a*(c'+d) + b*(c+d') := by rw [h]
     _ = _ := by ring
 
-/-- Lemma 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Multiplication well-defined) -/
 theorem Int.mul_congr {a b c d a' b' c' d' : ℕ} (h1: a —— b = a' —— b') (h2: c —— d = c' —— d') :
   (a*c+b*d) —— (a*d+b*c) = (a'*c'+b'*d') —— (a'*d'+b'*c') := by
   rw [mul_congr_left a b a' b' c d h1, mul_congr_right a' b' c d c' d' h2]
@@ -123,7 +123,7 @@ instance Int.instMul : Mul Int where
     convert mul_congr _ _ <;> simpa
     )
 
-/-- Definition 4.1.2 (Multiplication of integers) -/
+/-- Визначення 4.1.2 (Multiplication of integers) -/
 theorem Int.mul_eq (a b c d:ℕ) : a —— b * c —— d = (a*c+b*d) —— (a*d+b*c) :=
   Quotient.lift₂_mk _ _ _ _
 
@@ -159,7 +159,7 @@ example : 3 = 4 —— 1 := by
 /-- (Not from textbook) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
-/-- Definition 4.1.4 (Negation of integers) / Exercise 4.1.2 -/
+/-- Визначення 4.1.4 (Negation of integers) / Exercise 4.1.2 -/
 instance Int.instNeg : Neg Int where
   neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by
     sorry)
@@ -171,7 +171,7 @@ example : -(3 —— 5) = 5 —— 3 := by rfl
 abbrev Int.isPos (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = n
 abbrev Int.isNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
 
-/-- Lemma 4.1.5 (trichotomy of integers )-/
+/-- Лема 4.1.5 (trichotomy of integers )-/
 theorem Int.trichotomous (x:Int) : x = 0 ∨ x.isPos ∨ x.isNeg := by
   -- This proof is slightly modified from that in the original text.
   obtain ⟨ a, b, rfl ⟩ := eq_diff x
@@ -189,33 +189,33 @@ theorem Int.trichotomous (x:Int) : x = 0 ∨ x.isPos ∨ x.isNeg := by
   simp_rw [natCast_eq, eq]
   abel
 
-/-- Lemma 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (trichotomy of integers)-/
 theorem Int.not_pos_zero (x:Int) : x = 0 ∧ x.isPos → False := by
   rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
   simp [←natCast_ofNat] at hn'
   linarith
 
-/-- Lemma 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (trichotomy of integers)-/
 theorem Int.not_neg_zero (x:Int) : x = 0 ∧ x.isNeg → False := by
   rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
   simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn'
   linarith
 
-/-- Lemma 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (trichotomy of integers)-/
 theorem Int.not_pos_neg (x:Int) : x.isPos ∧ x.isNeg → False := by
   rintro ⟨ ⟨ n, hn, rfl ⟩, ⟨ m, hm, hm' ⟩ ⟩
   simp_rw [natCast_eq, neg_eq, eq] at hm'
   linarith
 
-/-- Proposition 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
 instance Int.instAddGroup : AddGroup Int :=
 AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
-/-- Proposition 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
 instance Int.instAddCommGroup : AddCommGroup Int where
   add_comm := by sorry
 
-/-- Proposition 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
 instance Int.instCommMonoid : CommMonoid Int where
   mul_comm := by sorry
   mul_assoc := by
@@ -231,29 +231,29 @@ instance Int.instCommMonoid : CommMonoid Int where
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Proposition 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
+/-- Твердження 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
 instance Int.instCommRing : CommRing Int where
   left_distrib := by sorry
   right_distrib := by sorry
   zero_mul := by sorry
   mul_zero := by sorry
 
-/-- Definition of subtraction -/
+/-- Визначення of subtraction -/
 theorem Int.sub_eq (a b:Int) : a - b = a + (-b) := by rfl
 
 theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by sorry
 
-/-- Proposition 4.1.8 (No zero divisors) / Exercise 4.1.5 -/
+/-- Твердження 4.1.8 (No zero divisors) / Exercise 4.1.5 -/
 theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 
 /-- Corollary 4.1.9 (Cancellation law) / Exercise 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
-/-- Definition 4.1.10 (Ordering of the integers) -/
+/-- Визначення 4.1.10 (Ordering of the integers) -/
 instance Int.instLE : LE Int where
   le n m := ∃ a:ℕ, m = n + a
 
-/-- Definition 4.1.10 (Ordering of the integers) -/
+/-- Визначення 4.1.10 (Ordering of the integers) -/
 instance Int.instLT : LT Int where
   lt n m := n ≤ m ∧ n ≠ m
 
@@ -261,34 +261,34 @@ theorem Int.le_iff (a b:Int) : a ≤ b ↔ ∃ t:ℕ, b = a + t := by rfl
 
 theorem Int.lt_iff (a b:Int): a < b ↔ (∃ t:ℕ, b = a + t) ∧ a ≠ b := by rfl
 
-/-- Lemma 4.1.11(a) (Properties of order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(a) (Properties of order) / Exercise 4.1.7 -/
 theorem Int.lt_iff_exists_positive_difference (a b:Int) : a < b ↔ ∃ n:ℕ, n ≠ 0 ∧ b = a + n := by sorry
 
-/-- Lemma 4.1.11(b) (Addition preserves order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(b) (Addition preserves order) / Exercise 4.1.7 -/
 theorem Int.add_lt_add_right {a b:Int} (c:Int) (h: a < b) : a+c < b+c := by sorry
 
-/-- Lemma 4.1.11(c) (Positive multiplication preserves order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(c) (Positive multiplication preserves order) / Exercise 4.1.7 -/
 theorem Int.mul_lt_mul_of_pos_right {a b c:Int} (hab : a < b) (hc: 0 < c) : a*c < b*c := by sorry
 
-/-- Lemma 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
 theorem Int.neg_gt_neg {a b:Int} (h: b < a) : -a < -b := by sorry
 
-/-- Lemma 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(d) (Negation reverses order) / Exercise 4.1.7 -/
 theorem Int.neg_ge_neg {a b:Int} (h: b ≤ a) : -a ≤ -b := by sorry
 
-/-- Lemma 4.1.11(e) (Order is transitive) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(e) (Order is transitive) / Exercise 4.1.7 -/
 theorem Int.lt_trans {a b c:Int} (hab: a < b) (hbc: b < c) : a < c := by sorry
 
-/-- Lemma 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
 theorem Int.trichotomous' (a b:Int) : a > b ∨ a < b ∨ a = b := by sorry
 
-/-- Lemma 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
 theorem Int.not_gt_and_lt (a b:Int) : ¬ (a > b ∧ a < b):= by sorry
 
-/-- Lemma 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
 theorem Int.not_gt_and_eq (a b:Int) : ¬ (a > b ∧ a = b):= by sorry
 
-/-- Lemma 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
+/-- Лема 4.1.11(f) (Order trichotomy) / Exercise 4.1.7 -/
 theorem Int.not_lt_and_eq (a b:Int) : ¬ (a < b ∧ a = b):= by sorry
 
 /-- (Not from textbook) Establish the decidability of this order. -/

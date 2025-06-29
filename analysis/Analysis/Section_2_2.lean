@@ -2,30 +2,29 @@ import Mathlib.Tactic
 import Analysis.Section_2_1
 
 /-!
-# Analysis I, Section 2.2
+# Аналіз I, Глава 2.2
 
-This file is a translation of Section 2.2 of Analysis I to Lean 4.
-All numbering refers to the original text.
+Цей файл є перекладом Глави 2.2 Аналізу I до Lean 4.
+Вся нумерація посилається на оригінального тексту.
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Definition of addition and order for the "Chapter 2" natural numbers, `Chapter2.Nat`
-- Establishment of basic properties of addition and order
+- Визначення додавання та порядку для натуральних чисел "Розділу 2", `Chapter2.Nat`
+- Встановлення основних властивостей додавання та порядку
 
-Note: at the end of this chapter, the `Chapter2.Nat` class will be deprecated in favor of the
-standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of
-`Chapter2.Nat` "by hand" for pedagogical purposes.
+Примітка: наприкінці цього розділу клас `Chapter2.Nat` буде замінено на користь стандартного
+класу Mathlib `_root_.Nat`, або `ℕ`.  Однак, ми пропрацюємо властивості
+`Chapter2.Nat` "вручну" в наступних кількох розділах для педагогічних цілей.
 -/
 
 namespace Chapter2
 
-/-- Definition 2.2.1. (Addition of natural numbers).
+/-- Визначення 2.2.1. (Addition of natural numbers).
     Compare with Mathlib's `Nat.add` -/
 abbrev Nat.add (n m : Nat) : Nat := Nat.recurse (fun _ sum ↦ sum++) m n
 
@@ -53,7 +52,7 @@ example : (2:Nat) + 3 = 5 := by
 -- sum of two natural numbers is again a natural number
 #check (fun (n m:Nat) ↦ n + m)
 
-/-- Lemma 2.2.2 (n + 0 = n). Compare with Mathlib's `Nat.add_zero` -/
+/-- Лема 2.2.2 (n + 0 = n). Compare with Mathlib's `Nat.add_zero` -/
 @[simp]
 lemma Nat.add_zero (n:Nat) : n + 0 = n := by
   -- this proof is written to follow the structure of the original text.
@@ -64,7 +63,7 @@ lemma Nat.add_zero (n:Nat) : n + 0 = n := by
     (n++) + 0 = (n + 0)++ := by rfl
     _ = n++ := by rw [ih]
 
-/-- Lemma 2.2.3 (n+(m++) = (n+m)++). Compare with Mathlib's `Nat.add_succ` -/
+/-- Лема 2.2.3 (n+(m++) = (n+m)++). Compare with Mathlib's `Nat.add_succ` -/
 lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
   -- this proof is written to follow the structure of the original text.
   revert n; apply induction
@@ -78,7 +77,7 @@ lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
 theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
   sorry
 
-/-- Proposition 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
+/-- Твердження 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
   -- this proof is written to follow the structure of the original text.
   revert n; apply induction
@@ -87,12 +86,12 @@ theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
   rw [succ_add]
   rw [add_succ, ih]
 
-/-- Proposition 2.2.5 (Addition is associative) / Exercise 2.2.1
+/-- Твердження 2.2.5 (Addition is associative) / Exercise 2.2.1
     Compare with Mathlib's `Nat.add_assoc` -/
 theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
   sorry
 
-/-- Proposition 2.2.6 (Cancellation law)
+/-- Твердження 2.2.6 (Cancellation law)
     Compare with Mathlib's `Nat.add_left_cancel` -/
 theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   -- this proof is written to follow the structure of the original text.
@@ -114,12 +113,12 @@ instance Nat.addCommMonoid : AddCommMonoid Nat where
   add_zero := add_zero
   nsmul := nsmulRec
 
-/-- Definition 2.2.7 (Positive natural numbers).-/
+/-- Визначення 2.2.7 (Positive natural numbers).-/
 def Nat.isPos (n:Nat) : Prop := n ≠ 0
 
 theorem Nat.isPos_iff (n:Nat) : n.isPos ↔ n ≠ 0 := by rfl
 
-/-- Proposition 2.2.8 (positive plus natural number is positive).
+/-- Твердження 2.2.8 (positive plus natural number is positive).
     Compare with Mathlib's `Nat.add_pos_left` -/
 theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.isPos) : (a + b).isPos := by
   -- this proof is written to follow the structure of the original text.
@@ -159,16 +158,16 @@ extracts a witness `x` and a proof `hx : P x` of the property from a hypothesis 
 #check ExistsUnique.exists
 #check ExistsUnique.unique
 
-/-- Lemma 2.2.10 (unique predecessor) / Exercise 2.2.2 -/
+/-- Лема 2.2.10 (unique predecessor) / Exercise 2.2.2 -/
 lemma Nat.uniq_succ_eq (a:Nat) (ha: a.isPos) : ∃! b, b++ = a := by
   sorry
 
-/-- Definition 2.2.11 (Ordering of the natural numbers)
+/-- Визначення 2.2.11 (Ordering of the natural numbers)
     This defines the `≤` operation on the natural numbers. -/
 instance Nat.instLE : LE Nat where
   le n m := ∃ a:Nat, m = n + a
 
-/-- Definition 2.2.11 (Ordering of the natural numbers)
+/-- Визначення 2.2.11 (Ordering of the natural numbers)
     This defines the `<` notation on the natural numbers. -/
 instance Nat.instLT : LT Nat where
   lt n m := n ≤ m ∧ n ≠ m
@@ -207,7 +206,7 @@ example : (8:Nat) > 5 := by
 theorem Nat.succ_gt_self (n:Nat) : n++ > n := by
   sorry
 
-/-- Proposition 2.2.12 (Basic properties of order for natural numbers) / Exercise 2.2.3
+/-- Твердження 2.2.12 (Basic properties of order for natural numbers) / Exercise 2.2.3
 
 (a) (Order is reflexive). Compare with Mathlib's `Nat.le_refl`-/
 theorem Nat.ge_refl (a:Nat) : a ≥ a := by
@@ -261,7 +260,7 @@ theorem Nat.not_lt_of_gt (a b:Nat) : a < b ∧ a > b → False := by
   contradiction
 
 
-/-- Proposition 2.2.13 (Trichotomy of order for natural numbers) / Exercise 2.2.4
+/-- Твердження 2.2.13 (Trichotomy of order for natural numbers) / Exercise 2.2.4
     Compare with Mathlib's `trichotomous` -/
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   -- this proof is written to follow the structure of the original text.
@@ -325,7 +324,7 @@ instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
     intro a b hab c
     exact (add_le_add_left a b c).mp hab
 
-/-- Proposition 2.2.14 (Strong principle of induction) / Exercise 2.2.5
+/-- Твердження 2.2.14 (Strong principle of induction) / Exercise 2.2.5
     Compare with Mathlib's `Nat.strong_induction_on`
 -/
 theorem Nat.strong_induction {m₀:Nat} {P: Nat → Prop}

@@ -60,7 +60,7 @@ example (x₀ x : ℝ) :
   |x-x₀| ≤ δ → |g x - g x₀| ≤ ε := by
   sorry
 
-/-- Definition 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
+/-- Визначення 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
   ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.close x x₀ → ε.close (f x) (f x₀) := by
   simp_rw [Metric.uniformContinuousOn_iff_le, Real.close]
@@ -81,7 +81,7 @@ example : ¬ UniformContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
 
 end Chapter9
 
-/-- Definition 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
+/-- Визначення 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
 abbrev Real.close_seqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
   (a.m = b.m) ∧ ∀ n ≥ a.m, ε.close (a n) (b n)
 
@@ -96,7 +96,7 @@ theorem Chapter6.Sequence.equiv_iff_rat (a b: Sequence) :
   Sequence.equiv a b ↔ ∀ ε > (0:ℚ), (ε:ℝ).eventually_close_seqs a b := by
   sorry
 
-/-- Lemma 9.9.7 / Exercise 9.9.1 -/
+/-- Лема 9.9.7 / Exercise 9.9.1 -/
 theorem Chapter6.Sequence.equiv_iff (a b: Sequence) :
   Sequence.equiv a b ↔ Filter.Tendsto (fun n ↦ a n - b n) Filter.atTop (nhds 0) := by
   sorry
@@ -105,7 +105,7 @@ theorem Chapter6.Sequence.equiv_iff (a b: Sequence) :
 namespace Chapter9
 
 
-/-- Proposition 9.9.8 / Exercise 9.9.2 -/
+/-- Твердження 9.9.8 / Exercise 9.9.2 -/
 theorem UniformContinuousOn.iff_preserves_equiv {X:Set ℝ} (f: ℝ → ℝ) :
   UniformContinuousOn f X ↔
   ∀ x y: ℕ → ℝ, (∀ n, x n ∈ X) → (∀ n, y n ∈ X) →
@@ -144,7 +144,7 @@ example : ¬ Sequence.equiv ((fun n:ℕ ↦ f_9_9_11 (n+1:ℝ)):Sequence) ((fun 
 example : ¬ UniformContinuousOn f_9_9_11 Set.univ := by
   sorry
 
-/-- Proposition 9.9.12 / Exercise 9.9.3  -/
+/-- Твердження 9.9.12 / Exercise 9.9.3  -/
 theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x: ℕ → ℝ} (hx: (x:Sequence).isCauchy) (hmem : ∀ n, x n ∈ X) :
   (f ∘ x:Sequence).isCauchy := by
@@ -169,7 +169,7 @@ theorem UniformContinuousOn.limit_at_adherent  {X:Set ℝ} (f: ℝ → ℝ)
   ∃ L:ℝ, Filter.Tendsto f (nhds x₀ ⊓ Filter.principal X) (nhds L) := by
   sorry
 
-/-- Proposition 9.9.15 / Exercise 9.9.5 -/
+/-- Твердження 9.9.15 / Exercise 9.9.5 -/
 theorem UniformContinuousOn.of_bounded {E X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) (hEX: E ⊆ X) (hE: Bornology.IsBounded E) :
   Bornology.IsBounded (f '' E) := by

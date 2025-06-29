@@ -86,19 +86,19 @@ lemma Sequence.from_eval (a:Sequence) {m₁ n:ℤ} (hn: n ≥ m₁) :
 
 end Chapter6
 
-/-- Definition 6.1.3 (ε-steady) -/
+/-- Визначення 6.1.3 (ε-steady) -/
 abbrev Real.steady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∀ n ≥ a.m, ∀ m ≥ a.m, ε.close (a n) (a m)
 
-/-- Definition 6.1.3 (ε-steady) -/
+/-- Визначення 6.1.3 (ε-steady) -/
 lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.steady a ↔ ∀ n ≥ a.m, ∀ m ≥ a.m, ε.close (a n) (a m) := by rfl
 
-/-- Definition 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Eventually ε-steady) -/
 abbrev Real.eventuallySteady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∃ N ≥ a.m, ε.steady (a.from N)
 
-/-- Definition 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Eventually ε-steady) -/
 lemma Real.eventuallySteady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.eventuallySteady a ↔ ∃ N, (N ≥ a.m) ∧ ε.steady (a.from N) := by rfl
 
@@ -111,10 +111,10 @@ theorem Real.eventuallySteady_mono {a: Chapter6.Sequence} {ε₁ ε₂: ℝ} (h�
 
 namespace Chapter6
 
-/-- Definition 6.1.3 (Cauchy sequence) -/
+/-- Визначення 6.1.3 (Cauchy sequence) -/
 abbrev Sequence.isCauchy (a:Sequence) : Prop := ∀ ε > (0:ℝ), ε.eventuallySteady a
 
-/-- Definition 6.1.3 (Cauchy sequence) -/
+/-- Визначення 6.1.3 (Cauchy sequence) -/
 lemma Sequence.isCauchy_def (a:Sequence) :
   a.isCauchy ↔ ∀ ε > (0:ℝ), ε.eventuallySteady a := by rfl
 
@@ -144,7 +144,7 @@ theorem Sequence.is_steady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
 theorem Sequence.is_eventuallySteady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
     ε.eventuallySteady a ↔ (ε:ℝ).eventuallySteady (a:Sequence) := by sorry
 
-/-- Proposition 6.1.4 -/
+/-- Твердження 6.1.4 -/
 theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.isCauchy ↔ (a:Sequence).isCauchy := by
   -- This proof is written to follow the structure of the original text.
   constructor
@@ -167,18 +167,18 @@ theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.isCauchy ↔ (a:Sequ
 
 end Chapter6
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 abbrev Real.close_seq (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) : Prop := ∀ n ≥ a.m, ε.close (a n) L
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 theorem Real.close_seq_def (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) :
   ε.close_seq a L ↔ ∀ n ≥ a.m, dist (a n) L ≤ ε := by rfl
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 abbrev Real.eventually_close (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) : Prop :=
   ∃ N ≥ a.m, ε.close_seq (a.from N) L
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 theorem Real.eventually_close_def (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) :
   ε.eventually_close a L ↔ ∃ N, (N ≥ a.m) ∧ ε.close_seq (a.from N) L := by rfl
 
@@ -216,7 +216,7 @@ example : (0.01:ℝ).eventually_close seq_6_1_6 1 := by sorry
 /-- Examples 6.1.6 -/
 example : seq_6_1_6.tendsTo 1 := by sorry
 
-/-- Proposition 6.1.7 (Uniqueness of limits) -/
+/-- Твердження 6.1.7 (Uniqueness of limits) -/
 theorem Sequence.tendsTo_unique (a:Sequence) {L L':ℝ} (h:L ≠ L') :
     ¬ (a.tendsTo L ∧ a.tendsTo L') := by
   -- This proof is written to follow the structure of the original text.
@@ -245,16 +245,16 @@ theorem Sequence.tendsTo_unique (a:Sequence) {L L':ℝ} (h:L ≠ L') :
       simp [ε]; ring
   linarith
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 abbrev Sequence.convergent (a:Sequence) : Prop := ∃ L, a.tendsTo L
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.convergent_def (a:Sequence) : a.convergent ↔ ∃ L, a.tendsTo L := by rfl
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 abbrev Sequence.divergent (a:Sequence) : Prop := ¬ a.convergent
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.divergent_def (a:Sequence) : a.divergent ↔ ¬ a.convergent := by rfl
 
 open Classical in
@@ -263,13 +263,13 @@ open Classical in
 -/
 noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.convergent then h.choose else 0
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.lim_def {a:Sequence} (h: a.convergent) : a.tendsTo (lim a) := by
   unfold lim
   simp [h]
   convert h.choose_spec
 
-/-- Definition 6.1.8-/
+/-- Визначення 6.1.8-/
 theorem Sequence.lim_eq {a:Sequence} {L:ℝ} :
 a.tendsTo L ↔ a.convergent ∧ lim a = L := by
   constructor
@@ -284,7 +284,7 @@ a.tendsTo L ↔ a.convergent ∧ lim a = L := by
   rw [h']
 
 
-/-- Proposition 6.1.11 -/
+/-- Твердження 6.1.11 -/
 theorem Sequence.lim_harmonic :
     ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence).convergent ∧ lim ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence) = 0 := by
   -- This proof is written to follow the structure of the original text.
@@ -313,7 +313,7 @@ theorem Sequence.lim_harmonic :
       rw [gt_iff_lt, ←inv_eq_one_div _] at hN
       assumption
 
-/-- Proposition 6.1.12 / Exercise 6.1.5 -/
+/-- Твердження 6.1.12 / Exercise 6.1.5 -/
 theorem Sequence.Cauchy_of_convergent {a:Sequence} (h:a.convergent) : a.isCauchy := by
   sorry
 
@@ -326,22 +326,22 @@ example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).isCauchy := by sorry
 /-- Example 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).convergent := by sorry
 
-/-- Proposition 6.1.15 / Exercise 6.1.6 (Formal limits are genuine limits)-/
+/-- Твердження 6.1.15 / Exercise 6.1.6 (Formal limits are genuine limits)-/
 theorem Sequence.lim_eq_LIM {a:ℕ → ℚ} (h: (a:Chapter5.Sequence).isCauchy) :
     ((a:Chapter5.Sequence):Sequence).tendsTo (Chapter5.Real.equivR (Chapter5.LIM a)) := by sorry
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℝ) : Prop :=
   ∀ n, |a n| ≤ M
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 lemma Sequence.BoundedBy_def (a:Sequence) (M:ℝ) :
   a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 abbrev Sequence.isBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 lemma Sequence.isBounded_def (a:Sequence) :
   a.isBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 

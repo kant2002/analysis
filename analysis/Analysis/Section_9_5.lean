@@ -18,7 +18,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.5.1.  We give left and right limits the "junk" value of 0 if the limit does not exist. -/
+/-- Визначення 9.5.1.  We give left and right limits the "junk" value of 0 if the limit does not exist. -/
 abbrev right_limit_exists (X: Set ℝ) (f: ℝ → ℝ) (x₀:ℝ) : Prop := ∃ L, Filter.Tendsto f ((nhds x₀) ⊓ Filter.principal (X ∩ Set.Ioi x₀)) (nhds L)
 
 open Classical in
@@ -76,7 +76,7 @@ theorem left_limit.conv {X: Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} {L:ℝ} (had: A
   apply Convergesto.comp had _ ha hconv
   rwa [Convergesto.iff, left_limit.eq had hL]
 
-/-- Proposition 9.5.3 -/
+/-- Твердження 9.5.3 -/
 theorem ContinuousAt.iff_eq_left_right_limit {X: Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} (h: x₀ ∈ X)
   (had_left: AdherentPt x₀ (X ∩ Set.Iio x₀)) (had_right: AdherentPt x₀ (X ∩ Set.Ioi x₀)) :
   ContinuousWithinAt f X x₀ ↔ right_limit_exists X f x₀ ∧ left_limit_exists X f x₀ ∧

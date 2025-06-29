@@ -66,7 +66,7 @@ example : Example_6_4_4.limit_point (-1) := by sorry
 /-- Example 6.4.4 -/
 example : ¬ Example_6_4_4.limit_point 0 := by sorry
 
-/-- Proposition 6.4.5 / Exercise 6.4.1 -/
+/-- Твердження 6.4.5 / Exercise 6.4.1 -/
 theorem Sequence.limit_point_of_limit {a:Sequence} {x:ℝ} (h: a.tendsTo x) : a.limit_point x := by
   sorry
 
@@ -135,7 +135,7 @@ example (n:ℕ) : Example_6_4_9.lowerseq n = n+1 := by sorry
 
 example : Example_6_4_9.liminf = ⊤ := by sorry
 
-/-- Proposition 6.4.12(a) -/
+/-- Твердження 6.4.12(a) -/
 theorem Sequence.gt_limsup_bounds {a:Sequence} {x:EReal} (h: x > a.limsup) :
     ∃ N ≥ a.m, ∀ n ≥ N, a n < x := by
   -- This proof is written to follow the structure of the original text.
@@ -150,12 +150,12 @@ theorem Sequence.gt_limsup_bounds {a:Sequence} {x:EReal} (h: x > a.limsup) :
   convert lt_of_le_of_lt ((a.from N).le_sup hn') ha using 1
   simp [hn, hN.trans hn]
 
-/-- Proposition 6.4.12(a) -/
+/-- Твердження 6.4.12(a) -/
 theorem Sequence.lt_liminf_bounds {a:Sequence} {y:EReal} (h: y < a.liminf) :
     ∃ N ≥ a.m, ∀ n ≥ N, a n > y := by
   sorry
 
-/-- Proposition 6.4.12(b) -/
+/-- Твердження 6.4.12(b) -/
 theorem Sequence.lt_limsup_bounds {a:Sequence} {x:EReal} (h: x < a.limsup) {N:ℤ} (hN: N ≥ a.m) :
     ∃ n ≥ N, a n > x := by
   -- This proof is written to follow the structure of the original text.
@@ -171,53 +171,53 @@ theorem Sequence.lt_limsup_bounds {a:Sequence} {x:EReal} (h: x < a.limsup) {N:�
   convert gt_iff_lt.mpr hxn using 1
   simp [hn, hN.trans hn]
 
-/-- Proposition 6.4.12(b) -/
+/-- Твердження 6.4.12(b) -/
 theorem Sequence.gt_liminf_bounds {a:Sequence} {x:EReal} (h: x > a.liminf) {N:ℤ} (hN: N ≥ a.m) :
     ∃ n ≥ N, a n < x := by
   sorry
 
-/-- Proposition 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
 theorem Sequence.inf_le_liminf (a:Sequence) : a.inf ≤ a.liminf := by sorry
 
-/-- Proposition 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
 theorem Sequence.liminf_le_limsup (a:Sequence) : a.liminf ≤ a.limsup := by sorry
 
-/-- Proposition 6.4.12(c) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(c) / Exercise 6.4.3 -/
 theorem Sequence.limsup_le_sup (a:Sequence) : a.limsup ≤ a.sup := by sorry
 
-/-- Proposition 6.4.12(d) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(d) / Exercise 6.4.3 -/
 theorem Sequence.limit_point_between_liminf_limsup {a:Sequence} {c:ℝ} (h: a.limit_point c) :
   a.liminf ≤ c ∧ c ≤ a.limsup := by
   sorry
 
-/-- Proposition 6.4.12(e) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(e) / Exercise 6.4.3 -/
 theorem Sequence.limit_point_of_limsup {a:Sequence} {L_plus:ℝ} (h: a.limsup = L_plus) :
     a.limit_point L_plus := by
   sorry
 
-/-- Proposition 6.4.12(e) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(e) / Exercise 6.4.3 -/
 theorem Sequence.limit_point_of_liminf {a:Sequence} {L_minus:ℝ} (h: a.liminf = L_minus) :
     a.limit_point L_minus := by
   sorry
 
-/-- Proposition 6.4.12(f) / Exercise 6.4.3 -/
+/-- Твердження 6.4.12(f) / Exercise 6.4.3 -/
 theorem Sequence.tendsTo_iff_eq_limsup_liminf {a:Sequence} (c:ℝ) :
   a.tendsTo c ↔ a.liminf = c ∧ a.limsup = c := by
   sorry
 
-/-- Lemma 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
 theorem Sequence.sup_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.sup ≤ b.sup := by sorry
 
-/-- Lemma 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
 theorem Sequence.inf_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.inf ≤ b.inf := by sorry
 
-/-- Lemma 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
 theorem Sequence.limsup_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.limsup ≤ b.limsup := by sorry
 
-/-- Lemma 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
+/-- Лема 6.4.13 (Comparison principle) / Exercise 6.4.4 -/
 theorem Sequence.liminf_mono {a b:Sequence} (hm: a.m = b.m) (hab: ∀ n ≥ a.m, a n ≤ b n) :
     a.liminf ≤ b.liminf := by sorry
 

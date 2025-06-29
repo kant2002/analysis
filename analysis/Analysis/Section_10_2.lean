@@ -20,7 +20,7 @@ Main constructions and results of this section:
 open Chapter9
 namespace Chapter10
 
-/-- Definition 10.2.1 (Local maxima and minima).  Here we use Mathlib's `IsLocalMaxOn` type. -/
+/-- Визначення 10.2.1 (Local maxima and minima).  Here we use Mathlib's `IsLocalMaxOn` type. -/
 theorem IsLocalMaxOn.iff (X:Set ℝ) (f:ℝ → ℝ) (x₀:ℝ) :
   IsLocalMaxOn f X x₀ ↔
   ∃ δ > 0, IsMaxOn f (X ∩ Set.Ioo (x₀ - δ) (x₀ + δ)) x₀ := by
@@ -76,13 +76,13 @@ theorem IsLocalMinOn.of_restrict {X Y:Set ℝ} (hXY: Y ⊆ X) (f:ℝ → ℝ) (x
   (h: IsLocalMinOn f X x₀) : IsLocalMinOn f Y x₀ := by
   sorry
 
-/-- Proposition 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
+/-- Твердження 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
 theorem IsLocalMaxOn.deriv_eq_zero {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} {x₀:ℝ}
   (hx₀: x₀ ∈ Set.Ioo a b) (h: IsLocalMaxOn f (Set.Ioo a b) x₀) {L:ℝ}
   (hderiv: HasDerivWithinAt f L (Set.Ioo a b) x₀) : L = 0 := by
   sorry
 
-/-- Proposition 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
+/-- Твердження 10.2.6 (Local extrema are stationary) / Exercise 10.2.1 -/
 theorem IsLocalMinOn.deriv_eq_zero {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} {x₀:ℝ}
   (hx₀: x₀ ∈ Set.Ioo a b) (h: IsLocalMinOn f (Set.Ioo a b) x₀) {L:ℝ}
   (hderiv: HasDerivWithinAt f L (Set.Ioo a b) x₀) : L = 0 := by

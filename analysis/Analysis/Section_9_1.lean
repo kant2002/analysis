@@ -54,7 +54,7 @@ example {a b: EReal} (h: a ≥ b) : Set.Ioo a b = ∅ := by
 example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
   sorry
 
-/-- Definition 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
+/-- Визначення 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
 /-- Example 9.1.7 -/
@@ -67,14 +67,14 @@ example : (0.5:ℝ).adherent' 1.1 {1,2,3} := by sorry
 
 namespace Chapter9
 
-/-- Definition 9.1.-/
+/-- Визначення 9.1.-/
 abbrev AdherentPt (x:ℝ) (X:Set ℝ) := ∀ ε > (0:ℝ), ε.adherent' x X
 
 example : AdherentPt 1 (Set.Ioo 0 1) := by sorry
 
 example : ¬ AdherentPt 2 (Set.Ioo 0 1) := by sorry
 
-/-- Definition 9.1.10 (Closure).  Here we identify this definition with the Mathilb version. -/
+/-- Визначення 9.1.10 (Closure).  Here we identify this definition with the Mathilb version. -/
 theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
   ext x
   simp [Real.mem_closure_iff, AdherentPt, Real.adherent']
@@ -95,22 +95,22 @@ theorem closure_def' (X:Set ℝ) (x :ℝ) : x ∈ closure X ↔ AdherentPt x X :
 theorem AdherentPt_def (x:ℝ) (X:Set ℝ) : AdherentPt x X = ClusterPt x (Filter.principal X) := by
   rw [←closure_def', mem_closure_iff_clusterPt]
 
-/-- Lemma 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Exercise 9.1.2 -/
 theorem subset_closure (X:Set ℝ): X ⊆ closure X := by sorry
 
-/-- Lemma 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Exercise 9.1.2 -/
 theorem closure_union (X Y:Set ℝ): closure (X ∪ Y) = closure X ∪ closure Y := by sorry
 
-/-- Lemma 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Exercise 9.1.2 -/
 theorem closure_inter (X Y:Set ℝ): closure (X ∩ Y) ⊆ closure X ∩ closure Y := by sorry
 
-/-- Lemma 9.1.11 / Exercise 9.1.2 -/
+/-- Лема 9.1.11 / Exercise 9.1.2 -/
 theorem closure_subset {X Y:Set ℝ} (h: X ⊆ Y): closure X ⊆ closure Y := by sorry
 
 /-- Exercise 9.1.1 -/
 theorem closure_of_subset_closure {X Y:Set ℝ} (h: X ⊆ Y) (h' : Y ⊆ closure X): closure Y = closure X := by sorry
 
-/-- Lemma 9.1.12 -/
+/-- Лема 9.1.12 -/
 theorem closure_of_Ioo {a b:ℝ} (h:a < b) : closure (Set.Ioo a b) = Set.Icc a b := by
   -- This proof is written to follow the structure of the original text.
   ext x; simp [closure_def, AdherentPt, Real.adherent']
@@ -159,22 +159,22 @@ theorem closure_of_Iic {a:ℝ} : closure (Set.Iic a) = Set.Iic a := by
 
 theorem closure_of_R : closure (Set.univ: Set ℝ) = Set.univ := by sorry
 
-/-- Lemma 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Exercise 9.1.3 -/
 theorem closure_of_N :
   closure ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) = ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) := by
     sorry
 
-/-- Lemma 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Exercise 9.1.3 -/
 theorem closure_of_Z :
   closure ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) = ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) := by
     sorry
 
-/-- Lemma 9.1.13 / Exercise 9.1.3 -/
+/-- Лема 9.1.13 / Exercise 9.1.3 -/
 theorem closure_of_Q :
   closure ((fun n:ℚ ↦ (n:ℝ)) '' Set.univ) = Set.univ := by
     sorry
 
-/-- Lemma 9.1.14 / Exercise 9.1.5 -/
+/-- Лема 9.1.14 / Exercise 9.1.5 -/
 theorem limit_of_AdherentPt (X: Set ℝ) (x:ℝ) :
   AdherentPt x X ↔ ∃ a : ℕ → ℝ, (∀ n, a n ∈ X) ∧ Filter.Tendsto a Filter.atTop (nhds x) := by
     sorry
@@ -184,7 +184,7 @@ theorem AdherentPt.of_mem {X: Set ℝ} {x: ℝ} (h: x ∈ X) : AdherentPt x X :=
   use fun _ ↦ x
   simp [h]
 
-/-- Definition 9.1.15.  Here we use the Mathlib definition. -/
+/-- Визначення 9.1.15.  Here we use the Mathlib definition. -/
 theorem isClosed_def (X:Set ℝ): IsClosed X ↔ closure X = X :=
   closure_eq_iff_isClosed.symm
 
@@ -243,14 +243,14 @@ theorem isClosed_iff_limits_mem (X: Set ℝ) :
   obtain ⟨ a, ha, hL ⟩ := hx
   exact h a x ha hL
 
-/-- Definition 9.1.18 (Limit points) -/
+/-- Визначення 9.1.18 (Limit points) -/
 abbrev LimitPt (x:ℝ) (X: Set ℝ) := AdherentPt x (X \ {x})
 
 /-- Identification with Mathlib's `AccPt`-/
 theorem LimitPt.iff_AccPt (x:ℝ) (X: Set ℝ) : LimitPt x X ↔ AccPt x (Filter.principal X) := by
   rw [accPt_principal_iff_clusterPt,←AdherentPt_def]
 
-/-- Definition 9.1.18 (Isolated points) -/
+/-- Визначення 9.1.18 (Isolated points) -/
 abbrev IsolatedPt (x:ℝ) (X: Set ℝ) := x ∈ X ∧ ∃ ε>0, ∀ y ∈ X \ {x}, |x-y| > ε
 
 /-- Example 9.1.19 -/
@@ -276,7 +276,7 @@ theorem tendsto_mul_add_inv_atTop_nhds_zero (a c : ℝ) (ha : a ≠ 0) :
   · exact tendsto_inv_atTop_zero.comp
       (tendsto_atTop_add_const_right _ c (tendsto_id.const_mul_atTop ha'))
 
-/-- Lemma 9.1.21 -/
+/-- Лема 9.1.21 -/
 theorem mem_Icc_isLimit {a b x:ℝ} (h: a < b) (hx: x ∈ Set.Icc a b) : LimitPt x (Set.Icc a b) := by
   -- This proof is written to follow the structure of the original text, with some slight simplifications.
   simp at hx
@@ -330,7 +330,7 @@ theorem mem_Iio_isLimit {a x:ℝ} (hx: x ∈ Set.Iio a) : LimitPt x (Set.Iio a) 
 theorem mem_R_isLimit {x:ℝ} : LimitPt x (Set.univ) := by
   sorry
 
-/-- Definition 9.1.22.  We use here Mathlib's `Bornology.IsBounded`-/
+/-- Визначення 9.1.22.  We use here Mathlib's `Bornology.IsBounded`-/
 
 theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ Set.Icc (-M) M := by
   simp [isBounded_iff_forall_norm_le]

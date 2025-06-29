@@ -17,19 +17,19 @@ doing so.
 namespace Chapter11
 open BoundedInterval Chapter9
 
-/-- Definition 11.3.1 (Majorization of functions) -/
+/-- Визначення 11.3.1 (Majorization of functions) -/
 abbrev MajorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), f x ≤ g x
 
 abbrev MinorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), g x ≤ f x
 
-/-- Definition 11.3.2 (Uppper and lower Riemann integrals )-/
+/-- Визначення 11.3.2 (Uppper and lower Riemann integrals )-/
 noncomputable abbrev upper_integral (f:ℝ → ℝ) (I: BoundedInterval) : ℝ :=
   sInf ((fun g ↦ PiecewiseConstantOn.integ g I) '' {g | MajorizesOn g f I ∧ PiecewiseConstantOn g I})
 
 noncomputable abbrev lower_integral (f:ℝ → ℝ) (I: BoundedInterval) : ℝ :=
   sSup ((fun g ↦ PiecewiseConstantOn.integ g I) '' {g | MinorizesOn g f I ∧ PiecewiseConstantOn g I})
 
-/-- Lemma 11.3.3, augmented with some additional useful facts -/
+/-- Лема 11.3.3, augmented with some additional useful facts -/
 lemma integral_bounds {f:ℝ → ℝ} {I: BoundedInterval} {M:ℝ} (h: ∀ x ∈ (I:Set ℝ), |f x| ≤ M) :
   -M * |I|ₗ ≤ lower_integral f I ∧
   lower_integral f I ≤ upper_integral f I ∧
@@ -96,7 +96,7 @@ lemma integral_bounds {f:ℝ → ℝ} {I: BoundedInterval} {M:ℝ} (h: ∀ x ∈
   simp [B]
   use h
 
-/-- Definition 11.3.4 (Riemann integral)
+/-- Визначення 11.3.4 (Riemann integral)
 As we permit junk values, the simplest definition for the Riemann integral is the upper integral.-/
 noncomputable abbrev integ (f:ℝ → ℝ) (I: BoundedInterval) : ℝ :=
 upper_integral f I
@@ -104,7 +104,7 @@ upper_integral f I
 noncomputable abbrev integrable (f:ℝ → ℝ) (I: BoundedInterval) : Prop :=
   BddOn f I ∧ lower_integral f I = upper_integral f I
 
-/-- Lemma 11.3.7 / Exercise 11.3.3 -/
+/-- Лема 11.3.7 / Exercise 11.3.3 -/
 theorem integ_of_piecewise_const {f:ℝ → ℝ} {I: BoundedInterval} (hf: PiecewiseConstantOn f I) :
   integrable f I ∧ integ f I = PiecewiseConstantOn.integ f I := by
   sorry
@@ -119,14 +119,14 @@ theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ =
   . simp [PiecewiseConstantOn.integ_const' hconst, hI]
   exact PiecewiseConstantOn.of_const hconst
 
-/-- Definition 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
+/-- Визначення 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
 noncomputable abbrev upper_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sSup (f '' (J:Set ℝ))) * |J|ₗ
 
 noncomputable abbrev lower_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sInf (f '' (J:Set ℝ))) * |J|ₗ
 
-/-- Lemma 11.3.11 / Exercise 11.3.4 -/
+/-- Лема 11.3.11 / Exercise 11.3.4 -/
 theorem upper_riemann_sum_le {f g: ℝ → ℝ} {I:BoundedInterval} (P: Partition I)
   (hf: BddOn f I) (hgf: MajorizesOn g f I) (hg: PiecewiseConstantOn g I) :
   upper_riemann_sum f P ≤ integ g I := by
@@ -137,7 +137,7 @@ theorem lower_riemann_sum_ge {f h: ℝ → ℝ} {I:BoundedInterval} (P: Partitio
   integ h I ≤ lower_riemann_sum f P := by
    sorry
 
-/-- Proposition 11.3.12 / Exercise 11.3.5 -/
+/-- Твердження 11.3.12 / Exercise 11.3.5 -/
 theorem upper_integ_eq_inf_upper_sum {f:ℝ → ℝ} {I:BoundedInterval} (hf: BddOn f I) :
   upper_integral f I = sInf (Set.range (fun P : Partition I ↦ upper_riemann_sum f P)) := by
   sorry

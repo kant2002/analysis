@@ -71,7 +71,7 @@ example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 
 
 
-/-- Lemma 11.1.4 / Exercise 11.1.1 -/
+/-- Лема 11.1.4 / Exercise 11.1.1 -/
 theorem BoundedInterval.ordConnected_iff (X:Set ℝ) : Bornology.IsBounded X ∧ X.OrdConnected ↔ ∃ I: BoundedInterval, X = I := by
   sorry
 
@@ -531,7 +531,7 @@ theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   apply hn _ _ _
   simp only [hP', Finset.card_erase_of_mem hK, hcard, add_tsub_cancel_right]
 
-/-- Definition 11.1.14 (Finer and coarser partitions) -/
+/-- Визначення 11.1.14 (Finer and coarser partitions) -/
 instance Partition.instLE (I: BoundedInterval) : LE (Partition I) where
   le P P' := ∀ J ∈ P'.intervals, ∃ K ∈ P, J ⊆ K
 
@@ -553,7 +553,7 @@ example : ∃ P P' : Partition (Icc 1 4),
   P' ≤ P := by
   sorry
 
-/-- Definition 11.1.16 (Common refinement)-/
+/-- Визначення 11.1.16 (Common refinement)-/
 noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I) where
   max P P' := {
     intervals := Finset.image₂ (fun J K ↦ J ∩ K) P.intervals P'.intervals
@@ -587,7 +587,7 @@ example : ∃ P P' : Partition (Icc 1 4),
   (P' ⊔ P).intervals = {Icc 1 2, Ioo 2 3, Icc 3 4, ∅} := by
   sorry
 
-/-- Lemma 11.1.8 / Exercise 11.1.4 -/
+/-- Лема 11.1.8 / Exercise 11.1.4 -/
 theorem BoundedInterval.le_max {I: BoundedInterval} (P P': Partition I) :
   P ≤ P ⊔ P' ∧ P' ≤ P ⊔ P' := by
   sorry

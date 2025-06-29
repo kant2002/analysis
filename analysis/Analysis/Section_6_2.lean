@@ -18,7 +18,7 @@ Main constructions and results of this section:
 
 -/
 
-/-- Definition 6.2.1 -/
+/-- Визначення 6.2.1 -/
 theorem EReal.def (x:EReal) : (∃ (y:Real), y = x) ∨ x = ⊤ ∨ x = ⊥ := by
   revert x
   rw [EReal.forall]
@@ -41,13 +41,13 @@ theorem EReal.infinite_iff_not_finite (x:EReal): x.isInfinite ↔ ¬ x.isFinite 
   obtain ⟨ y, rfl ⟩ := h
   simp
 
-/-- Definition 6.2.2 (Negation of extended reals) -/
+/-- Визначення 6.2.2 (Negation of extended reals) -/
 theorem EReal.neg_of_real (x:Real) : -(x:EReal) = (-x:ℝ) := rfl
 
 #check EReal.neg_top
 #check EReal.neg_bot
 
-/-- Definition 6.2.3 (Ordering of extended reals) -/
+/-- Визначення 6.2.3 (Ordering of extended reals) -/
 theorem EReal.le_iff (x y:EReal) :
     x ≤ y ↔ (∃ (x' y':Real), x = x' ∧ y = y' ∧ x' ≤ y') ∨ y = ⊤ ∨ x = ⊥ := by
   rcases EReal.def x with hx | rfl | rfl
@@ -57,7 +57,7 @@ theorem EReal.le_iff (x y:EReal) :
   obtain ⟨ y', rfl ⟩ := hy
   simp
 
-/-- Definition 6.2.3 (Ordering of extended reals) -/
+/-- Визначення 6.2.3 (Ordering of extended reals) -/
 theorem EReal.lt_iff (x y:EReal) : x < y ↔ x ≤ y ∧ x ≠ y := lt_iff_le_and_ne
 
 #check EReal.coe_lt_coe_iff
@@ -76,28 +76,28 @@ example : ¬ (3:EReal) ≤ ⊥ := by sorry
 
 #check instCompleteLinearOrderEReal
 
-/-- Proposition 6.2.5(a) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(a) / Exercise 6.2.1 -/
 theorem EReal.refl (x:EReal) : x ≤ x := by sorry
 
-/-- Proposition 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
 theorem EReal.trichotomy (x y:EReal) : x < y ∨ x = y ∨ x > y := by sorry
 
-/-- Proposition 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
 theorem EReal.not_lt_and_eq (x y:EReal) : ¬ (x < y ∧ x = y) := by sorry
 
-/-- Proposition 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
 theorem EReal.not_gt_and_eq (x y:EReal) : ¬ (x > y ∧ x = y) := by sorry
 
-/-- Proposition 6.2.5(b) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(b) / Exercise 6.2.1 -/
 theorem EReal.not_lt_and_gt (x y:EReal) : ¬ (x < y ∧ x > y) := by sorry
 
-/-- Proposition 6.2.5(c) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(c) / Exercise 6.2.1 -/
 theorem EReal.trans {x y z:EReal} (hxy : x ≤ y) (hyz: y ≤ z) : x ≤ z := by sorry
 
-/-- Proposition 6.2.5(d) / Exercise 6.2.1 -/
+/-- Твердження 6.2.5(d) / Exercise 6.2.1 -/
 theorem EReal.neg_of_lt {x y:EReal} (hxy : x ≤ y): -y ≤ -x := by sorry
 
-/-- Definition 6.2.6 -/
+/-- Визначення 6.2.6 -/
 theorem EReal.sup_of_bounded_nonempty {E: Set ℝ} (hbound: BddAbove E) (hnon: E.Nonempty) :
     sSup ((fun (x:ℝ) ↦ (x:EReal)) '' E) = sSup E := calc
   _ = sSup
@@ -114,7 +114,7 @@ theorem EReal.sup_of_bounded_nonempty {E: Set ℝ} (hbound: BddAbove E) (hnon: E
     exact WithTop.coe_sSup' hbound
   _ = _ := by rfl
 
-/-- Definition 6.2.6 -/
+/-- Визначення 6.2.6 -/
 theorem EReal.sup_of_unbounded_nonempty {E: Set ℝ} (hunbound: ¬ BddAbove E) (hnon: E.Nonempty) :
     sSup ((fun (x:ℝ) ↦ (x:EReal)) '' E) = ⊤ := by
   rw [sSup_eq_top]
@@ -128,13 +128,13 @@ theorem EReal.sup_of_unbounded_nonempty {E: Set ℝ} (hunbound: ¬ BddAbove E) (
   simp
   exact hnon
 
-/-- Definition 6.2.6 -/
+/-- Визначення 6.2.6 -/
 theorem EReal.sup_of_empty : sSup (∅:Set EReal) = ⊥ := sSup_empty
 
-/-- Definition 6.2.6 -/
+/-- Визначення 6.2.6 -/
 theorem EReal.sup_of_infty_mem {E: Set EReal} (hE: ⊤ ∈ E) : sSup E = ⊤ := csSup_eq_top_of_top_mem hE
 
-/-- Definition 6.2.6 -/
+/-- Визначення 6.2.6 -/
 theorem EReal.sup_of_neg_infty_mem {E: Set EReal} : sSup E = sSup (E \ {⊥}) :=
   (sSup_diff_singleton_bot _).symm
 

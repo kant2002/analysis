@@ -15,7 +15,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.10.1 (Infinite adherent point).  We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
+/-- Визначення 9.10.1 (Infinite adherent point).  We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
 theorem BddAbove.unbounded_iff (X:Set ℝ) : ¬ BddAbove X ↔ ∀ M, ∃ x ∈ X, x > M := by
   simp [bddAbove_def]
 
@@ -52,7 +52,7 @@ theorem BddBelow.unbounded_iff' (X:Set ℝ) : ¬ BddBelow X ↔ sInf ((fun x:ℝ
   simp at h
   exact h
 
-/-- Definition 9.10.13 (Limit at infinity) -/
+/-- Визначення 9.10.13 (Limit at infinity) -/
 theorem Filter.Tendsto.AtTop.iff {X: Set ℝ} (f:ℝ → ℝ) (L:ℝ) : Filter.Tendsto f (Filter.atTop ⊓ Filter.principal X) (nhds L) ↔ ∀ ε > (0:ℝ), ∃ M, ∀ x ∈ X ∩ Set.Ici M, |f x - L| < ε := by
   rw [LinearOrderedAddCommGroup.tendsto_nhds]
   apply forall_congr'; intro ε

@@ -125,7 +125,7 @@ lemma Sequence.from_eval (a:Sequence) {n₁ n:ℤ} (hn: n ≥ n₁) :
 
 end Chapter5
 
-/-- Definition 5.1.6 (Eventually ε-steady) -/
+/-- Визначення 5.1.6 (Eventually ε-steady) -/
 abbrev Rat.eventuallySteady (ε: ℚ) (a: Chapter5.Sequence) : Prop :=
   ∃ N ≥ a.n₀, ε.steady (a.from N)
 
@@ -175,7 +175,7 @@ theorem Sequence.ex_5_1_10_b : (0.1:ℚ).steady (sqrt_two.from 1) := by sorry
 
 theorem Sequence.ex_5_1_10_c : (0.1:ℚ).eventuallySteady sqrt_two := by sorry
 
-/-- Proposition 5.1.11 -/
+/-- Твердження 5.1.11 -/
 theorem Sequence.harmonic_steady : (mk' 1 (fun n ↦ (1:ℚ)/n)).isCauchy := by
   -- This is proof is probably longer than it needs to be; there should be a shorter proof that
   -- is still in the spirit of  the proof in the book.
@@ -229,13 +229,13 @@ lemma BoundedBy_def {n:ℕ} (a: Fin n → ℚ) (M:ℚ) :
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℚ) : Prop :=
   ∀ n, |a n| ≤ M
 
-/-- Definition 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.BoundedBy_def (a:Sequence) (M:ℚ) :
   a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
 abbrev Sequence.isBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/-- Definition 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.isBounded_def (a:Sequence) :
   a.isBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
@@ -251,7 +251,7 @@ example : ((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).isBounded := by sorry
 /-- Example 5.1.13 -/
 example : ¬ ((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).isCauchy := by sorry
 
-/-- Lemma 5.1.14 -/
+/-- Лема 5.1.14 -/
 lemma bounded_of_finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M := by
   -- this proof is written to follow the structure of the original text.
   induction' n with n hn
@@ -275,7 +275,7 @@ lemma bounded_of_finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M
   convert h2
   simp [hm]
 
-/-- Lemma 5.1.15 (Cauchy sequences are bounded) / Exercise 5.1.1 -/
+/-- Лема 5.1.15 (Cauchy sequences are bounded) / Exercise 5.1.1 -/
 lemma Sequence.isBounded_of_isCauchy {a:Sequence} (h: a.isCauchy) : a.isBounded := by
   sorry
 

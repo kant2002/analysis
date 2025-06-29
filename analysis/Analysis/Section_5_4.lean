@@ -26,15 +26,15 @@ namespace Chapter5
 abbrev bounded_away_pos (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 abbrev bounded_away_neg (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 theorem bounded_away_pos_def (a:ℕ → ℚ) : bounded_away_pos a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c := by
   rfl
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 theorem bounded_away_neg_def (a:ℕ → ℚ) : bounded_away_neg a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c := by
   rfl
 
@@ -72,10 +72,10 @@ theorem Real.isPos_def (x:Real) :
 theorem Real.isNeg_def (x:Real) :
     Real.isNeg x ↔ ∃ a:ℕ → ℚ, bounded_away_neg a ∧ (a:Sequence).isCauchy ∧ x = LIM a := by rfl
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 theorem Real.trichotomous (x:Real) : x = 0 ∨ x.isPos ∨ x.isNeg := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 theorem Real.not_zero_pos (x:Real) : ¬ (x = 0 ∧ x.isPos) := by sorry
 
 theorem Real.nonzero_of_pos {x:Real} (hx: x.isPos) : x ≠ 0 := by
@@ -83,7 +83,7 @@ theorem Real.nonzero_of_pos {x:Real} (hx: x.isPos) : x ≠ 0 := by
     simp [hx] at this ⊢
     assumption
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 theorem Real.not_zero_neg (x:Real) : ¬ (x = 0 ∧ x.isNeg) := by sorry
 
 theorem Real.nonzero_of_neg {x:Real} (hx: x.isNeg) : x ≠ 0 := by
@@ -91,17 +91,17 @@ theorem Real.nonzero_of_neg {x:Real} (hx: x.isNeg) : x ≠ 0 := by
     simp [hx] at this ⊢
     assumption
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 theorem Real.not_pos_neg (x:Real) : ¬ (x.isPos ∧ x.isNeg) := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 @[simp]
 theorem Real.neg_iff_pos_of_neg (x:Real) : x.isNeg ↔ (-x).isPos := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1-/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1-/
 theorem Real.pos_add {x y:Real} (hx: x.isPos) (hy: y.isPos) : (x+y).isPos := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
 theorem Real.pos_mul {x y:Real} (hx: x.isPos) (hy: y.isPos) : (x*y).isPos := by sorry
 
 theorem Real.pos_of_coe (q:ℚ) : (q:Real).isPos ↔ q > 0 := by sorry
@@ -113,18 +113,18 @@ open Classical in
 /-- Need to use classical logic here because isPos and isNeg are not decidable -/
 noncomputable abbrev Real.abs (x:Real) : Real := if x.isPos then x else (if x.isNeg then -x else 0)
 
-/-- Definition 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_pos (x:Real) (hx: x.isPos) : Real.abs x = x := by
   simp [Real.abs, hx]
 
-/-- Definition 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_neg (x:Real) (hx: x.isNeg) : Real.abs x = -x := by
   have : ¬ x.isPos := by have := Real.not_pos_neg x; simp only [hx, and_true] at this; assumption
   simp [Real.abs, hx, this]
 
-/-- Definition 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_zero : Real.abs 0 = 0 := by
   have hpos: ¬ (0:Real).isPos := by
@@ -135,11 +135,11 @@ theorem Real.abs_of_zero : Real.abs 0 = 0 := by
     simp only [true_and] at this; assumption
   simp [Real.abs, hpos, hneg]
 
-/-- Definition 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLT : LT Real where
   lt x y := (x-y).isNeg
 
-/-- Definition 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLE : LE Real where
   le x y := (x < y) ∨ (x = y)
 
@@ -156,34 +156,34 @@ theorem Real.gt_of_coe (q q':ℚ): q > q' ↔ (q:Real) > (q':Real) := Real.lt_of
 theorem Real.isPos_iff (x:Real) : x.isPos ↔ x > 0 := by sorry
 theorem Real.isNeg_iff (x:Real) : x.isNeg ↔ x < 0 := by sorry
 
-/-- Proposition 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
 theorem Real.trichotomous' (x y:Real) : x > y ∨ x < y ∨ x = y := by sorry
 
-/-- Proposition 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
 theorem Real.not_gt_and_lt (x y:Real) : ¬ (x > y ∧ x < y):= by sorry
 
-/-- Proposition 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
 theorem Real.not_gt_and_eq (x y:Real) : ¬ (x > y ∧ x = y):= by sorry
 
-/-- Proposition 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(a) (order trichotomy) / Exercise 5.4.2 -/
 theorem Real.not_lt_and_eq (x y:Real) : ¬ (x < y ∧ x = y):= by sorry
 
-/-- Proposition 5.4.7(b) (order is anti-symmetric) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(b) (order is anti-symmetric) / Exercise 5.4.2 -/
 theorem Real.antisymm (x y:Real) : x < y ↔ (y - x).isPos := by sorry
 
-/-- Proposition 5.4.7(c) (order is transitive) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(c) (order is transitive) / Exercise 5.4.2 -/
 theorem Real.lt_trans {x y z:Real} (hxy: x < y) (hyz: y < z) : x < z := by sorry
 
-/-- Proposition 5.4.7(d) (addition preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(d) (addition preserves order) / Exercise 5.4.2 -/
 theorem Real.add_lt_add_right {x y:Real} (z:Real) (hxy: x < y) : x + z < y + z := by sorry
 
-/-- Proposition 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
 theorem Real.mul_lt_mul_right {x y z:Real} (hxy: x < y) (hz: z.isPos) : x * z < y * z := by
   rw [antisymm] at hxy ⊢
   convert pos_mul hxy hz using 1
   ring
 
-/-- Proposition 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
 theorem Real.mul_le_mul_left {x y z:Real} (hxy: x ≤ y) (hz: z.isPos) : z * x ≤ z * y := by sorry
 
 theorem Real.mul_pos_neg {x y:Real} (hx: x.isPos) (hy: y.isNeg) : (x * y).isNeg := by
@@ -203,7 +203,7 @@ noncomputable instance Real.instLinearOrder : LinearOrder Real where
     classical
     exact Classical.decRel _
 
-/-- Proposition 5.4.8 -/
+/-- Твердження 5.4.8 -/
 theorem Real.inv_of_pos {x:Real} (hx: x.isPos) : x⁻¹.isPos := by
   have hnon: x ≠ 0 := nonzero_of_pos hx
   have hident := inv_mul_self hnon
@@ -241,7 +241,7 @@ instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   le_of_add_le_add_left := by sorry
   zero_le_one := by sorry
 
-/-- Proposition 5.4.9 (The non-negative reals are closed)-/
+/-- Твердження 5.4.9 (The non-negative reals are closed)-/
 theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:Sequence).isCauchy) :
     LIM a ≥ 0 := by
   -- This proof is written to follow the structure of the original text.
@@ -293,7 +293,7 @@ theorem Real.LIM_mono_fail :
   use (fun n ↦ 1 - 1/(n:ℚ))
   sorry
 
-/-- Proposition 5.4.12 (Bounding reals by rationals) -/
+/-- Твердження 5.4.12 (Bounding reals by rationals) -/
 theorem Real.exists_rat_le_and_nat_ge {x:Real} (hx: x.isPos) :
     (∃ q:ℚ, q > 0 ∧ (q:Real) ≤ x) ∧ ∃ N:ℕ, x < (N:Real) := by
   -- This proof is written to follow the structure of the original text.
@@ -344,7 +344,7 @@ theorem Real.le_mul {ε:Real} (hε: ε.isPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M 
   simp [hx]
   linarith
 
-/-- Proposition 5.4.14 / Exercise 5.4.5 -/
+/-- Твердження 5.4.14 / Exercise 5.4.5 -/
 theorem Real.rat_between {x y:Real} (hxy: x < y) : ∃ q:ℚ, x < (q:Real) ∧ (q:Real) < y := by sorry
 
 /-- Exercise 5.4.3 -/

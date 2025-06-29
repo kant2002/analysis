@@ -22,7 +22,7 @@ derivative in such cases (or `0`, if no derivative exists).
 
 namespace Chapter10
 
-/-- Definition 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
+/-- Визначення 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
 hypothesis that `x₀` is a limit point is not needed. -/
 theorem _root_.HasDerivWithinAt.iff (X: Set ℝ) (x₀ : ℝ) (f: ℝ → ℝ)
   (L:ℝ) :
@@ -114,13 +114,13 @@ example : DifferentiableWithinAt ℝ f_10_1_6 (Set.Iio 0) 0 := by
 example : derivWithin f_10_1_6 (Set.Iio 0) 0 = -1 := by
   sorry
 
-/-- Proposition 10.1.7 (Newton's approximation) / Exercise 10.1.2 -/
+/-- Твердження 10.1.7 (Newton's approximation) / Exercise 10.1.2 -/
 theorem _root_.HasDerivWithinAt.iff_approx_linear (X: Set ℝ) (x₀ :ℝ) (f: ℝ → ℝ) (L:ℝ) :
   HasDerivWithinAt f L X x₀ ↔
   ∀ ε > 0, ∃ δ > 0, ∀ x ∈ X, |x - x₀| < δ → |f x - f x₀ - L * (x - x₀)| ≤ ε * |x - x₀| := by
   sorry
 
-/-- Proposition 10.0.1 / Exercise 10.1.3 -/
+/-- Твердження 10.0.1 / Exercise 10.1.3 -/
 theorem _root_.ContinuousWithinAt.of_differentiableWithinAt {X: Set ℝ} {x₀ : ℝ} {f: ℝ → ℝ}
   (h: DifferentiableWithinAt ℝ f X x₀) :
   ContinuousWithinAt f X x₀ := by

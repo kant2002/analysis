@@ -19,7 +19,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
+/-- Визначення 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
 theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
   ContinuousWithinAt f X x₀ ↔ Convergesto X f (f x₀) x₀ := by
   rw [ContinuousWithinAt.eq_1, Convergesto.iff, nhdsWithin.eq_1]
@@ -57,7 +57,7 @@ example : ¬ ContinuousAt f_9_4_6 0 := by sorry
 
 example : ContinuousWithinAt f_9_4_6 (Set.Ici 0) 0 := by sorry
 
-/-- Proposition 9.4.7 / Exercise 9.4.1.  It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
+/-- Твердження 9.4.7 / Exercise 9.4.1.  It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
 theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X) :
   [
     ContinuousWithinAt f X x₀,
@@ -121,19 +121,19 @@ theorem ContinuousWithinAt.div' {X:Set ℝ} (f g: ℝ → ℝ) {x₀:ℝ} (h : x
   have had := AdherentPt.of_mem h
   convert Convergesto.div had hM hf hg using 1
 
-/-- Proposition 9.4.10 / Exercise 9.4.3  -/
+/-- Твердження 9.4.10 / Exercise 9.4.3  -/
 theorem Continuous.exp {a:ℝ} (ha: a>0) : Continuous (fun x:ℝ ↦ a ^ x) := by
   sorry
 
-/-- Proposition 9.4.11 / Exercise 9.4.4 -/
+/-- Твердження 9.4.11 / Exercise 9.4.4 -/
 theorem Continuous.exp' (p:ℝ) : ContinuousOn (fun x:ℝ ↦ x ^ p) (Set.Ioi 0) := by
   sorry
 
-/-- Proposition 9.4.12 -/
+/-- Твердження 9.4.12 -/
 theorem Continuous.abs : Continuous (fun x:ℝ ↦ |x|) := by
   sorry -- TODO
 
-/-- Proposition 9.4.13 / Exercise 9.4.5 -/
+/-- Твердження 9.4.13 / Exercise 9.4.5 -/
 theorem ContinuousWithinAt.comp {X Y: Set ℝ} {f g:ℝ → ℝ} (hf: ∀ x ∈ X, f x ∈ Y) {x₀:ℝ} (hx₀: x ∈ X) (hf_cont: ContinuousWithinAt f X x₀) (hg_cont: ContinuousWithinAt g Y (f x₀)): ContinuousWithinAt (g ∘ f) X x₀ := by sorry
 
 /-- Example 9.4.14 -/

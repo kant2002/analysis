@@ -69,7 +69,7 @@ abbrev Function.mk_fn {X Y: Set} (f: X → Y) : Function X Y :=
     assumption)
 
 
-/-- Definition 3.3.1 -/
+/-- Визначення 3.3.1 -/
 theorem Function.eval {X Y: Set} (f: Function X Y) (x: X) (y: Y) : y = f x ↔ f.P x y := by
   constructor
   . intro h
@@ -186,7 +186,7 @@ abbrev SetTheory.Set.f_3_3_4 : Function nat nat := Function.mk P_3_3_4 P_3_3_4_e
 theorem SetTheory.Set.f_3_3_4_eval (x: nat) : f_3_3_4 x = 7 := by
   symm; rw [Function.eval]
 
-/-- Definition 3.3.7 (Equality of functions) -/
+/-- Визначення 3.3.7 (Equality of functions) -/
 theorem Function.eq_iff {X Y: Set} (f g: Function X Y) : f = g ↔ ∀ x: X, f x = g x := by
   constructor
   . intro h; simp [h]
@@ -223,7 +223,7 @@ abbrev SetTheory.Set.f_3_3_9 (X:Set) : Function (∅:Set) X :=
 
 theorem SetTheory.Set.empty_function_unique {X: Set} (f g: Function (∅:Set) X) : f = g := by sorry
 
-/-- Definition 3.3.10 (Composition) -/
+/-- Визначення 3.3.10 (Composition) -/
 noncomputable abbrev Function.comp {X Y Z: Set} (g: Function Y Z) (f: Function X Y) :
     Function X Z :=
   Function.mk_fn (fun x ↦ g (f x))
@@ -261,7 +261,7 @@ theorem SetTheory.Set.f_circ_g_3_3_11 :
   rw [Function.comp_eval, Function.eval_of, Function.eval_of, Function.eval_of]
   simp; ring
 
-/-- Lemma 3.3.12 (Composition is associative) -/
+/-- Лема 3.3.12 (Composition is associative) -/
 theorem SetTheory.Set.comp_assoc {W X Y Z: Set} (h: Function Y Z) (g: Function X Y)
   (f: Function W X) :
     h ○ (g ○ f) = (h ○ g) ○ f := by
@@ -299,7 +299,7 @@ example : Function.Injective (fun (n:ℕ) ↦ n^2) := by sorry
 theorem SetTheory.Set.two_to_one {X Y: Set} {f: Function X Y} (h: ¬ f.one_to_one) :
     ∃ x x': X, x ≠ x' ∧ f x = f x' := by sorry
 
-/-- Definition 3.3.17 (Onto functions) -/
+/-- Визначення 3.3.17 (Onto functions) -/
 abbrev Function.onto {X Y: Set} (f: Function X Y) : Prop := ∀ y: Y, ∃ x: X, f x = y
 
 /-- Compatibility with Mathlib's Function.Surjective-/
@@ -313,7 +313,7 @@ abbrev A_3_3_18 := { m:ℤ // ∃ n:ℤ, m = n^2 }
 
 example : Function.Surjective (fun (n:ℤ) ↦ ⟨ n^2, by use n ⟩ : ℤ → A_3_3_18) := by sorry
 
-/-- Definition 3.3.20 (Bijective functions) -/
+/-- Визначення 3.3.20 (Bijective functions) -/
 abbrev Function.bijective {X Y: Set} (f: Function X Y) : Prop := f.one_to_one ∧ f.onto
 
 /-- Compatibility with Mathlib's Function.Bijective-/

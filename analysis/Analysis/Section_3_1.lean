@@ -101,7 +101,7 @@ export SetTheory (Set Object)
 variable [SetTheory]
 
 
-/-- Definition 3.1.1 (objects can be elements of sets) -/
+/-- Визначення 3.1.1 (objects can be elements of sets) -/
 instance objects_mem_sets : Membership Object Set where
   mem X x := SetTheory.mem x X
 
@@ -149,7 +149,7 @@ theorem SetTheory.Set.eq_empty_iff_forall_notMem {X:Set} : X = ∅ ↔ (∀ x, x
 theorem SetTheory.Set.empty_unique : ∃! (X:Set), ∀ x, x ∉ X := by
   sorry
 
-/-- Lemma 3.1.5 (Single choice) -/
+/-- Лема 3.1.5 (Single choice) -/
 lemma SetTheory.Set.nonempty_def {X:Set} (h: X ≠ ∅) : ∃ x, x ∈ X := by
   -- This proof is written to follow the structure of the original text.
   by_contra! this
@@ -243,15 +243,15 @@ theorem SetTheory.Set.union_congr_left (A A' B:Set) (h: A = A') : A ∪ B = A' �
 -/
 theorem SetTheory.Set.union_congr_right (A B B':Set) (h: B = B') : A ∪ B = A ∪ B' := by sorry
 
-/-- Lemma 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
 theorem SetTheory.Set.singleton_union_singleton (a b:Object) :
     ({a}:Set) ∪ ({b}:Set) = {a,b} := by
   sorry
 
-/-- Lemma 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
 theorem SetTheory.Set.union_comm (A B:Set) : A ∪ B = B ∪ A := by sorry
 
-/-- Lemma 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
+/-- Лема 3.1.12 (Basic properties of unions) / Exercise 3.1.3 -/
 theorem SetTheory.Set.union_assoc (A B C:Set) : (A ∪ B) ∪ C = A ∪ (B ∪ C) := by
   -- this proof is written to follow the structure of the original text.
   apply ext
@@ -269,15 +269,15 @@ theorem SetTheory.Set.union_assoc (A B C:Set) : (A ∪ B) ∪ C = A ∪ (B ∪ C
     rw [mem_union]; tauto
   sorry
 
-/-- Proposition 3.1.27(c) -/
+/-- Твердження 3.1.27(c) -/
 theorem SetTheory.Set.union_self (A:Set) : A ∪ A = A := by
   sorry
 
-/-- Proposition 3.1.27(a) -/
+/-- Твердження 3.1.27(a) -/
 theorem SetTheory.Set.union_empty (A:Set) : A ∪ ∅ = A := by
   sorry
 
-/-- Proposition 3.1.27(a) -/
+/-- Твердження 3.1.27(a) -/
 theorem SetTheory.Set.empty_union (A:Set) : ∅ ∪ A = A := by
   sorry
 
@@ -288,7 +288,7 @@ theorem SetTheory.Set.triple_eq (a b c:Object) : {a,b,c} = ({a}:Set) ∪ {b,c} :
 theorem SetTheory.Set.pair_union_pair (a b c:Object) :
     ({a,b}:Set) ∪ {b,c} = {a,b,c} := sorry
 
-/-- Definition 3.1.14.   -/
+/-- Визначення 3.1.14.   -/
 instance SetTheory.Set.instSubset : HasSubset Set where
   Subset X Y := ∀ x, x ∈ X → x ∈ Y
 
@@ -299,7 +299,7 @@ instance SetTheory.Set.instSubset : HasSubset Set where
 instance SetTheory.Set.instSSubset : HasSSubset Set where
   SSubset X Y := X ⊆ Y ∧ X ≠ Y
 
-/-- Definition 3.1.14. -/
+/-- Визначення 3.1.14. -/
 theorem SetTheory.Set.subset_def (X Y:Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x ∈ Y := by rfl
 
 /--
@@ -317,7 +317,7 @@ theorem SetTheory.Set.subset_self (A:Set) : A ⊆ A := by sorry
 /-- Examples 3.1.16 -/
 theorem SetTheory.Set.empty_subset (A:Set) : ∅ ⊆ A := by sorry
 
-/-- Proposition 3.1.17 (Partial ordering by set inclusion) -/
+/-- Твердження 3.1.17 (Partial ordering by set inclusion) -/
 theorem SetTheory.Set.subset_trans {A B C:Set} (hAB:A ⊆ B) (hBC:B ⊆ C) : A ⊆ C := by
   -- this proof is written to follow the structure of the original text.
   rw [subset_def]
@@ -327,11 +327,11 @@ theorem SetTheory.Set.subset_trans {A B C:Set} (hAB:A ⊆ B) (hBC:B ⊆ C) : A �
   replace hx := hBC x hx
   assumption
 
-/-- Proposition 3.1.17 (Partial ordering by set inclusion) -/
+/-- Твердження 3.1.17 (Partial ordering by set inclusion) -/
 theorem SetTheory.Set.subset_antisymm (A B:Set) (hAB:A ⊆ B) (hBA:B ⊆ A) : A = B := by
   sorry
 
-/-- Proposition 3.1.17 (Partial ordering by set inclusion) -/
+/-- Твердження 3.1.17 (Partial ordering by set inclusion) -/
 theorem SetTheory.Set.ssubset_trans (A B C:Set) (hAB:A ⊂ B) (hBC:B ⊂ C) : A ⊂ C := by
   sorry
 
@@ -403,7 +403,7 @@ theorem SetTheory.Set.specify_congr {A A':Set} (hAA':A = A') {P: A → Prop} {P'
 instance SetTheory.Set.instIntersection : Inter Set where
   inter X Y := X.specify (fun x ↦ x.val ∈ Y)
 
-/-- Definition 3.1.22 (Intersections) -/
+/-- Визначення 3.1.22 (Intersections) -/
 @[simp]
 theorem SetTheory.Set.mem_inter (x:Object) (X Y:Set) : x ∈ (X ∩ Y) ↔ (x ∈ X ∧ x ∈ Y) := by
   constructor
@@ -417,7 +417,7 @@ theorem SetTheory.Set.mem_inter (x:Object) (X Y:Set) : x ∈ (X ∩ Y) ↔ (x �
 instance SetTheory.Set.instSDiff : SDiff Set where
   sdiff X Y := X.specify (fun x ↦ x.val ∉ Y)
 
-/-- Definition 3.1.26 (Difference sets) -/
+/-- Визначення 3.1.26 (Difference sets) -/
 @[simp]
 theorem SetTheory.Set.mem_sdiff (x:Object) (X Y:Set) : x ∈ (X \ Y) ↔ (x ∈ X ∧ x ∉ Y) := by
   constructor
@@ -428,41 +428,41 @@ theorem SetTheory.Set.mem_sdiff (x:Object) (X Y:Set) : x ∈ (X \ Y) ↔ (x ∈ 
   intro ⟨ hX, hY ⟩
   exact (specification_axiom' (fun x ↦ x.val ∉ Y) ⟨ x, hX⟩ ).mpr hY
 
-/-- Proposition 3.1.27(d) / Exercise 3.1.6 -/
+/-- Твердження 3.1.27(d) / Exercise 3.1.6 -/
 theorem SetTheory.Set.inter_comm (A B:Set) : A ∩ B = B ∩ A := by sorry
 
-/-- Proposition 3.1.27(b) -/
+/-- Твердження 3.1.27(b) -/
 theorem SetTheory.Set.subset_union {A X: Set} (hAX: A ⊆ X) : A ∪ X = X := by sorry
 
-/-- Proposition 3.1.27(b) -/
+/-- Твердження 3.1.27(b) -/
 theorem SetTheory.Set.union_subset {A X: Set} (hAX: A ⊆ X) : X ∪ A = X := by sorry
 
-/-- Proposition 3.1.27(c) -/
+/-- Твердження 3.1.27(c) -/
 theorem SetTheory.Set.inter_self (A:Set) : A ∩ A = A := by
   sorry
 
-/-- Proposition 3.1.27(e) -/
+/-- Твердження 3.1.27(e) -/
 theorem SetTheory.Set.inter_assoc (A B C:Set) : (A ∩ B) ∩ C = A ∩ (B ∩ C) := by sorry
 
-/-- Proposition 3.1.27(f) -/
+/-- Твердження 3.1.27(f) -/
 theorem  SetTheory.Set.inter_union_distrib_left (A B C:Set) :
     A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) := sorry
 
-/-- Proposition 3.1.27(f) -/
+/-- Твердження 3.1.27(f) -/
 theorem  SetTheory.Set.union_inter_distrib_left (A B C:Set) :
     A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C) := sorry
 
-/-- Proposition 3.1.27(f) -/
+/-- Твердження 3.1.27(f) -/
 theorem SetTheory.Set.union_compl {A X:Set} (hAX: A ⊆ X) : A ∪ (X \ A) = X := by sorry
 
-/-- Proposition 3.1.27(f) -/
+/-- Твердження 3.1.27(f) -/
 theorem SetTheory.Set.inter_compl {A X:Set} (hAX: A ⊆ X) : A ∩ (X \ A) = ∅ := by sorry
 
-/-- Proposition 3.1.27(g) -/
+/-- Твердження 3.1.27(g) -/
 theorem SetTheory.Set.compl_union {A B X:Set} (hAX: A ⊆ X) (hBX: B ⊆ X) :
     X \ (A ∪ B) = (X \ A) ∩ (X \ B) := by sorry
 
-/-- Proposition 3.1.27(g) -/
+/-- Твердження 3.1.27(g) -/
 theorem SetTheory.Set.compl_inter {A B X:Set} (hAX: A ⊆ X) (hBX: B ⊆ X) :
     X \ (A ∩ B) = (X \ A) ∪ (X \ B) := by sorry
 
@@ -491,7 +491,7 @@ instance SetTheory.Set.instOrderBot : OrderBot Set where
   bot := ∅
   bot_le := empty_subset
 
-/-- Definition of disjointness (using the previous instances) -/
+/-- Визначення of disjointness (using the previous instances) -/
 theorem SetTheory.Set.disjoint_iff (A B:Set) : Disjoint A B ↔ A ∩ B = ∅ := by
   convert _root_.disjoint_iff
 
@@ -591,7 +591,7 @@ example : ¬ Disjoint  ({1, 2, 3}:Set)  {2,3,4} := by sorry
 
 example : Disjoint (∅:Set) ∅ := by sorry
 
-/-- Definition 3.1.26 example -/
+/-- Визначення 3.1.26 example -/
 
 example : ({1, 2, 3, 4}:Set) \ {2,4,6} = {1, 3} := by sorry
 

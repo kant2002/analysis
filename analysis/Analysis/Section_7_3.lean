@@ -24,7 +24,7 @@ abbrev Series.nonneg (s : Series) : Prop := ∀ n, s.seq n ≥ 0
 
 abbrev Series.partial_of_nonneg {s : Series} (h : s.nonneg) : Monotone s.partial := by sorry
 
-/-- Proposition 7.3.1 -/
+/-- Твердження 7.3.1 -/
 theorem Series.converges_of_nonneg_iff {s : Series} (h : s.nonneg) : s.converges ↔ ∃ M, ∀ N, s.partial N ≤ M := by
   -- This broadly follows the argument in the text, though for one direction I choose to use Mathlib routines rather than Chapter6 results.
   constructor
@@ -50,7 +50,7 @@ theorem Series.converges_of_le {s t : Series} (hm : s.m = t.m) (hcomp : ∀ n �
 
 theorem Series.diverges_of_ge {s t : Series} (hm : s.m = t.m) (hcomp : ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hdiv: ¬ s.absConverges) : t.diverges := by sorry
 
-/-- Lemma 7.3.3 (Geometric series) / Exercise 7.3.2 -/
+/-- Лема 7.3.3 (Geometric series) / Exercise 7.3.2 -/
 theorem Series.converges_geom {x : ℝ} (hx : |x| < 1) : (fun n ↦ x ^ n : Series).convergesTo (1 / (1 - x)) := by sorry
 
 theorem Series.absConverges_geom {x : ℝ} (hx : |x| < 1) : (fun n ↦ x ^ n : Series).absConverges := by sorry
@@ -59,7 +59,7 @@ theorem Series.diverges_geom {x : ℝ} (hx : |x| ≥ 1) : (fun n ↦ x ^ n : Ser
 
 theorem Series.converges_geom_iff (x : ℝ) : (fun n ↦ x ^ n : Series).converges ↔ |x| < 1 := by sorry
 
-/-- Proposition 7.3.4 (Cauchy criterion) -/
+/-- Твердження 7.3.4 (Cauchy criterion) -/
 theorem Series.cauchy_criterion {s:Series} (hm: s.m = 1) (hs:s.nonneg) (hmono: ∀ n ≥ 1, s.seq (n+1) ≤ s.seq n) : s.converges ↔ (fun k ↦ 2^k * s.seq (2^k): Series).converges := by
   -- This proof is written to follow the structure of the original text.
   set t := (fun k ↦ 2^k * s.seq (2^k):Series)
