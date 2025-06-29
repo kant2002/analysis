@@ -95,7 +95,7 @@ def demoSite : Site := site AnalysisBook.Home /
   "appA6" Book.Analysis.Appendix_A_6
   "appA7" Book.Analysis.Appendix_A_7
 
-def baseUrl := "https://teorth.github.io/analysis/docs/"
+def baseUrl := "https://kant2002.github.io/analysis/docs/"
 
 def linkTargets : Code.LinkTargets where
   const name := .some <| s!"{baseUrl}find?pattern={name}#doc"
