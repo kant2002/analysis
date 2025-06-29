@@ -36,34 +36,34 @@ theorem Sequence.limit_point_def (a:Sequence) (x:ℝ) :
 
 noncomputable abbrev Example_6_4_3 : Sequence := (fun (n:ℕ) ↦ 1 - (10:ℝ)^(-(n:ℤ)-1))
 
-/-- Example 6.4.3 -/
+/-- Приклад 6.4.3 -/
 example : (0.1:ℝ).adherent Example_6_4_3 0.8 := by sorry
 
-/-- Example 6.4.3 -/
+/-- Приклад 6.4.3 -/
 example : ¬ (0.1:ℝ).continually_adherent Example_6_4_3 0.8 := by sorry
 
-/-- Example 6.4.3 -/
+/-- Приклад 6.4.3 -/
 example : (0.1:ℝ).continually_adherent Example_6_4_3 1 := by sorry
 
-/-- Example 6.4.3 -/
+/-- Приклад 6.4.3 -/
 example : Example_6_4_3.limit_point 1 := by sorry
 
 noncomputable abbrev Example_6_4_4 : Sequence :=
   (fun (n:ℕ) ↦ (-1:ℝ)^n * (1 + (10:ℝ)^(-(n:ℤ)-1)))
 
-/-- Example 6.4.4 -/
+/-- Приклад 6.4.4 -/
 example : (0.1:ℝ).adherent Example_6_4_4 1 := by sorry
 
-/-- Example 6.4.4 -/
+/-- Приклад 6.4.4 -/
 example : (0.1:ℝ).continually_adherent Example_6_4_4 1 := by sorry
 
-/-- Example 6.4.4 -/
+/-- Приклад 6.4.4 -/
 example : Example_6_4_4.limit_point 1 := by sorry
 
-/-- Example 6.4.4 -/
+/-- Приклад 6.4.4 -/
 example : Example_6_4_4.limit_point (-1) := by sorry
 
-/-- Example 6.4.4 -/
+/-- Приклад 6.4.4 -/
 example : ¬ Example_6_4_4.limit_point 0 := by sorry
 
 /-- Твердження 6.4.5 / Вправа 6.4.1 -/
@@ -226,19 +226,19 @@ theorem Sequence.lim_of_between {a b c:Sequence} {L:ℝ} (hm: b.m = a.m ∧ c.m 
   (hab: ∀ n ≥ a.m, a n ≤ b n ∧ b n ≤ c n) (ha: a.tendsTo L) (hb: b.tendsTo L) :
     c.tendsTo L := by sorry
 
-/-- Example 6.4.15 -/
+/-- Приклад 6.4.15 -/
 example : ((fun (n:ℕ) ↦ 2/(n+1:ℝ)):Sequence).tendsTo 0 := by
   sorry
 
-/-- Example 6.4.15 -/
+/-- Приклад 6.4.15 -/
 example : ((fun (n:ℕ) ↦ -2/(n+1:ℝ)):Sequence).tendsTo 0 := by
   sorry
 
-/-- Example 6.4.15 -/
+/-- Приклад 6.4.15 -/
 example : ((fun (n:ℕ) ↦ (-1)^n/(n+1:ℝ) + 1 / (n+1)^2):Sequence).tendsTo 0 := by
   sorry
 
-/-- Example 6.4.15 -/
+/-- Приклад 6.4.15 -/
 example : ((fun (n:ℕ) ↦ (2:ℝ)^(-(n:ℤ))):Sequence).tendsTo 0 := by
   sorry
 

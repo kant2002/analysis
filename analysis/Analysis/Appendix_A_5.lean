@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.5
+# Аналіз I, Додаток A.5
 
 Some examples of nested quantifiers in Lean
 

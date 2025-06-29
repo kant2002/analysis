@@ -183,14 +183,14 @@ noncomputable abbrev SetTheory.Set.singleton_iProd_equiv (i:Object) (X:Set) :
   left_inv := sorry
   right_inv := sorry
 
-/-- Example 3.5.11 -/
+/-- Приклад 3.5.11 -/
 noncomputable abbrev SetTheory.Set.empty_iProd_equiv (X: (∅:Set) → Set) : iProd X ≃ Unit where
   toFun := sorry
   invFun := sorry
   left_inv := sorry
   right_inv := sorry
 
-/-- Example 3.5.11 -/
+/-- Приклад 3.5.11 -/
 noncomputable abbrev SetTheory.Set.iProd_of_const_equiv (I:Set) (X: Set) :
     iProd (fun i:I ↦ X) ≃ (I → X) where
   toFun := sorry
@@ -205,7 +205,7 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_prod (X: ({0,1}:Set) → Set) :
   left_inv := sorry
   right_inv := sorry
 
-/-- Example 3.5.9 -/
+/-- Приклад 3.5.9 -/
 noncomputable abbrev SetTheory.Set.iProd_equiv_prod_triple (X: ({0,1,2}:Set) → Set) :
     iProd X ≃ (X ⟨ 0, by simp ⟩) ×ˢ (X ⟨ 1, by simp ⟩) ×ˢ (X ⟨ 2, by simp ⟩) where
   toFun := sorry

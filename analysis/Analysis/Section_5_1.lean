@@ -57,22 +57,22 @@ lemma Sequence.eval_mk {n n₀:ℤ} (a: { n // n ≥ n₀ } → ℚ) (h: n ≥ n
 @[simp]
 lemma Sequence.eval_coe (n:ℕ) (a: ℕ → ℚ) : (a:Sequence) n = a n := by simp [seq]
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 abbrev Sequence.squares : Sequence := ((fun n:ℕ ↦ (n^2:ℚ)):Sequence)
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 example (n:ℕ) : Sequence.squares n = n^2 := Sequence.eval_coe _ _
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 abbrev Sequence.three : Sequence := ((fun (_:ℕ) ↦ (3:ℚ)):Sequence)
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 example (n:ℕ) : Sequence.three n = 3 := Sequence.eval_coe _ (fun (_:ℕ) ↦ (3:ℚ))
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 abbrev Sequence.squares_from_three : Sequence := mk' 3 (fun n ↦ n^2)
 
-/-- Example 5.1.2 -/
+/-- Приклад 5.1.2 -/
 example (n:ℤ) (hn: n ≥ 3) : Sequence.squares_from_three n = n^2 := Sequence.eval_mk _ hn
 
 -- need to temporarily leave the `Chapter5` namespace to introduce the following notation
@@ -87,22 +87,22 @@ lemma Rat.steady_def (ε: ℚ) (a: Chapter5.Sequence) :
 
 namespace Chapter5
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example : (1:ℚ).steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by sorry
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example : ¬ (0.5:ℚ).steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by sorry
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example : (0.1:ℚ).steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) := by sorry
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example : ¬(0.01:ℚ).steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) := by sorry
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example (ε:ℚ) : ¬ ε.steady ((fun n:ℕ ↦ (2 ^ (n+1):ℚ) ):Sequence) := by sorry
 
-/-- Example 5.1.5 -/
+/-- Приклад 5.1.5 -/
 example (ε:ℚ) (hε: ε>0) : ε.steady ((fun _:ℕ ↦ (2:ℚ) ):Sequence) := by sorry
 
 example : (10:ℚ).steady ((fun n:ℕ ↦ if n = 0 then (10:ℚ) else (0:ℚ)):Sequence) := by sorry
@@ -135,7 +135,7 @@ lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
 namespace Chapter5
 
 
-/-- Example 5.1.7 -/
+/-- Приклад 5.1.7 -/
 lemma Sequence.ex_5_1_7_a : ¬ (0.1:ℚ).steady ((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence) := by sorry
 
 lemma Sequence.ex_5_1_7_b : (0.1:ℚ).steady (((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence).from 10) := by
@@ -239,16 +239,16 @@ abbrev Sequence.isBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 lemma Sequence.isBounded_def (a:Sequence) :
   a.isBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
-/-- Example 5.1.13 -/
+/-- Приклад 5.1.13 -/
 example : BoundedBy ![1,-2,3,-4] 4 := by sorry
 
-/-- Example 5.1.13 -/
+/-- Приклад 5.1.13 -/
 example : ¬ ((fun n:ℕ ↦ (-1)^n * (n+1:ℚ)):Sequence).isBounded := by sorry
 
-/-- Example 5.1.13 -/
+/-- Приклад 5.1.13 -/
 example : ((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).isBounded := by sorry
 
-/-- Example 5.1.13 -/
+/-- Приклад 5.1.13 -/
 example : ¬ ((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).isCauchy := by sorry
 
 /-- Лема 5.1.14 -/

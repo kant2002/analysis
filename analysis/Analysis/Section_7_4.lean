@@ -169,7 +169,7 @@ theorem Series.converges_of_permute_nonneg {a:ℕ → ℝ} (ha: (a:Series).nonne
   have hLL' : L ≤ L' := ciSup_le hSL'
   linarith
 
-/-- Example 7.4.2 -/
+/-- Приклад 7.4.2 -/
 theorem Series.zeta_2_converges : (fun n:ℕ ↦ 1/(n+1:ℝ)^2 : Series).converges := by sorry
 
 theorem Series.permuted_zeta_2_converges :
@@ -280,7 +280,7 @@ theorem Series.absConverges_of_permute {a:ℕ → ℝ} (ha : (a:Series).absConve
     _ = ε := by ring
 
 
-/-- Example 7.4.4 -/
+/-- Приклад 7.4.4 -/
 noncomputable abbrev Series.a_7_4_4 : ℕ → ℝ := fun n ↦ (-1:ℝ)^n / (n+2)
 
 theorem Series.ex_7_4_4_conv : (a_7_4_4 : Series).converges := by sorry

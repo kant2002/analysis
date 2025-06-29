@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.2
+# Аналіз I, Додаток A.2
 
 An introduction to implications.  Showcases some basic tactics and Lean syntax.
 

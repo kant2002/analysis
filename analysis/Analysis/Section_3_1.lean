@@ -284,7 +284,7 @@ theorem SetTheory.Set.empty_union (A:Set) : ∅ ∪ A = A := by
 theorem SetTheory.Set.triple_eq (a b c:Object) : {a,b,c} = ({a}:Set) ∪ {b,c} := by
   rfl
 
-/-- Example 3.1.10 -/
+/-- Приклад 3.1.10 -/
 theorem SetTheory.Set.pair_union_pair (a b c:Object) :
     ({a,b}:Set) ∪ {b,c} = {a,b,c} := sorry
 
@@ -570,20 +570,20 @@ example : (5:Nat) ≠ (3:Nat) := by
 example : (5:Object) ≠ (3:Object) := by
   simp
 
-/-- Example 3.1.16 (simplified).  -/
+/-- Приклад 3.1.16 (simplified).  -/
 example : ({3, 5}:Set) ⊆ {1, 3, 5} := by
   sorry
 
-/-- Example 3.1.17 (simplified). -/
+/-- Приклад 3.1.17 (simplified). -/
 example : ({3, 5}:Set).specify (fun x ↦ x.val ≠ 3)
  = {(5:Object)} := by
   sorry
 
-/-- Example 3.1.24 -/
+/-- Приклад 3.1.24 -/
 
 example : ({1, 2, 4}:Set) ∩ {2,3,4} = {2, 4} := by sorry
 
-/-- Example 3.1.24 -/
+/-- Приклад 3.1.24 -/
 
 example : ({1, 2}:Set) ∩ {3,4} = ∅ := by sorry
 
@@ -595,11 +595,11 @@ example : Disjoint (∅:Set) ∅ := by sorry
 
 example : ({1, 2, 3, 4}:Set) \ {2,4,6} = {1, 3} := by sorry
 
-/-- Example 3.1.30 -/
+/-- Приклад 3.1.30 -/
 
 example : ({3,5,9}:Set).replace (P := fun x y ↦ ∃ (n:ℕ), x.val = n ∧ y = (n+1:ℕ)) (by sorry) = {4,6,10} := by sorry
 
-/-- Example 3.1.31 -/
+/-- Приклад 3.1.31 -/
 
 example : ({3,5,9}:Set).replace (P := fun x y ↦ y=1) (by sorry) = {1} := by sorry
 

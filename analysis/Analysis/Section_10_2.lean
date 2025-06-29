@@ -49,7 +49,7 @@ theorem IsLocalMinOn.iff (X:Set ℝ) (f:ℝ → ℝ) (x₀:ℝ) :
   intro h hxm hxp hx
   exact h hx (by linarith) (by linarith)
 
-/-- Example 10.2.3 -/
+/-- Приклад 10.2.3 -/
 abbrev f_10_2_3 : ℝ → ℝ := fun x ↦ x^2 - x^4
 
 example : ¬ IsMinOn f_10_2_3 Set.univ 0 := by sorry
@@ -58,7 +58,7 @@ example : IsMinOn f_10_2_3 (Set.Ioo (-1) 1) 0 := by sorry
 
 example : IsLocalMaxOn f_10_2_3 Set.univ 0 := by sorry
 
-/-- Example 10.2.4 -/
+/-- Приклад 10.2.4 -/
 example : ¬ ∃ x, IsMaxOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' Set.univ) x := by sorry
 
 example : ¬ ∃ x, IsMinOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' Set.univ) x := by sorry

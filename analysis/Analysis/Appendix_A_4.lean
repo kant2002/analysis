@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.4
+# Аналіз I, Додаток A.4
 
 Some examples of how variables and quantifiers are used in Lean
 

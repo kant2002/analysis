@@ -38,7 +38,7 @@ theorem strictAnti_of_negative_derivative {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
     StrictAntiOn f (Set.Icc a b) := by
   sorry
 
-/-- Example 10.3.2 -/
+/-- Приклад 10.3.2 -/
 example : ∃ f : ℝ → ℝ, Continuous f ∧ StrictMono f ∧ ¬ DifferentiableAt ℝ f 0 := by sorry
 
 /-- Вправа 10.3.3 -/

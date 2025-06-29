@@ -35,16 +35,16 @@ theorem Real.Icc_def (x y:Real) : Set.Icc x y = { z | x ≤ z ∧ z ≤ y } := r
 theorem Real.mem_Icc (x y z:Real) : z ∈ Set.Icc x y ↔ x ≤ z ∧ z ≤ y := by
   simp [Real.Icc_def]
 
-/-- Example 5.5.2 -/
+/-- Приклад 5.5.2 -/
 example (M: Real) : M ∈ upperBounds (Set.Icc 0 1) ↔ M ≥ 1 := by sorry
 
 /-- API for Example 5.5.3 -/
 theorem Real.Ioi_def (x:Real) : Set.Ioi x = { z | z > x } := rfl
 
-/-- Example 5.5.3 -/
+/-- Приклад 5.5.3 -/
 example : ¬ ∃ M, M ∈ upperBounds (Set.Ioi 0) := by sorry
 
-/-- Example 5.5.4 -/
+/-- Приклад 5.5.4 -/
 example : ∀ M, M ∈ upperBounds (∅ : Set Real) := by sorry
 
 theorem Real.upperBound_upper {M M': Real} (h: M ≤ M') {E: Set Real} (hb: M ∈ upperBounds E) :
@@ -60,10 +60,10 @@ theorem Real.isGLB_def (E: Set Real) (M: Real) :
     IsGLB E M ↔ M ∈ lowerBounds E ∧ ∀ M' ∈ lowerBounds E, M' ≤ M := by
   rfl
 
-/-- Example 5.5.6 -/
+/-- Приклад 5.5.6 -/
 example : IsLUB (Set.Icc 0 1) 1 := by sorry
 
-/-- Example 5.5.7 -/
+/-- Приклад 5.5.7 -/
 example : ¬∃ M, IsLUB (∅: Set Real) M := by sorry
 
 /-- Твердження 5.5.8 (Uniqueness of least upper bound)-/

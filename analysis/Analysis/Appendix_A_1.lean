@@ -1,14 +1,14 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.1
+# Аналіз I, Додаток A.1
 
 An introduction to mathematical statements.  Showcases some basic tactics and Lean syntax.
 
 -/
 
 
--- Example A.1.1. What the textbook calls "statements" are objects of type `Prop` in Lean.  Also, in Lean we tend to assign "junk" values to expressions that might normally be considered undefined, so discussions regarding undefined terms in the textbook should be adjusted accordingly.
+-- Приклад A.1.1. What the textbook calls "statements" are objects of type `Prop` in Lean.  Also, in Lean we tend to assign "junk" values to expressions that might normally be considered undefined, so discussions regarding undefined terms in the textbook should be adjusted accordingly.
 
 #check 2+2=4
 #check 2+2=5

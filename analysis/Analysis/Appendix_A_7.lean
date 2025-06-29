@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.7
+# Аналіз I, Додаток A.7
 
 Introduction to equality in Lean
 
@@ -57,7 +57,7 @@ def equality_as_equiv_relation (X:Type) : Setoid X := {
 
 
 open Real in
-/-- Example A.7.1 -/
+/-- Приклад A.7.1 -/
 example {x y:ℝ} (h:x = y) : 2*x = 2*y ∧ sin x = sin y ∧ ∀ z, x + z = y + z := by
   refine ⟨ ?_, ?_, ?_ ⟩
   . rw [h]
@@ -65,7 +65,7 @@ example {x y:ℝ} (h:x = y) : 2*x = 2*y ∧ sin x = sin y ∧ ∀ z, x + z = y +
   intro z
   rw [h]
 
-/-- Example A.7.2 -/
+/-- Приклад A.7.2 -/
 example {n m:ℤ} (hn: Odd n) (h: n = m) : Odd m := by
   rw [h] at hn
   exact hn

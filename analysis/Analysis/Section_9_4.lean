@@ -28,7 +28,7 @@ theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
 #check continuous_iff_continuousOn_univ
 #check continuousWithinAt_univ
 
-/-- Example 9.4.2 --/
+/-- Приклад 9.4.2 --/
 example (c x₀:ℝ) : ContinuousWithinAt (fun x ↦ c) Set.univ x₀ := by sorry
 
 example (c x₀:ℝ) : ContinuousAt (fun x ↦ c) x₀ := by sorry
@@ -37,18 +37,18 @@ example (c:ℝ) : ContinuousOn (fun x:ℝ ↦ c) Set.univ := by sorry
 
 example (c:ℝ) : Continuous (fun x:ℝ ↦ c) := by sorry
 
-/-- Example 9.4.3 --/
+/-- Приклад 9.4.3 --/
 example : Continuous (fun x:ℝ ↦ x) := by sorry
 
-/-- Example 9.4.4 --/
+/-- Приклад 9.4.4 --/
 example {x₀:ℝ} (h: x₀ ≠ 0) : ContinuousAt Real.sign x₀ := by sorry
 
 example  :¬ ContinuousAt Real.sign 0 := by sorry
 
-/-- Example 9.4.5 --/
+/-- Приклад 9.4.5 --/
 example (x₀:ℝ) : ¬ ContinuousAt f_9_3_21 x₀ := by sorry
 
-/-- Example 9.4.6 --/
+/-- Приклад 9.4.6 --/
 noncomputable abbrev f_9_4_6 (x:ℝ) : ℝ := if x ≥ 0 then 1 else 0
 
 example {x₀:ℝ} (h: x₀ ≠ 0) : ContinuousAt f_9_4_6 x₀ := by sorry
@@ -136,7 +136,7 @@ theorem Continuous.abs : Continuous (fun x:ℝ ↦ |x|) := by
 /-- Твердження 9.4.13 / Вправа 9.4.5 -/
 theorem ContinuousWithinAt.comp {X Y: Set ℝ} {f g:ℝ → ℝ} (hf: ∀ x ∈ X, f x ∈ Y) {x₀:ℝ} (hx₀: x ∈ X) (hf_cont: ContinuousWithinAt f X x₀) (hg_cont: ContinuousWithinAt g Y (f x₀)): ContinuousWithinAt (g ∘ f) X x₀ := by sorry
 
-/-- Example 9.4.14 -/
+/-- Приклад 9.4.14 -/
 example : Continuous (fun x:ℝ ↦ 3*x + 1) := by
   sorry
 

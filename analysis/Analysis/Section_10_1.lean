@@ -62,7 +62,7 @@ theorem derivative_unique' (X: Set ℝ) {x₀ : ℝ}
   derivative_unique hx₀ hL (DifferentiableWithinAt.hasDerivWithinAt hdiff)
 
 
-/-- Example 10.1.3 -/
+/-- Приклад 10.1.3 -/
 example (x₀:ℝ) : HasDerivWithinAt (fun x ↦ x^2) (2 * x₀) (Set.univ) x₀ := by
   sorry
 
@@ -84,7 +84,7 @@ example : ∃ (X: Set ℝ) (x₀ :ℝ) (f g: ℝ → ℝ) (L:ℝ) (hfg: f x₀ =
   HasDerivWithinAt f L X x₀ ∧ ¬ HasDerivWithinAt g L X x₀ := by
   sorry
 
-/-- Example 10.1.6 -/
+/-- Приклад 10.1.6 -/
 
 abbrev f_10_1_6 : ℝ → ℝ := abs
 

@@ -150,7 +150,7 @@ theorem EReal.inf_eq_neg_sup (E: Set EReal) : sInf E = - sSup (-E) := by
   specialize h ha
   exact EReal.le_neg_of_le_neg h
 
-/-- Example 6.2.7 -/
+/-- Приклад 6.2.7 -/
 abbrev Example_6_2_7 : Set EReal := { x | ∃ n:ℕ, x = -((n+1):EReal)} ∪ {⊥}
 
 example : sSup Example_6_2_7 = -1 := by
@@ -161,14 +161,14 @@ example : sInf Example_6_2_7 = ⊥ := by
   rw [EReal.inf_eq_neg_sup]
   sorry
 
-/-- Example 6.2.8 -/
+/-- Приклад 6.2.8 -/
 abbrev Example_6_2_8 : Set EReal := { x | ∃ n:ℕ, x = (1 - (10:ℝ)^(-(n:ℤ)-1):Real)}
 
 example : sInf Example_6_2_8 = (0.9:ℝ) := by sorry
 
 example : sSup Example_6_2_8 = 1 := by sorry
 
-/-- Example 6.2.9 -/
+/-- Приклад 6.2.9 -/
 abbrev Example_6_2_9 : Set EReal := { x | ∃ n:ℕ, x = n+1}
 
 example : sInf Example_6_2_9 = 1 := by sorry

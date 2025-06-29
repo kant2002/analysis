@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.3
+# Аналіз I, Додаток A.3
 
 Some examples of proofs
 

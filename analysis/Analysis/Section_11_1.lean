@@ -545,7 +545,7 @@ instance Partition.instOrderBot (I: BoundedInterval) : OrderBot (Partition I) wh
   bot_le := by
     sorry
 
-/-- Example 11.1.15 -/
+/-- Приклад 11.1.15 -/
 example : ∃ P P' : Partition (Icc 1 4),
   P.intervals = {Ico 1 2, Icc 2 2, Ioo 2 3,
                  Icc 3 4} ∧
@@ -580,7 +580,7 @@ noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I
     }
 
 
-/-- Example 11.1.17 -/
+/-- Приклад 11.1.17 -/
 example : ∃ P P' : Partition (Icc 1 4),
   P.intervals = {Ico 1 3, Icc 3 4} ∧
   P'.intervals = {Icc 1 2, Ioc 2 4} ∧

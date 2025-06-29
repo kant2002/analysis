@@ -26,22 +26,22 @@ noncomputable abbrev Sequence.sup (a:Sequence) : EReal := sSup { x | ∃ n ≥ a
 /-- Визначення 6.3.1 -/
 noncomputable abbrev Sequence.inf (a:Sequence) : EReal := sInf { x | ∃ n ≥ a.m, x = a n }
 
-/-- Example 6.3.3 -/
+/-- Приклад 6.3.3 -/
 example : ((fun (n:ℕ) ↦ (-1:ℝ)^(n+1)):Sequence).sup = 1 := by sorry
 
-/-- Example 6.3.3 -/
+/-- Приклад 6.3.3 -/
 example : ((fun (n:ℕ) ↦ (-1:ℝ)^(n+1)):Sequence).inf = -1 := by sorry
 
-/-- Example 6.3.4 / Вправа 6.3.1 -/
+/-- Приклад 6.3.4 / Вправа 6.3.1 -/
 example : ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)):Sequence).sup = 1 := by sorry
 
-/-- Example 6.3.4 / Вправа 6.3.1 -/
+/-- Приклад 6.3.4 / Вправа 6.3.1 -/
 example : ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)):Sequence).inf = 0 := by sorry
 
-/-- Example 6.3.5 -/
+/-- Приклад 6.3.5 -/
 example : ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).sup = ⊤ := by sorry
 
-/-- Example 6.3.5 -/
+/-- Приклад 6.3.5 -/
 example : ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).inf = 1 := by sorry
 
 abbrev Sequence.bddAboveBy (a:Sequence) (M:ℝ) : Prop := ∀ n ≥ a.m, a n ≤ M
@@ -102,19 +102,19 @@ theorem Sequence.convergent_iff_bounded_of_monotone {a:Sequence} (ha: a.isMonoto
 theorem Sequence.bounded_iff_convergent_of_antitone {a:Sequence} (ha: a.isAntitone) :
     a.convergent ↔ a.isBounded := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 noncomputable abbrev Example_6_3_9 (n:ℕ) := ⌊ Real.pi * 10^n ⌋ / (10:ℝ)^n
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).isMonotone := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).bddAboveBy 4 := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).convergent := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : lim (Example_6_3_9:Sequence) ≤ 4 := by sorry
 
 /-- Твердження 6.3.1-/

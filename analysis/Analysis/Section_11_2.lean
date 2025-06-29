@@ -99,7 +99,7 @@ theorem PiecewiseConstantOn.congr {f g: ℝ → ℝ} {I: BoundedInterval} (h: �
   PiecewiseConstantOn f I ↔ PiecewiseConstantOn g I := by
   simp_rw [PiecewiseConstantOn, PiecewiseConstantWith.congr h]
 
-/-- Example 11.2.4 / Example 11.2.6 -/
+/-- Приклад 11.2.4 / Example 11.2.6 -/
 noncomputable abbrev f_11_2_4 : ℝ → ℝ := fun x ↦
   if x < 1 then 0 else  -- junk value
     if x < 3 then 7 else
@@ -120,7 +120,7 @@ example : PiecewiseConstantOn f_11_2_4 (Icc 1 6) := by
   . sorry
   sorry
 
-/-- Example 11.2.6 -/
+/-- Приклад 11.2.6 -/
 theorem PiecewiseConstantOn.of_const {f:ℝ → ℝ} {I: BoundedInterval} (h: ConstantOn f (I:Set ℝ)) :
   PiecewiseConstantOn f I := by sorry
 
@@ -179,7 +179,7 @@ theorem PiecewiseConstantWith.integ_congr {f g:ℝ → ℝ} {I: BoundedInterval}
   have := P.contains _ hJ; rw [subset_iff] at this
   simp [h x (this hx)]
 
-/-- Example 11.2.12 -/
+/-- Приклад 11.2.12 -/
 noncomputable abbrev f_11_2_12 : ℝ → ℝ := fun x ↦
     if x < 3 then 2 else
       if x = 3 then 4 else
@@ -237,7 +237,7 @@ theorem PiecewiseConstantOn.integ_congr {f g:ℝ → ℝ} {I: BoundedInterval}
   rw [←PiecewiseConstantWith.congr h]
   exact hf.choose_spec
 
-/-- Example 11.2.15 -/
+/-- Приклад 11.2.15 -/
 example : PiecewiseConstantOn.integ f_11_2_4 (Icc 1 6) = 10 := by
   sorry
 

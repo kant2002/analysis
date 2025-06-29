@@ -147,7 +147,7 @@ theorem Rat.exist_approx_sqrt_two {ε:ℚ} (hε:ε>0) : ∃ x ≥ (0:ℚ), x^2 <
   specialize this n
   linarith
 
-/-- Example 4.4.6 -/
+/-- Приклад 4.4.6 -/
 example :
   let ε:ℚ := 1/1000
   let x:ℚ := 1414/1000

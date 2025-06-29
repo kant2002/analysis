@@ -53,7 +53,7 @@ theorem left_limit.eq' {X: Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} (h: left_limit_e
   simp [left_limit, h]
   convert h.choose_spec
 
-/-- Example 9.5.2.  The second part of this example is no longer operative as we assign "junk" values to our functions instead of leaving them undefined. -/
+/-- Приклад 9.5.2.  The second part of this example is no longer operative as we assign "junk" values to our functions instead of leaving them undefined. -/
 example : right_limit Set.univ Real.sign 0 = 1 := by sorry
 
 example : left_limit Set.univ Real.sign 0 = -1 := by sorry

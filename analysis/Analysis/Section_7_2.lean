@@ -90,7 +90,7 @@ theorem Series.convergesTo_sum {s : Series} (h: s.converges) : s.convergesTo s.s
   simp [sum, h]
   exact (h.choose_spec)
 
-/-- Example 7.2.4 -/
+/-- Приклад 7.2.4 -/
 noncomputable abbrev Series.example_7_2_4 := mk' (m := 1) (fun n ↦ (2:ℝ)^(-n:ℤ))
 
 theorem Series.example_7_2_4a {N:ℤ} (hN: N ≥ 1) : example_7_2_4.partial N = 1 - (2:ℝ)^(-N) := by
@@ -121,7 +121,7 @@ theorem Series.diverges_of_nodecay {s:Series} (h: ¬ Filter.Tendsto s.seq Filter
     s.diverges := by
   sorry
 
-/-- Example 7.2.7 -/
+/-- Приклад 7.2.7 -/
 theorem Series.example_7_2_7 : ((fun n:ℕ ↦ (1:ℝ)):Series).diverges := by
   apply diverges_of_nodecay
   sorry
@@ -202,7 +202,7 @@ theorem Series.converges_of_alternating {m:ℤ} {a: { n // n ≥ m} → ℝ} (ha
     rw [Real.dist_eq]; linarith
   exact cauchySeq_tendsto_of_complete this
 
-/-- Example 7.2.13 -/
+/-- Приклад 7.2.13 -/
 noncomputable abbrev Series.example_7_2_13 : Series := (mk' (m:=1) (fun n ↦ (-1:ℝ)^(n:ℤ) / (n:ℤ)))
 
 theorem Series.example_7_2_13a : example_7_2_13.converges := by

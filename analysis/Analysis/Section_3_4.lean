@@ -49,12 +49,12 @@ theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
 theorem SetTheory.Set.image_eq_image {X Y:Set} (f:X → Y) (S: Set):
     (image f S: _root_.Set Object) = Subtype.val '' (f '' {x | x.val ∈ S}) := by sorry
 
-/-- Example 3.4.2 -/
+/-- Приклад 3.4.2 -/
 abbrev f_3_4_2 : nat → nat := fun n ↦ (2*n:ℕ)
 
 theorem SetTheory.Set.image_f_3_4_2 : image f_3_4_2 {1,2,3} = {2,4,6} := by sorry
 
-/-- Example 3.4.3 is written using Mathlib's notion of image -/
+/-- Приклад 3.4.3 is written using Mathlib's notion of image -/
 example : (fun n:ℤ ↦ n^2) '' {-1,0,1,2} = {0,1,4} := by sorry
 
 theorem SetTheory.Set.mem_image_of_eval {X Y:Set} (f:X → Y) (S: Set) (x:X) :
@@ -78,13 +78,13 @@ theorem SetTheory.Set.mem_preimage {X Y:Set} (f:X → Y) (U: Set) (x:X) :
 theorem SetTheory.Set.preimage_eq {X Y:Set} (f:X → Y) (U: Set) :
     ((preimage f U): _root_.Set Object) = Subtype.val '' (f⁻¹' {y | y.val ∈ U}) := by sorry
 
-/-- Example 3.4.5 -/
+/-- Приклад 3.4.5 -/
 theorem SetTheory.Set.preimage_f_3_4_2 : preimage f_3_4_2 {2,4,6} = {1,2,3} := by sorry
 
 theorem SetTheory.Set.image_preimage_f_3_4_2 :
     image f_3_4_2 (preimage f_3_4_2 {1,2,3}) ≠ {1,2,3} := by sorry
 
-/-- Example 3.4.6 (using the Mathlib notion of preimage) -/
+/-- Приклад 3.4.6 (using the Mathlib notion of preimage) -/
 example : (fun n:ℤ ↦ n^2) ⁻¹' {0,1,4} = {-2,-1,0,1,2} := by sorry
 
 example : (fun n:ℤ ↦ n^2) ⁻¹' ((fun n:ℤ ↦ n^2) '' {-1,0,1,2}) ≠ {-1,0,1,2} := by sorry
@@ -98,7 +98,7 @@ abbrev SetTheory.Set.object_of {X Y:Set} (f: X → Y) : Object := function_to_ob
 theorem SetTheory.Set.power_set_axiom {X Y:Set} (F:Object) :
     F ∈ (X ^ Y) ↔ ∃ f: Y → X, object_of f = F := SetTheory.power_set_axiom X Y F
 
-/-- Example 3.4.8 -/
+/-- Приклад 3.4.8 -/
 abbrev f_3_4_8_a : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 0, by simp ⟩
 
 open Classical in
@@ -137,7 +137,7 @@ theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
 theorem SetTheory.Set.union_axiom (A: Set) (x:Object) :
     x ∈ union A ↔ ∃ (S:Set), x ∈ S ∧ (S:Object) ∈ A := SetTheory.union_axiom A x
 
-/-- Example 3.4.11 -/
+/-- Приклад 3.4.11 -/
 theorem SetTheory.Set.example_3_4_11 :
     union { (({2,3}:Set):Object), (({3,4}:Set):Object), (({4,5}:Set):Object) } = {2,3,4,5} := by
   sorry

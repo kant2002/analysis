@@ -84,7 +84,7 @@ theorem Function.eval_of {X Y: Set} (f: X → Y) (x:X) : (Function.mk_fn f) x = 
   symm; rw [eval]
 
 
-/-- Example 3.3.2.   -/
+/-- Приклад 3.3.2.   -/
 abbrev P_3_3_2a : nat → nat → Prop := fun x y ↦ (y:ℕ) = (x:ℕ)+1
 
 theorem SetTheory.Set.P_3_3_2a_existsUnique (x: nat) : ∃! y: nat, P_3_3_2a x y := by
@@ -174,7 +174,7 @@ example : ¬ ∃ f: NNReal → ℝ, ∀ x y, y = f x ↔ y^2 = x := by sorry
 example : ∃ f: NNReal → NNReal, ∀ x y, y = f x ↔ y^2 = x := by sorry
 
 
-/-- Example 3.3.4. The unused variable `_x` is underscored to avoid triggering a linter. -/
+/-- Приклад 3.3.4. The unused variable `_x` is underscored to avoid triggering a linter. -/
 abbrev SetTheory.Set.P_3_3_4 : nat → nat → Prop := fun _x y ↦ y = 7
 
 theorem SetTheory.Set.P_3_3_4_existsUnique (x: nat) : ∃! y: nat, P_3_3_4 x y := by
@@ -217,7 +217,7 @@ example : (fun x:NNReal ↦ (x:ℝ)) = (fun x:NNReal ↦ |(x:ℝ)|) := by sorry
 
 example : (fun x:ℝ ↦ (x:ℝ)) ≠ (fun x:ℝ ↦ |(x:ℝ)|) := by sorry
 
-/-- Example 3.3.9 -/
+/-- Приклад 3.3.9 -/
 abbrev SetTheory.Set.f_3_3_9 (X:Set) : Function (∅:Set) X :=
   Function.mk (fun _ _ ↦ True) (by intro ⟨ x,hx ⟩; simp at hx)
 
@@ -242,7 +242,7 @@ theorem Function.comp_eval {X Y Z: Set} (g: Function Y Z) (f: Function X Y) (x: 
 theorem Function.comp_eq_comp {X Y Z: Set} (g: Function Y Z) (f: Function X Y) :
     (g ○ f).to_fn = g.to_fn ∘ f.to_fn := by sorry
 
-/-- Example 3.3.11 -/
+/-- Приклад 3.3.11 -/
 abbrev SetTheory.Set.f_3_3_11 : Function nat nat := Function.mk_fn (fun x ↦ (2*x:ℕ))
 
 abbrev SetTheory.Set.g_3_3_11 : Function nat nat := Function.mk_fn (fun x ↦ (x+3:ℕ))
@@ -306,7 +306,7 @@ abbrev Function.onto {X Y: Set} (f: Function X Y) : Prop := ∀ y: Y, ∃ x: X, 
 theorem Function.onto_iff {X Y: Set} (f: Function X Y) : f.onto ↔ Function.Surjective f.to_fn := by
   sorry
 
-/-- Example 3.3.18 (using Mathlib) -/
+/-- Приклад 3.3.18 (using Mathlib) -/
 example : ¬ Function.Surjective (fun (n:ℤ) ↦ n^2) := by sorry
 
 abbrev A_3_3_18 := { m:ℤ // ∃ n:ℤ, m = n^2 }
@@ -320,7 +320,7 @@ abbrev Function.bijective {X Y: Set} (f: Function X Y) : Prop := f.one_to_one �
 theorem Function.bijective_iff {X Y: Set} (f: Function X Y) :
     f.bijective ↔ Function.Bijective f.to_fn := by sorry
 
-/-- Example 3.3.21 (using Mathlib) -/
+/-- Приклад 3.3.21 (using Mathlib) -/
 abbrev f_3_3_21 : Fin 3 → ({3,4}:_root_.Set ℕ) := fun x ↦ match x with
 | 0 => ⟨ 3, by norm_num ⟩
 | 1 => ⟨ 3, by norm_num ⟩

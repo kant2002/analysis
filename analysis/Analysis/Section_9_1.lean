@@ -38,7 +38,7 @@ Main constructions and results of this section:
 #check EReal.image_coe_Iic
 #check EReal.image_coe_Iio
 
-/-- Example 9.1.4 -/
+/-- Приклад 9.1.4 -/
 example {a b: EReal} (h: a > b) : Set.Icc a b = ∅ := by
   sorry
 
@@ -57,7 +57,7 @@ example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
 /-- Визначення 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
-/-- Example 9.1.7 -/
+/-- Приклад 9.1.7 -/
 example : (0.5:ℝ).adherent' 1.1 (Set.Ioo 0 1) := by sorry
 
 example : ¬ (0.1:ℝ).adherent' 1.1 (Set.Ioo 0 1) := by sorry
@@ -253,7 +253,7 @@ theorem LimitPt.iff_AccPt (x:ℝ) (X: Set ℝ) : LimitPt x X ↔ AccPt x (Filter
 /-- Визначення 9.1.18 (Isolated points) -/
 abbrev IsolatedPt (x:ℝ) (X: Set ℝ) := x ∈ X ∧ ∃ ε>0, ∀ y ∈ X \ {x}, |x-y| > ε
 
-/-- Example 9.1.19 -/
+/-- Приклад 9.1.19 -/
 example : AdherentPt 3 ((Set.Ioo 1 2) ∪ {3}) := by sorry
 
 example : ¬ LimitPt 3 ((Set.Ioo 1 2) ∪ {3}) := by sorry
@@ -356,22 +356,22 @@ theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ 
   simp [hXM]
   linarith [hXM.1]
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Icc_bounded (a b:ℝ) : Bornology.IsBounded (Set.Icc a b) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Ici_unbounded (a: ℝ) : ¬ Bornology.IsBounded (Set.Ici a) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem N_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Z_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Q_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℚ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem R_unbounded (a: ℝ) : ¬ Bornology.IsBounded (Set.univ: Set ℝ) := by sorry
 
 /-- Теорема 9.1.24 / Вправа 9.1.13 (Heine-Borel theorem for the line)-/

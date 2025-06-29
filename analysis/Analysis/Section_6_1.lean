@@ -317,13 +317,13 @@ theorem Sequence.lim_harmonic :
 theorem Sequence.Cauchy_of_convergent {a:Sequence} (h:a.convergent) : a.isCauchy := by
   sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ (0.1:ℝ).eventuallySteady ((fun n ↦ (-1:ℝ)^n):Sequence) := by sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).isCauchy := by sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).convergent := by sorry
 
 /-- Твердження 6.1.15 / Вправа 6.1.6 (Formal limits are genuine limits)-/
@@ -352,10 +352,10 @@ theorem Sequence.bounded_of_cauchy {a:Sequence} (h: a.isCauchy) : a.isBounded :=
 theorem Sequence.bounded_of_convergent {a:Sequence} (h: a.convergent) : a.isBounded := by
   sorry
 
-/-- Example 6.1.18 -/
+/-- Приклад 6.1.18 -/
 example : ¬ ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).isBounded := by sorry
 
-/-- Example 6.1.18 -/
+/-- Приклад 6.1.18 -/
 example : ¬ ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).convergent := by sorry
 
 instance Sequence.inst_add : Add Sequence where

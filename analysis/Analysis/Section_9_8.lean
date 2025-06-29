@@ -86,7 +86,7 @@ theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: C
    := by
   sorry
 
-/-- Example 9.8.4-/
+/-- Приклад 9.8.4-/
 example {R :ℝ} (hR: R > 0) {n:ℕ} (hn: n > 0) : ∃ g : ℝ → ℝ, ∀ x ∈ Set.Icc 0 (R^n), (g x)^n = x := by
   set f : ℝ → ℝ := fun x ↦ x^n
   have hcont : ContinuousOn f (Set.Icc 0 R) := by fun_prop

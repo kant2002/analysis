@@ -28,7 +28,7 @@ example : ContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
 example : ¬ BddOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
   sorry
 
-/-- Example 9.9.1 -/
+/-- Приклад 9.9.1 -/
 example (x : ℝ) :
   let f : ℝ → ℝ := fun x ↦ 1/x
   let ε : ℝ := 0.1
@@ -118,7 +118,7 @@ theorem Chapter6.Sequence.equiv_const (x₀: ℝ) (x:ℕ → ℝ) : Filter.Tends
   Sequence.equiv (x:Sequence) (fun n:ℕ ↦ x₀:Sequence) := by
   sorry
 
-/-- Example 9.9.10 -/
+/-- Приклад 9.9.10 -/
 noncomputable abbrev f_9_9_10 : ℝ → ℝ := fun x ↦ 1/x
 
 example : Sequence.equiv (fun n:ℕ ↦ 1/(n+1:ℝ):Sequence) (fun n:ℕ ↦ 1/(2*(n+1):ℝ):Sequence) := by sorry
@@ -132,7 +132,7 @@ example : ¬ Sequence.equiv (fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ)):Sequence) (fun
 example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
   sorry
 
-/-- Example 9.9.11 -/
+/-- Приклад 9.9.11 -/
 abbrev f_9_9_11 : ℝ → ℝ := fun x ↦ x^2
 
 example : Sequence.equiv ((fun n:ℕ ↦ (n+1:ℝ)):Sequence) ((fun n:ℕ ↦ (n+1)+1/(n+1:ℝ)):Sequence) := by
@@ -150,7 +150,7 @@ theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
   (f ∘ x:Sequence).isCauchy := by
   sorry
 
-/-- Example 9.9.13 -/
+/-- Приклад 9.9.13 -/
 example : ((fun n:ℕ ↦ 1/(n+1:ℝ)):Sequence).isCauchy := by
   sorry
 

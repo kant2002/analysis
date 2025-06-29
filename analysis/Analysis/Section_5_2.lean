@@ -30,15 +30,15 @@ namespace Chapter5
 lemma Rat.close_seq_def (ε: ℚ) (a b: Sequence) :
     ε.close_seq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a n) (b n) := by rfl
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : (0.1:ℚ).close_seq ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence) := by sorry
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : ¬ (0.1:ℚ).steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 := by sorry
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : ¬ (0.1:ℚ).steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence)
 := by sorry
 
@@ -50,7 +50,7 @@ lemma Rat.eventually_close_def (ε: ℚ) (a b: Sequence) :
 lemma Rat.eventually_close_iff (ε: ℚ) (a b: ℕ → ℚ) :
     ε.eventually_close (a:Sequence) (b:Sequence) ↔  ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
 
-/-- Example 5.2.5 -/
+/-- Приклад 5.2.5 -/
 example : ¬ (0.1:ℚ).close_seq ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 

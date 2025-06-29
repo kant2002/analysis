@@ -30,10 +30,10 @@ variable [SetTheory]
 /-- Визначення 3.6.1 (Equal cardinality) -/
 abbrev SetTheory.Set.equal_card (X Y:Set) : Prop := ∃ f : X → Y, Function.Bijective f
 
-/-- Example 3.6.2 -/
+/-- Приклад 3.6.2 -/
 theorem SetTheory.Set.Example_3_6_2 : equal_card {0,1,2} {3,4,5} := by sorry
 
-/-- Example 3.6.3 -/
+/-- Приклад 3.6.3 -/
 theorem SetTheory.Set.Example_3_6_3 : equal_card nat (nat.specify (fun x ↦ Even (x:ℕ))) := by sorry
 
 /-- Твердження 3.6.4 / Вправа 3.6.1 -/
@@ -53,7 +53,7 @@ abbrev SetTheory.Set.has_card (X:Set) (n:ℕ) : Prop := X ≈ Fin n
 theorem SetTheory.Set.Remark_3_6_6 (n:ℕ) :
     (nat.specify (fun x ↦ 1 ≤ (x:ℕ) ∧ (x:ℕ) ≤ n)).has_card n := by sorry
 
-/-- Example 3.6.7 -/
+/-- Приклад 3.6.7 -/
 theorem SetTheory.Set.Example_3_6_7a (a:Object) : ({a}:Set).has_card 1 := by sorry
 
 theorem SetTheory.Set.Example_3_6_7b {a b c d:Object} (hab: a ≠ b) (hac: a ≠ c) (had: a ≠ d)
