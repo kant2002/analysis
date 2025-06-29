@@ -154,7 +154,7 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
 вилучає змінну предіката `x` та доказ `hx : P x` властивості із гіпотези `h : ∃ x, P x`.
 -/
 
-#check existsUnique_of_exists_of_uniqueунікальний попередник
+#check existsUnique_of_exists_of_unique
 #check ExistsUnique.exists
 #check ExistsUnique.unique
 
