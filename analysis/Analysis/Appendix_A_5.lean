@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.5
 
-Some examples of nested quantifiers in Lean
+Деякі приклади вкладених квантифікаторів у Lean
 
 -/
 
@@ -41,7 +41,7 @@ theorem square_expand : ∀ (x:ℝ), (x + 1)^2 = x^2 + 2 * x + 1 := by
   ring
 
 example : (Real.pi+1)^2 = Real.pi^2 + 2 * Real.pi + 1 := by
-  apply square_expand  -- one can also use `exact square_expand _`
+  apply square_expand  -- також можна використовувати `exact square_expand _`
 
 example : ∀ (y:ℝ), (Real.cos y + 1)^2 = Real.cos y^2 + 2 * Real.cos y + 1 := by
   intro y
@@ -51,7 +51,7 @@ theorem solve_quadratic : ∃ (x:ℝ), x^2 + 2 * x - 8 = 0 := by
   use 2
   norm_num
 
-/- The following proof will not typecheck.
+/- Наведений нижче код не перевірятиме тип.
 
 example : Real.pi^2 + 2 * Real.pi - 8 = 0 := by
   apply solve_quadratic
@@ -67,7 +67,7 @@ example
   (premise : ∀ m : Man, Mortal m)
   (Socrates : Man) :
   Mortal Socrates := by
-    apply premise  -- `exact premise Socrates` would also work
+    apply premise  -- `exact premise Socrates` також спрацює
 
 end Remark_A_5_1
 
@@ -96,21 +96,21 @@ example : ¬ ∃ m:ℤ, ∀ n:ℤ, m > n := by
 
 /-- Вправа A.5.1 -/
 def Exercise_A_5_1a : Decidable (∀ x > (0:ℝ), ∀ y > (0:ℝ), y^2 = x ) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Exercise_A_5_1b : Decidable (∃ x > (0:ℝ), ∀ y > (0:ℝ), y^2 = x ) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Exercise_A_5_1c : Decidable (∃ x > (0:ℝ), ∃ y > (0:ℝ), y^2 = x ) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Exercise_A_5_1d : Decidable (∀ y > (0:ℝ), ∃ x > (0:ℝ), y^2 = x ) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Exercise_A_5_1e : Decidable (∃ y > (0:ℝ), ∀ x > (0:ℝ), y^2 = x ) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry

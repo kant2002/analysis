@@ -159,17 +159,17 @@ theorem MajorizesOn.anti_symm {f g: ℝ → ℝ} {I: BoundedInterval}:
 /-- Вправа 11.3.2 -/
 def MajorizesOn.of_add : Decidable ( ∀ (f g h:ℝ → ℝ) (I:BoundedInterval) (hfg: MajorizesOn f g I),
  MajorizesOn (f+h) (g+h) I) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def MajorizesOn.of_mul : Decidable ( ∀ (f g h:ℝ → ℝ) (I:BoundedInterval) (hfg: MajorizesOn f g I),
  MajorizesOn (f*h) (g*h) I) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def MajorizesOn.of_smul : Decidable ( ∀ (f g:ℝ → ℝ) (c:ℝ) (I:BoundedInterval) (hfg: MajorizesOn f g I),
  MajorizesOn (c • f) (c • g) I) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 

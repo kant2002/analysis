@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.7
 
-Introduction to equality in Lean
+Вступ до рівності в Lean
 
 -/
 
@@ -22,25 +22,25 @@ example : 12 = (2:Fin 10)  := by
   decide
 
 
-/-- Reflexive axiom -/
+/-- Рефлексивна аксіома -/
 example {X:Type} (x:X) : x = x := by
   rfl
 
 #check Eq.refl
 
-/-- Symmetry axiom -/
+/-- Аксіома симетрії -/
 example {X:Type} (x y:X) (h: x = y) : y = x := by
   rw [h]
 
 #check Eq.symm
 
-/-- Transitivity axiom -/
+/-- Аксіома транзитивності -/
 example {X:Type} (x y z:X) (h1: x = y) (h2: y = z) : x = z := by
   rw [h1, h2]
 
 #check Eq.trans
 
-/-- Substitution axiom -/
+/-- Аксіома заміщення -/
 example {X Y:Type} (f:X → Y) (x y:X) (h: x = y) : f x = f y := by
   rw [h]
 
@@ -81,10 +81,10 @@ example {x y z:ℝ} (hxy : x = sin y) (hyz : y = z^2) : x = sin (z^2) := by
 
 abbrev make_twelve_equal_two : ℤ → ℤ → Prop := fun a b ↦ a = 12 ∧ b = 2
 
-/-- A version of the integers where 12 has been forced to equal 2. -/
+/-- Варіант цілих чисел, де 12 було примушено дорівнювати 2. -/
 abbrev NewInt := Quot make_twelve_equal_two
 
-/-- A coercion from integers to new integers -/
+/-- Приведення цілих чисел до нових цілих чисел -/
 instance : Coe ℤ NewInt where
   coe n := Quot.mk make_twelve_equal_two n
 

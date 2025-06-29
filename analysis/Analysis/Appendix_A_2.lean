@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.2
 
-An introduction to implications.  Showcases some basic tactics and Lean syntax.
+Вступ до висновків. Демонструє деякі базові тактики та синтаксис Lean.
 
 -/
 

@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.3
 
-Some examples of proofs
+Деякі приклади доказів
 
 -/
 
@@ -26,7 +26,7 @@ example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   norm_num
 
 
-/-- Твердження A.3.1, alternate proof -/
+/-- Твердження A.3.1, альтернативний доказ -/
 example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B := by
   intro h
   suffices hD : D
@@ -35,7 +35,7 @@ example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B :=
   . exact hCD hC
   exact hAC h
 
-/-- Твердження A.3.2, alternate proof -/
+/-- Твердження A.3.2, альтернативний доказ -/
 example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   intro h
   suffices h1 : Real.sin (x/2) = 1
@@ -77,7 +77,7 @@ example {r:ℝ} (h: 0 < r) (h': r < 1) : Summable (fun n:ℕ ↦ n * r^n) := by
     simp
   exact tendsto_one_div_atTop_nhds_zero_nat
 
-/-- Твердження A.3.1, third proof -/
+/-- Твердження A.3.1, третій доказ -/
 example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B := by
   intro h
   suffices hD : D

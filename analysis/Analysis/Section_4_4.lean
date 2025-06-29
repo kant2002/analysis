@@ -48,7 +48,7 @@ theorem Nat.no_infinite_descent : ¬ ∃ a:ℕ → ℕ, ∀ n, a (n+1) < a n := 
   sorry
 
 def Int.infinite_descent : Decidable (∃ a:ℕ → ℤ, ∀ n, a (n+1) < a n) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 #check even_iff_exists_two_mul

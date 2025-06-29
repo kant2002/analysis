@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.4
 
-Some examples of how variables and quantifiers are used in Lean
+Деякі приклади використання змінних та квантифікаторів у Lean
 
 -/
 
@@ -14,7 +14,7 @@ variable (X:Type) (x y:X)
 #check x = x
 #check x = y
 
--- #check x+y = y+x   -- this will not typecheck
+-- #check x+y = y+x   -- тут не будуть перевірятися типи
 
 end VariableExample1
 
@@ -51,7 +51,7 @@ example : ∀ (x:ℝ), (x+1)^2 = x^2 + 2*x + 1 := by
 
 end VariableExample2
 
-/-- A dummy statement is in place here for this example.-/
+/-- Для цього прикладу тут використовується фіктивне твердження.-/
 example : 0 = 0 := by
   set x := 342
   have : x + 155 = 497 := by
@@ -69,7 +69,7 @@ example : ¬ ∀ x > (0:ℝ), x^2 > x := by
   use 0.5
   norm_num
 
-/- The code below will not typecheck.
+/- Наведений нижче код не перевірятиме тип.
 
 example : ∀ (x:ℝ), x + 3 = 5 := by
   use 2
@@ -81,7 +81,7 @@ example : ∀ x, (3 < x ∧ x < 2) → (6 < 2*x ∧ 2*x < 4) := by
   intro x
   intro h
   obtain ⟨ h1, h2 ⟩ := h
-  -- the previous three lines can be golfed to `rintro x ⟨ h1, h2 ⟩`
+  -- попередні три рядки можна забуцкати в `rintro x ⟨ h1, h2 ⟩`
   constructor
   . linarith
   linarith

@@ -5,7 +5,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 /-!
 # Аналіз I, Додаток A.6
 
-Some examples of proofs and quantifiers in Lean
+Деякі приклади доказів та квантифікаторів у Lean
 
 -/
 
@@ -21,11 +21,11 @@ example : ¬ ∃ δ > 0, ∀ ε > (0:ℝ), 2 * δ < ε := by
   sorry
 
 open Real in
-/-- Твердження A.6.2.  The proof below is somewhat non-idiomatic for Lean, but illustrates how to implement a "let ε be a quantity to be chosen later" type of proof. -/
+/-- Твердження A.6.2.  Наведений нижче доказ є дещо не ідіоматичним для Lean, але ілюструє, як реалізувати доказ типу "нехай ε буде величиною, яку буде обрано пізніше". -/
 example : ∃ ε > 0, ∀ x, 0 < x ∧ x < ε → sin x > x / 2 := by
-  use ?eps  -- we will choose this later
+  use ?eps  -- ми оберемо це пізніше
   constructor
-  swap -- defer the checking of positivity until later
+  swap -- відкласти перевірку позитивності на потім
   intro x hx
   have hpos := hx.1
   have hderiv : deriv sin = cos := by
@@ -47,13 +47,13 @@ example : ∃ ε > 0, ∀ x, 0 < x ∧ x < ε → sin x > x / 2 := by
     exact this
   have : y < ?eps := by
     exact hy2.trans hx.2
-  pick_goal 3  -- Now it is time to pick ε
+  pick_goal 3  -- Тепер час підібрати ε
   . exact π/3
   exact this
   positivity
 
 open Real in
-/-- Твердження A.6.2: a more idiomatic proof -/
+/-- Твердження A.6.2: більш ідіоматичний доказ -/
 example : ∃ ε > 0, ∀ x, 0 < x ∧ x < ε → sin x > x / 2 := by
   use π/3, by positivity
   intro x ⟨ hpos, hx ⟩

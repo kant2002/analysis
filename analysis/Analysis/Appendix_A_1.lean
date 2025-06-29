@@ -3,47 +3,47 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Додаток A.1
 
-An introduction to mathematical statements.  Showcases some basic tactics and Lean syntax.
+Вступ до математичних тверджень. Демонструє деякі базові тактики та синтаксис Lean.
 
 -/
 
 
--- Приклад A.1.1. What the textbook calls "statements" are objects of type `Prop` in Lean.  Also, in Lean we tend to assign "junk" values to expressions that might normally be considered undefined, so discussions regarding undefined terms in the textbook should be adjusted accordingly.
+-- Приклад A.1.1. Те, що в підручнику називається «твердженнями», є об'єктами типу `Prop` в Lean. Крім того, в Lean ми схильні присвоювати "мусорні" значення виразам, які зазвичай вважаються невизначеними, тому обговорення невизначених термінів у підручнику слід відповідно скоригувати.
 
 #check 2+2=4
 #check 2+2=5
 
-/-- Every well-formed statement is either true or false... -/
+/-- Кожне добре сформульоване твердження або істинне, або хибне... -/
 example (P:Prop) : (P=true) ∨ (P=false) := by simp; tauto
 
-/-- .. but not both. -/
+/-- .. але не одночасно. -/
 example (P:Prop) : ¬ ((P=true) ∧ (P=false)) := by simp
 
--- Note: `P=true` and `P=false` simplify to `P` and `¬P` respectively.
+-- Примітка: `P=true` та `P=false` спрощуються до `P` та `¬P` відповідно.
 
-/-- To prove that a statement is true, it suffices to show that it is not false, -/
+/-- Щоб довести істинність твердження, достатньо показати, що воно не є хибним, -/
 example {P:Prop} (h: P ≠ false) : P = true := by simp; tauto
 
-/-- while to show that a statement is false, it suffices to show that it is not true. -/
+/-- тоді як для того, щоб довести, що твердження хибне, достатньо довести, що воно не є істинним. -/
 example {P:Prop} (h: P ≠ true) : P = false := by simp; tauto
 
-/-- This statement is true, but unlikely to be very useful. -/
+/-- Це твердження істінне, але навряд чи буде дуже корисним. -/
 example : 2 = 2 := rfl
 
-/-- This statement is also true, but not very efficient. -/
+/-- Це твердження також істінне, але не дуже ефективне. -/
 example : 4 ≤ 4 := by norm_num
 
 /- This is an expression, not a statement. -/
 #check 2 + 3*5
 
-/- This is a statement, not an expression. -/
+/- Це твердження, а не вираз. -/
 #check 2 + 3*5 = 17
 
 #check Prime (30+5)
 
 #check 30+5 ≤ 42-7
 
-/-- Conjunction -/
+/-- Кон'юнкція -/
 example {X Y: Prop} (hX: X) (hY: Y) : X ∧ Y := by
   constructor
   . exact hX
@@ -68,7 +68,7 @@ example : (2+2=4) ∧ (3+3=6) := by
   . norm_num
   norm_num
 
-/-- Disjunction -/
+/-- Диз'юнкція -/
 example {X Y: Prop} (hX: X) : X ∨ Y := by
   left
   exact hX
@@ -105,7 +105,7 @@ example : (2+2=4) ∨ (2353 + 5931 = 7284) := by
 
 #check Xor'
 
-/-- Negation -/
+/-- Заперечення -/
 example {X:Prop} : (¬ X = true) ↔ (X = false) := by simp
 
 example {X:Prop} : (¬ X = false) ↔ (X = true) := by simp
@@ -143,7 +143,7 @@ example (x:ℤ) : ¬ (Even x ∨ Odd x) ↔ (¬ Even x ∧ ¬ Odd x) := by
 example (X:Prop) : ¬ (¬ X) ↔ X := by
   simp
 
-/-- If and only if (iff) -/
+/-- Тоді і тільки тоді (iff) -/
 example {X Y: Prop} (hXY: X ↔ Y) (hX: X) : Y := by
   rw [hXY] at hX
   exact hX
@@ -182,36 +182,36 @@ example : (2+2=5) ↔ (4+4=10) := by
   simp
 
 example {X Y Z:Prop} (hXY: X ↔ Y) (hXZ: X ↔ Z) : [X,Y,Z].TFAE := by
-  tfae_have 1 ↔ 2 := by exact hXY  -- This line is optional
-  tfae_have 1 ↔ 3 := by exact hXZ  -- This line is optional
+  tfae_have 1 ↔ 2 := by exact hXY  -- Цей рядок необов'язковий
+  tfae_have 1 ↔ 3 := by exact hXZ  -- Цей рядок необов'язковий
   tfae_finish
 
-/-- Note for the `.out` method that one indexes starting from 0, in contrast to the `tfae_have` tactic. -/
+/-- Зверніть увагу, що для методу `.out` індексація починається з 0, на відміну від тактики `tfae_have`. -/
 example {X Y Z:Prop} (h: [X,Y,Z].TFAE) : X ↔ Y := by
   exact h.out 0 1
 
-/-- Вправа A.1.1.  Fill in the first `sorry` with something reasonable. -/
+/-- Вправа A.1.1.  Заповніть перше `sorry` чимось прийнятним -/
 example {X Y:Prop} : ¬ ((X ∨ Y) ∧ ¬ (X ∧ Y)) ↔ sorry := by sorry
 
-/-- Вправа A.1.2.  Fill in the first `sorry` with something reasonable. -/
+/-- Вправа A.1.2.  Заповніть перше `sorry` чимось прийнятним -/
 example {X Y:Prop} : ¬ (X ↔ Y) ↔ sorry := by sorry
 
 /-- Вправа A.1.3. -/
 def Exercise_A_1_3 : Decidable (∀ (X Y: Prop), (X → Y) → (¬X → ¬ Y) → (X ↔ Y)) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`, depending on whether you believe the given statement to be true or false.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`, залежно від того, чи вважаєте ви дане твердження істинним чи хибним.
   sorry
 
 /-- Вправа A.1.4. -/
 def Exercise_A_1_4 : Decidable (∀ (X Y: Prop), (X → Y) → (¬Y → ¬ X) → (X ↔ Y)) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа A.1.5. -/
 def Exercise_A_1_5 : Decidable (∀ (X Y Z: Prop), (X ↔ Y) → (Y ↔ Z) → [X,Y,Z].TFAE) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа A.1.6. -/
 def Exercise_A_1_6 : Decidable (∀ (X Y Z: Prop), (X → Y) → (Y → Z) → (Z → X) → [X,Y,Z].TFAE) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry

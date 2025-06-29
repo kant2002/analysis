@@ -137,7 +137,7 @@ def MonotoneOn.exist_inverse_without_continuity {a b:ℝ} (h: a < b) (f: ℝ →
   (∀ x ∈ Set.Icc a b, finv (f x) = x) ∧
   ∀ y ∈ Set.Icc (f a) (f b), f (finv y) = y )
    := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа 9.8.4 -/
@@ -149,7 +149,7 @@ def MonotoneOn.exist_inverse_without_strictmono {a b:ℝ} (h: a < b) (f: ℝ →
   (∀ x ∈ Set.Icc a b, finv (f x) = x) ∧
   ∀ y ∈ Set.Icc (f a) (f b), f (finv y) = y )
    := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 
