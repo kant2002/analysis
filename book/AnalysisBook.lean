@@ -23,8 +23,7 @@ def theme : Theme := { Theme.default with
           <link rel="stylesheet" href="/static/style.css"/>
           <script>"window.__versoSiteRoot=\"/analysis/\""</script>
           {{← builtinHeader }}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9C7QSY9LY"></script>
-
+          <script>{{googleAnalytics}}</script>
         </head>
         <body>
           <header>
