@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_6
 
 /-!
-# Analysis I, Chapter 6 epilogue
+# Аналіз I, Розділ 6, Епілог
 
 In this (technical) epilogue, we show that various operations and properties we have defined for
 "Chapter 6" sequences `Chapter6.Sequence` are equivalent to Mathlib operations.  Note however

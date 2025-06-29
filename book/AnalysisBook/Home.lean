@@ -18,9 +18,9 @@ open Verso Genre Blog
 Поточні формалізовані розділи:
 
 - [Section 2.1: Аксіоми Пеано](./sec21/)
-- [Section 2.2: Addition](./sec22/)
-- [Section 2.3: Multiplication](./sec23/)
-- [Chapter 2 epilogue: Isomorphism with the Mathlib natural numbers](./sec2e)
+- [Section 2.2: Додавання](./sec22/)
+- [Section 2.3: Множення](./sec23/)
+- [Chapter 2, епілог: Ізоморфізм із натуральними числами Mathlib](./sec2e)
 - [Section 3.1: Set theory fundamentals](./sec31/)
 - [Section 3.2: Russel's paradox](./sec32/)
 - [Section 3.3: Functions](./sec33/)

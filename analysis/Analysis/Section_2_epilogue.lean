@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_2_3
 
 /-!
-# Analysis I, Chapter 2 epilogue
+# Аналіз I, Розділ 2, Епілог
 
 In this (technical) epilogue, we show that the "Chapter 2" natural numbers `Chapter2.Nat` are
 isomorphic in various standard senses to the standard natural numbers `ℕ`.

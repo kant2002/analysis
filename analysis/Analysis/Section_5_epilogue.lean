@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_5_5
 
 /-!
-# Analysis I, Chapter 5 epilogue
+# Аналіз I, Розділ 5, Епілог
 
 In this (technical) epilogue, we show that the "Chapter 5" real numbers `Chapter5.Real` are
 isomorphic in various standard senses to the standard real numbers `ℝ`.  This we do by matching
