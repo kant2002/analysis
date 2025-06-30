@@ -20,7 +20,7 @@ Main constructions and results of this section:
 namespace Chapter5
 
 /--
-  Definition 5.1.1 (Sequence). To avoid some technicalities involving dependent types, we extend
+  Визначення 5.1.1 (Sequence). To avoid some technicalities involving dependent types, we extend
   sequences by zero to the left of the starting point `n₀`.
 -/
 @[ext]
@@ -220,7 +220,7 @@ abbrev BoundedBy {n:ℕ} (a: Fin n → ℚ) (M:ℚ) : Prop :=
   ∀ i, |a i| ≤ M
 
 /--
-  Definition 5.1.12 (bounded sequences). Here we start sequences from 0 rather than 1 to align
+  Визначення 5.1.12 (bounded sequences). Here we start sequences from 0 rather than 1 to align
   better with Mathlib conventions.
 -/
 lemma BoundedBy_def {n:ℕ} (a: Fin n → ℚ) (M:ℚ) :

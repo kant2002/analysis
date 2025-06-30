@@ -109,7 +109,7 @@ theorem integ_of_piecewise_const {f:ℝ → ℝ} {I: BoundedInterval} (hf: Piece
   integrable f I ∧ integ f I = PiecewiseConstantOn.integ f I := by
   sorry
 
-/-- Remark 11.3.8 -/
+/-- Ремарка 11.3.8 -/
 theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ = 0) :
   integrable f I ∧ integ f I = 0 := by
   have hI' := hI

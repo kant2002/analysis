@@ -8,16 +8,15 @@ In this section we set up a version of Zermelo-Frankel set theory (with atoms) t
 as faithful as possible to the original text of Analysis I, Section 3.1. All numbering refers to
 the original text.
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 This section is mostly optional, though it does make explicit the axiom of foundation which is
 used in a minor role in an exercise in Section 3.5.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Russell's paradox (ruling out the axiom of universal specification)
 - The axiom of regularity (foundation) - an axiom designed to avoid Russell's paradox
@@ -62,7 +61,7 @@ theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
   exact ⟨ y, h2, h1 ⟩
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the empty set.
 -/
 theorem SetTheory.Set.emptyset_exists (h: axiom_of_universal_specification):
@@ -70,7 +69,7 @@ theorem SetTheory.Set.emptyset_exists (h: axiom_of_universal_specification):
   sorry
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the singleton set.
 -/
 theorem SetTheory.Set.singleton_exists (h: axiom_of_universal_specification) (x:Object):
@@ -78,7 +77,7 @@ theorem SetTheory.Set.singleton_exists (h: axiom_of_universal_specification) (x:
   sorry
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the pair set.
 -/
 theorem SetTheory.Set.pair_exists (h: axiom_of_universal_specification) (x₁ x₂:Object):
@@ -86,7 +85,7 @@ theorem SetTheory.Set.pair_exists (h: axiom_of_universal_specification) (x₁ x�
   sorry
 
 /--
-  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the union operation.
 -/
 theorem SetTheory.Set.union_exists (h: axiom_of_universal_specification) (A B:Set):
@@ -94,7 +93,7 @@ theorem SetTheory.Set.union_exists (h: axiom_of_universal_specification) (A B:Se
   sorry
 
 /--
-  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the specify operation.
 -/
 theorem SetTheory.Set.specify_exists (h: axiom_of_universal_specification) (A:Set) (P: A → Prop):
@@ -102,7 +101,7 @@ theorem SetTheory.Set.specify_exists (h: axiom_of_universal_specification) (A:Se
   sorry
 
 /--
-  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
+  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the specify operation.
 -/
 theorem SetTheory.Set.replace_exists (h: axiom_of_universal_specification) (A:Set)

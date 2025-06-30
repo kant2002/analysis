@@ -44,7 +44,7 @@ theorem sum_of_empty {n m:ℤ} (h: n < m) (a: ℤ → ℝ) : ∑ i ∈ Icc m n, 
   linarith
 
 /--
-  Definition 7.1.1. This is similar to Mathlib's `Finset.sum_Icc_succ_top` except that the
+  Визначення 7.1.1. This is similar to Mathlib's `Finset.sum_Icc_succ_top` except that the
   latter involves summation over the natural numbers rather than integers.
 -/
 theorem sum_of_nonempty {n m:ℤ} (h: n ≥ m-1) (a: ℤ → ℝ) :
@@ -65,7 +65,7 @@ example (a: ℤ → ℝ) (m:ℤ) : ∑ i ∈ Icc m (m+1), a i = a m + a (m+1) :=
 
 example (a: ℤ → ℝ) (m:ℤ) : ∑ i ∈ Icc m (m+2), a i = a m + a (m+1) + a (m+2) := by sorry
 
-/-- Remark 7.1.3 -/
+/-- Ремарка 7.1.3 -/
 example (a: ℤ → ℝ) (m n:ℤ) : ∑ i ∈ Icc m n, a i = ∑ j ∈ Icc m n, a j := rfl
 
 /-- Лема 7.1.4(a) / Вправа 7.1.1 -/
@@ -326,14 +326,14 @@ theorem finite_series_comm {XX YY:Type*} (X: Finset XX) (Y: Finset YY) (f: XX ×
       finite_series_of_finite_series _ _ (fun z ↦ f (z.2, z.1))]
 
 
--- Exercise 7.1.3 : develop as many analogues as you can of the above theory for finite products
+-- Вправа 7.1.3 : develop as many analogues as you can of the above theory for finite products
 -- instead of finite sums.
 
 #check Nat.factorial_zero
 #check Nat.factorial_succ
 
 /--
-  Exercise 7.1.4. Note: there may be some technicalities passing back and forth between natural
+  Вправа 7.1.4. Note: there may be some technicalities passing back and forth between natural
   numbers and integers. Look into the tactics `zify`, `norm_cast`, and `omega`
 -/
 theorem binomial_theorem (x y:ℝ) (n:ℕ) :

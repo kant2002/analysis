@@ -67,7 +67,7 @@ example (n:ℤ) : IsMaxOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' Set.univ
 
 example (n:ℤ) : IsMinOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' Set.univ) n := by sorry
 
-/-- Remark 10.2.5 -/
+/-- Ремарка 10.2.5 -/
 theorem IsLocalMaxOn.of_restrict {X Y:Set ℝ} (hXY: Y ⊆ X) (f:ℝ → ℝ) (x₀:ℝ)
   (h: IsLocalMaxOn f X x₀) : IsLocalMaxOn f Y x₀ := by
   sorry

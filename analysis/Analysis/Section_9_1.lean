@@ -193,40 +193,40 @@ theorem isClosed_def' (X:Set ℝ): IsClosed X ↔ ∀ x, AdherentPt x X → x �
   simp [closure_def]
   rfl
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Icc_closed {a b:ℝ} (h: a ≤ b) : IsClosed (Set.Icc a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ici_closed (a:ℝ) : IsClosed (Set.Ici a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Iic_closed (a:ℝ) : IsClosed (Set.Iic a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem R_closed : IsClosed (Set.univ : Set ℝ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ico_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (Set.Ico a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioc_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (Set.Ioc a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioo_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (Set.Ioo a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioi_not_closed (a:ℝ) : ¬ IsClosed (Set.Ioi a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Iio_not_closed (a:ℝ) : ¬ IsClosed (Set.Iio a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem N_closed : IsClosed ((fun n:ℕ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Z_closed : IsClosed ((fun n:ℤ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Q_not_closed : ¬ IsClosed ((fun n:ℚ ↦ (n:ℝ)) '' Set.univ) := by sorry
 
 /-- Наслідок 9.1.17 -/
@@ -260,7 +260,7 @@ example : ¬ LimitPt 3 ((Set.Ioo 1 2) ∪ {3}) := by sorry
 
 example : IsolatedPt 3 ((Set.Ioo 1 2) ∪ {3}) := by sorry
 
-/-- Remark 9.1.20 -/
+/-- Ремарка 9.1.20 -/
 theorem LimitPt.iff_limit (x:ℝ) (X: Set ℝ) :
   LimitPt x X ↔ ∃ a : ℕ → ℝ, (∀ n, a n ∈ X \ {x}) ∧ Filter.Tendsto a Filter.atTop (nhds x) := by
   simp [limit_of_AdherentPt]

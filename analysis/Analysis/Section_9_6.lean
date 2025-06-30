@@ -29,7 +29,7 @@ abbrev BddBelowOn (f:ℝ → ℝ) (X:Set ℝ) : Prop :=
 abbrev BddOn (f:ℝ → ℝ) (X:Set ℝ) : Prop :=
   ∃ M, ∀ x ∈ X, |f x| ≤ M
 
-/-- Remark 9.6.2 -/
+/-- Ремарка 9.6.2 -/
 theorem BddOn.iff (f:ℝ → ℝ) (X:Set ℝ) :
   BddOn f X ↔ BddAboveOn f X ∧ BddBelowOn f X := by
   sorry
@@ -82,7 +82,7 @@ theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: 
 #check isMaxOn_iff
 #check isMinOn_iff
 
-/-- Remark 9.6.6 -/
+/-- Ремарка 9.6.6 -/
 theorem BddAboveOn.isMaxOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMaxOn f X x₀): BddAboveOn f X := by sorry
 
 theorem BddBelowOn.isMinOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMinOn f X x₀): BddBelowOn f X := by sorry

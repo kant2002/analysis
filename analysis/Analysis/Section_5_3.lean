@@ -338,7 +338,7 @@ abbrev Real.ratCast_hom : ℚ →+* Real where
   map_mul' := by sorry
 
 /--
-  Definition 5.3.12 (sequences bounded away from zero).  Sequences are indexed to start from zero
+  Визначення 5.3.12 (sequences bounded away from zero).  Sequences are indexed to start from zero
   as this is more convenient for Mathlib purposes.
 -/
 abbrev bounded_away_zero (a:ℕ → ℚ) : Prop :=
@@ -347,19 +347,19 @@ abbrev bounded_away_zero (a:ℕ → ℚ) : Prop :=
 theorem bounded_away_zero_def (a:ℕ → ℚ) : bounded_away_zero a ↔
   ∃ (c:ℚ), c > 0 ∧ ∀ n, |a n| ≥ c := by rfl
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : bounded_away_zero (fun n ↦ (-1)^n) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ¬ bounded_away_zero (fun n ↦ 10^(-(n:ℤ)-1)) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ¬ bounded_away_zero (fun n ↦ 1 - 10^(-(n:ℤ))) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : bounded_away_zero (fun n ↦ 10^(n+1)) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ((fun (n:ℕ) ↦ (10:ℚ)^(n+1)):Sequence).isBounded := by sorry
 
 /-- Лема 5.3.14 -/
@@ -460,7 +460,7 @@ theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: bounded_away_zero a)
 
 open Classical in
 /--
-  Definition 5.3.16 (Reciprocation of real numbers).  Requires classical logic because we need to
+  Визначення 5.3.16 (Reciprocation of real numbers).  Requires classical logic because we need to
   assign a "junk" value to the inverse of 0.
 -/
 noncomputable instance Real.instInv : Inv Real where

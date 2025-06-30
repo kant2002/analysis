@@ -6,13 +6,12 @@ import Analysis.Section_3_4
 /-!
 # Аналіз I, Глава 3.5
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Ordered pairs and n-tuples
 - Cartesian products and n-fold products
@@ -346,7 +345,7 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_tuples (n:ℕ) (X: Fin n → Set)
   right_inv := sorry
 
 /--
-  Exercise 3.5.3. The spirit here is to avoid direct rewrites (which make all of these claims
+  Вправа 3.5.3. The spirit here is to avoid direct rewrites (which make all of these claims
   trivial), and instead use `OrderedPair.eq` or `SetTheory.Set.tuple_inj`
 -/
 theorem OrderedPair.refl (p: OrderedPair) : p = p := by sorry
@@ -387,14 +386,14 @@ theorem SetTheory.Set.diff_prod (A B C:Set) : (A \ B) ×ˢ C = (A ×ˢ C) \ (A �
 theorem SetTheory.Set.inter_of_prod (A B C D:Set) :
     (A ×ˢ B) ∩ (C ×ˢ D) = (A ∩ C) ×ˢ (B ∩ D) := by sorry
 
-/- Exercise 3.5.5 -/
+/- Вправа 3.5.5 -/
 def SetTheory.Set.union_of_prod :
   Decidable (∀ (A B C D:Set), (A ×ˢ B) ∪ (C ×ˢ D) = (A ∪ C) ×ˢ (B ∪ D)) := by
   -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
   sorry
 
 
-/- Exercise 3.5.5 -/
+/- Вправа 3.5.5 -/
 def SetTheory.Set.diff_of_prod :
   Decidable (∀ (A B C D:Set), (A ×ˢ B) \ (C ×ˢ D) = (A \ C) ×ˢ (B \ D)) := by
   -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
@@ -402,7 +401,7 @@ def SetTheory.Set.diff_of_prod :
 
 
 /--
-  Exercise 3.5.6.
+  Вправа 3.5.6.
 -/
 theorem SetTheory.Set.prod_subset_prod {A B C D:Set}
   (hA: A ≠ ∅) (hB: B ≠ ∅) (hC: C ≠ ∅) (hD: D ≠ ∅) :
@@ -438,7 +437,7 @@ theorem SetTheory.Set.is_graph {X Y G:Set} (hG: G ⊆ X ×ˢ Y)
     ∃! f: X → Y, G = graph f := by sorry
 
 /--
-  Exercise 3.5.11. This trivially follows from `SetTheory.Set.power_set_axiom'`, but the
+  Вправа 3.5.11. This trivially follows from `SetTheory.Set.power_set_axiom'`, but the
   exercise is to derive it from `SetTheory.Set.mem_powerset` instead.
 -/
 theorem SetTheory.Set.power_set_axiom' (X Y:Set) :

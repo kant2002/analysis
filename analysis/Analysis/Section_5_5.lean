@@ -146,7 +146,7 @@ theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): 
       . convert hm
       convert hm'
       simp [sub_of_ratCast, this, sub_mul, ε]
-    -- Exercise 5.5.3
+    -- Вправа 5.5.3
     intro m m' ⟨ hm1, hm2 ⟩ ⟨ hm'1, hm'2 ⟩
     exact upperBound_discrete_unique hm1 hm2 hm'1 hm'2
   set m : ℕ → ℤ := fun n ↦ (claim1 n).exists.choose
@@ -340,7 +340,7 @@ theorem Real.exist_sqrt_two : ∃ x:Real, x^2 = 2 := by
     linarith
   assumption
 
-/-- Remark 5.5.13 -/
+/-- Ремарка 5.5.13 -/
 theorem Real.exist_irrational : ∃ x:Real, ¬ ∃ q:ℚ, x = (q:Real) := by sorry
 
 theorem Real.GLB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddBelow E): ∃ S, IsGLB E S := by

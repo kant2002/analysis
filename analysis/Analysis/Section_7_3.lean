@@ -196,7 +196,7 @@ theorem Series.converges_qseries (q : ℝ) (hq : q > 0) : (mk' (m := 1) fun n �
   rw [abs_of_nonneg (by positivity), Real.rpow_lt_one_iff_of_pos (by positivity)]
   simp
 
-/-- Remark 7.3.8 -/
+/-- Ремарка 7.3.8 -/
 theorem Series.zeta_eq {q:ℝ} (hq: q > 1) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series).sum = riemannZeta q := by
   -- `riemannZeta` is defined over the complex numbers, so some preliminary work is needed to specialize to the reals.
   set L := ∑' n:ℕ, 1 / (n+1:ℝ)^q

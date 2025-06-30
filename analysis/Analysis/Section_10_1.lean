@@ -72,7 +72,7 @@ example (x₀:ℝ) : DifferentiableWithinAt ℝ (fun x ↦ x^2) (Set.univ) x₀ 
 example (x₀:ℝ) : derivWithin (fun x ↦ x^2) (Set.univ) x₀ = 2 * x₀ := by
   sorry
 
-/-- Remark 10.1.4 -/
+/-- Ремарка 10.1.4 -/
 example (X: Set ℝ) (x₀ : ℝ) {f g: ℝ → ℝ} (hfg: f = g):
   DifferentiableWithinAt ℝ f X x₀ ↔ DifferentiableWithinAt ℝ g X x₀ := by rw [hfg]
 

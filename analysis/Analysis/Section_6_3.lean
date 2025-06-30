@@ -68,13 +68,13 @@ theorem Sequence.sup_le_upper {a:Sequence} {M:EReal} (h: ∀ n ≥ a.m, a n ≤ 
 theorem Sequence.exists_between_lt_sup {a:Sequence} {y:EReal} (h: y < a.sup ) :
     ∃ n ≥ a.m, y < a n ∧ a n ≤ a.sup := by sorry
 
-/-- Remark 6.3.7 -/
+/-- Ремарка 6.3.7 -/
 theorem Sequence.ge_inf {a:Sequence} {n:ℤ} (hn: n ≥ a.m) : a n ≥ a.inf := by sorry
 
-/-- Remark 6.3.7 -/
+/-- Ремарка 6.3.7 -/
 theorem Sequence.inf_ge_lower {a:Sequence} {M:EReal} (h: ∀ n ≥ a.m, a n ≥ M) : a.inf ≥ M := by sorry
 
-/-- Remark 6.3.7 -/
+/-- Ремарка 6.3.7 -/
 theorem Sequence.exists_between_gt_inf {a:Sequence} {y:EReal} (h: y > a.inf ) :
     ∃ n ≥ a.m, y > a n ∧ a n ≥ a.inf := by sorry
 

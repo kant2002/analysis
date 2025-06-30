@@ -51,7 +51,7 @@ theorem StrictAntitone.iff {X: Set ℝ} (f: ℝ → ℝ) : StrictAntiOn f X  ↔
   intro h x hx y hy hxy
   exact h x hx y hy hxy
 
-/-- Examples 9.8.2 -/
+/-- Приклади 9.8.2 -/
 example : StrictMonoOn (fun x:ℝ ↦ x^2) (Set.Ici 0) := by sorry
 
 example : StrictAntiOn (fun x:ℝ ↦ x^2) (Set.Iic 0) := by sorry
@@ -153,7 +153,7 @@ def MonotoneOn.exist_inverse_without_strictmono {a b:ℝ} (h: a < b) (f: ℝ →
   sorry
 
 
-/- Exercise 9.8.4: state and prove an analogue of `MonotoneOne.exist_inverse` for `Antitone` functions. -/
+/- Вправа 9.8.4: state and prove an analogue of `MonotoneOne.exist_inverse` for `Antitone` functions. -/
 -- theorem AntitoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (Set.Icc a b)) (hmono: StrictAntiOn f (Set.Icc a b)) : sorry := by sorry
 
 /-- An equivalence between the natural numbers and the rationals. -/

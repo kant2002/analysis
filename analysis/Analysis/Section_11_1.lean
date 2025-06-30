@@ -57,7 +57,7 @@ theorem BoundedInterval.set_Ico (a b:ℝ) : (Ico a b : Set ℝ) = Set.Ico a b :=
 -- Definition 11.1.1
 #check Set.ordConnected_def
 
-/-- Examples 11.1.3 -/
+/-- Приклади 11.1.3 -/
 example : (Set.Icc 1 2 : Set ℝ).OrdConnected := by sorry
 
 example : (Set.Ioo 1 2 : Set ℝ).OrdConnected := by sorry

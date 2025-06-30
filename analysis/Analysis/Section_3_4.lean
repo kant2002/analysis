@@ -4,13 +4,12 @@ import Analysis.Section_3_1
 /-!
 # Аналіз I, Глава 3.4
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Images and inverse images of (Mathlib) functions, within the framework of Section 3.1 set
   theory. (The Section 3.2 functions are now deprecated and will not be used further.)
@@ -64,7 +63,7 @@ theorem SetTheory.Set.mem_image_of_eval_counter :
     ∃ (X Y:Set) (f:X → Y) (S: Set) (x:X), ¬((f x).val ∈ image f S → x.val ∈ S) := by sorry
 
 /--
-  Definition 3.4.4 (inverse images).
+  Визначення 3.4.4 (inverse images).
   Again, it is not required that U be a subset of Y.
 -/
 abbrev SetTheory.Set.preimage {X Y:Set} (f:X → Y) (U: Set) : Set :=
@@ -121,7 +120,7 @@ abbrev SetTheory.Set.powerset (X:Set) : Set := sorry
 theorem SetTheory.Set.mem_powerset {X:Set} (x:Object) :
     x ∈ powerset X ↔ ∃ Y:Set, x = Y ∧ Y ⊆ X := by sorry
 
-/-- Remark 3.4.10 -/
+/-- Ремарка 3.4.10 -/
 theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
     x ∈ powerset {a,b,c}
     ↔ x = (∅:Set)
@@ -202,14 +201,14 @@ theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y
   (hf: Function.LeftInverse f_inv f ∧ Function.RightInverse f_inv f) (hV: V ⊆ Y) :
     image f_inv V = preimage f V := by sorry
 
-/- Exercise 3.4.2.  State and prove an assertion connecting `preimage (image f S)` and `S`. -/
+/- Вправа 3.4.2.  State and prove an assertion connecting `preimage (image f S)` and `S`. -/
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) : sorry := by sorry
 
-/- Exercise 3.4.2.  State and prove an assertion connecting `image (preimage f U)` and `U`. -/
+/- Вправа 3.4.2.  State and prove an assertion connecting `image (preimage f U)` and `U`. -/
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
 /--
-  Exercise 3.4.3.  Also state and prove an assertion regarding whether `⊆` can be improved to `=`.
+  Вправа 3.4.3.  Also state and prove an assertion regarding whether `⊆` can be improved to `=`.
 -/
 theorem SetTheory.Set.image_of_inter {X Y:Set} (f:X → Y) (A B: Set) :
     image f (A ∩ B) ⊆ (image f A) ∩ (image f B) := by sorry
@@ -244,7 +243,7 @@ theorem SetTheory.Set.partial_functions {X Y:Set} :
   sorry
 
 /--
-  Exercise 3.4.8.  The point of this exercise is to prove it without using the
+  Вправа 3.4.8.  The point of this exercise is to prove it without using the
   pairwise union operation `∪`.
 -/
 theorem SetTheory.Set.union_pair_exists (X Y:Set) : ∃ Z:Set, ∀ x, x ∈ Z ↔ (x ∈ X ∨ x ∈ Y) := by

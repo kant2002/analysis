@@ -26,7 +26,7 @@ Main constructions and results of this section:
 abbrev Real.close (ε x y : ℝ) : Prop := dist x y ≤ ε
 
 /--
-  Definition 6.1.2 (ε-close). This is similar to the previous notion of ε-closeness, but where
+  Визначення 6.1.2 (ε-close). This is similar to the previous notion of ε-closeness, but where
   all quantities are real instead of rational.
 -/
 theorem Real.close_def (ε x y : ℝ) : ε.close x y ↔ dist x y ≤ ε := by rfl
@@ -34,7 +34,7 @@ theorem Real.close_def (ε x y : ℝ) : ε.close x y ↔ dist x y ≤ ε := by r
 namespace Chapter6
 
 /--
-  Definition 6.1.3 (Sequence). This is similar to the Chapter 5 sequence, except that now the
+  Визначення 6.1.3 (Sequence). This is similar to the Chapter 5 sequence, except that now the
   sequence is real-valued. As with Chapter 5, we start sequences from 0 by default.
 -/
 @[ext]
@@ -204,16 +204,16 @@ theorem Sequence.tendsTo_iff (a:Sequence) (L:ℝ) :
 
 noncomputable abbrev seq_6_1_6 : Sequence := (fun (n:ℕ) ↦ 1-(10:ℝ)^(-(n:ℤ)-1):Sequence)
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : (0.1:ℝ).close_seq seq_6_1_6 1 := by sorry
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : ¬ (0.01:ℝ).close_seq seq_6_1_6 1 := by sorry
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : (0.01:ℝ).eventually_close seq_6_1_6 1 := by sorry
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : seq_6_1_6.tendsTo 1 := by sorry
 
 /-- Твердження 6.1.7 (Uniqueness of limits) -/
@@ -259,7 +259,7 @@ theorem Sequence.divergent_def (a:Sequence) : a.divergent ↔ ¬ a.convergent :=
 
 open Classical in
 /--
-  Definition 6.1.8.  We give the limit of a sequence the junk value of 0 if it is not convergent.
+  Визначення 6.1.8.  We give the limit of a sequence the junk value of 0 if it is not convergent.
 -/
 noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.convergent then h.choose else 0
 

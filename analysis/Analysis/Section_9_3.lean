@@ -101,7 +101,7 @@ theorem Convergesto.comp {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Adh
   rw [iff_conv f L h] at hf
   exact hf a ha hconv
 
--- Remark 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems.  This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
+-- Ремарка 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems.  This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
 
 /-- Наслідок 9.3.13 -/
 theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
@@ -220,7 +220,7 @@ example : Filter.Tendsto (fun n ↦ f_9_3_21 ((Real.sqrt 2)/n:ℝ)) Filter.atTop
 
 example : ¬ ∃ L, Convergesto Set.univ f_9_3_21 L 0 := by sorry
 
-/- Exercise 9.3.4: State a definition of limit superior and limit inferior for functions, and prove an analogue of Proposition 9.3.9 for those definitions. -/
+/- Вправа 9.3.4: State a definition of limit superior and limit inferior for functions, and prove an analogue of Proposition 9.3.9 for those definitions. -/
 
 /-- Вправа 9.3.5 (Continuous version of squeeze test) -/
 theorem Convergesto.squeeze {E:Set ℝ} {f g h: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (had: AdherentPt x₀ E)

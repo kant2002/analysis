@@ -62,16 +62,16 @@ theorem EReal.lt_iff (x y:EReal) : x < y ↔ x ≤ y ∧ x ≠ y := lt_iff_le_an
 
 #check EReal.coe_lt_coe_iff
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (3:EReal) ≤ (5:EReal) := by sorry
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (3:EReal) < ⊤ := by sorry
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (⊥:EReal) < ⊤ := by sorry
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : ¬ (3:EReal) ≤ ⊥ := by sorry
 
 #check instCompleteLinearOrderEReal

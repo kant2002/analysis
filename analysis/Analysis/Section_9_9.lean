@@ -91,7 +91,7 @@ abbrev Real.eventually_close_seqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
 abbrev Chapter6.Sequence.equiv (a b: Sequence) : Prop :=
   ∀ ε > (0:ℝ), ε.eventually_close_seqs a b
 
-/-- Remark 9.9.6 -/
+/-- Ремарка 9.9.6 -/
 theorem Chapter6.Sequence.equiv_iff_rat (a b: Sequence) :
   Sequence.equiv a b ↔ ∀ ε > (0:ℚ), (ε:ℝ).eventually_close_seqs a b := by
   sorry
@@ -113,7 +113,7 @@ theorem UniformContinuousOn.iff_preserves_equiv {X:Set ℝ} (f: ℝ → ℝ) :
   Sequence.equiv (f ∘ x:Sequence) (f ∘ y:Sequence) := by
   sorry
 
-/-- Remark 9.9.9 -/
+/-- Ремарка 9.9.9 -/
 theorem Chapter6.Sequence.equiv_const (x₀: ℝ) (x:ℕ → ℝ) : Filter.Tendsto x Filter.atTop (nhds x₀) ↔
   Sequence.equiv (x:Sequence) (fun n:ℕ ↦ x₀:Sequence) := by
   sorry

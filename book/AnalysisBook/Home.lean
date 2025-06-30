@@ -21,7 +21,7 @@ open Verso Genre Blog
 - [Глава 2.2: Додавання](./sec22/)
 - [Глава 2.3: Множення](./sec23/)
 - [Розділ 2, епілог: Ізоморфізм із натуральними числами Mathlib](./sec2e)
-- [Глава 3.1: Set theory fundamentals](./sec31/)
+- [Глава 3.1: Основи теорії множин](./sec31/)
 - [Глава 3.2: Russel's paradox](./sec32/)
 - [Глава 3.3: Functions](./sec33/)
 - [Глава 3.4: Images and inverse images](./sec34/)

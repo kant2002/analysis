@@ -62,7 +62,7 @@ theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence
   obtain ⟨ b, hsubseq, htends ⟩ := this
   refine ⟨ b, hsubseq, ⟨ L_plus, htends ⟩ ⟩
 
-/- Exercise 6.6.2 -/
+/- Вправа 6.6.2 -/
 
 def Sequence.exist_subseq_of_subseq :
   Decidable (∃ a b : ℕ → ℝ, a ≠ b ∧ Sequence.subseq a b ∧ Sequence.subseq b a) := by
@@ -70,7 +70,7 @@ def Sequence.exist_subseq_of_subseq :
     sorry
 
 /--
-  Exercise 6.6.3.  You may find the API around Mathlib's `Nat.find` to be useful
+  Вправа 6.6.3.  You may find the API around Mathlib's `Nat.find` to be useful
   (and `open Classical` to avoid any decidability issues)
 -/
 theorem Sequence.subseq_of_unbounded {a:ℕ → ℝ} (ha: ¬ (a:Sequence).isBounded) :

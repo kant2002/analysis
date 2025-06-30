@@ -4,13 +4,12 @@ import Analysis.Section_3_1
 /-!
 # Аналіз I, Глава 3.3
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - A notion of function `Function X Y` between two sets `X`, `Y` in the set theory of Section 3.1
 - Various relations with the Mathlib notion of a function `X → Y` between two types `X`, `Y`.
@@ -37,7 +36,7 @@ export SetTheory (Set Object nat)
 variable [SetTheory]
 
 /--
-  Definition 3.3.1. `Function X Y` is the structure of functions from `X` to `Y`.
+  Визначення 3.3.1. `Function X Y` is the structure of functions from `X` to `Y`.
   Analogous to the Mathlib type `X → Y`.
 -/
 @[ext]
@@ -295,7 +294,7 @@ example : ¬ Function.Injective (fun (n:ℤ) ↦ n^2) := by sorry
 
 example : Function.Injective (fun (n:ℕ) ↦ n^2) := by sorry
 
-/-- Remark 3.3.16 -/
+/-- Ремарка 3.3.16 -/
 theorem SetTheory.Set.two_to_one {X Y: Set} {f: Function X Y} (h: ¬ f.one_to_one) :
     ∃ x x': X, x ≠ x' ∧ f x = f x' := by sorry
 
@@ -351,7 +350,7 @@ example : Function.Bijective (fun n ↦ ⟨ n+1, by omega⟩ : ℕ → { n:ℕ /
 
 example : ¬ Function.Bijective (fun n ↦ n+1) := by sorry
 
-/-- Remark 3.3.24 -/
+/-- Ремарка 3.3.24 -/
 theorem Function.bijective_incorrect_def :
     ∃ X Y: Set, ∃ f: Function X Y, (∀ x: X, ∃! y: Y, y = f x) ∧ ¬ f.bijective := by sorry
 
@@ -399,7 +398,7 @@ theorem Function.comp_of_surj {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (
   (hg: g.onto) : (g ○ f).onto := by sorry
 
 /--
-  Exercise 3.3.3 - fill in the sorrys in the statements in  a reasonable fashion.
+  Вправа 3.3.3 - fill in the sorrys in the statements in  a reasonable fashion.
 -/
 example (X: Set) : (SetTheory.Set.f_3_3_9 X).one_to_one ↔ sorry := by sorry
 
@@ -408,7 +407,7 @@ example (X: Set) : (SetTheory.Set.f_3_3_9 X).onto ↔ sorry := by sorry
 example (X: Set) : (SetTheory.Set.f_3_3_9 X).bijective ↔ sorry := by sorry
 
 /--
-  Exercise 3.3.4.  State and prove theorems or counterexamples in the case that `hg` or `hf` is
+  Вправа 3.3.4.  State and prove theorems or counterexamples in the case that `hg` or `hf` is
   omitted as a hypothesis.
 -/
 theorem Function.comp_cancel_left {X Y Z:Set} {f f': Function X Y} {g : Function Y Z}
@@ -418,7 +417,7 @@ theorem Function.comp_cancel_right {X Y Z:Set} {f: Function X Y} {g g': Function
   (heq : g ○ f = g' ○ f) (hf: g.onto) : g = g' := by sorry
 
 /--
-  Exercise 3.3.5.  State or prove theorems or counterexamples in the case that `f` is replaced
+  Вправа 3.3.5.  State or prove theorems or counterexamples in the case that `f` is replaced
   with `g` or vice versa in the conclusion.
 -/
 theorem Function.comp_injective {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (hinj :

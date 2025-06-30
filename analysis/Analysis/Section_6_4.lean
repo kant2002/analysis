@@ -355,7 +355,7 @@ theorem Sequence.Cauchy_iff_convergent (a:Sequence) :
 theorem Sequence.sup_not_strict_mono : ∃ (a b:ℕ → ℝ), (∀ n, a n < b n) ∧ (a:Sequence).sup ≠ (b:Sequence).sup := by
   sorry
 
-/- Exercise 6.4.7 -/
+/- Вправа 6.4.7 -/
 
 def Sequence.tendsTo_real_iff :
   Decidable (∀ (a:Sequence) (x:ℝ), a.tendsTo x ↔ a.abs.tendsTo x) := by

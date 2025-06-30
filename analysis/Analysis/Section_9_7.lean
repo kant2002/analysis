@@ -125,7 +125,7 @@ noncomputable abbrev f_9_7_1 : ℝ → ℝ := fun x ↦ if x ≤ 0 then -1 else 
 example : 0 ∈ Set.Icc (f_9_7_1 (-1)) (f_9_7_1 1) ∧ ¬ ∃ x ∈ Set.Icc (-1) 1, f_9_7_1 x = 0 := by
   sorry
 
-/-- Remark 9.7.2 -/
+/-- Ремарка 9.7.2 -/
 abbrev f_9_7_2 : ℝ → ℝ := fun x ↦ x^3 - x
 
 example : f_9_7_2 (-2) = -6 := by sorry
@@ -134,7 +134,7 @@ example : f_9_7_2 (-1) = 0 := by sorry
 example : f_9_7_2 0 = 0 := by sorry
 example : f_9_7_2 1 = 0 := by sorry
 
-/-- Remark 9.7.3 -/
+/-- Ремарка 9.7.3 -/
 example : ∃ x:ℝ, 0 ≤ x ∧ x ≤ 2 ∧ x^2 = 2 := by sorry
 
 /-- Наслідок 9.7.4 (Images of continuous functions) / Вправа 9.7.1 -/

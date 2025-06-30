@@ -120,7 +120,7 @@ example : ¬ has_removable_discontinuity Set.univ (fun x ↦ 1/x) 0 := by sorry
 
 example : ¬ has_jump_discontinuity Set.univ (fun x ↦ 1/x) 0 := by sorry
 
-/- Exercise 9.5.1: Write down a definition of what it would mean for a limit of a function to be `+∞` or `-∞`, apply to `fun x ↦ 1/x`, and state and prove a version of Proposition 9.3.9. -/
+/- Вправа 9.5.1: Write down a definition of what it would mean for a limit of a function to be `+∞` or `-∞`, apply to `fun x ↦ 1/x`, and state and prove a version of Proposition 9.3.9. -/
 
 
 end Chapter9

@@ -24,7 +24,7 @@ namespace Chapter7
 open BigOperators
 
 /--
-  Definition 7.2.1 (Formal infinite series). This is similar to Chapter 6 sequence, but is
+  Визначення 7.2.1 (Formal infinite series). This is similar to Chapter 6 sequence, but is
   manipulated differently. As with Chapter 5, we will start series from 0 by default.
 -/
 @[ext]
@@ -81,7 +81,7 @@ noncomputable abbrev Series.sum (s : Series) : ℝ :=
 theorem Series.converges_of_convergesTo {s : Series} {L:ℝ} (h: s.convergesTo L) :
     s.converges := by use L
 
-/-- Remark 7.2.3 -/
+/-- Ремарка 7.2.3 -/
 theorem Series.sum_of_converges {s : Series} {L:ℝ} (h: s.convergesTo L) : s.sum = L := by
   simp [sum, converges_of_convergesTo h]
   exact tendsto_nhds_unique ((converges_of_convergesTo h).choose_spec) h
@@ -262,7 +262,7 @@ theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.Tendsto a Filter.atTop (nhd
     ((fun n:ℕ ↦ a (n+1) - a n):Series).convergesTo (a 0) := by
   sorry
 
-/- Exercise 7.2.1  -/
+/- Вправа 7.2.1  -/
 
 def Series.exercise_7_2_1_convergent :
   Decidable ( (mk' (m := 1) (fun n ↦ (-1:ℝ)^(n:ℤ))).converges ) := by

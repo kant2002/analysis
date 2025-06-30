@@ -20,7 +20,7 @@ namespace Chapter5
 
 
 /--
-  Definition 5.4.1 (sequences bounded away from zero with sign). Sequences are indexed to start
+  Визначення 5.4.1 (sequences bounded away from zero with sign). Sequences are indexed to start
   from zero as this is more convenient for Mathlib purposes.
 -/
 abbrev bounded_away_pos (a:ℕ → ℚ) : Prop :=
@@ -38,13 +38,13 @@ theorem bounded_away_pos_def (a:ℕ → ℚ) : bounded_away_pos a ↔ ∃ (c:ℚ
 theorem bounded_away_neg_def (a:ℕ → ℚ) : bounded_away_neg a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c := by
   rfl
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : bounded_away_pos (fun n ↦ 1 + 10^(-(n:ℤ)-1)) := by sorry
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : bounded_away_neg (fun n ↦ - - 10^(-(n:ℤ)-1)) := by sorry
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : ¬ bounded_away_pos (fun n ↦ (-1)^n) := by sorry
 
 example : ¬ bounded_away_neg (fun n ↦ (-1)^n) := by sorry
@@ -283,7 +283,7 @@ theorem Real.LIM_mono {a b:ℕ → ℚ} (ha: (a:Sequence).isCauchy) (hb: (b:Sequ
   rw [←Real.sub_of_LIM hb ha] at this
   linarith
 
-/-- Remark 5.4.11 --/
+/-- Ремарка 5.4.11 --/
 theorem Real.LIM_mono_fail :
     ∃ (a b:ℕ → ℚ), (a:Sequence).isCauchy
     ∧ (b:Sequence).isCauchy

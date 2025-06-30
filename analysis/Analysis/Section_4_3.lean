@@ -55,7 +55,7 @@ theorem abs_eq_abs (x: ℚ) : abs x = |x| := by
 abbrev dist (x y : ℚ) := |x - y|
 
 /--
-  Definition 4.2 (Distance).
+  Визначення 4.2 (Distance).
   We avoid the Mathlib notion of distance here because it is real-valued.
 -/
 theorem dist_eq (x y: ℚ) : dist x y = |x-y| := rfl
@@ -95,19 +95,19 @@ theorem dist_symm (x y:ℚ) : dist x y = dist y x := by sorry
 theorem dist_le (x y z:ℚ) : dist x z ≤ dist x y + dist y z := by sorry
 
 /--
-  Definition 4.3.4 (eps-closeness).  In the text the notion is undefined for ε zero or negative,
+  Визначення 4.3.4 (eps-closeness).  In the text the notion is undefined for ε zero or negative,
   but it is more convenient in Lean to assign a "junk" definition in this case.  But this also
   allows some relaxations of hypotheses in the lemmas that follow.
 -/
 theorem close_iff (ε x y:ℚ): ε.close x y ↔ |x - y| ≤ ε := by rfl
 
-/-- Examples 4.3.6 -/
+/-- Приклади 4.3.6 -/
 example : (0.1:ℚ).close (0.99:ℚ) (1.01:ℚ) := by sorry
 
-/-- Examples 4.3.6 -/
+/-- Приклади 4.3.6 -/
 example : ¬ (0.01:ℚ).close (0.99:ℚ) (1.01:ℚ) := by sorry
 
-/-- Examples 4.3.6 -/
+/-- Приклади 4.3.6 -/
 example (ε : ℚ) (hε : ε > 0) : ε.close 2 2 := by sorry
 
 theorem close_refl (x:ℚ) : (0:ℚ).close x x := by sorry
@@ -200,7 +200,7 @@ theorem pow_gt_pow (x y:ℚ) (n:ℕ) (hxy: x > y) (hy: y ≥ 0) (hn: n > 0) : x^
 theorem pow_abs (x:ℚ) (n:ℕ) : |x|^n = |x^n| := by sorry
 
 /--
-  Definition 4.3.11 (Exponentiation to a negative number).
+  Визначення 4.3.11 (Exponentiation to a negative number).
   Here we use the Mathlib notion of integer exponentiation
 -/
 theorem zpow_neg (x:ℚ) (n:ℕ) : x^(-(n:ℤ)) = 1/(x^n) := by

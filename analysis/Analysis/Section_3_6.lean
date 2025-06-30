@@ -4,14 +4,12 @@ import Analysis.Section_3_5
 /-!
 # Аналіз I, Глава 3.6
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Cardinality of a set
 - Finite and infinite sets
@@ -49,7 +47,7 @@ instance SetTheory.Set.inst_setoid : Setoid SetTheory.Set := {
 /-- Визначення 3.6.5 -/
 abbrev SetTheory.Set.has_card (X:Set) (n:ℕ) : Prop := X ≈ Fin n
 
-/-- Remark 3.6.6 -/
+/-- Ремарка 3.6.6 -/
 theorem SetTheory.Set.Remark_3_6_6 (n:ℕ) :
     (nat.specify (fun x ↦ 1 ≤ (x:ℕ) ∧ (x:ℕ) ≤ n)).has_card n := by sorry
 
