@@ -4,22 +4,22 @@ import Analysis.Section_3_1
 /-!
 # Аналіз I, Глава 3.2
 
-In this section we set up a version of Zermelo-Frankel set theory (with atoms) that tries to be
-as faithful as possible to the original text of Analysis I, Section 3.1. All numbering refers to
-the original text.
+У цій главі ми пропонуємо версію теорії множин Цермело-Франкеля (з атомами), яка намагається
+максимально точно наслідувати оригінальний тексту Аналізу I, Глава 3.2. Вся нумерація
+посилається на оригінальний текст.
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
 зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-This section is mostly optional, though it does make explicit the axiom of foundation which is
-used in a minor role in an exercise in Section 3.5.
+Цей розділ переважно необов'язковий, хоча в ньому чітко зазначено аксіому регулярності,
+яка використовується в другорядній ролі у вправі в розділі 3.5.
 
 Основні конструкції та результати цього розділу:
 
-- Russell's paradox (ruling out the axiom of universal specification)
-- The axiom of regularity (foundation) - an axiom designed to avoid Russell's paradox
+- Парадокс Рассела (виключення аксіоми універсальної специфікації)
+- Аксіома регулярності - аксіома, розроблена для уникнення парадоксу Рассела
 --/
 
 namespace Chapter3
@@ -28,7 +28,7 @@ export SetTheory (Set Object)
 
 variable [SetTheory]
 
-/-- Аксіома 3.8 (Universal specification) -/
+/-- Аксіома 3.8 (Універсальне визначення) -/
 abbrev axiom_of_universal_specification : Prop :=
   ∀ P : Object → Prop, ∃ A : Set, ∀ x : Object, x ∈ A ↔ P x
 
@@ -47,7 +47,7 @@ theorem Russells_paradox : ¬ axiom_of_universal_specification := by
   replace this := (hΩ _).mpr this
   contradiction
 
-/-- Аксіома 3.9 (Regularity ) -/
+/-- Аксіома 3.9 (Регулярність ) -/
 theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
     ∃ x:A, ∀ S:Set, x.val = S → Disjoint S A := by
   obtain ⟨ x, h, h' ⟩ := SetTheory.regularity_axiom A (nonempty_def h)
@@ -61,40 +61,40 @@ theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
   exact ⟨ y, h2, h1 ⟩
 
 /--
-  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the empty set.
+  Вправа 3.2.1.  Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
+  парадоксу Рассела чи порожньої множини.
 -/
 theorem SetTheory.Set.emptyset_exists (h: axiom_of_universal_specification):
     ∃ (X:Set), ∀ x, x ∉ X := by
   sorry
 
 /--
-  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the singleton set.
+  Вправа 3.2.1.  Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
+  парадоксу Рассела чи сінглетона.
 -/
 theorem SetTheory.Set.singleton_exists (h: axiom_of_universal_specification) (x:Object):
     ∃ (X:Set), ∀ y, y ∈ X ↔ y = x := by
   sorry
 
 /--
-  Вправа 3.2.1.  The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the pair set.
+  Вправа 3.2.1.  Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
+  парадоксу Рассела чи пари.
 -/
 theorem SetTheory.Set.pair_exists (h: axiom_of_universal_specification) (x₁ x₂:Object):
     ∃ (X:Set), ∀ y, y ∈ X ↔ y = x₁ ∨ y = x₂ := by
   sorry
 
 /--
-  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the union operation.
+  Вправа 3.2.1. Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
+  парадоксу Рассела чи операції об'єднання.
 -/
 theorem SetTheory.Set.union_exists (h: axiom_of_universal_specification) (A B:Set):
     ∃ (Z:Set), ∀ z, z ∈ Z ↔ z ∈ A ∨ z ∈ B := by
   sorry
 
 /--
-  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the specify operation.
+  Вправа 3.2.1. Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
+  парадоксу Рассела, or the specify operation.
 -/
 theorem SetTheory.Set.specify_exists (h: axiom_of_universal_specification) (A:Set) (P: A → Prop):
     ∃ (Z:Set), ∀ z, z ∈ Z ↔ ∃ h : z ∈ A, P ⟨ z, h ⟩ := by
