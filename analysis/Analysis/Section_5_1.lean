@@ -164,12 +164,12 @@ noncomputable def Sequence.sqrt_two : Sequence :=
   (fun n:ℕ ↦ ((⌊ (Real.sqrt 2)*10^n ⌋ / 10^n):ℚ))
 
 /--
-  Example 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
+  Приклад 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
 -/
 theorem Sequence.ex_5_1_10_a : (1:ℚ).steady sqrt_two := by sorry
 
 /--
-  Example 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
+  Приклад 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
 -/
 theorem Sequence.ex_5_1_10_b : (0.1:ℚ).steady (sqrt_two.from 1) := by sorry
 

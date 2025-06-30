@@ -172,7 +172,7 @@ theorem SetTheory.Set.tuple_inj {I:Set} {X: I → Set} (a b: ∀ i, X i) :
     tuple a = tuple b ↔ a = b := by sorry
 
 /--
-  Example 3.5.11. I suspect most of the equivalences will require classical reasoning and only be
+  Приклад 3.5.11. I suspect most of the equivalences will require classical reasoning and only be
   defined non-computably, but would be happy to learn of counterexamples.
 -/
 noncomputable abbrev SetTheory.Set.singleton_iProd_equiv (i:Object) (X:Set) :
