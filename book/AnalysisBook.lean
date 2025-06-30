@@ -20,7 +20,8 @@ def theme : Theme := { Theme.default with
           {{← builtinHeader }}
         </head>
         <body>
-          <header>
+          <button id="togglemenu" popovertarget="header">Menu</button>
+          <header id="header" popover>
             <div class="inner-wrap">
 
             <nav class="top" role="navigation">
