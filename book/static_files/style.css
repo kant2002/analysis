@@ -38,9 +38,17 @@ nav ol li a:focus {
 }
 
 /* Add left margin to main content to avoid overlap */
-header,
-div.main {
-    margin-left: 16em;
+@media (min-width: 768px) {
+    header,
+    div.main {
+        margin-left: 16em;
+    }
+    #togglemenu {
+        display: none;
+    }
+    header {
+        display: block;
+    }
 }
 
 code span {
