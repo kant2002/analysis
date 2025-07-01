@@ -20,11 +20,6 @@ import Analysis.Section_3_1
   Основні властивості та операції над функціями, такі як композиція, ін'єктивні функції, сур'єктивні функції,
   та обернені функції.
 
-In the rest of the book we will deprecate the Chapter 3 version of a function, and work with the
-Mathlib notion of a function instead.  Even within this section, we will switch to the Mathlib
-formalism for some of the examples involving number systems such as `ℤ` or `ℝ` that have not been
-implemented in the Chapter 3 framework.
-
 У решті книги ми відмовимося від версії функції із Розділу 3 та працюватимемо з поняттям
 функції із Mathlib. Навіть у цьому розділі ми перейдемо до формалізму Mathlib для деяких прикладів,
 що стосуються систем числення, таких як `ℤ` або `ℝ`, які не були реалізовані у фреймворку Розділу 3.
