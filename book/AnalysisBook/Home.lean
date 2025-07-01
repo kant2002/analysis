@@ -24,7 +24,7 @@ open Verso Genre Blog
 - [Глава 3.1: Основи теорії множин](./sec31/)
 - [Глава 3.2: Парадок Рассела](./sec32/)
 - [Глава 3.3: Функції](./sec33/)
-- [Глава 3.4: Images and inverse images](./sec34/)
+- [Глава 3.4: Образи та прообрази](./sec34/)
 - [Глава 3.5: Cartesian products](./sec35/)
 - [Глава 3.6: Cardinality of sets](./sec36/)
 - [Глава 4.1: The integers](./sec41/)

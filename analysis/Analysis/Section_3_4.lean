@@ -11,9 +11,9 @@ import Analysis.Section_3_1
 
 Основні конструкції та результати цього розділу:
 
-- Images and inverse images of (Mathlib) functions, within the framework of Section 3.1 set
-  theory. (The Section 3.2 functions are now deprecated and will not be used further.)
-- Connection with Mathlib's image `f '' S` and preimage `f ⁻¹' S` notions.
+- Образи чи прообрази (Mathlib-овських) функці, у рамках теорії множин Глави 3.1.
+ (Функції Глави 3.2 відтепер вважаються застарілими та не будуть далі використовуватися.)
+- Зв'язок із Mathlib-овськими нотаціями образа `f '' S` та прообраза `f ⁻¹' S`.
 -/
 
 namespace Chapter3
@@ -22,7 +22,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Визначення 3.4.1.  Interestingly, the definition does not require S to be a subset of X. -/
+/-- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
   X.replace (P := fun x y ↦ y = f x ∧ x.val ∈ S) (by
     intro x y y' ⟨ hy, hy' ⟩
@@ -37,13 +37,13 @@ theorem SetTheory.Set.mem_image {X Y:Set} (f:X → Y) (S: Set) (y:Object) :
   apply exists_congr; intro x
   tauto
 
-/-- Alternate definition of image using axiom of specification -/
+/-- Альтернативне визначення зображення використовуючи аксіоми специфікації -/
 theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
     image f S = Y.specify (fun y ↦ ∃ x:X, x.val ∈ S ∧ f x = y) := by sorry
 
 /--
-  Connection with Mathlib's notion of image.  Note the need to utilize the `Subtype.val` coercion
-  to make everything type consistent.
+  Зв'язок з поняттям відображення в Mathlib. Зверніть увагу на необхідність використання
+  приведення `Subtype.val` для забезпечення узгодженості всіх типів.
 -/
 theorem SetTheory.Set.image_eq_image {X Y:Set} (f:X → Y) (S: Set):
     (image f S: _root_.Set Object) = Subtype.val '' (f '' {x | x.val ∈ S}) := by sorry
@@ -53,7 +53,7 @@ abbrev f_3_4_2 : nat → nat := fun n ↦ (2*n:ℕ)
 
 theorem SetTheory.Set.image_f_3_4_2 : image f_3_4_2 {1,2,3} = {2,4,6} := by sorry
 
-/-- Приклад 3.4.3 is written using Mathlib's notion of image -/
+/-- Приклад 3.4.3 записаний із використанням поняття зображення Mathlib -/
 example : (fun n:ℤ ↦ n^2) '' {-1,0,1,2} = {0,1,4} := by sorry
 
 theorem SetTheory.Set.mem_image_of_eval {X Y:Set} (f:X → Y) (S: Set) (x:X) :
@@ -63,8 +63,8 @@ theorem SetTheory.Set.mem_image_of_eval_counter :
     ∃ (X Y:Set) (f:X → Y) (S: Set) (x:X), ¬((f x).val ∈ image f S → x.val ∈ S) := by sorry
 
 /--
-  Визначення 3.4.4 (inverse images).
-  Again, it is not required that U be a subset of Y.
+  Визначення 3.4.4 (прообрази).
+  Знову ж таки, не обов'язково, щоб U було підмножиною Y.
 -/
 abbrev SetTheory.Set.preimage {X Y:Set} (f:X → Y) (U: Set) : Set :=
   X.specify (P := fun x ↦ (f x).val ∈ U)
@@ -73,7 +73,7 @@ theorem SetTheory.Set.mem_preimage {X Y:Set} (f:X → Y) (U: Set) (x:X) :
     x.val ∈ preimage f U ↔ (f x).val ∈ U := by
   rw [specification_axiom']
 
-/-- Connection with Mathlib's notion of preimage. -/
+/-- Звя'зок із Mathlib-овським поняттям прообразу. -/
 theorem SetTheory.Set.preimage_eq {X Y:Set} (f:X → Y) (U: Set) :
     ((preimage f U): _root_.Set Object) = Subtype.val '' (f⁻¹' {y | y.val ∈ U}) := by sorry
 
@@ -83,7 +83,7 @@ theorem SetTheory.Set.preimage_f_3_4_2 : preimage f_3_4_2 {2,4,6} = {1,2,3} := b
 theorem SetTheory.Set.image_preimage_f_3_4_2 :
     image f_3_4_2 (preimage f_3_4_2 {1,2,3}) ≠ {1,2,3} := by sorry
 
-/-- Приклад 3.4.6 (using the Mathlib notion of preimage) -/
+/-- Приклад 3.4.6 (використовуючи Mathlib-овську нотацію прообраза) -/
 example : (fun n:ℤ ↦ n^2) ⁻¹' {0,1,4} = {-2,-1,0,1,2} := by sorry
 
 example : (fun n:ℤ ↦ n^2) ⁻¹' ((fun n:ℤ ↦ n^2) '' {-1,0,1,2}) ≠ {-1,0,1,2} := by sorry
@@ -91,7 +91,7 @@ example : (fun n:ℤ ↦ n^2) ⁻¹' ((fun n:ℤ ↦ n^2) '' {-1,0,1,2}) ≠ {-1
 instance SetTheory.Set.inst_pow : Pow Set Set where
   pow := SetTheory.pow
 
-/-- I could not make this a coercion because of a technical `semiOutParam` issue. -/
+/-- Я не зміг зробити це перетворення через технічну проблему `semiOutParam`. -/
 abbrev SetTheory.Set.object_of {X Y:Set} (f: X → Y) : Object := function_to_object X Y f
 
 theorem SetTheory.Set.power_set_axiom {X Y:Set} (F:Object) :
@@ -114,7 +114,7 @@ theorem SetTheory.Set.example_3_4_8 (F:Object) :
     F ∈ ({4,7}:Set) ^ ({0,1}:Set) ↔ F = object_of f_3_4_8_a
     ∨ F = object_of f_3_4_8_b ∨ F = object_of f_3_4_8_c ∨ F = object_of f_3_4_8_d := by sorry
 
-/-- Лема 3.4.9.  One needs to provide a suitable definition of the power set here. -/
+/-- Лема 3.4.9.  Тут потрібно надати відповідне визначення множини потужностей. -/
 abbrev SetTheory.Set.powerset (X:Set) : Set := sorry
 
 theorem SetTheory.Set.mem_powerset {X:Set} (x:Object) :
@@ -132,7 +132,7 @@ theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
     ∨ x = ({b,c}:Set)
     ∨ x = ({a,b,c}:Set) := by sorry
 
-/-- Аксіома 3.11 (Union) -/
+/-- Аксіома 3.11 (Об'днання) -/
 theorem SetTheory.Set.union_axiom (A: Set) (x:Object) :
     x ∈ union A ↔ ∃ (S:Set), x ∈ S ∧ (S:Object) ∈ A := SetTheory.union_axiom A x
 
@@ -141,12 +141,12 @@ theorem SetTheory.Set.example_3_4_11 :
     union { (({2,3}:Set):Object), (({3,4}:Set):Object), (({4,5}:Set):Object) } = {2,3,4,5} := by
   sorry
 
-/-- Connection with Mathlib union -/
+/-- Зв'язок із Mathlib-овським об'єднанням -/
 theorem SetTheory.Set.union_eq (A: Set) :
     (union A : _root_.Set Object) =
     ⋃₀ { S : _root_.Set Object | ∃ S':Set, S = S' ∧ (S':Object) ∈ A } := by sorry
 
-/-- Indexed union -/
+/-- Індексоване об'єднання -/
 abbrev SetTheory.Set.iUnion (I: Set) (A: I → Set) : Set :=
   union (I.replace (P := fun α S ↦ S = A α) (by intro x y y' ⟨ h1, h2⟩; simp at h1 h2; rw [h1,h2]))
 
@@ -175,14 +175,14 @@ noncomputable abbrev SetTheory.Set.index_example : ({1,2,3}:Set) → Set :=
 
 theorem SetTheory.Set.iUnion_example : iUnion {1,2,3} index_example = {2,3,4,5} := by sorry
 
-/-- Connection with Mathlib indexed union
+/-- Зв'язок із Mathlib-овським індексованим об'єднанням
 -/
 theorem SetTheory.Set.iUnion_eq (I: Set) (A: I → Set) :
     (iUnion I A : _root_.Set Object) = ⋃ α, (A α: _root_.Set Object) := by sorry
 
 theorem SetTheory.Set.iUnion_of_empty (A: (∅:Set) → Set) : iUnion (∅:Set) A = ∅ := by sorry
 
-/-- Indexed intersection -/
+/-- Індексований перетин -/
 noncomputable abbrev SetTheory.Set.nonempty_choose {I:Set} (hI: I ≠ ∅) : I :=
   ⟨(nonempty_def hI).choose, (nonempty_def hI).choose_spec⟩
 
@@ -201,10 +201,10 @@ theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y
   (hf: Function.LeftInverse f_inv f ∧ Function.RightInverse f_inv f) (hV: V ⊆ Y) :
     image f_inv V = preimage f V := by sorry
 
-/- Вправа 3.4.2.  State and prove an assertion connecting `preimage (image f S)` and `S`. -/
+/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `preimage (image f S)` та `S`. -/
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) : sorry := by sorry
 
-/- Вправа 3.4.2.  State and prove an assertion connecting `image (preimage f U)` and `U`. -/
+/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `image (preimage f U)` та `U`. -/
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
 /--
@@ -243,8 +243,8 @@ theorem SetTheory.Set.partial_functions {X Y:Set} :
   sorry
 
 /--
-  Вправа 3.4.8.  The point of this exercise is to prove it without using the
-  pairwise union operation `∪`.
+  Вправа 3.4.8.  Мета цієї вправи - довести її твердження без використання операції
+  попарного об'єднання `∪`.
 -/
 theorem SetTheory.Set.union_pair_exists (X Y:Set) : ∃ Z:Set, ∀ x, x ∈ Z ↔ (x ∈ X ∨ x ∈ Y) := by
   sorry
