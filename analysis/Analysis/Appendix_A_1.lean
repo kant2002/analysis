@@ -33,7 +33,7 @@ example : 2 = 2 := rfl
 /-- Це твердження також істінне, але не дуже ефективне. -/
 example : 4 ≤ 4 := by norm_num
 
-/- This is an expression, not a statement. -/
+/- Це вираз, а не твердження. -/
 #check 2 + 3*5
 
 /- Це твердження, а не вираз. -/
