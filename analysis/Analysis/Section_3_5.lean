@@ -13,10 +13,10 @@ import Analysis.Section_3_4
 
 Основні конструкції та результати цього розділу:
 
-- Ordered pairs and n-tuples
-- Cartesian products and n-fold products
-- Finite choice
-- Connections with Mathlib counterparts such as `Set.pi` and `Set.prod`
+- Впорядковані пари та кортежі
+- Декартові добутки та n-кратні добутки
+- Зліченний вибіру
+- Зв'язок із Mathlib аналогами такими як `Set.pi` та `Set.prod`
 
 --/
 
@@ -26,7 +26,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Визначення 3.5.1 (Ordered pair) -/
+/-- Визначення 3.5.1 (Впорядкована пара) -/
 @[ext]
 structure OrderedPair where
   fst: Object
@@ -34,7 +34,7 @@ structure OrderedPair where
 
 #check OrderedPair.ext
 
-/-- Визначення 3.5.1 (Ordered pair) -/
+/-- Визначення 3.5.1 (Впорядкована пара) -/
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
 
@@ -47,8 +47,8 @@ instance OrderedPair.inst_coeObject : Coe OrderedPair Object where
   coe := OrderedPair.toObject
 
 /--
-  A technical operation, turning a object `x` and a set `Y` to a set `{x} × Y`, needed to define
-  the full Cartesian product
+  Технічна операція перетворююча об'єкт `x` та множину `Y` на множину `{x} × Y`, необхідна для
+  визначення повного декартового добутку
 -/
 abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
   Y.replace (P := fun y z ↦ z = (⟨x, y⟩:OrderedPair)) (by
@@ -60,7 +60,7 @@ abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
 theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
     z ∈ (SetTheory.Set.slice x Y) ↔ ∃ y:Y, z = (⟨x, y⟩:OrderedPair) := replacement_axiom _ _
 
-/-- Визначення 3.5.2 (Cartesian product) -/
+/-- Визначення 3.5.2 (Декартовий добуток) -/
 abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
   union (X.replace (P := fun x z ↦ z = slice x Y) (by
     intro x z z' ⟨ hz, hz' ⟩
@@ -68,7 +68,7 @@ abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
     rw [hz, hz']
   ))
 
-/-- This instance enables the ×ˢ notation for Cartesian product. -/
+/-- Цей екземпляр дозволяє використовувати позначення ×ˢ для декартового добутку. -/
 instance SetTheory.Set.inst_SProd : SProd Set Set Set where
   sprod := cartesian
 
@@ -134,7 +134,7 @@ noncomputable abbrev SetTheory.Set.prod_associator (X Y Z:Set) : (X ×ˢ Y) ×ˢ
   left_inv := sorry
   right_inv := sorry
 
-/-- Connections with the Mathlib set product -/
+/-- Прив'язка до Mathlib-овського добутку множин -/
 noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
     ((X ×ˢ Y):_root_.Set Object) ≃ (X:_root_.Set Object) ×ˢ (Y:_root_.Set Object) where
   toFun := sorry
@@ -172,8 +172,8 @@ theorem SetTheory.Set.tuple_inj {I:Set} {X: I → Set} (a b: ∀ i, X i) :
     tuple a = tuple b ↔ a = b := by sorry
 
 /--
-  Приклад 3.5.11. I suspect most of the equivalences will require classical reasoning and only be
-  defined non-computably, but would be happy to learn of counterexamples.
+  Приклад 3.5.11. Я підозрюю, що більшість еквівалентностей вимагатимуть класичних міркувань
+  і будуть визначені лише необчислювально, але був би радий дізнатися про контрприклади.
 -/
 noncomputable abbrev SetTheory.Set.singleton_iProd_equiv (i:Object) (X:Set) :
     iProd (fun _:({i}:Set) ↦ X) ≃ X where
@@ -212,7 +212,7 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_prod_triple (X: ({0,1,2}:Set) →
   left_inv := sorry
   right_inv := sorry
 
-/-- Connections with Mathlib's `Set.pi` -/
+/-- Зв'язки із Mathlib-овським `Set.pi` -/
 noncomputable abbrev SetTheory.Set.iProd_equiv_pi (I:Set) (X: I → Set) :
     iProd X ≃ Set.pi Set.univ (fun i:I ↦ ((X i):_root_.Set Object)) where
   toFun := sorry
@@ -222,13 +222,13 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_pi (I:Set) (X: I → Set) :
 
 
 /-
-remark: there are also additional relations between these equivalences, but this begins to drift
-into the field of higher order category theory, which we will not pursue here.
+Зауваження: між цими еквівалентностями також існують додаткові співвідношення, але це
+починає переходити в область теорії категорій вищого порядку, яку ми тут не розглядатимемо.
 -/
 
 /--
-  Here we set up some an analogue of Mathlib `Fin n` types within the Chapter 3 Set Theory,
-  with rudimentary API.
+  Тут ми створюємо аналог Mathlib-івських типів `Fin n` в рамках теорії множин з Розділу 3,
+  із рудиментарним API.
 -/
 abbrev SetTheory.Set.Fin (n:ℕ) : Set := nat.specify (fun m ↦ (m:ℕ) < n)
 
@@ -265,8 +265,8 @@ abbrev SetTheory.Set.Fin_embed (n N:ℕ) (h: n ≤ N) (i: Fin n) : Fin N := ⟨ 
 ⟩
 
 /--
-  I suspect that this equivalence is non-computable and requires classical logic,
-  unless there is a clever trick.
+  Я підозрюю, що ця еквівалентність необчислювана і вимагає класичної логіки,
+  хіба що існує якийсь хитромудрий трюк.
 -/
 noncomputable abbrev SetTheory.Set.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin n where
   toFun := sorry
@@ -274,10 +274,10 @@ noncomputable abbrev SetTheory.Set.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin 
   left_inv := sorry
   right_inv := sorry
 
-/-- Лема 3.5.12 (finite choice) -/
+/-- Лема 3.5.12 (зліченний вибір) -/
 theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i ≠ ∅) : iProd X ≠ ∅ := by
-  -- This proof broadly follows the one in the text
-  -- (although it is more convenient to induct from 0 rather than 1)
+  -- Цей доказ загалом повторює доказ у тексті
+  -- (хоча зручніше проводити індукцію від 0, а не від 1)
   induction' n with n hn
   . have : Fin 0 = ∅ := by
       rw [eq_empty_iff_forall_notMem]
@@ -301,9 +301,9 @@ theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i �
     intro i
     have := mem_Fin' i
     classical
-    -- it is unfortunate here that classical logic is required to perform this gluing; this is
-    -- because `nat` is technically not an inductive type.  There should be some workaround
-    -- involving the equivalence between `nat` and `ℕ` (which is an inductive type).
+    -- На жаль, для виконання цього склеювання потрібна класична логіка;
+    -- це тому, що `nat` технічно не є індуктивним типом. Повинно бути якесь обхідне рішення,
+    -- що включає еквівалентність між `nat` та `ℕ` (який є індуктивним типом).
     cases decEq i last with
       | isTrue heq =>
         rw [heq]
@@ -321,12 +321,12 @@ theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i �
         exact x' _
   exact nonempty_of_inhabited (tuple_mem_iProd x)
 
-/-- Вправа 3.5.1, second part (requires axiom of regularity) -/
+/-- Вправа 3.5.1, друга частина (вимагає аксіоми регулярності) -/
 abbrev OrderedPair.toObject' : OrderedPair ↪ Object where
   toFun p := ({ p.fst, (({p.fst, p.snd}:Set):Object) }:Set)
   inj' := by sorry
 
-/-- An alternate definition of a tuple, used in Exercise 3.5.2 -/
+/-- Альтернативне визначення кортежу, використане у Вправі 3.5.2 -/
 @[ext]
 structure SetTheory.Set.Tuple (n:ℕ) where
   X: Set
@@ -345,8 +345,9 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_tuples (n:ℕ) (X: Fin n → Set)
   right_inv := sorry
 
 /--
-  Вправа 3.5.3. The spirit here is to avoid direct rewrites (which make all of these claims
-  trivial), and instead use `OrderedPair.eq` or `SetTheory.Set.tuple_inj`
+  Вправа 3.5.3. Дух завдання полягає в тому, щоб уникнути прямих переписувань (які роблять
+  усі ці твердження тривіальними), а натомість використовувати `OrderedPair.eq` або
+  `SetTheory.Set.tuple_inj`
 -/
 theorem OrderedPair.refl (p: OrderedPair) : p = p := by sorry
 
@@ -389,14 +390,14 @@ theorem SetTheory.Set.inter_of_prod (A B C D:Set) :
 /- Вправа 3.5.5 -/
 def SetTheory.Set.union_of_prod :
   Decidable (∀ (A B C D:Set), (A ×ˢ B) ∪ (C ×ˢ D) = (A ∪ C) ×ˢ (B ∪ D)) := by
-  -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути `apply isTrue` або `apply isFalse`.
   sorry
 
 
 /- Вправа 3.5.5 -/
 def SetTheory.Set.diff_of_prod :
   Decidable (∀ (A B C D:Set), (A ×ˢ B) \ (C ×ˢ D) = (A \ C) ×ˢ (B \ D)) := by
-  -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути `apply isTrue` або `apply isFalse`.
   sorry
 
 
@@ -409,7 +410,7 @@ theorem SetTheory.Set.prod_subset_prod {A B C D:Set}
 
 def SetTheory.Set.prod_subset_prod' :
   Decidable (∀ (A B C D:Set), A ×ˢ B ⊆ C ×ˢ D ↔ A ⊆ C ∧ B ⊆ D) := by
-  -- the first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї конструкції має бути `apply isTrue` або `apply isFalse`.
   sorry
 
 /-- Вправа 3.5.7 -/
@@ -437,13 +438,13 @@ theorem SetTheory.Set.is_graph {X Y G:Set} (hG: G ⊆ X ×ˢ Y)
     ∃! f: X → Y, G = graph f := by sorry
 
 /--
-  Вправа 3.5.11. This trivially follows from `SetTheory.Set.power_set_axiom'`, but the
-  exercise is to derive it from `SetTheory.Set.mem_powerset` instead.
+  Вправа 3.5.11. Це тривіально випливає з `SetTheory.Set.power_set_axiom'`, але вправа
+  полягає у виведенні твердження з `SetTheory.Set.mem_powerset`.
 -/
 theorem SetTheory.Set.power_set_axiom' (X Y:Set) :
     ∃! S:Set, ∀(F:Object), F ∈ S ↔ ∃ f: Y → X, object_of f = F := sorry
 
-/-- Вправа 3.5.12, with errata from web site incorporated -/
+/-- Вправа 3.5.12, з включеними помилками з веб-сайту -/
 theorem SetTheory.Set.recursion (X: Type) (f: nat → X → X) (c:X) :
     ∃! a: nat → X, a 0 = c ∧ ∀ n, a (n + 1:ℕ) = f n (a n) := by sorry
 
