@@ -4,24 +4,26 @@ import Mathlib.Algebra.Group.MinimalAxioms
 /-!
 # Аналіз I, Глава 4.1
 
-This file is a translation of Section 4.1 of Analysis I to Lean 4.
-All numbering refers to the original text.
+У цій главі ми пропонуємо версію теорії множин Цермело-Франкеля (з атомами), яка намагається
+максимально точно наслідувати оригінальний тексту Аналізу I, Глава 4.1. Вся нумерація
+посилається на оригінальний текст.
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Definition of the "Section 4.1" integers, `Section_4_1.Int`, as formal differences `a —— b` of
   natural numbers `a b:ℕ`, up to equivalence.  (This is a quotient of a scaffolding type
   `Section_4_1.PreInt`, which consists of formal differences without any equivalence imposed.)
+- Визначення цілих чисел із "Глави 4.1", `Section_4_1.Int`, як формальна різниця `a —— b`
+  натуральних чисел `a b:ℕ`, з точністю до еквівалентності. (Це частка типу каркасного типу
+  `Section_4_1.PreInt`, яка складається з формальної різниці без будь-якої визначеної еквівалентності.)
+- операції кільця та порядок цих цілих чисел, а також вкладення ℕ
 
-- ring operations and order these integers, as well as an embedding of ℕ
-
-- Equivalence with the Mathlib integers `_root_.Int` (or `ℤ`), which we will use going forward.
+- Еквівалентність із Mathlib-овськими цілими `_root_.Int` (або `ℤ`), які ми будемо використовувати в подальшому.
 
 -/
 
@@ -59,13 +61,13 @@ abbrev Int.formalDiff (a b:ℕ)  : Int := Quotient.mk PreInt.instSetoid ⟨ a,b 
 
 infix:100 " —— " => Int.formalDiff
 
-/-- Визначення 4.1.1 (Integers) -/
+/-- Визначення 4.1.1 (Цілі числа) -/
 theorem Int.eq (a b c d:ℕ): a —— b = c —— d ↔ a + d = c + b := by
   constructor
   . exact Quotient.exact
   intro h; exact Quotient.sound h
 
-/-- Decidability of equality -/
+/-- Алгоритмічна розв'язність рівності -/
 instance Int.decidableEq : DecidableEq Int := by
   intro a b
   have : ∀ (n:PreInt) (m: PreInt),
@@ -80,7 +82,7 @@ theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by
   apply Quot.ind _ n; intro ⟨ a, b ⟩
   use a, b; rfl
 
-/-- Лема 4.1.3 (Addition well-defined) -/
+/-- Лема 4.1.3 (Додавання чітко визначене) -/
 instance Int.instAdd : Add Int where
   add := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a+c) —— (b+d) ) (by
     intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2
@@ -90,10 +92,10 @@ instance Int.instAdd : Add Int where
       _ = (a'+b) + (c'+d) := by rw [h1,h2]
       _ = _ := by abel)
 
-/-- Визначення 4.1.2 (Definition of addition) -/
+/-- Визначення 4.1.2 (Визначення додавання) -/
 theorem Int.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) := Quotient.lift₂_mk _ _ _ _
 
-/-- Лема 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Множення чітко визначене) -/
 theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') :
     (a*c+b*d) —— (a*d+b*c) = (a'*c+b'*d) —— (a'*d+b'*c) := by
   simp only [eq] at h ⊢
@@ -102,7 +104,7 @@ theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') 
     _ = c*(a'+b) + d*(a+b') := by rw [h]
     _ = _ := by ring
 
-/-- Лема 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Множення чітко визначене) -/
 theorem Int.mul_congr_right (a b c d c' d' : ℕ) (h: c —— d = c' —— d') :
     (a*c+b*d) —— (a*d+b*c) = (a*c'+b*d') —— (a*d'+b*c') := by
   simp only [eq] at h ⊢
@@ -111,7 +113,7 @@ theorem Int.mul_congr_right (a b c d c' d' : ℕ) (h: c —— d = c' —— d')
     _ = a*(c'+d) + b*(c+d') := by rw [h]
     _ = _ := by ring
 
-/-- Лема 4.1.3 (Multiplication well-defined) -/
+/-- Лема 4.1.3 (Множення чітко визначене) -/
 theorem Int.mul_congr {a b c d a' b' c' d' : ℕ} (h1: a —— b = a' —— b') (h2: c —— d = c' —— d') :
   (a*c+b*d) —— (a*d+b*c) = (a'*c'+b'*d') —— (a'*d'+b'*c') := by
   rw [mul_congr_left a b a' b' c d h1, mul_congr_right a' b' c d c' d' h2]
@@ -123,7 +125,7 @@ instance Int.instMul : Mul Int where
     convert mul_congr _ _ <;> simpa
     )
 
-/-- Визначення 4.1.2 (Multiplication of integers) -/
+/-- Визначення 4.1.2 (Множення цілих чисел) -/
 theorem Int.mul_eq (a b c d:ℕ) : a —— b * c —— d = (a*c+b*d) —— (a*d+b*c) :=
   Quotient.lift₂_mk _ _ _ _
 
@@ -159,7 +161,7 @@ example : 3 = 4 —— 1 := by
 /-- (Не із книги) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
-/-- Визначення 4.1.4 (Negation of integers) / Вправа 4.1.2 -/
+/-- Визначення 4.1.4 (Протилежність цілих чисел) / Вправа 4.1.2 -/
 instance Int.instNeg : Neg Int where
   neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by
     sorry)
@@ -171,9 +173,9 @@ example : -(3 —— 5) = 5 —— 3 := by rfl
 abbrev Int.isPos (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = n
 abbrev Int.isNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
 
-/-- Лема 4.1.5 (trichotomy of integers )-/
+/-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.trichotomous (x:Int) : x = 0 ∨ x.isPos ∨ x.isNeg := by
-  -- This proof is slightly modified from that in the original text.
+  -- Цей доказ дещо змінений порівняно з оригінальним текстом.
   obtain ⟨ a, b, rfl ⟩ := eq_diff x
   have := _root_.trichotomous (r := LT.lt) a b
   rcases this with h_lt | h_eq | h_gt
@@ -189,33 +191,33 @@ theorem Int.trichotomous (x:Int) : x = 0 ∨ x.isPos ∨ x.isNeg := by
   simp_rw [natCast_eq, eq]
   abel
 
-/-- Лема 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_pos_zero (x:Int) : x = 0 ∧ x.isPos → False := by
   rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
   simp [←natCast_ofNat] at hn'
   linarith
 
-/-- Лема 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_neg_zero (x:Int) : x = 0 ∧ x.isNeg → False := by
   rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
   simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn'
   linarith
 
-/-- Лема 4.1.5 (trichotomy of integers)-/
+/-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_pos_neg (x:Int) : x.isPos ∧ x.isNeg → False := by
   rintro ⟨ ⟨ n, hn, rfl ⟩, ⟨ m, hm, hm' ⟩ ⟩
   simp_rw [natCast_eq, neg_eq, eq] at hm'
   linarith
 
-/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
+/-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instAddGroup : AddGroup Int :=
 AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
-/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
+/-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instAddCommGroup : AddCommGroup Int where
   add_comm := by sorry
 
-/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
+/-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instCommMonoid : CommMonoid Int where
   mul_comm := by sorry
   mul_assoc := by
@@ -231,29 +233,29 @@ instance Int.instCommMonoid : CommMonoid Int where
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Твердження 4.1.6 (laws of algebra) / Вправа 4.1.4 -/
+/-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instCommRing : CommRing Int where
   left_distrib := by sorry
   right_distrib := by sorry
   zero_mul := by sorry
   mul_zero := by sorry
 
-/-- Визначення of subtraction -/
+/-- Визначення віднімання -/
 theorem Int.sub_eq (a b:Int) : a - b = a + (-b) := by rfl
 
 theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by sorry
 
-/-- Твердження 4.1.8 (No zero divisors) / Вправа 4.1.5 -/
+/-- Твердження 4.1.8 (Немає дільників нуля) / Вправа 4.1.5 -/
 theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 
 /-- Наслідок 4.1.9 (Властивість скорочення) / Вправа 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
-/-- Визначення 4.1.10 (Ordering of the integers) -/
+/-- Визначення 4.1.10 (Упорядкування цілих чисел) -/
 instance Int.instLE : LE Int where
   le n m := ∃ a:ℕ, m = n + a
 
-/-- Визначення 4.1.10 (Ordering of the integers) -/
+/-- Визначення 4.1.10 (Упорядкування цілих чисел) -/
 instance Int.instLT : LT Int where
   lt n m := n ≤ m ∧ n ≠ m
 
@@ -261,37 +263,37 @@ theorem Int.le_iff (a b:Int) : a ≤ b ↔ ∃ t:ℕ, b = a + t := by rfl
 
 theorem Int.lt_iff (a b:Int): a < b ↔ (∃ t:ℕ, b = a + t) ∧ a ≠ b := by rfl
 
-/-- Лема 4.1.11(a) (Properties of order) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(a) (Властивості упорядкування) / Вправа 4.1.7 -/
 theorem Int.lt_iff_exists_positive_difference (a b:Int) : a < b ↔ ∃ n:ℕ, n ≠ 0 ∧ b = a + n := by sorry
 
-/-- Лема 4.1.11(b) (Addition preserves order) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(b) (Додавання зберігає порядок) / Вправа 4.1.7 -/
 theorem Int.add_lt_add_right {a b:Int} (c:Int) (h: a < b) : a+c < b+c := by sorry
 
-/-- Лема 4.1.11(c) (Positive multiplication preserves order) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(c) (Додатне множення зберігає порядок) / Вправа 4.1.7 -/
 theorem Int.mul_lt_mul_of_pos_right {a b c:Int} (hab : a < b) (hc: 0 < c) : a*c < b*c := by sorry
 
-/-- Лема 4.1.11(d) (Negation reverses order) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(d) (Протилежність змінює порядок) / Вправа 4.1.7 -/
 theorem Int.neg_gt_neg {a b:Int} (h: b < a) : -a < -b := by sorry
 
-/-- Лема 4.1.11(d) (Negation reverses order) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(d) (Протилежність змінює порядок) / Вправа 4.1.7 -/
 theorem Int.neg_ge_neg {a b:Int} (h: b ≤ a) : -a ≤ -b := by sorry
 
-/-- Лема 4.1.11(e) (Order is transitive) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(e) (Порядок транзитивний) / Вправа 4.1.7 -/
 theorem Int.lt_trans {a b c:Int} (hab: a < b) (hbc: b < c) : a < c := by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(f) (Тріхотомія порядку) / Вправа 4.1.7 -/
 theorem Int.trichotomous' (a b:Int) : a > b ∨ a < b ∨ a = b := by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(f) (Тріхотомія порядку) / Вправа 4.1.7 -/
 theorem Int.not_gt_and_lt (a b:Int) : ¬ (a > b ∧ a < b):= by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(f) (Тріхотомія порядку) / Вправа 4.1.7 -/
 theorem Int.not_gt_and_eq (a b:Int) : ¬ (a > b ∧ a = b):= by sorry
 
-/-- Лема 4.1.11(f) (Order trichotomy) / Вправа 4.1.7 -/
+/-- Лема 4.1.11(f) (Тріхотомія порядку) / Вправа 4.1.7 -/
 theorem Int.not_lt_and_eq (a b:Int) : ¬ (a < b ∧ a = b):= by sorry
 
-/-- (Не із книги) Establish the decidability of this order. -/
+/-- (Не із книги) Встановимо алгорітмічну розв'язність цього порядку. -/
 instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := by
   intro n m
   have : ∀ (n:PreInt) (m: PreInt),
@@ -307,10 +309,10 @@ instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := b
         sorry
   exact Quotient.recOnSubsingleton₂ n m this
 
-/-- (Не із книги) 0 is the only additive identity -/
+/-- (Не із книги) 0 єдиний нейтральний елемент додавання-/
 lemma Int.is_additive_identity_iff_eq_0 (b : Int) : (∀ a, a = a + b) ↔ b = 0 := by sorry
 
-/-- (Не із книги) Int has the structure of a linear ordering. -/
+/-- (Не із книги) Int має структуру лінійного упорядкування. -/
 instance Int.instLinearOrder : LinearOrder Int where
   le_refl := sorry
   le_trans := sorry
@@ -325,18 +327,18 @@ theorem Int.neg_one_mul (a:Int) : -1 * a = -a := by sorry
 /-- Вправа 4.1.8 -/
 theorem Int.no_induction : ∃ P: Int → Prop, P 0 ∧ ∀ n, P n → P (n+1) ∧ ¬ ∀ n, P n := by sorry
 
-/-- A nonnegative number squared is nonnegative. This is a special case of 4.1.9 that's useful for proving the general case. --/
+/-- Невід'ємне число в квадраті є невід'ємним. Це окремий випадок із 4.1.9, корисний для доведення загального випадку. --/
 lemma Int.sq_nonneg_of_pos (n:Int) (h: 0 ≤ n) : 0 ≤ n*n := by sorry
 
-/-- Вправа 4.1.9. The square of any integer is nonnegative. -/
+/-- Вправа 4.1.9. Квадрат будь-якого цілого числа є невід'ємним. -/
 theorem Int.sq_nonneg (n:Int) : 0 ≤ n*n := by sorry
 
 /-- Вправа 4.1.9 -/
 theorem Int.sq_nonneg' (n:Int) : ∃ (m:Nat), n*n = m := by sorry
 
 /--
-  Not in textbook: create an equivalence between Int and ℤ.
-  This requires some familiarity with the API for Mathlib's version of the integers.
+  Не в книзі: створити еквівалентність між Int та ℤ.
+  Це потребує деякої обізнанності із API Mathlib-овської версії цілих чисел.
 -/
 abbrev Int.equivInt : Int ≃ ℤ where
   toFun := Quotient.lift (fun ⟨ a, b ⟩ ↦ a - b) (by
@@ -345,7 +347,7 @@ abbrev Int.equivInt : Int ≃ ℤ where
   left_inv n := sorry
   right_inv n := sorry
 
-/-- Not in textbook: equivalence preserves order and ring operations -/
+/-- Не в книзі: еквівалентність зберігає порядок та операції з кільцем -/
 abbrev Int.equivInt_ordered_ring : Int ≃+*o ℤ where
   toEquiv := equivInt
   map_add' := by sorry

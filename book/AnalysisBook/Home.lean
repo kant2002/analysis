@@ -27,7 +27,7 @@ open Verso Genre Blog
 - [Глава 3.4: Образи та прообрази](./sec34/)
 - [Глава 3.5: Декартов добуток](./sec35/)
 - [Глава 3.6: Потужність множин](./sec36/)
-- [Глава 4.1: The integers](./sec41/)
+- [Глава 4.1: Цілі числа](./sec41/)
 - [Глава 4.2: The rationals](./sec42/)
 - [Глава 4.3: Absolute value and exponentiation](./sec43/)
 - [Глава 4.4: Gaps in the rational numbers](./sec44/)
