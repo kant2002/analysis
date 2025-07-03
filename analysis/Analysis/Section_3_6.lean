@@ -11,11 +11,11 @@ import Analysis.Section_3_5
 
 Основні конструкції та результати цього розділу:
 
-- Cardinality of a set
-- Finite and infinite sets
-- Connections with Mathlib equivalents
+- Потужність множини
+- Скінченні та нескінченні множини
+- Зв'язки з Mathlib-івськіми еквівалентами
 
-After this section, these notions will be deprecated in favor of their Mathlib equivalents.
+Після цього розділу ці нотації будуть вважатися застарілими на користь їхніх еквівалентів із Mathlib.
 
 -/
 
@@ -25,7 +25,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Визначення 3.6.1 (Equal cardinality) -/
+/-- Визначення 3.6.1 (Рівна потужність) -/
 abbrev SetTheory.Set.equal_card (X Y:Set) : Prop := ∃ f : X → Y, Function.Bijective f
 
 /-- Приклад 3.6.2 -/
@@ -72,8 +72,8 @@ theorem SetTheory.Set.pos_card_nonempty {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_
   rw [has_card_iff] at hX
   obtain ⟨ f, hf ⟩ := hX
   sorry
-  -- obtain a contradiction from the fact that `f` is a bijection
-  -- from the empty set to a non-empty set
+  -- отримай протиріччя із того факту, що `f` є біекцією
+  -- з порожньої множини на непорожню множину
 
 /-- Вправа 3.6.2a -/
 theorem SetTheory.Set.has_card_zero {X:Set} : X.has_card 0 ↔ X = ∅ := by sorry
@@ -81,9 +81,8 @@ theorem SetTheory.Set.has_card_zero {X:Set} : X.has_card 0 ↔ X = ∅ := by sor
 /-- Лема 3.6.9 -/
 theorem SetTheory.Set.card_erase {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n) (x:X) :
     (X \ {x.val}).has_card (n-1) := by
-  -- This proof is written to follow the structure of the original text, though with some extra
-  -- notations to track some coercions that are "invisible" in the human-readable proof.
-  rw [has_card_iff] at hX
+  -- Цей доказ написано відповідно до структури оригінального тексту, хоча й з деякими додатковими
+  -- нотаціями для відстеження деяких перетворень, які є «невидимими» у доказі для людей.  rw [has_card_iff] at hX
   obtain ⟨ f, hf ⟩ := hX
   classical
   set X' : Set := X \ {x.val}
@@ -113,7 +112,7 @@ theorem SetTheory.Set.card_erase {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n)
   have : equal_card X' (Fin (n-1)) := by use g
   exact this
 
-/-- Твердження 3.6.8 (Uniqueness of cardinality) -/
+/-- Твердження 3.6.8 (Унікальність потужності) -/
 theorem SetTheory.Set.card_uniq {X:Set} {n m:ℕ} (h1: X.has_card n) (h2: X.has_card m) : n = m := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   revert X m
@@ -147,7 +146,7 @@ abbrev SetTheory.Set.finite (X:Set) : Prop := ∃ n:ℕ, X.has_card n
 
 abbrev SetTheory.Set.infinite (X:Set) : Prop := ¬ finite X
 
-/-- Вправа 3.6.3, phrased using Mathlib natural numbers -/
+/-- Вправа 3.6.3, сформульовано з використанням натуральних чисел Mathlib -/
 theorem SetTheory.Set.bounded_on_finite {n:ℕ} (f: Fin n → nat) : ∃ M, ∀ i, (f i:ℕ) ≤ M := by sorry
 
 /-- Теорема 3.6.12 -/
@@ -169,7 +168,7 @@ theorem SetTheory.Set.nat_infinite : infinite nat := by
     simp at hM; simp [hM]
   contrapose! this; exact hf
 
-/-- It is convenient for Lean purposes to give infinite sets the ``junk`` cardinality of zero. -/
+/-- Для цілей Lean зручно надавати нескінченним множинам ``сміттєву`` потужність як нуль. -/
 noncomputable abbrev SetTheory.Set.card (X:Set) : ℕ := by
   classical
   exact if h:X.finite then h.choose else 0
@@ -245,16 +244,16 @@ theorem SetTheory.Set.card_union_add_card_inter {A B:Set} (hA: A.finite) (hB: B.
 theorem SetTheory.Set.pigeonhole_principle {n:ℕ} {A: Fin n → Set}
   (hA: ∀ i, (A i).finite) (hAcard: (iUnion _ A).card > n) : ∃ i, (A i).card ≥ 2 := by sorry
 
-/-- Connections with Mathlib's `Nat.card` -/
+/-- Зв'язки іх Mathlib-ім `Nat.card` -/
 theorem SetTheory.Set.card_eq_nat_card {X:Set} : X.card = Nat.card X := by sorry
 
-/-- Connections with Mathlib's `Set.ncard` -/
+/-- Зв'язки іх Mathlib-ім `Set.ncard` -/
 theorem SetTheory.Set.card_eq_ncard {X:Set} : X.card = (X: _root_.Set Object).ncard := by sorry
 
-/-- Connections with Mathlib's `Finite` -/
+/-- Зв'язки іх Mathlib-ім `Finite` -/
 theorem SetTheory.Set.finite_iff_finite {X:Set} : X.finite ↔ Finite X := by sorry
 
-/-- Connections with Mathlib's `Set.Finite` -/
+/-- Зв'язки іх Mathlib-ім `Set.Finite` -/
 theorem SetTheory.Set.finite_iff_set_finite {X:Set} :
     X.finite ↔ (X :_root_.Set Object).Finite := by sorry
 
