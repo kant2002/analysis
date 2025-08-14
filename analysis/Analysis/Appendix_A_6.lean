@@ -3,7 +3,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 
 /-!
-# Аналіз I, Додаток A.6
+# Analysis I, Appendix A.6: Деякі приклади доказів та квантифікаторів
 
 Деякі приклади доказів та квантифікаторів у Lean
 

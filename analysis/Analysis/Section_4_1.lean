@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Group.MinimalAxioms
 
 /-!
-# Аналіз I, Глава 4.1
+# Аналіз I, Глава 4.1: Цілі числа
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -11,9 +11,6 @@ import Mathlib.Algebra.Group.MinimalAxioms
 
 Основні конструкції та результати цього розділу:
 
-- Definition of the "Section 4.1" integers, `Section_4_1.Int`, as formal differences `a —— b` of
-  natural numbers `a b:ℕ`, up to equivalence.  (This is a quotient of a scaffolding type
-  `Section_4_1.PreInt`, which consists of formal differences without any equivalence imposed.)
 - Визначення цілих чисел із "Глави 4.1", `Section_4_1.Int`, як формальна різниця `a —— b`
   натуральних чисел `a b:ℕ`, з точністю до еквівалентності. (Це частка типу каркасного типу
   `Section_4_1.PreInt`, яка складається з формальної різниці без будь-якої визначеної еквівалентності.)
@@ -37,10 +34,8 @@ instance PreInt.instSetoid : Setoid PreInt where
     symm := by sorry
     trans := by
       -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
-      intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2
-      simp at h1 h2 ⊢
-      have h3 := congrArg₂ (· + ·) h1 h2
-      simp at h3
+      intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2; simp at h1 h2 ⊢
+      have h3 := congrArg₂ (· + ·) h1 h2; simp at h3
       have : (a + f) + (c + d) = (e + b) + (c + d) := calc
         (a + f) + (c + d) = a + d + (c + f) := by abel
         _ = c + b + (e + d) := h3
@@ -58,10 +53,8 @@ abbrev Int.formalDiff (a b:ℕ)  : Int := Quotient.mk PreInt.instSetoid ⟨ a,b 
 infix:100 " —— " => Int.formalDiff
 
 /-- Визначення 4.1.1 (Цілі числа) -/
-theorem Int.eq (a b c d:ℕ): a —— b = c —— d ↔ a + d = c + b := by
-  constructor
-  . exact Quotient.exact
-  intro h; exact Quotient.sound h
+theorem Int.eq (a b c d:ℕ): a —— b = c —— d ↔ a + d = c + b :=
+  ⟨ Quotient.exact, by intro h; exact Quotient.sound h ⟩
 
 /-- Алгоритмічна розв'язність рівності -/
 instance Int.decidableEq : DecidableEq Int := by
@@ -74,10 +67,7 @@ instance Int.decidableEq : DecidableEq Int := by
   exact Quotient.recOnSubsingleton₂ a b this
 
 /-- Визначення 4.1.1 (Integers) -/
-theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by
-  apply Quot.ind _ n; intro ⟨ a, b ⟩
-  use a, b; rfl
-
+theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by apply n.ind _; intro ⟨ a, b ⟩; use a, b
 /-- Лема 4.1.3 (Додавання чітко визначене) -/
 instance Int.instAdd : Add Int where
   add := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a+c) —— (b+d) ) (by
@@ -116,14 +106,12 @@ theorem Int.mul_congr {a b c d a' b' c' d' : ℕ} (h1: a —— b = a' —— b'
 
 instance Int.instMul : Mul Int where
   mul := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a * c + b * d) —— (a * d + b * c)) (by
-    intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2
-    simp at h1 h2
+    intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2; simp at h1 h2
     convert mul_congr _ _ <;> simpa
     )
 
 /-- Визначення 4.1.2 (Множення цілих чисел) -/
-theorem Int.mul_eq (a b c d:ℕ) : a —— b * c —— d = (a*c+b*d) —— (a*d+b*c) :=
-  Quotient.lift₂_mk _ _ _ _
+theorem Int.mul_eq (a b c d:ℕ) : a —— b * c —— d = (a*c+b*d) —— (a*d+b*c) := Quotient.lift₂_mk _ _ _ _
 
 instance Int.instOfNat {n:ℕ} : OfNat Int n where
   ofNat := n —— 0
@@ -139,75 +127,62 @@ theorem Int.natCast_eq (n:ℕ) : (n:Int) = n —— 0 := rfl
 theorem Int.natCast_ofNat (n:ℕ) : ((ofNat(n):ℕ): Int) = ofNat(n) := by rfl
 
 @[simp]
-theorem Int.ofNat_inj (n m:ℕ) :
-    (ofNat(n) : Int) = (ofNat(m) : Int) ↔ ofNat(n) = ofNat(m) := by
-      simp only [ofNat_eq, eq, add_zero]
-      rfl
+theorem Int.ofNat_inj (n m:ℕ) : (ofNat(n) : Int) = (ofNat(m) : Int) ↔ ofNat(n) = ofNat(m) := by
+  simp only [ofNat_eq, eq, add_zero]; rfl
 
 @[simp]
-theorem Int.natCast_inj (n m:ℕ) :
-    (n : Int) = (m : Int) ↔ n = m := by
-      simp only [natCast_eq, eq, add_zero]
+theorem Int.natCast_inj (n m:ℕ) : (n : Int) = (m : Int) ↔ n = m := by
+  simp only [natCast_eq, eq, add_zero]
 
-example : 3 = 3 —— 0 := by rfl
+example : 3 = 3 —— 0 := rfl
 
-example : 3 = 4 —— 1 := by
-  rw [Int.ofNat_eq, Int.eq]
+example : 3 = 4 —— 1 := by rw [Int.ofNat_eq, Int.eq]
 
 /-- (Не із книги) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
 /-- Визначення 4.1.4 (Протилежність цілих чисел) / Вправа 4.1.2 -/
 instance Int.instNeg : Neg Int where
-  neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by
-    sorry)
+  neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by sorry)
 
 theorem Int.neg_eq (a b:ℕ) : -(a —— b) = b —— a := rfl
 
-example : -(3 —— 5) = 5 —— 3 := by rfl
+example : -(3 —— 5) = 5 —— 3 := rfl
 
-abbrev Int.isPos (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = n
-abbrev Int.isNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
+abbrev Int.IsPos (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = n
+abbrev Int.IsNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
-theorem Int.trichotomous (x:Int) : x = 0 ∨ x.isPos ∨ x.isNeg := by
+theorem Int.trichotomous (x:Int) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by
   -- Цей доказ дещо змінений порівняно з оригінальним текстом.
   obtain ⟨ a, b, rfl ⟩ := eq_diff x
   have := _root_.trichotomous (r := LT.lt) a b
-  rcases this with h_lt | h_eq | h_gt
+  rcases this with h_lt | rfl | h_gt
   . obtain ⟨ c,rfl ⟩ := Nat.exists_eq_add_of_lt h_lt
-    right; right; refine ⟨ c+1, ?_, ?_ ⟩
-    . linarith
-    simp_rw [natCast_eq, neg_eq, eq]
-    abel
-  . left; simp_rw [h_eq, ofNat_eq, eq, add_zero, zero_add]
+    right; right; refine ⟨ c+1, by linarith, ?_ ⟩
+    simp_rw [natCast_eq, neg_eq, eq]; abel
+  . left; simp_rw [ofNat_eq, eq, add_zero, zero_add]
   obtain ⟨ c, rfl ⟩ := Nat.exists_eq_add_of_lt h_gt
-  right; left; refine ⟨ c+1, ?_, ?_ ⟩
-  . linarith
-  simp_rw [natCast_eq, eq]
-  abel
+  right; left; refine ⟨ c+1, by linarith, ?_ ⟩
+  simp_rw [natCast_eq, eq]; abel
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
-theorem Int.not_pos_zero (x:Int) : x = 0 ∧ x.isPos → False := by
-  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
-  simp [←natCast_ofNat] at hn'
+theorem Int.not_pos_zero (x:Int) : x = 0 ∧ x.IsPos → False := by
+  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩; simp_all [←natCast_ofNat]
+
+/-- Лема 4.1.5 (трихотомія цілих чисел)-/
+theorem Int.not_neg_zero (x:Int) : x = 0 ∧ x.IsNeg → False := by
+  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩; simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn'
   linarith
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
-theorem Int.not_neg_zero (x:Int) : x = 0 ∧ x.isNeg → False := by
-  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩
-  simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn'
-  linarith
-
-/-- Лема 4.1.5 (трихотомія цілих чисел)-/
-theorem Int.not_pos_neg (x:Int) : x.isPos ∧ x.isNeg → False := by
-  rintro ⟨ ⟨ n, hn, rfl ⟩, ⟨ m, hm, hm' ⟩ ⟩
-  simp_rw [natCast_eq, neg_eq, eq] at hm'
+theorem Int.not_pos_neg (x:Int) : x.IsPos ∧ x.IsNeg → False := by
+  rintro ⟨ ⟨ n, hn, rfl ⟩, ⟨ m, hm, hm' ⟩ ⟩; simp_rw [natCast_eq, neg_eq, eq] at hm'
   linarith
 
 /-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instAddGroup : AddGroup Int :=
-AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
+  AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
 /-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
 instance Int.instAddCommGroup : AddCommGroup Int where
@@ -222,10 +197,7 @@ instance Int.instCommMonoid : CommMonoid Int where
     obtain ⟨ a, b, rfl ⟩ := eq_diff x
     obtain ⟨ c, d, rfl ⟩ := eq_diff y
     obtain ⟨ e, f, rfl ⟩ := eq_diff z
-    simp_rw [mul_eq]
-    congr 1
-    . ring
-    ring
+    simp_rw [mul_eq]; congr 1 <;> ring
   one_mul := by sorry
   mul_one := by sorry
 

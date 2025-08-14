@@ -3,7 +3,7 @@ import Analysis.Section_5_1
 
 
 /-!
-# Аналіз I, Глава 5.2
+# Аналіз I, Глава 5.2: Equivalent Cauchy sequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -12,121 +12,110 @@ Lean code could be "golfed" to be more elegant and idiomatic, but I have conscio
 
 Main constructions and results of this section:
 
-- Notion of an ε-close and eventually ε-close sequences of rationals
-- Notion of an equivalent Cauchy sequence of rationals
+- Notion of an ε-close and eventually ε-close sequences of rationals.
+- Notion of an equivalent Cauchy sequence of rationals.
 
 -/
 
 
-abbrev Rat.close_seq (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
-  ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a n) (b n)
+abbrev Rat.CloseSeq (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
+  ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n)
 
-abbrev Rat.eventually_close (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
-  ∃ N, ε.close_seq (a.from N) (b.from N)
+abbrev Rat.EventuallyClose (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
+  ∃ N, ε.CloseSeq (a.from N) (b.from N)
 
 namespace Chapter5
 
-/-- Визначення 5.2.1 ($ε$-close sequences) -/
-lemma Rat.close_seq_def (ε: ℚ) (a b: Sequence) :
-    ε.close_seq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a n) (b n) := by rfl
+/-- Definition 5.2.1 ($ε$-close sequences) -/
+lemma Rat.closeSeq_def (ε: ℚ) (a b: Sequence) :
+    ε.CloseSeq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n) := by rfl
 
-/-- Приклад 5.2.2 -/
-example : (0.1:ℚ).close_seq ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
+/-- Example 5.2.2 -/
+example : (0.1:ℚ).CloseSeq ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence) := by sorry
 
-/-- Приклад 5.2.2 -/
-example : ¬ (0.1:ℚ).steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
+/-- Example 5.2.2 -/
+example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 := by sorry
 
-/-- Приклад 5.2.2 -/
-example : ¬ (0.1:ℚ).steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence)
+/-- Example 5.2.2 -/
+example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence)
 := by sorry
 
-/-- Визначення 5.2.3 (Eventually ε-close sequences) -/
-lemma Rat.eventually_close_def (ε: ℚ) (a b: Sequence) :
-    ε.eventually_close a b ↔ ∃ N, ε.close_seq (a.from N) (b.from N) := by rfl
+/-- Definition 5.2.3 (Eventually ε-close sequences) -/
+lemma Rat.eventuallyClose_def (ε: ℚ) (a b: Sequence) :
+    ε.EventuallyClose a b ↔ ∃ N, ε.CloseSeq (a.from N) (b.from N) := by rfl
 
-/-- Визначення 5.2.3 (Eventually ε-close sequences) -/
-lemma Rat.eventually_close_iff (ε: ℚ) (a b: ℕ → ℚ) :
-    ε.eventually_close (a:Sequence) (b:Sequence) ↔  ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
+/-- Definition 5.2.3 (Eventually ε-close sequences) -/
+lemma Rat.eventuallyClose_iff (ε: ℚ) (a b: ℕ → ℚ) :
+    ε.EventuallyClose (a:Sequence) (b:Sequence) ↔  ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
 
-/-- Приклад 5.2.5 -/
-example : ¬ (0.1:ℚ).close_seq ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
+/-- Example 5.2.5 -/
+example : ¬ (0.1:ℚ).CloseSeq ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 
-example : (0.1:ℚ).eventually_close ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
+example : (0.1:ℚ).EventuallyClose ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 
-example : (0.01:ℚ).eventually_close ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
+example : (0.01:ℚ).EventuallyClose ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 
-/-- Визначення 5.2.6 (Equivalent sequences) -/
-abbrev Sequence.equiv (a b: ℕ → ℚ) : Prop :=
-  ∀ ε > (0:ℚ), ε.eventually_close (a:Sequence) (b:Sequence)
+/-- Definition 5.2.6 (Equivalent sequences) -/
+abbrev Sequence.Equiv (a b: ℕ → ℚ) : Prop :=
+  ∀ ε > (0:ℚ), ε.EventuallyClose (a:Sequence) (b:Sequence)
 
 /-- Визначення 5.2.6 (Equivalent sequences) -/
 lemma Sequence.equiv_def (a b: ℕ → ℚ) :
-    equiv a b ↔ ∀ (ε:ℚ), ε > 0 → ε.eventually_close (a:Sequence) (b:Sequence) := by rfl
+    Equiv a b ↔ ∀ (ε:ℚ), ε > 0 → ε.EventuallyClose (a:Sequence) (b:Sequence) := by rfl
 
-/-- Визначення 5.2.6 (Equivalent sequences) -/
-lemma Sequence.equiv_iff (a b: ℕ → ℚ) : equiv a b ↔ ∀ ε > 0, ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by
+/-- Definition 5.2.6 (Equivalent sequences) -/
+lemma Sequence.equiv_iff (a b: ℕ → ℚ) : Equiv a b ↔ ∀ ε > 0, ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by
   sorry
 
 /-- Твердження 5.2.8 -/
 lemma Sequence.equiv_example :
   -- This proof is perhaps more complicated than it needs to be; a shorter version may be
   -- possible that is still faithful to the original text.
-  equiv (fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)) (fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)) := by
+  Equiv (fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)) (fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)) := by
   set a := fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)
   set b := fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)
   rw [equiv_iff]
-  intro ε εpos
+  intro ε hε
   have hab (n:ℕ) : |a n - b n| = 2 * 10 ^ (-(n:ℤ)-1) := calc
-    _ = |((1:ℚ) + (10:ℚ)^(-(n:ℤ)-1)) - ((1:ℚ) - (10:ℚ)^(-(n:ℤ)-1))| := by rfl
+    _ = |((1:ℚ) + (10:ℚ)^(-(n:ℤ)-1)) - ((1:ℚ) - (10:ℚ)^(-(n:ℤ)-1))| := rfl
     _ = |2 * (10:ℚ)^(-(n:ℤ)-1)| := by ring_nf
-    _ = _ := by apply abs_of_nonneg; positivity
+    _ = _ := abs_of_nonneg (by positivity)
 
   have hab' (N:ℕ) : ∀ n ≥ N, |a n - b n| ≤ 2 * 10 ^(-(N:ℤ)-1) := by
-    intro n hn
-    rw [hab n]
-    gcongr
-    norm_num
+    intro n hn; rw [hab n]; gcongr; norm_num
 
   have hN : ∃ N:ℕ, 2 * (10:ℚ) ^(-(N:ℤ)-1) ≤ ε := by
     have hN' (N:ℕ) : 2 * (10:ℚ)^(-(N:ℤ)-1) ≤ 2/(N+1) := calc
       _ = 2 / (10:ℚ)^(N+1) := by
         field_simp
-        rw [mul_assoc, ←Section_4_3.pow_eq_zpow, ←zpow_add₀ (by norm_num)]
-        simp
+        simp [mul_assoc, ←Section_4_3.pow_eq_zpow, ←zpow_add₀ (show 10 ≠ (0:ℚ) by norm_num)]
       _ ≤ _ := by
         gcongr
         apply le_trans _ (pow_le_pow_left₀ (show 0 ≤ (2:ℚ) by norm_num)
           (show (2:ℚ) ≤ 10 by norm_num) _)
-        convert Nat.cast_le.mpr (Section_4_3.two_pow_geq (N+1)) using 1
-        . simp
-        . simp
-        all_goals infer_instance
-    have : ∃ N:ℕ, N > 2/ε := exists_nat_gt (2 / ε)
-    obtain ⟨ N, hN ⟩ := this
-    use N
-    apply (hN' N).trans
+        convert Nat.cast_le.mpr (Section_4_3.two_pow_geq (N+1)) using 1 <;> try infer_instance
+        all_goals simp
+    obtain ⟨ N, hN ⟩ := exists_nat_gt (2 / ε)
+    refine ⟨ N, (hN' N).trans ?_ ⟩
     rw [div_le_iff₀ (by positivity)]
-    replace hN := (div_lt_iff₀ εpos).mp hN
+    rw [div_lt_iff₀ hε] at hN
     apply le_of_lt (hN.trans _)
-    rw [mul_comm]
-    gcongr; linarith
-  obtain ⟨ N, hN ⟩ := hN
-  use N
-  intro n hn
+    rw [mul_comm]; gcongr; linarith
+  obtain ⟨ N, hN ⟩ := hN; use N; intro n hn
   exact (hab' N n hn).trans hN
 
 
-/-- Вправа 5.2.1 -/
-theorem Sequence.equiv_of_cauchy {a b: ℕ → ℚ} (hab: Sequence.equiv a b) :
-    (a:Sequence).isCauchy ↔ (b:Sequence).isCauchy := by sorry
+/-- Exercise 5.2.1 -/
+theorem Sequence.isCauchy_of_equiv {a b: ℕ → ℚ} (hab: Equiv a b) :
+    (a:Sequence).IsCauchy ↔ (b:Sequence).IsCauchy := by sorry
 
-/-- Вправа 5.2.2 -/
-theorem Sequence.close_of_bounded {ε:ℚ} {a b: ℕ → ℚ} (hab: ε.eventually_close a b) :
-    (a:Sequence).isBounded ↔ (b:Sequence).isBounded := by sorry
+/-- Exercise 5.2.2 -/
+theorem Sequence.isBounded_of_eventuallyClose {ε:ℚ} {a b: ℕ → ℚ} (hab: ε.EventuallyClose a b) :
+    (a:Sequence).IsBounded ↔ (b:Sequence).IsBounded := by sorry
 
 end Chapter5

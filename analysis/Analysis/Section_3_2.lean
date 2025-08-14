@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_3_1
 
 /-!
-# Аналіз I, Глава 3.2
+# Аналіз I, Глава 3.2: Парадокс Рассела
 
 У цій главі ми пропонуємо версію теорії множин Цермело-Франкеля (з атомами), яка намагається
 максимально точно наслідувати оригінальний тексту Аналізу I, Глава 3.2. Вся нумерація
@@ -33,7 +33,7 @@ abbrev axiom_of_universal_specification : Prop :=
   ∀ P : Object → Prop, ∃ A : Set, ∀ x : Object, x ∈ A ↔ P x
 
 theorem Russells_paradox : ¬ axiom_of_universal_specification := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- Цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   intro h
   set P : Object → Prop := fun x ↦ ∃ X:Set, x = X ∧ x ∉ X
   obtain ⟨Ω, hΩ⟩ := h P
@@ -47,18 +47,15 @@ theorem Russells_paradox : ¬ axiom_of_universal_specification := by
   replace this := (hΩ _).mpr this
   contradiction
 
-/-- Аксіома 3.9 (Регулярність ) -/
+/-- Аксіома 3.9 (Регулярність) -/
 theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
     ∃ x:A, ∀ S:Set, x.val = S → Disjoint S A := by
   obtain ⟨ x, h, h' ⟩ := SetTheory.regularity_axiom A (nonempty_def h)
   use ⟨x, h⟩
-  intro S hS
-  specialize h' S hS
+  intro S hS; specialize h' S hS
   rw [disjoint_iff, eq_empty_iff_forall_notMem]
-  contrapose! h'
-  simp at h'
-  obtain ⟨ y, h1, h2 ⟩ := h'
-  exact ⟨ y, h2, h1 ⟩
+  contrapose! h'; simp at h'
+  aesop
 
 /--
   Вправа 3.2.1.  Дух цієї вправи полягає в тому, щоб встановити ці результати без використання
@@ -102,7 +99,7 @@ theorem SetTheory.Set.specify_exists (h: axiom_of_universal_specification) (A:Se
 
 /--
   Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the specify operation.
+  Russell's paradox, or the replace operation.
 -/
 theorem SetTheory.Set.replace_exists (h: axiom_of_universal_specification) (A:Set)
   (P: A → Object → Prop) (hP: ∀ x y y', P x y ∧ P x y' → y = y') :
@@ -116,8 +113,8 @@ theorem SetTheory.Set.not_mem_self (A:Set) : (A:Object) ∉ A := by sorry
 theorem SetTheory.Set.not_mem_mem (A B:Set) : (A:Object) ∉ B ∨ (B:Object) ∉ A := by sorry
 
 /-- Вправа 3.2.3 -/
-theorem SetTheory.Set.univ_imp (U: Set) (hU: ∀ x, x ∈ U) :
-    axiom_of_universal_specification := by sorry
+theorem SetTheory.Set.univ_iff : axiom_of_universal_specification ↔
+  ∃ (U:Set), ∀ x, x ∈ U := by sorry
 
 /-- Вправа 3.2.3 -/
 theorem SetTheory.Set.no_univ : ¬ ∃ (U:Set), ∀ (x:Object), x ∈ U := by sorry

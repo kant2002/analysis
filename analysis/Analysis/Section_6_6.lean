@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_5
 
 /-!
-# Аналіз I, Глава 6.6
+# Analysis I, Section 6.6: Subsequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -12,7 +12,7 @@ doing so.
 
 Main constructions and results of this section:
 
-- Definition of a subsequence
+- Definition of a subsequence.
 -/
 
 namespace Chapter6
@@ -44,23 +44,23 @@ theorem Sequence.subseq_trans {a b c:ℕ → ℝ} (hab: Sequence.subseq a b) (hb
 
 /-- Твердження 6.6.5 / Вправа 6.6.4 -/
 theorem Sequence.convergent_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
-    (a:Sequence).tendsTo L ↔ ∀ b:ℕ → ℝ, Sequence.subseq a b → (b:Sequence).tendsTo L := by
+    (a:Sequence).TendsTo L ↔ ∀ b:ℕ → ℝ, Sequence.subseq a b → (b:Sequence).TendsTo L := by
   sorry
 
 /-- Твердження 6.6.6 / Вправа 6.6.5 -/
 theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
-    (a:Sequence).limit_point L ↔ ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).tendsTo L := by
+    (a:Sequence).LimitPoint L ↔ ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).TendsTo L := by
   sorry
 
-/-- Теорема 6.6.8 (Bolzano-Weierstrass theorem) -/
-theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).isBounded) :
-    ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).convergent := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+/-- Theorem 6.6.8 (Bolzano-Weierstrass theorem) -/
+theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).IsBounded) :
+    ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).Convergent := by
+  -- This proof is written to follow the structure of the original text.
   obtain ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ L_minus, hL_minus ⟩ ⟩ := finite_limsup_liminf_of_bounded ha
   have := limit_point_of_limsup hL_plus
   rw [limit_point_iff_subseq] at this
-  obtain ⟨ b, hsubseq, htends ⟩ := this
-  refine ⟨ b, hsubseq, ⟨ L_plus, htends ⟩ ⟩
+  peel 2 this with b hsubseq this
+  exact ⟨ L_plus, this ⟩
 
 /- Вправа 6.6.2 -/
 
@@ -73,8 +73,8 @@ def Sequence.exist_subseq_of_subseq :
   Вправа 6.6.3.  You may find the API around Mathlib's `Nat.find` to be useful
   (and `open Classical` to avoid any decidability issues)
 -/
-theorem Sequence.subseq_of_unbounded {a:ℕ → ℝ} (ha: ¬ (a:Sequence).isBounded) :
-    ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence)⁻¹.tendsTo 0 := by
+theorem Sequence.subseq_of_unbounded {a:ℕ → ℝ} (ha: ¬ (a:Sequence).IsBounded) :
+    ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence)⁻¹.TendsTo 0 := by
   sorry
 
 

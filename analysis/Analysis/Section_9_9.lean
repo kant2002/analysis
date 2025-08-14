@@ -4,7 +4,7 @@ import Mathlib.Data.Nat.Nth
 import Analysis.Section_9_6
 
 /-!
-# Аналіз I, Глава 9.9
+# Analysis I, Section 9.9: Uniform continuity
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -13,8 +13,8 @@ the Lean code could be "golfed" to be more elegant and idiomatic, but I have con
 doing so.
 
 Main constructions and results of this section:
-- API for Mathlib's `UniformContinousOn`
-- Continuous functions on compact intervls are uniformly continuous
+- API for Mathlib's `UniformContinuousOn`.
+- Continuous functions on compact intervals are uniformly continuous.
 
 -/
 
@@ -22,10 +22,10 @@ open Chapter6
 
 namespace Chapter9
 
-example : ContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
+example : ContinuousOn (fun x:ℝ ↦ 1/x) (.Icc 0 2) := by
   sorry
 
-example : ¬ BddOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
+example : ¬ BddOn (fun x:ℝ ↦ 1/x) (.Icc 0 2) := by
   sorry
 
 /-- Приклад 9.9.1 -/
@@ -35,6 +35,7 @@ example (x : ℝ) :
   let x₀ : ℝ := 1
   let δ : ℝ := 1/11
   |x-x₀| ≤ δ → |f x - f x₀| ≤ ε := by
+  extract_lets f ε x₀ δ
   sorry
 
 example (x:ℝ) :
@@ -43,6 +44,7 @@ example (x:ℝ) :
   let x₀ : ℝ := 0.1
   let δ : ℝ := 1/1010
   |x-x₀| ≤ δ → |f x - f x₀| ≤ ε := by
+  extract_lets -merge f ε x₀ δ -- need the `-merge` flag due to the collision of `ε` and `x₀`
   sorry
 
 example (x:ℝ) :
@@ -51,6 +53,7 @@ example (x:ℝ) :
   let x₀ : ℝ := 1
   let δ : ℝ := 0.05
   |x-x₀| ≤ δ → |g x - g x₀| ≤ ε := by
+  extract_lets g ε x₀ δ
   sorry
 
 example (x₀ x : ℝ) :
@@ -58,19 +61,15 @@ example (x₀ x : ℝ) :
   let ε : ℝ := 0.1
   let δ : ℝ := 0.05
   |x-x₀| ≤ δ → |g x - g x₀| ≤ ε := by
+  extract_lets g ε δ
   sorry
 
 /-- Визначення 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
-  ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.close x x₀ → ε.close (f x) (f x₀) := by
-  simp_rw [Metric.uniformContinuousOn_iff_le, Real.close]
-  apply forall_congr'; intro ε
-  apply imp_congr_right; intro hε
-  apply exists_congr; intro δ
-  apply and_congr_right; intro hδ
-  constructor
-  . exact fun h x₀ hx₀ x hx ↦ h x hx x₀ hx₀
-  exact fun h x hx y hy ↦ h y hy x hx
+  ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.Close x x₀ → ε.Close (f x) (f x₀) := by
+  simp_rw [Metric.uniformContinuousOn_iff_le, Real.Close]
+  peel with ε hε δ hδ
+  constructor <;> intros <;> solve_by_elim
 
 theorem ContinuousOn.ofUniformContinuousOn {X:Set ℝ} (f: ℝ → ℝ) (hf: UniformContinuousOn f X) :
   ContinuousOn f X := by
@@ -81,24 +80,24 @@ example : ¬ UniformContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
 
 end Chapter9
 
-/-- Визначення 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
-abbrev Real.close_seqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
-  (a.m = b.m) ∧ ∀ n ≥ a.m, ε.close (a n) (b n)
+/-- Definition 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
+abbrev Real.CloseSeqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
+  (a.m = b.m) ∧ ∀ n ≥ a.m, ε.Close (a n) (b n)
 
-abbrev Real.eventually_close_seqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
-  ∃ N ≥ a.m, ε.close_seqs (a.from N) (b.from N)
+abbrev Real.EventuallyCloseSeqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
+  ∃ N ≥ a.m, ε.CloseSeqs (a.from N) (b.from N)
 
 abbrev Chapter6.Sequence.equiv (a b: Sequence) : Prop :=
-  ∀ ε > (0:ℝ), ε.eventually_close_seqs a b
+  ∀ ε > (0:ℝ), ε.EventuallyCloseSeqs a b
 
 /-- Ремарка 9.9.6 -/
 theorem Chapter6.Sequence.equiv_iff_rat (a b: Sequence) :
-  Sequence.equiv a b ↔ ∀ ε > (0:ℚ), (ε:ℝ).eventually_close_seqs a b := by
+  Sequence.equiv a b ↔ ∀ ε > (0:ℚ), (ε:ℝ).EventuallyCloseSeqs a b := by
   sorry
 
 /-- Лема 9.9.7 / Вправа 9.9.1 -/
 theorem Chapter6.Sequence.equiv_iff (a b: Sequence) :
-  Sequence.equiv a b ↔ Filter.Tendsto (fun n ↦ a n - b n) Filter.atTop (nhds 0) := by
+  Sequence.equiv a b ↔ Filter.atTop.Tendsto (fun n ↦ a n - b n) (nhds 0) := by
   sorry
 
 
@@ -113,8 +112,8 @@ theorem UniformContinuousOn.iff_preserves_equiv {X:Set ℝ} (f: ℝ → ℝ) :
   Sequence.equiv (f ∘ x:Sequence) (f ∘ y:Sequence) := by
   sorry
 
-/-- Ремарка 9.9.9 -/
-theorem Chapter6.Sequence.equiv_const (x₀: ℝ) (x:ℕ → ℝ) : Filter.Tendsto x Filter.atTop (nhds x₀) ↔
+/-- Remark 9.9.9 -/
+theorem Chapter6.Sequence.equiv_const (x₀: ℝ) (x:ℕ → ℝ) : Filter.atTop.Tendsto x (nhds x₀) ↔
   Sequence.equiv (x:Sequence) (fun n:ℕ ↦ x₀:Sequence) := by
   sorry
 
@@ -129,7 +128,7 @@ example (n:ℕ) : 1/(2*(n+1):ℝ) ∈ Set.Ioo 0 2 := by sorry
 
 example : ¬ Sequence.equiv (fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ)):Sequence) (fun n:ℕ ↦ f_9_9_10 (1/(2*(n+1):ℝ)):Sequence) := by sorry
 
-example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
+example : ¬ UniformContinuousOn f_9_9_10 (.Ioo 0 2) := by
   sorry
 
 /-- Приклад 9.9.11 -/
@@ -141,23 +140,23 @@ example : Sequence.equiv ((fun n:ℕ ↦ (n+1:ℝ)):Sequence) ((fun n:ℕ ↦ (n
 example : ¬ Sequence.equiv ((fun n:ℕ ↦ f_9_9_11 (n+1:ℝ)):Sequence) ((fun n:ℕ ↦ f_9_9_11 ((n+1)+1/(n+1:ℝ))):Sequence) := by
   sorry
 
-example : ¬ UniformContinuousOn f_9_9_11 Set.univ := by
+example : ¬ UniformContinuousOn f_9_9_11 .univ := by
   sorry
 
 /-- Твердження 9.9.12 / Вправа 9.9.3  -/
 theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
-  (hf: UniformContinuousOn f X) {x: ℕ → ℝ} (hx: (x:Sequence).isCauchy) (hmem : ∀ n, x n ∈ X) :
-  (f ∘ x:Sequence).isCauchy := by
+  (hf: UniformContinuousOn f X) {x: ℕ → ℝ} (hx: (x:Sequence).IsCauchy) (hmem : ∀ n, x n ∈ X) :
+  (f ∘ x:Sequence).IsCauchy := by
   sorry
 
-/-- Приклад 9.9.13 -/
-example : ((fun n:ℕ ↦ 1/(n+1:ℝ)):Sequence).isCauchy := by
+/-- Example 9.9.13 -/
+example : ((fun n:ℕ ↦ 1/(n+1:ℝ)):Sequence).IsCauchy := by
   sorry
 
 example (n:ℕ) : 1/(n+1:ℝ) ∈ Set.Ioo 0 2 := by
   sorry
 
-example : ¬ ((fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ))):Sequence).isCauchy := by
+example : ¬ ((fun n:ℕ ↦ f_9_9_10 (1/(n+1:ℝ))):Sequence).IsCauchy := by
   sorry
 
 example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
@@ -166,64 +165,59 @@ example : ¬ UniformContinuousOn f_9_9_10 (Set.Ioo 0 2) := by
 /-- Наслідок 9.9.14 / Вправа 9.9.4 -/
 theorem UniformContinuousOn.limit_at_adherent  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x₀:ℝ} (hx₀: AdherentPt x₀ X) :
-  ∃ L:ℝ, Filter.Tendsto f (nhds x₀ ⊓ Filter.principal X) (nhds L) := by
+  ∃ L:ℝ, (nhds x₀ ⊓ .principal X).Tendsto f (nhds L) := by
   sorry
 
-/-- Твердження 9.9.15 / Вправа 9.9.5 -/
-theorem UniformContinuousOn.of_bounded {E X:Set ℝ} (f: ℝ → ℝ)
+/-- Proposition 9.9.15 / Exercise 9.9.5 -/
+theorem UniformContinuousOn.of_bounded {E X:Set ℝ} {f: ℝ → ℝ}
   (hf: UniformContinuousOn f X) (hEX: E ⊆ X) (hE: Bornology.IsBounded E) :
   Bornology.IsBounded (f '' E) := by
   sorry
 
-/-- Теорема 9.9.16 -/
-theorem UniformContinuousOn.of_continuousOn {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
-  (hcont: ContinuousOn f (Set.Icc a b)) :
-  UniformContinuousOn f (Set.Icc a b) := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
-  by_contra h
-  rw [iff_preserves_equiv] at h
+/-- Theorem 9.9.16 -/
+theorem UniformContinuousOn.of_continuousOn {a b:ℝ} {f:ℝ → ℝ}
+  (hcont: ContinuousOn f (.Icc a b)) :
+  UniformContinuousOn f (.Icc a b) := by
+  -- This proof is written to follow the structure of the original text.
+  by_contra h; rw [iff_preserves_equiv] at h
   simp only [ge_iff_le, Function.comp_apply, not_forall, Classical.not_imp, gt_iff_lt, not_exists,
   not_and, sup_le_iff, dite_eq_ite, and_imp, not_le, forall_const, exists_and_left] at h
   obtain ⟨ x, y, hx, hy, hequiv, ε, hε, h ⟩ := h
-  set E : Set ℕ := {n | ¬ ε.close (f (x n)) (f (y n)) }
+  set E : Set ℕ := {n | ¬ ε.Close (f (x n)) (f (y n)) }
   have hE : Infinite E := by
     rw [←not_finite_iff_infinite]
     by_contra! this
-    replace : ε.eventually_close_seqs (fun n ↦ f (x n):Sequence) (fun n ↦ f (y n):Sequence) := by
+    replace : ε.EventuallyCloseSeqs (fun n ↦ f (x n):Sequence) (fun n ↦ f (y n):Sequence) := by
       sorry
     sorry
-  have : Countable E := by infer_instance
+  observe : Countable E
   set n : ℕ → ℕ := Nat.nth E
   rw [Set.infinite_coe_iff] at hE
-  have hmono : StrictMono n := by
-    apply Nat.nth_strictMono
-    convert hE
+  have hmono : StrictMono n := by apply Nat.nth_strictMono; exact hE
   have hmem (j:ℕ) : n j ∈ E := Nat.nth_mem_of_infinite hE j
   have hsep (j:ℕ) : |f (x (n j)) - f (y (n j))| > ε := by
     specialize hmem j
-    simp [E, Real.close, Real.dist_eq] at hmem
-    exact hmem
+    simpa [E, Real.Close, Real.dist_eq] using hmem
   have hxmem (j:ℕ) : x (n j) ∈ Set.Icc a b := hx (n j)
   have hymem (j:ℕ) : y (n j) ∈ Set.Icc a b := hy (n j)
-  have hclosed : IsClosed (Set.Icc a b) := Icc_closed (by linarith)
-  have hbounded : Bornology.IsBounded (Set.Icc a b) := Icc_bounded _ _
-  obtain ⟨ j, hj, ⟨ L, hL, hconv⟩ ⟩ := (Heine_Borel (Set.Icc a b)).mp ⟨ hclosed, hbounded ⟩ _ hxmem
+  observe hclosed : IsClosed (.Icc a b)
+  observe hbounded : Bornology.IsBounded (.Icc a b)
+  obtain ⟨ j, hj, ⟨ L, hL, hconv⟩ ⟩ := (Heine_Borel (.Icc a b)).mp ⟨ hclosed, hbounded ⟩ _ hxmem
   replace hcont := ContinuousOn.continuousWithinAt hcont hL
-  have hconv' := Filter.Tendsto.comp_of_continuous hL hcont (fun k ↦ hxmem (j k)) hconv
+  have hconv' := hconv.comp_of_continuous hL hcont (fun k ↦ hxmem (j k))
   rw [Sequence.equiv_iff] at hequiv
-  replace hequiv : Filter.Tendsto (fun k ↦ x (n (j k)) - y (n (j k))) Filter.atTop (nhds 0) := by
-    have hj' : Filter.Tendsto j Filter.atTop Filter.atTop := StrictMono.tendsto_atTop hj
-    have hn' : Filter.Tendsto n Filter.atTop Filter.atTop := StrictMono.tendsto_atTop hmono
-    have hcoe : Filter.Tendsto (fun n:ℕ ↦ (n:ℤ)) Filter.atTop Filter.atTop := tendsto_natCast_atTop_atTop
-    convert hequiv.comp (hcoe.comp (hn'.comp hj'))
-  have hyconv : Filter.Tendsto (fun k ↦ y (n (j k))) Filter.atTop (nhds L) := by
-    convert Filter.Tendsto.sub hconv hequiv with k
+  replace hequiv : Filter.atTop.Tendsto (fun k ↦ x (n (j k)) - y (n (j k))) (nhds 0) := by
+    observe hj' : Filter.atTop.Tendsto j .atTop
+    observe hn' : Filter.atTop.Tendsto n .atTop
+    observe hcoe : Filter.atTop.Tendsto (fun n:ℕ ↦ (n:ℤ)) .atTop
+    exact hequiv.comp (hcoe.comp (hn'.comp hj'))
+  have hyconv : Filter.atTop.Tendsto (fun k ↦ y (n (j k))) (nhds L) := by
+    convert hconv.sub hequiv with k
     . abel
     simp
-  replace hyconv := Filter.Tendsto.comp_of_continuous hL hcont (fun k ↦ hymem (j k)) hyconv
-  have : Filter.Tendsto (fun k ↦ f (x (n (j k))) - f (y (n (j k)))) Filter.atTop (nhds 0) := by
-    convert Filter.Tendsto.sub hconv' hyconv
-    simp
+  replace hyconv := hyconv.comp_of_continuous hL hcont (fun k ↦ hymem (j k))
+  have : Filter.atTop.Tendsto (fun k ↦ f (x (n (j k))) - f (y (n (j k)))) (nhds 0) := by
+    convert hconv'.sub hyconv; simp
   sorry
 
 

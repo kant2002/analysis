@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Додаток A.3
+# Analysis I, Appendix A.3: Структура доказів
 
 Деякі приклади доказів
 
@@ -18,10 +18,11 @@ example {A B C D: Prop} (hAC: A → C) (hCD: C → D) (hDB: D → B): A → B :=
 /-- Твердження A.3.2 -/
 example {x:ℝ} : x = Real.pi → Real.sin (x/2) + 1 = 2 := by
   intro h
-  apply_fun (fun x ↦ x/2) at h
-  apply_fun (fun x ↦ Real.sin x) at h
+  -- congr() produces an equality (or similar relation) from one or more existing relations, such as `h`, by substituting that relation in every location marked with a `$` sign followed by that relation, for instance `h` would be substituted at every location of `$h`.
+  replace h := congr($h/2)
+  replace h := congr(Real.sin $h)
   simp at h
-  apply_fun (fun x ↦ x + 1) at h
+  replace h := congr($h + 1)
   convert h
   norm_num
 
@@ -52,8 +53,8 @@ example {r:ℝ} (h: 0 < r) (h': r < 1) : Summable (fun n:ℕ ↦ n * r^n) := by
     use 1
     intro b hb
     simp [show b ≠ 0 by linarith, show r ≠ 0 by linarith]
-  suffices hconv: Filter.Tendsto (fun n:ℕ ↦ r * ((n+1) / n)) Filter.atTop (nhds r)
-  . apply Filter.Tendsto.congr' _ hconv
+  suffices hconv: Filter.atTop.Tendsto (fun n:ℕ ↦ r * ((n+1) / n)) (nhds r)
+  . apply hconv.congr'
     simp [Filter.EventuallyEq, Filter.eventually_atTop]
     use 1
     intro b hb
@@ -62,18 +63,18 @@ example {r:ℝ} (h: 0 < r) (h': r < 1) : Summable (fun n:ℕ ↦ n * r^n) := by
     simp [abs_of_pos h, abs_of_pos hb1]
     field_simp
     ring_nf
-  suffices hconv : Filter.Tendsto (fun n:ℕ ↦ ((n+1:ℝ) / n)) Filter.atTop (nhds 1)
-  . convert Filter.Tendsto.const_mul r hconv
+  suffices hconv : Filter.atTop.Tendsto (fun n:ℕ ↦ ((n+1:ℝ) / n)) (nhds 1)
+  . convert hconv.const_mul r
     simp
-  suffices hconv : Filter.Tendsto (fun n:ℕ ↦ 1 + 1/(n:ℝ)) Filter.atTop (nhds 1)
-  . apply Filter.Tendsto.congr' _ hconv
+  suffices hconv : Filter.atTop.Tendsto (fun n:ℕ ↦ 1 + 1/(n:ℝ)) (nhds 1)
+  . apply hconv.congr'
     simp [Filter.EventuallyEq, Filter.eventually_atTop]
     use 1
     intro b hb
     have : (b:ℝ) > 0 := by norm_cast
     field_simp
-  suffices hconv : Filter.Tendsto (fun n:ℕ ↦ 1/(n:ℝ)) Filter.atTop (nhds 0)
-  . convert Filter.Tendsto.const_add 1 hconv
+  suffices hconv : Filter.atTop.Tendsto (fun n:ℕ ↦ 1/(n:ℝ)) (nhds 0)
+  . convert hconv.const_add 1
     simp
   exact tendsto_one_div_atTop_nhds_zero_nat
 

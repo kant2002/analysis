@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Глава 2.1
+# Аналіз I, Глава 2.1: Аксіоми Пеано
 
 Цей файл є перекладом Глави 2.1 Аналізу I до Lean 4. Вся нумерація посилається на оригінальний текст.
 
@@ -73,7 +73,7 @@ lemma Nat.two_succ : 2++ = 3 := by rfl
 -/
 theorem Nat.succ_ne (n:Nat) : n++ ≠ 0 := by
   by_contra h
-  simp only [reduceCtorEq] at h
+  injection h
 
 /-- Твердження 2.1.6 (4 не дорівнює нулю) -/
 theorem Nat.four_ne : (4:Nat) ≠ 0 := by
@@ -87,7 +87,7 @@ theorem Nat.four_ne : (4:Nat) ≠ 0 := by
   Порівняйте із Mathlib-овським `Nat.succ_inj`.
 -/
 theorem Nat.succ_cancel {n m:Nat} (hnm: n++ = m++) : n = m := by
-  rwa [succ.injEq] at hnm
+  injection hnm
 
 /--
   Аксіома 2.4 (Різні натуральні числа мають різних наступників).

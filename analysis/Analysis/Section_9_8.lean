@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_9_6
 
 /-!
-# Аналіз I, Глава 9.8
+# Analysis I, Section 9.8: Monotonic functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -11,7 +11,7 @@ the Lean code could be "golfed" to be more elegant and idiomatic, but I have con
 doing so.
 
 Main constructions and results of this section:
-- Review of Mathlib monotonicity concepts
+- Review of Mathlib monotonicity concepts.
 -/
 
 namespace Chapter9
@@ -19,46 +19,32 @@ namespace Chapter9
 /-- Визначення 9.8.1 -/
 theorem MonotoneOn.iff {X: Set ℝ} (f: ℝ → ℝ) : MonotoneOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y ≥ f x := by
   constructor
-  . intro h x hx y hy hxy
-    exact h hx hy (le_of_lt hxy)
-  intro h x hx y hy hxy
-  rw [le_iff_lt_or_eq] at hxy
-  rcases hxy with hxy | hxy
-  . exact h x hx y hy hxy
+  . intros; solve_by_elim [le_of_lt]
+  intro _ _ _ _ _ hxy; rcases le_iff_lt_or_eq.mp hxy with hxy | hxy
+  . solve_by_elim
   simp [hxy]
 
 theorem StrictMono.iff {X: Set ℝ} (f: ℝ → ℝ) : StrictMonoOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y > f x := by
-  constructor
-  . intro h x hx y hy hxy
-    exact h hx hy hxy
-  intro h x hx y hy hxy
-  exact h x hx y hy hxy
+  constructor <;> intros <;> solve_by_elim
 
 theorem AntitoneOn.iff {X: Set ℝ} (f: ℝ → ℝ) : AntitoneOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y ≤ f x := by
   constructor
-  . intro h x hx y hy hxy
-    exact h hx hy (le_of_lt hxy)
-  intro h x hx y hy hxy
-  rw [le_iff_lt_or_eq] at hxy
-  rcases hxy with hxy | hxy
-  . exact h x hx y hy hxy
+  . intros; solve_by_elim [le_of_lt]
+  intro _ _ _ _ _ hxy; rcases le_iff_lt_or_eq.mp hxy with hxy | hxy
+  . solve_by_elim
   simp [hxy]
 
 theorem StrictAntitone.iff {X: Set ℝ} (f: ℝ → ℝ) : StrictAntiOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y < f x := by
-  constructor
-  . intro h x hx y hy hxy
-    exact h hx hy hxy
-  intro h x hx y hy hxy
-  exact h x hx y hy hxy
+  constructor <;> intros <;> solve_by_elim
 
-/-- Приклади 9.8.2 -/
-example : StrictMonoOn (fun x:ℝ ↦ x^2) (Set.Ici 0) := by sorry
+/-- Examples 9.8.2 -/
+example : StrictMonoOn (fun x:ℝ ↦ x^2) (.Ici 0) := by sorry
 
-example : StrictAntiOn (fun x:ℝ ↦ x^2) (Set.Iic 0) := by sorry
+example : StrictAntiOn (fun x:ℝ ↦ x^2) (.Iic 0) := by sorry
 
-example : ¬ MonotoneOn (fun x:ℝ ↦ x^2) Set.univ := by sorry
+example : ¬ MonotoneOn (fun x:ℝ ↦ x^2) .univ := by sorry
 
-example : ¬ AntitoneOn (fun x:ℝ ↦ x^2) Set.univ := by sorry
+example : ¬ AntitoneOn (fun x:ℝ ↦ x^2) .univ := by sorry
 
 example {X:Set ℝ} {f:ℝ → ℝ} (hf: StrictMonoOn f X) : MonotoneOn f X := by sorry
 
@@ -76,11 +62,11 @@ example : ∃ (X:Set ℝ) (f:ℝ → ℝ), ContinuousOn f X ∧ ¬ MonotoneOn f 
 
 example : ∃ (X:Set ℝ) (f:ℝ → ℝ), MonotoneOn f X ∧ ¬ ContinuousOn f X := by sorry
 
-/-- Твердження 9.8.3 / Вправа 9.8.4 -/
-theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (Set.Icc a b)) (hmono: StrictMonoOn f (Set.Icc a b)) :
-  f '' (Set.Icc a b) = Set.Icc (f a) (f b) ∧
-  ∃ finv: ℝ → ℝ, ContinuousOn finv (Set.Icc (f a) (f b)) ∧ StrictMonoOn finv (Set.Icc (f a) (f b)) ∧
-  finv '' (Set.Icc (f a) (f b)) = Set.Icc a b ∧
+/-- Proposition 9.8.3 / Exercise 9.8.4 -/
+theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (.Icc a b)) (hmono: StrictMonoOn f (.Icc a b)) :
+  f '' (.Icc a b) = .Icc (f a) (f b) ∧
+  ∃ finv: ℝ → ℝ, ContinuousOn finv (.Icc (f a) (f b)) ∧ StrictMonoOn finv (.Icc (f a) (f b)) ∧
+  finv '' (.Icc (f a) (f b)) = .Icc a b ∧
   (∀ x ∈ Set.Icc a b, finv (f x) = x) ∧
   ∀ y ∈ Set.Icc (f a) (f b), f (finv y) = y
    := by
@@ -89,51 +75,58 @@ theorem MonotoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: C
 /-- Приклад 9.8.4-/
 example {R :ℝ} (hR: R > 0) {n:ℕ} (hn: n > 0) : ∃ g : ℝ → ℝ, ∀ x ∈ Set.Icc 0 (R^n), (g x)^n = x := by
   set f : ℝ → ℝ := fun x ↦ x^n
-  have hcont : ContinuousOn f (Set.Icc 0 R) := by fun_prop
-  have hmono : StrictMonoOn f (Set.Icc 0 R) := by
-    intro x hx y hy hxy
-    simp at hx
-    simp [f]
+  have hcont : ContinuousOn f (.Icc 0 R) := by fun_prop
+  have hmono : StrictMonoOn f (.Icc 0 R) := by
+    intro _ hx _ _ hxy; simp_all [f]
     exact pow_lt_pow_left₀ hxy (by contrapose! hn; linarith) (by linarith)
   obtain ⟨ g, ⟨ _, _, _, _, hg⟩ ⟩ := (MonotoneOn.exist_inverse (by positivity) f hcont hmono).2
-  simp only [and_imp, f, zero_pow (by positivity)] at hg
-  use g
+  simp only [and_imp, f, zero_pow (by positivity)] at hg; use g
 
-/-- Вправа 9.8.1 -/
-theorem IsMaxOn.of_monotone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: MonotoneOn f (Set.Icc a b)) :
-  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (Set.Icc a b) xmax := by sorry
+/-- Exercise 9.8.1 -/
+theorem IsMaxOn.of_monotone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: MonotoneOn f (.Icc a b)) :
+  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by sorry
 
-theorem IsMaxOn.of_strictmono_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: StrictMonoOn f (Set.Icc a b)) :
-  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (Set.Icc a b) xmax := by sorry
+theorem IsMaxOn.of_strictmono_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: StrictMonoOn f (.Icc a b)) :
+  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by sorry
 
-theorem IsMaxOn.of_antitone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: AntitoneOn f (Set.Icc a b)) :
-  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (Set.Icc a b) xmax := by sorry
+theorem IsMaxOn.of_antitone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: AntitoneOn f (.Icc a b)) :
+  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by sorry
 
-theorem IsMaxOn.of_strictantitone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: StrictAntiOn f (Set.Icc a b)) :
-  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (Set.Icc a b) xmax := by
+theorem IsMaxOn.of_strictantitone_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: StrictAntiOn f (.Icc a b)) :
+  ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by
   sorry
 
-/-- Вправа 9.8.2 -/
-theorem no_strictmono_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: StrictMonoOn f (Set.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+theorem BddOn.of_monotone {a b:ℝ} {f:ℝ → ℝ} (hf: MonotoneOn f (.Icc a b)) :
+  BddOn f (.Icc a b) := by
+  sorry
 
-theorem no_monotone_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: MonotoneOn f (Set.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+theorem BddOn.of_antitone {a b:ℝ} {f:ℝ → ℝ} (hf: AntitoneOn f (.Icc a b)) :
+  BddOn f (.Icc a b) := by
+  sorry
 
-theorem no_strictanti_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: StrictAntiOn f (Set.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
 
-theorem no_antitone_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: AntitoneOn f (Set.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+
+/-- Exercise 9.8.2 -/
+theorem no_strictmono_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: StrictMonoOn f (.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+
+theorem no_monotone_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: MonotoneOn f (.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+
+theorem no_strictanti_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: StrictAntiOn f (.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
+
+theorem no_antitone_intermediate_value : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → ℝ) (hf: AntitoneOn f (.Icc a b)), ¬ ∃ y, y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b) := by sorry
 
 /-- Вправа 9.8.3 -/
 theorem mono_of_continuous_inj {a b:ℝ} (h: a < b) {f:ℝ → ℝ}
-  (hf: ContinuousOn f (Set.Icc a b))
+  (hf: ContinuousOn f (.Icc a b))
   (hinj: Function.Injective (fun x: Set.Icc a b ↦ f x )) :
-  StrictMonoOn f (Set.Icc a b) ∨ StrictAntiOn f (Set.Icc a b) := by
+  StrictMonoOn f (.Icc a b) ∨ StrictAntiOn f (.Icc a b) := by
   sorry
 
-/-- Вправа 9.8.4 -/
-def MonotoneOn.exist_inverse_without_continuity {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hmono: StrictMonoOn f (Set.Icc a b)) :
-  Decidable ( f '' (Set.Icc a b) = Set.Icc (f a) (f b) ∧
-  ∃ finv: ℝ → ℝ, ContinuousOn finv (Set.Icc (f a) (f b)) ∧ StrictMonoOn finv (Set.Icc (f a) (f b)) ∧
-  finv '' (Set.Icc (f a) (f b)) = Set.Icc a b ∧
+/-- Exercise 9.8.4 -/
+def MonotoneOn.exist_inverse_without_continuity {a b:ℝ} (h: a < b) {f: ℝ → ℝ} (hmono: StrictMonoOn f (.Icc a b)) :
+  Decidable ( f '' (.Icc a b) = .Icc (f a) (f b) ∧
+  ∃ finv: ℝ → ℝ, ContinuousOn finv (.Icc (f a) (f b)) ∧ StrictMonoOn finv (.Icc (f a) (f b)) ∧
+  finv '' (.Icc (f a) (f b)) = .Icc a b ∧
   (∀ x ∈ Set.Icc a b, finv (f x) = x) ∧
   ∀ y ∈ Set.Icc (f a) (f b), f (finv y) = y )
    := by
@@ -142,10 +135,10 @@ def MonotoneOn.exist_inverse_without_continuity {a b:ℝ} (h: a < b) (f: ℝ →
 
 /-- Вправа 9.8.4 -/
 def MonotoneOn.exist_inverse_without_strictmono {a b:ℝ} (h: a < b) (f: ℝ → ℝ)
-  (hcont: ContinuousOn f (Set.Icc a b)) (hmono: MonotoneOn f (Set.Icc a b)) :
-  Decidable ( f '' (Set.Icc a b) = Set.Icc (f a) (f b) ∧
-  ∃ finv: ℝ → ℝ, ContinuousOn finv (Set.Icc (f a) (f b)) ∧ StrictMonoOn finv (Set.Icc (f a) (f b)) ∧
-  finv '' (Set.Icc (f a) (f b)) = Set.Icc a b ∧
+  (hcont: ContinuousOn f (.Icc a b)) (hmono: MonotoneOn f (.Icc a b)) :
+  Decidable ( f '' (.Icc a b) = .Icc (f a) (f b) ∧
+  ∃ finv: ℝ → ℝ, ContinuousOn finv (.Icc (f a) (f b)) ∧ StrictMonoOn finv (.Icc (f a) (f b)) ∧
+  finv '' (.Icc (f a) (f b)) = .Icc a b ∧
   (∀ x ∈ Set.Icc a b, finv (f x) = x) ∧
   ∀ y ∈ Set.Icc (f a) (f b), f (finv y) = y )
    := by
@@ -153,8 +146,8 @@ def MonotoneOn.exist_inverse_without_strictmono {a b:ℝ} (h: a < b) (f: ℝ →
   sorry
 
 
-/- Вправа 9.8.4: state and prove an analogue of `MonotoneOne.exist_inverse` for `Antitone` functions. -/
--- theorem AntitoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (Set.Icc a b)) (hmono: StrictAntiOn f (Set.Icc a b)) : sorry := by sorry
+/- Exercise 9.8.4: state and prove an analogue of `MonotoneOne.exist_inverse` for `Antitone` functions. -/
+-- theorem AntitoneOn.exist_inverse {a b:ℝ} (h: a < b) (f: ℝ → ℝ) (hcont: ContinuousOn f (.Icc a b)) (hmono: StrictAntiOn f (.Icc a b)) : sorry := by sorry
 
 /-- An equivalence between the natural numbers and the rationals. -/
 noncomputable abbrev q_9_8_5 : ℕ ≃ ℚ := nonempty_equiv_of_countable.some
@@ -163,16 +156,16 @@ noncomputable abbrev g_9_8_5 : ℚ → ℝ := fun q ↦ (2:ℝ)^(-q_9_8_5.symm q
 
 noncomputable abbrev f_9_8_5 : ℝ → ℝ := fun x ↦ ∑' r : {r:ℚ // (r:ℝ) < x}, g_9_8_5 r
 
-/-- Вправа 9.8.5(a) -/
-example : StrictMonoOn f_9_8_5 Set.univ := by
+/-- Exercise 9.8.5(a) -/
+theorem StrictMonoOn.of_f_9_8_5 : StrictMonoOn f_9_8_5 .univ := by
   sorry
 
-/-- Вправа 9.8.5(b) -/
-example (r:ℚ) : ¬ ContinuousAt f_9_8_5 r := by
+/-- Exercise 9.8.5(b) -/
+theorem ContinuousAt.of_f_9_8_5' (r:ℚ) : ¬ ContinuousAt f_9_8_5 r := by
   sorry
 
-/-- Вправа 9.8.5(c) -/
-example {x:ℝ} (hx: ¬ ∃ r:ℚ, x = r) : ContinuousAt f_9_8_5 x := by
+/-- Exercise 9.8.5(c) -/
+theorem ContinuousAt.of_f_9_8_5 {x:ℝ} (hx: ¬ ∃ r:ℚ, x = r) : ContinuousAt f_9_8_5 x := by
   sorry
 
 end Chapter9

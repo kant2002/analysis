@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_3_1
 
 /-!
-# Аналіз I, Глава 3.4
+# Аналіз I, Глава 3.4: Образи та прообрази
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -24,18 +24,12 @@ variable [SetTheory]
 
 /-- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
-  X.replace (P := fun x y ↦ y = f x ∧ x.val ∈ S) (by
-    intro x y y' ⟨ hy, hy' ⟩
-    simp at hy hy'
-    rw [hy.1, hy'.1]
-  )
+  X.replace (P := fun x y ↦ f x = y ∧ x.val ∈ S) (by simp_all)
 
 /-- Визначення 3.4.1 -/
 theorem SetTheory.Set.mem_image {X Y:Set} (f:X → Y) (S: Set) (y:Object) :
     y ∈ image f S ↔ ∃ x:X, x.val ∈ S ∧ f x = y := by
-  rw [SetTheory.Set.replacement_axiom]
-  apply exists_congr; intro x
-  tauto
+  rw [SetTheory.Set.replacement_axiom]; peel 1; tauto
 
 /-- Альтернативне визначення зображення використовуючи аксіоми специфікації -/
 theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
@@ -46,15 +40,32 @@ theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
   приведення `Subtype.val` для забезпечення узгодженості всіх типів.
 -/
 theorem SetTheory.Set.image_eq_image {X Y:Set} (f:X → Y) (S: Set):
-    (image f S: _root_.Set Object) = Subtype.val '' (f '' {x | x.val ∈ S}) := by sorry
+    (image f S: _root_.Set Object) = Subtype.val '' (f '' {x | x.val ∈ S}) := by
+  ext; simp only [_root_.Set.mem_setOf, _root_.Set.mem_image, Set.mem_image]
+  constructor
+  · rintro ⟨x, hx, rfl⟩; use f x, ⟨x, hx, rfl⟩
+  rintro ⟨_, ⟨x, hx, rfl⟩, rfl⟩; use x, hx
+
+theorem SetTheory.Set.image_in_codomain {X Y:Set} (f:X → Y) (S: Set) :
+    image f S ⊆ Y := by
+  intro _ h; rw [mem_image] at h; obtain ⟨ x', hx', rfl ⟩ := h
+  exact (f x').property
 
 /-- Приклад 3.4.2 -/
 abbrev f_3_4_2 : nat → nat := fun n ↦ (2*n:ℕ)
 
-theorem SetTheory.Set.image_f_3_4_2 : image f_3_4_2 {1,2,3} = {2,4,6} := by sorry
+theorem SetTheory.Set.image_f_3_4_2 : image f_3_4_2 {1,2,3} = {2,4,6} := by
+  ext; simp only [mem_image, mem_triple, f_3_4_2]
+  constructor
+  · rintro ⟨x, (h | h | h), rfl⟩
+    map_tacs [left; (right;left); (right;right)]
+    all_goals simp_all
+  rintro (h | h | h)
+  map_tacs [use 1; use 2; use 3]
+  all_goals simp_all
 
-/-- Приклад 3.4.3 записаний із використанням поняття зображення Mathlib -/
-example : (fun n:ℤ ↦ n^2) '' {-1,0,1,2} = {0,1,4} := by sorry
+/-- Приклад 3.4.3 записаний із використанням поняття зображення Mathlib. -/
+example : (fun n:ℤ ↦ n^2) '' {-1,0,1,2} = {0,1,4} := by aesop
 
 theorem SetTheory.Set.mem_image_of_eval {X Y:Set} (f:X → Y) (S: Set) (x:X) :
     x.val ∈ S → (f x).val ∈ image f S := by sorry
@@ -66,61 +77,135 @@ theorem SetTheory.Set.mem_image_of_eval_counter :
   Визначення 3.4.4 (прообрази).
   Знову ж таки, не обов'язково, щоб U було підмножиною Y.
 -/
-abbrev SetTheory.Set.preimage {X Y:Set} (f:X → Y) (U: Set) : Set :=
-  X.specify (P := fun x ↦ (f x).val ∈ U)
+abbrev SetTheory.Set.preimage {X Y:Set} (f:X → Y) (U: Set) : Set := X.specify (P := fun x ↦ (f x).val ∈ U)
 
+@[simp]
 theorem SetTheory.Set.mem_preimage {X Y:Set} (f:X → Y) (U: Set) (x:X) :
-    x.val ∈ preimage f U ↔ (f x).val ∈ U := by
-  rw [specification_axiom']
+    x.val ∈ preimage f U ↔ (f x).val ∈ U := by rw [specification_axiom']
+
+/--
+  A version of mem_preimage that does not require x to be of type X.
+-/
+theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
+    x ∈ preimage f U ↔ ∃ x': X, x'.val = x ∧ (f x').val ∈ U := by
+  constructor
+  . intro h; by_cases hx: x ∈ X
+    . use ⟨ x, hx ⟩; have := mem_preimage f U ⟨ x, hx ⟩; simp_all
+    . simp_all [X.specification_axiom h]
+  . rintro ⟨ x', rfl, hfx' ⟩; rwa [mem_preimage]
+/--
+  A version of mem_preimage that does not require x to be of type X.
+-/
+theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
+    x ∈ preimage f U ↔ ∃ x': X, x'.val = x ∧ (f x').val ∈ U := by
+  constructor
+  . intro h; by_cases hx: x ∈ X
+    . use ⟨ x, hx ⟩; have := mem_preimage f U ⟨ x, hx ⟩; simp_all
+    . simp_all [X.specification_axiom h]
+  . rintro ⟨ x', rfl, hfx' ⟩; rwa [mem_preimage]
 
 /-- Звя'зок із Mathlib-овським поняттям прообразу. -/
 theorem SetTheory.Set.preimage_eq {X Y:Set} (f:X → Y) (U: Set) :
-    ((preimage f U): _root_.Set Object) = Subtype.val '' (f⁻¹' {y | y.val ∈ U}) := by sorry
+    ((preimage f U): _root_.Set Object) = Subtype.val '' (f⁻¹' {y | y.val ∈ U}) := by
+  ext x
+  simp only [_root_.Set.mem_setOf, _root_.Set.mem_image]
+  simp only [Set.mem_preimage', _root_.Set.mem_preimage]
+  constructor
+  · rintro ⟨x', rfl, hy⟩; use x', hy
+  rintro ⟨x', hy, rfl⟩; simp only [_root_.Set.mem_setOf] at hy; use x'
 
-/-- Приклад 3.4.5 -/
-theorem SetTheory.Set.preimage_f_3_4_2 : preimage f_3_4_2 {2,4,6} = {1,2,3} := by sorry
+theorem SetTheory.Set.preimage_in_domain {X Y:Set} (f:X → Y) (U: Set) :
+    (preimage f U) ⊆ X := by intro x h; simp at h; tauto
+
+/-- Приклад 3.4.6 -/
+theorem SetTheory.Set.preimage_f_3_4_2 : preimage f_3_4_2 {2,4,6} = {1,2,3} := by
+  ext x
+  simp only [mem_preimage', mem_triple, f_3_4_2]
+  constructor
+  · rintro ⟨x, rfl, (h | h | h)⟩ <;> simp_all <;> omega
+  rintro (rfl | rfl | rfl)
+  map_tacs [use 1; use 2; use 3]
+  all_goals simp
 
 theorem SetTheory.Set.image_preimage_f_3_4_2 :
     image f_3_4_2 (preimage f_3_4_2 {1,2,3}) ≠ {1,2,3} := by sorry
 
-/-- Приклад 3.4.6 (використовуючи Mathlib-овську нотацію прообраза) -/
-example : (fun n:ℤ ↦ n^2) ⁻¹' {0,1,4} = {-2,-1,0,1,2} := by sorry
+/-- Приклад 3.4.7 (використовуючи Mathlib-овську нотацію прообраза) -/
+example : (fun n:ℤ ↦ n^2) ⁻¹' {0,1,4} = {-2,-1,0,1,2} := by
+  ext x
+  refine ⟨ ?_, by aesop ⟩
+  rintro (h | h | h)
+  on_goal 3 => have : 2 ^ 2 = (4:ℤ) := (by norm_num); rw [←h, sq_eq_sq_iff_eq_or_eq_neg] at this
+  all_goals aesop
 
 example : (fun n:ℤ ↦ n^2) ⁻¹' ((fun n:ℤ ↦ n^2) '' {-1,0,1,2}) ≠ {-1,0,1,2} := by sorry
 
 instance SetTheory.Set.inst_pow : Pow Set Set where
   pow := SetTheory.pow
 
-/-- Я не зміг зробити це перетворення через технічну проблему `semiOutParam`. -/
-abbrev SetTheory.Set.object_of {X Y:Set} (f: X → Y) : Object := function_to_object X Y f
+@[coe]
+def SetTheory.Set.coe_of_fun {X Y:Set} (f: X → Y) : Object := function_to_object X Y f
 
-theorem SetTheory.Set.power_set_axiom {X Y:Set} (F:Object) :
-    F ∈ (X ^ Y) ↔ ∃ f: Y → X, object_of f = F := SetTheory.power_set_axiom X Y F
+/-- This coercion has to be a `CoeOut` rather than a
+`Coe` because the input type `X → Y` contains
+parameters not present in the output type `Output` -/
+instance SetTheory.Set.inst_coe_of_fun {X Y:Set} : CoeOut (X → Y) Object where
+  coe := coe_of_fun
+
+@[simp]
+theorem SetTheory.Set.coe_of_fun_inj {X Y:Set} (f g:X → Y) : (f:Object) = (g:Object) ↔ f = g := by
+  simp [coe_of_fun]
+
+/-- Axiom 3.11 (Power set axiom) --/
+@[simp]
+theorem SetTheory.Set.powerset_axiom {X Y:Set} (F:Object) :
+    F ∈ (X ^ Y) ↔ ∃ f: Y → X, f = F := SetTheory.powerset_axiom X Y F
 
 /-- Приклад 3.4.8 -/
 abbrev f_3_4_8_a : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 0, by simp ⟩
 
 open Classical in
-noncomputable abbrev f_3_4_8_b : ({4,7}:Set) → ({0,1}:Set) :=
+noncomputable abbrev f_3_4_9_b : ({4,7}:Set) → ({0,1}:Set) :=
   fun x ↦ if x.val = 4 then ⟨ 0, by simp ⟩ else ⟨ 1, by simp ⟩
 
 open Classical in
-noncomputable abbrev f_3_4_8_c : ({4,7}:Set) → ({0,1}:Set) :=
+noncomputable abbrev f_3_4_9_c : ({4,7}:Set) → ({0,1}:Set) :=
   fun x ↦ if x.val = 4 then ⟨ 1, by simp ⟩ else ⟨ 0, by simp ⟩
 
-abbrev f_3_4_8_d : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 1, by simp ⟩
+abbrev f_3_4_9_d : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 1, by simp ⟩
 
-theorem SetTheory.Set.example_3_4_8 (F:Object) :
-    F ∈ ({4,7}:Set) ^ ({0,1}:Set) ↔ F = object_of f_3_4_8_a
-    ∨ F = object_of f_3_4_8_b ∨ F = object_of f_3_4_8_c ∨ F = object_of f_3_4_8_d := by sorry
+theorem SetTheory.Set.example_3_4_9 (F:Object) :
+    F ∈ ({0,1}:Set) ^ ({4,7}:Set) ↔ F = f_3_4_9_a
+    ∨ F = f_3_4_9_b ∨ F = f_3_4_9_c ∨ F = f_3_4_9_d := by
+  rw [powerset_axiom]
+  refine ⟨?_, by aesop ⟩
+  rintro ⟨f, rfl⟩
+  unfold f_3_4_9_a f_3_4_9_b f_3_4_9_c f_3_4_9_d
+  have h1 := (f ⟨4, by simp⟩).property
+  have h2 := (f ⟨7, by simp⟩).property
+  simp [coe_of_fun_inj, mem_pair] at *
+  rcases h1 with _ | _ <;> rcases h2 with _ | _
+  map_tacs [left; (right;left); (right;right;left); (right;right;right)]
+  all_goals ext ⟨_, hx⟩; simp [mem_pair] at hx; aesop
 
-/-- Лема 3.4.9.  Тут потрібно надати відповідне визначення множини потужностей. -/
-abbrev SetTheory.Set.powerset (X:Set) : Set := sorry
+/-- Вправа 3.4.6 (i). Тут потрібно надати відповідне визначення множини потужностей. -/
+def SetTheory.Set.powerset (X:Set) : Set :=
+  (({0,1} ^ X): Set).replace (P := sorry) (by sorry)
 
+open Classical in
+/-- Вправа 3.4.6 (i) -/
+@[simp]
 theorem SetTheory.Set.mem_powerset {X:Set} (x:Object) :
     x ∈ powerset X ↔ ∃ Y:Set, x = Y ∧ Y ⊆ X := by sorry
 
-/-- Ремарка 3.4.10 -/
+/-- Лема 3.4.10 -/
+theorem SetTheory.Set.exists_powerset (X:Set) :
+   ∃ (Z: Set), ∀ x, x ∈ Z ↔ ∃ Y:Set, x = Y ∧ Y ⊆ X := by
+  use powerset X; apply mem_powerset
+
+/- As noted in errata, Exercise 3.4.6 (ii) is replaced by Exercise 3.5.11. -/
+
+/-- Ремарка 3.4.11 -/
 theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
     x ∈ powerset {a,b,c}
     ↔ x = (∅:Set)
@@ -130,21 +215,34 @@ theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
     ∨ x = ({a,b}:Set)
     ∨ x = ({a,c}:Set)
     ∨ x = ({b,c}:Set)
-    ∨ x = ({a,b,c}:Set) := by sorry
+    ∨ x = ({a,b,c}:Set) := by
+  simp only [mem_powerset, subset_def, mem_triple]
+  refine ⟨ ?_, by aesop ⟩
+  rintro ⟨Y, rfl, hY⟩; by_cases ha : a ∈ Y <;> by_cases hb : b ∈ Y <;> by_cases hc : c ∈ Y
+  on_goal 8 => left
+  on_goal 4 => right; left
+  on_goal 6 => right; right; left
+  on_goal 7 => right; right; right; left
+  on_goal 2 => right; right; right; right; left
+  on_goal 3 => right; right; right; right; right; left
+  on_goal 5 => right; right; right; right; right; right; left
+  on_goal 1 => right; right; right; right; right; right; right
+  all_goals congr; ext; simp; grind
 
-/-- Аксіома 3.11 (Об'днання) -/
+/-- Аксіома 3.12 (Об'днання) -/
 theorem SetTheory.Set.union_axiom (A: Set) (x:Object) :
     x ∈ union A ↔ ∃ (S:Set), x ∈ S ∧ (S:Object) ∈ A := SetTheory.union_axiom A x
 
-/-- Приклад 3.4.11 -/
-theorem SetTheory.Set.example_3_4_11 :
+/-- Приклад 3.4.12 -/
+theorem SetTheory.Set.example_3_4_12 :
     union { (({2,3}:Set):Object), (({3,4}:Set):Object), (({4,5}:Set):Object) } = {2,3,4,5} := by
   sorry
 
 /-- Зв'язок із Mathlib-овським об'єднанням -/
 theorem SetTheory.Set.union_eq (A: Set) :
     (union A : _root_.Set Object) =
-    ⋃₀ { S : _root_.Set Object | ∃ S':Set, S = S' ∧ (S':Object) ∈ A } := by sorry
+    ⋃₀ { S : _root_.Set Object | ∃ S':Set, S = S' ∧ (S':Object) ∈ A } := by
+  ext x; simp only [union_axiom, Set.mem_sUnion]; aesop
 
 /-- Індексоване об'єднання -/
 abbrev SetTheory.Set.iUnion (I: Set) (A: I → Set) : Set :=
@@ -152,33 +250,29 @@ abbrev SetTheory.Set.iUnion (I: Set) (A: I → Set) : Set :=
 
 theorem SetTheory.Set.mem_iUnion {I:Set} (A: I → Set) (x:Object) :
     x ∈ iUnion I A ↔ ∃ α:I, x ∈ A α := by
-  rw [union_axiom]
-  constructor
-  . intro h
-    obtain ⟨ S, hx, hS ⟩ := h
-    rw [replacement_axiom] at hS
-    obtain ⟨ α, hα ⟩ := hS
-    simp at hα
-    rw [hα] at hx
-    use α
-  intro h
-  obtain ⟨ α, hx ⟩ := h
-  use A α
-  constructor
-  . exact hx
-  rw [replacement_axiom]
-  use α
+  rw [union_axiom]; constructor
+  . intro ⟨ _, _, hS ⟩; rw [replacement_axiom] at hS; obtain ⟨ α, hα ⟩ := hS
+    simp_all; use α.val, α.property
+  intro ⟨ α, hx ⟩; refine ⟨ A α, hx, by rw [replacement_axiom]; use α ⟩
 
 open Classical in
 noncomputable abbrev SetTheory.Set.index_example : ({1,2,3}:Set) → Set :=
   fun i ↦ if i.val = 1 then {2,3} else if i.val = 2 then {3,4} else {4,5}
 
-theorem SetTheory.Set.iUnion_example : iUnion {1,2,3} index_example = {2,3,4,5} := by sorry
+theorem SetTheory.Set.iUnion_example : iUnion {1,2,3} index_example = {2,3,4,5} := by
+  apply Set.ext; intro x
+  simp only [mem_iUnion, index_example, Insert.insert]
+  refine ⟨ by aesop, ?_ ⟩
+  simp only [mem_union, Subtype.exists]
+  rintro (h | h | h)
+  map_tacs [use 1; use 2; use 3]
+  all_goals aesop
 
 /-- Зв'язок із Mathlib-овським індексованим об'єднанням
 -/
 theorem SetTheory.Set.iUnion_eq (I: Set) (A: I → Set) :
-    (iUnion I A : _root_.Set Object) = ⋃ α, (A α: _root_.Set Object) := by sorry
+    (iUnion I A : _root_.Set Object) = ⋃ α, (A α: _root_.Set Object) := by
+  ext; simp only [mem_iUnion, _root_.Set.mem_setOf_eq, _root_.Set.mem_iUnion]
 
 theorem SetTheory.Set.iUnion_of_empty (A: (∅:Set) → Set) : iUnion (∅:Set) A = ∅ := by sorry
 
@@ -201,14 +295,19 @@ theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y
   (hf: Function.LeftInverse f_inv f ∧ Function.RightInverse f_inv f) (hV: V ⊆ Y) :
     image f_inv V = preimage f V := by sorry
 
-/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `preimage (image f S)` та `S`. -/
--- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) : sorry := by sorry
+/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `preimage f (image f S)` та `S`. -/
+-- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) (hS: S ⊆ X) : sorry := by sorry
 
-/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `image (preimage f U)` та `U`. -/
--- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
+/- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `image f (preimage f U)` та `U`.
+Interestingly, it is not needed for U to be a subset of Y. -/
+-- theorem SetTheory.Set.image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
+
+/- Вправа 3.4.2.  State and prove an assertion connecting `preimage f (image f (preimage f U))` and `preimage f U`.
+Interestingly, it is not needed for U to be a subset of Y.-/
+-- theorem SetTheory.Set.preimage_of_image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
 /--
-  Вправа 3.4.3.  Also state and prove an assertion regarding whether `⊆` can be improved to `=`.
+  Вправа 3.4.3.
 -/
 theorem SetTheory.Set.image_of_inter {X Y:Set} (f:X → Y) (A B: Set) :
     image f (A ∩ B) ⊆ (image f A) ∩ (image f B) := by sorry
@@ -218,6 +317,14 @@ theorem SetTheory.Set.image_of_diff {X Y:Set} (f:X → Y) (A B: Set) :
 
 theorem SetTheory.Set.image_of_union {X Y:Set} (f:X → Y) (A B: Set) :
     image f (A ∪ B) = (image f A) ∪ (image f B) := by sorry
+
+def SetTheory.Set.image_of_inter' : Decidable (∀ X Y:Set, ∀ f:X → Y, ∀ A B: Set, image f (A ∩ B) = (image f A) ∩ (image f B)) := by
+  -- The first line of this construction should be either `apply isTrue` or `apply isFalse`
+  sorry
+
+def SetTheory.Set.image_of_diff' : Decidable (∀ X Y:Set, ∀ f:X → Y, ∀ A B: Set, image f (A \ B) = (image f A) \ (image f B)) := by
+  -- The first line of this construction should be either `apply isTrue` or `apply isFalse`
+  sorry
 
 /-- Вправа 3.4.4 -/
 theorem SetTheory.Set.preimage_of_inter {X Y:Set} (f:X → Y) (A B: Set) :
@@ -237,9 +344,20 @@ theorem SetTheory.Set.image_preimage_of_surj {X Y:Set} (f:X → Y) :
 theorem SetTheory.Set.preimage_image_of_inj {X Y:Set} (f:X → Y) :
     (∀ S, S ⊆ X → preimage f (image f S) = S) ↔ Function.Injective f := by sorry
 
+/-- Helper lemma for Exercise 3.4.7. -/
+@[simp]
+lemma SetTheory.Set.mem_powerset' {S S' : Set} : (S': Object) ∈ S.powerset ↔ S' ⊆ S := by
+  simp [mem_powerset]
+
+/-- Another helper lemma for Exercise 3.4.7. -/
+lemma SetTheory.Set.mem_union_powerset_replace_iff {S : Set} {P : S.powerset → Object → Prop} {hP : _} {x : Object} :
+    x ∈ union (S.powerset.replace (P := P) hP) ↔
+    ∃ (S' : S.powerset) (U : Set), P S' U ∧ x ∈ U := by
+  simp only [union_axiom, replacement_axiom]; tauto
+
 /-- Вправа 3.4.7 -/
 theorem SetTheory.Set.partial_functions {X Y:Set} :
-    ∃ Z:Set, ∀ F:Object, F ∈ Z ↔ ∃ X' Y':Set, X' ⊆ X ∧ Y' ⊆ Y ∧ ∃ f: X' → Y', F = object_of f := by
+    ∃ Z:Set, ∀ F:Object, F ∈ Z ↔ ∃ X' Y':Set, X' ⊆ X ∧ Y' ⊆ Y ∧ ∃ f: X' → Y', F = f := by
   sorry
 
 /--
@@ -265,7 +383,7 @@ theorem SetTheory.Set.union_of_nonempty {I J:Set} (hI: I ≠ ∅) (hJ: J ≠ ∅
 /-- Вправа 3.4.10 -/
 theorem SetTheory.Set.inter_iInter {I J:Set} (hI: I ≠ ∅) (hJ: J ≠ ∅) (A: (I ∪ J:Set) → Set) :
     iInter I hI (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
-    ∪ iInter J hJ (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
+    ∩ iInter J hJ (fun α ↦ A ⟨ α.val, by simp [α.property]⟩)
     = iInter (I ∪ J) (union_of_nonempty hI hJ) A := by sorry
 
 /-- Вправа 3.4.11 -/

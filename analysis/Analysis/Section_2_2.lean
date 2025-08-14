@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_2_1
 
 /-!
-# Аналіз I, Глава 2.2
+# Аналіз I, Глава 2.2: Додавання
 
 Цей файл є перекладом Глави 2.2 Аналізу I до Lean 4.
 Вся нумерація посилається на оригінальний текст.
@@ -113,14 +113,18 @@ instance Nat.addCommMonoid : AddCommMonoid Nat where
   add_zero := add_zero
   nsmul := nsmulRec
 
-/-- Визначення 2.2.7 (Додатні натуральні числе).-/
-def Nat.isPos (n:Nat) : Prop := n ≠ 0
+/-- This illustration of the `abel` tactic is not from the
+    textbook. -/
+example (a b c d:Nat) : (a+b)+(c+0+d) = (b+c)+(d+a) := by abel
 
-theorem Nat.isPos_iff (n:Nat) : n.isPos ↔ n ≠ 0 := by rfl
+/-- Визначення 2.2.7 (Додатні натуральні числе).-/
+def Nat.IsPos (n:Nat) : Prop := n ≠ 0
+
+theorem Nat.isPos_iff (n:Nat) : n.IsPos ↔ n ≠ 0 := by rfl
 
 /-- Твердження 2.2.8 (Додатне плюс натуральне число буде додатним).
     Порівняйте із Mathlib-овським `Nat.add_pos_left` -/
-theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.isPos) : (a + b).isPos := by
+theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.IsPos) : (a + b).IsPos := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   revert b; apply induction
   . rwa [add_zero]
@@ -130,7 +134,7 @@ theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.isPos) : (a + b).isPos := by
   exact this
 
 /-- Порівняйте із Mathlib-овським `Nat.add_pos_right` -/
-theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.isPos) : (b + a).isPos := by
+theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.IsPos) : (b + a).IsPos := by
   rw [add_comm]
   exact add_pos_left _ ha
 
@@ -142,10 +146,10 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
   simp only [not_and_or, ←ne_eq] at h
   rcases h with ha | hb
   . rw [← isPos_iff] at ha
-    have : (a + b).isPos := add_pos_left _ ha
+    have : (a + b).IsPos := add_pos_left _ ha
     contradiction
   rw [← isPos_iff] at hb
-  have : (a + b).isPos := add_pos_right _ hb
+  have : (a + b).IsPos := add_pos_right _ hb
   contradiction
 
 /-
@@ -155,11 +159,9 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
 -/
 
 #check existsUnique_of_exists_of_unique
-#check ExistsUnique.exists
-#check ExistsUnique.unique
 
 /-- Лема 2.2.10 (унікальний попередник) / Вправа 2.2.2 -/
-lemma Nat.uniq_succ_eq (a:Nat) (ha: a.isPos) : ∃! b, b++ = a := by
+lemma Nat.uniq_succ_eq (a:Nat) (ha: a.IsPos) : ∃! b, b++ = a := by
   sorry
 
 /-- Визначення 2.2.11 (Порядок натуральних чисел)
@@ -176,13 +178,15 @@ lemma Nat.le_iff (n m:Nat) : n ≤ m ↔ ∃ a:Nat, m = n + a := by rfl
 
 lemma Nat.lt_iff (n m:Nat) : n < m ↔ (∃ a:Nat, m = n + a) ∧ n ≠ m := by rfl
 
-/-- Порівняйте із Mathlib-овським `ge_iff_le` -/
+/-- Порівняйте із Mathlib-овським `ge_iff_le`. -/
+@[symm]
 lemma Nat.ge_iff_le (n m:Nat) : n ≥ m ↔ m ≤ n := by rfl
 
-/-- Порівняйте із Mathlib-овським `gt_iff_lt` -/
+/-- Порівняйте із Mathlib-овським `gt_iff_lt`. -/
+@[symm]
 lemma Nat.gt_iff_lt (n m:Nat) : n > m ↔ m < n := by rfl
 
-/-- Порівняйте із Mathlib-овським `Nat.le_of_lt` -/
+/-- Порівняйте із Mathlib-овським `Nat.le_of_lt`. -/
 lemma Nat.le_of_lt {n m:Nat} (hnm: n < m) : n ≤ m := hnm.1
 
 /-- Порівняйте із Mathlib-овським `Nat.le_iff_lt_or_eq` -/
@@ -212,12 +216,20 @@ theorem Nat.succ_gt_self (n:Nat) : n++ > n := by
 theorem Nat.ge_refl (a:Nat) : a ≥ a := by
   sorry
 
+@[refl]
+theorem Nat.le_refl (a:Nat) : a ≤ a := a.ge_refl
+
+/-- The refl tag allows for the `rfl` tactic to work for inequalities. -/
+example (a b:Nat): a+b ≥ a+b := by rfl
+
 /-- (b) (Порядок транзітивен).  Тут буде корисною тактика `obtain`.
-    Порівняйте із Mathlib-овським `Nat.le_trans` -/
+    Порівняйте із Mathlib-овським `Nat.le_trans`. -/
 theorem Nat.ge_trans {a b c:Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
   sorry
 
-/-- (c) (Порядок антисіметричен). Порівняйте із Mathlib-овським `Nat.le_antisymm`  -/
+theorem Nat.le_trans {a b c:Nat} (hab: a ≤ b) (hbc: b ≤ c) : a ≤ c := Nat.ge_trans hbc hab
+
+/-- (c) (Порядок антисіметричен). Порівняйте із Mathlib-овським `Nat.le_antisymm`. -/
 theorem Nat.ge_antisymm {a b:Nat} (hab: a ≥ b) (hba: b ≥ a) : a = b := by
   sorry
 
@@ -241,7 +253,7 @@ theorem Nat.lt_iff_succ_le (a b:Nat) : a < b ↔ a++ ≤ b := by
   sorry
 
 /-- (f) a < b if and only if b = a + d for positive d. -/
-theorem Nat.lt_iff_add_pos (a b:Nat) : a < b ↔ ∃ d:Nat, d.isPos ∧ b = a + d := by
+theorem Nat.lt_iff_add_pos (a b:Nat) : a < b ↔ ∃ d:Nat, d.IsPos ∧ b = a + d := by
   sorry
 
 /-- Якщо a < b тоді a ̸= b,-/
@@ -255,24 +267,40 @@ theorem Nat.ne_of_gt (a b:Nat) : a > b → a ≠ b := by
 /-- Якщо a > b та a < b тоді протиріччя -/
 theorem Nat.not_lt_of_gt (a b:Nat) : a < b ∧ a > b → False := by
   intro h
-  have := (ge_antisymm (Nat.le_of_lt h.1) (Nat.le_of_lt h.2)).symm
+  have := (ge_antisymm (le_of_lt h.1) (le_of_lt h.2)).symm
   have := ne_of_lt _ _ h.1
   contradiction
 
+theorem Nat.not_lt_self {a: Nat} (h : a < a) : False := by
+  apply not_lt_of_gt a a
+  simp [h]
+
+theorem Nat.lt_of_le_of_lt {a b c : Nat} (hab: a ≤ b) (hbc: b < c) : a < c := by
+  rw [lt_iff_add_pos] at *
+  rcases hab with ⟨d, hd⟩
+  rcases hbc with ⟨e, he1, he2⟩
+  use d + e
+  constructor
+  . exact add_pos_right d he1
+  . rw [he2, hd, add_assoc]
+
+/-- This lemma was a `why?` statement from Proposition 2.2.13,
+but is more broadly useful, so is extracted here. -/
+theorem Nat.zero_le (a:Nat) : 0 ≤ a := by
+  sorry
 
 /-- Твердження 2.2.13 (Тріхотомія порядку для натуральних чисел) / Вправа 2.2.4
     Порівняйте із Mathlib-овським `trichotomous` -/
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   revert a; apply induction
-  . have why : 0 ≤ b := by
-      sorry
-    replace why := (Nat.le_iff_lt_or_eq _ _).mp why
+  . have why : 0 ≤ b := b.zero_le
+    replace why := (le_iff_lt_or_eq _ _).mp why
     tauto
   intro a ih
   rcases ih with case1 | case2 | case3
   . rw [lt_iff_succ_le] at case1
-    rw [Nat.le_iff_lt_or_eq] at case1
+    rw [le_iff_lt_or_eq] at case1
     tauto
   . have why : a++ > b := by sorry
     tauto
@@ -308,24 +336,68 @@ def Nat.decLe : (a b : Nat) → Decidable (a ≤ b)
 
 instance Nat.decidableRel : DecidableRel (· ≤ · : Nat → Nat → Prop) := Nat.decLe
 
-
-/-- (Не із книги) Nat має структуру лінійне впорядкування. -/
-instance Nat.linearOrder : LinearOrder Nat where
+/-- (Не із книги) Nat має структуру лінійне впорядкування. This allows for tactics
+such as `order` and `calc` to be applicable to the Chapter 2 natural numbers. -/
+instance Nat.instLinearOrder : LinearOrder Nat where
   le_refl := ge_refl
   le_trans a b c hab hbc := ge_trans hbc hab
-  lt_iff_le_not_le := sorry
+  lt_iff_le_not_le := by
+    intro a b
+    constructor
+    intro h
+    constructor
+    . exact le_of_lt h
+    . by_contra h'
+      exact not_lt_self (lt_of_le_of_lt h' h)
+
+    rintro ⟨ h1, h2 ⟩
+    rw [lt_iff, ← le_iff]
+    constructor
+    exact h1
+    by_contra h
+    rw [h] at h2
+    apply h2
+    exact ge_refl b
   le_antisymm a b hab hba := ge_antisymm hba hab
-  le_total := sorry
+  le_total := by
+    intro a b
+    obtain h | h | h := trichotomous a b
+    . left; exact le_of_lt h
+    . simp [h, ge_refl]
+    . right; exact le_of_lt h
   toDecidableLE := decidableRel
 
-/-- (Не із книги) Nat має структуру впорядкованого моноїда. -/
+/-- This illustration of the `order` tactic is not from the
+    textbook. -/
+example (a b c d:Nat) (hab: a ≤ b) (hbc: b ≤ c) (hcd: c ≤ d)
+        (hda: d ≤ a) : a = c := by order
+
+/-- An illustration of the `calc` tactic with `≤/<`. -/
+example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hcd: c ≤ d)
+        (hde: d ≤ e) : a + 0 < e := by
+  calc
+    a + 0 = a := by simp
+        _ ≤ b := hab
+        _ < c := hbc
+        _ ≤ d := hcd
+        _ ≤ e := hde
+
+/-- (Not from textbook) Nat has the structure of an ordered monoid. This allows for tactics
+such as `gcongr` to be applicable to the Chapter 2 natural numbers. -/
 instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
   add_le_add_left := by
     intro a b hab c
     exact (add_le_add_left a b c).mp hab
 
+/-- This illustration of the `gcongr` tactic is not from the
+    textbook. -/
+example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hde: d < e) :
+  a + d ≤ c + e := by
+  gcongr
+  order
+
 /-- Твердження 2.2.14 (Сильний принцип індукції) / Вправа 2.2.5
-    Порівняйте із Mathlib-овським `Nat.strong_induction_on`
+    Порівняйте із Mathlib-овським `Nat.strong_induction_on`.
 -/
 theorem Nat.strong_induction {m₀:Nat} {P: Nat → Prop}
   (hind: ∀ m, m ≥ m₀ → (∀ m', m₀ ≤ m' ∧ m' < m → P m') → P m) :

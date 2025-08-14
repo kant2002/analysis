@@ -3,7 +3,7 @@ import Analysis.Section_5_5
 import Analysis.Section_5_epilogue
 
 /-!
-# Аналіз I, Глава 6.2
+# Analysis I, Section 6.2: The extended real number system
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -21,8 +21,7 @@ Main constructions and results of this section:
 /-- Визначення 6.2.1 -/
 theorem EReal.def (x:EReal) : (∃ (y:Real), y = x) ∨ x = ⊤ ∨ x = ⊥ := by
   revert x
-  rw [EReal.forall]
-  simp
+  simp [EReal.forall]
 
 theorem EReal.real_neq_infty (x:ℝ) : (x:EReal) ≠ ⊤ := coe_ne_top _
 
@@ -30,16 +29,13 @@ theorem EReal.real_neq_neg_infty (x:ℝ) : (x:EReal) ≠ ⊥ := coe_ne_bot _
 
 theorem EReal.infty_neq_neg_infty : (⊤:EReal) ≠ (⊥:EReal) :=  add_top_iff_ne_bot.mp rfl
 
-abbrev EReal.isFinite (x:EReal) : Prop := ∃ (y:Real), y = x
+abbrev EReal.IsFinite (x:EReal) : Prop := ∃ (y:Real), y = x
 
-abbrev EReal.isInfinite (x:EReal) : Prop := x = ⊤ ∨ x = ⊥
+abbrev EReal.IsInfinite (x:EReal) : Prop := x = ⊤ ∨ x = ⊥
 
-theorem EReal.infinite_iff_not_finite (x:EReal): x.isInfinite ↔ ¬ x.isFinite := by
-  unfold isFinite isInfinite
-  rcases EReal.def x with h | h | h
-  all_goals simp [h]
-  obtain ⟨ y, rfl ⟩ := h
-  simp
+theorem EReal.infinite_iff_not_finite (x:EReal): x.IsInfinite ↔ ¬ x.IsFinite := by
+  unfold IsFinite IsInfinite
+  rcases EReal.def x with ⟨ y, rfl ⟩ | rfl | rfl <;> simp
 
 /-- Визначення 6.2.2 (Negation of extended reals) -/
 theorem EReal.neg_of_real (x:Real) : -(x:EReal) = (-x:ℝ) := rfl
@@ -50,29 +46,30 @@ theorem EReal.neg_of_real (x:Real) : -(x:EReal) = (-x:ℝ) := rfl
 /-- Визначення 6.2.3 (Ordering of extended reals) -/
 theorem EReal.le_iff (x y:EReal) :
     x ≤ y ↔ (∃ (x' y':Real), x = x' ∧ y = y' ∧ x' ≤ y') ∨ y = ⊤ ∨ x = ⊥ := by
-  rcases EReal.def x with hx | rfl | rfl
-  all_goals rcases EReal.def y with hy | rfl | rfl
-  all_goals simp
-  obtain ⟨ x', rfl ⟩ := hx
-  obtain ⟨ y', rfl ⟩ := hy
-  simp
+  rcases EReal.def x with ⟨ x', rfl ⟩ | rfl | rfl <;> rcases EReal.def y with ⟨ y', rfl ⟩ | rfl | rfl <;> simp
 
 /-- Визначення 6.2.3 (Ordering of extended reals) -/
 theorem EReal.lt_iff (x y:EReal) : x < y ↔ x ≤ y ∧ x ≠ y := lt_iff_le_and_ne
 
 #check EReal.coe_lt_coe_iff
 
-/-- Приклади 6.2.4 -/
-example : (3:EReal) ≤ (5:EReal) := by sorry
+/-- Examples 6.2.4 -/
+example : (3:EReal) ≤ (5:EReal) := by rw [EReal.le_iff]; left; use (3:ℝ), (5:ℝ); norm_cast
 
-/-- Приклади 6.2.4 -/
-example : (3:EReal) < ⊤ := by sorry
 
-/-- Приклади 6.2.4 -/
-example : (⊥:EReal) < ⊤ := by sorry
+/-- Examples 6.2.4 -/
+example : (3:EReal) < ⊤ := by simp [EReal.lt_iff, EReal.le_iff]; exact EReal.real_neq_infty 3
 
-/-- Приклади 6.2.4 -/
-example : ¬ (3:EReal) ≤ ⊥ := by sorry
+
+/-- Examples 6.2.4 -/
+example : (⊥:EReal) < ⊤ := by simp [EReal.lt_iff, EReal.le_iff]
+
+
+/-- Examples 6.2.4 -/
+example : ¬ (3:EReal) ≤ ⊥ := by
+  by_contra h
+  simp [EReal.le_iff] at h
+  exact EReal.real_neq_neg_infty 3 h
 
 #check instCompleteLinearOrderEReal
 
@@ -102,31 +99,24 @@ theorem EReal.sup_of_bounded_nonempty {E: Set ℝ} (hbound: BddAbove E) (hnon: E
     sSup ((fun (x:ℝ) ↦ (x:EReal)) '' E) = sSup E := calc
   _ = sSup
       ((fun (x:WithTop ℝ) ↦ (x:WithBot (WithTop ℝ))) '' ((fun (x:ℝ) ↦ (x:WithTop ℝ)) '' E)) := by
-    rw [←Set.image_comp]
-    congr
+    rw [←Set.image_comp]; congr
   _ = sSup ((fun (x:ℝ) ↦ (x:WithTop ℝ)) '' E) := by
-    symm
-    convert WithBot.coe_sSup' _ _
+    symm; convert WithBot.coe_sSup' _ _
     . simp [hnon]
     exact Monotone.map_bddAbove WithTop.coe_mono hbound
   _ = ((sSup E : ℝ) : WithTop ℝ) := by
-    congr; symm
-    exact WithTop.coe_sSup' hbound
-  _ = _ := by rfl
+    congr; symm; exact WithTop.coe_sSup' hbound
+  _ = _ := rfl
 
 /-- Визначення 6.2.6 -/
 theorem EReal.sup_of_unbounded_nonempty {E: Set ℝ} (hunbound: ¬ BddAbove E) (hnon: E.Nonempty) :
     sSup ((fun (x:ℝ) ↦ (x:EReal)) '' E) = ⊤ := by
   rw [sSup_eq_top]
   intro b hb
-  rcases EReal.def b with hb' | rfl | rfl
-  . obtain ⟨ y, rfl ⟩ := hb'
-    simp
-    contrapose! hunbound
-    exact ⟨ y, hunbound ⟩
+  rcases EReal.def b with ⟨ y, rfl ⟩ | rfl | rfl
+  . simp; contrapose! hunbound; exact ⟨ y, hunbound ⟩
   . simp at hb
-  simp
-  exact hnon
+  simpa
 
 /-- Визначення 6.2.6 -/
 theorem EReal.sup_of_empty : sSup (∅:Set EReal) = ⊥ := sSup_empty
@@ -134,21 +124,16 @@ theorem EReal.sup_of_empty : sSup (∅:Set EReal) = ⊥ := sSup_empty
 /-- Визначення 6.2.6 -/
 theorem EReal.sup_of_infty_mem {E: Set EReal} (hE: ⊤ ∈ E) : sSup E = ⊤ := csSup_eq_top_of_top_mem hE
 
-/-- Визначення 6.2.6 -/
-theorem EReal.sup_of_neg_infty_mem {E: Set EReal} : sSup E = sSup (E \ {⊥}) :=
-  (sSup_diff_singleton_bot _).symm
+/-- Definition 6.2.6 -/
+theorem EReal.sup_of_neg_infty_mem {E: Set EReal} : sSup E = sSup (E \ {⊥}) := (sSup_diff_singleton_bot _).symm
 
 theorem EReal.inf_eq_neg_sup (E: Set EReal) : sInf E = - sSup (-E) := by
   simp_rw [←isGLB_iff_sInf_eq, isGLB_iff_le_iff, EReal.le_neg]
   intro b
   simp [lowerBounds]
   constructor
-  . intro h a ha
-    specialize h (-a) (by simp [ha])
-    exact neg_le_neg_iff.mp h
-  intro h a ha
-  specialize h ha
-  exact EReal.le_neg_of_le_neg h
+  . intro h a ha; specialize h (-a) (by simp [ha]); exact neg_le_neg_iff.mp h
+  intros; solve_by_elim [EReal.le_neg_of_le_neg]
 
 /-- Приклад 6.2.7 -/
 abbrev Example_6_2_7 : Set EReal := { x | ∃ n:ℕ, x = -((n+1):EReal)} ∪ {⊥}
