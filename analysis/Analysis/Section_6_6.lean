@@ -26,12 +26,12 @@ example (a:ℕ → ℝ) : Sequence.subseq a (fun n ↦ a (2 * n)) := by sorry
 example {f: ℕ → ℕ} (hf: StrictMono f) : Function.Injective f := by sorry
 
 example :
-    Sequence.subseq (fun n ↦ if Even n then 1 + (10:ℝ)^(-(n/2:ℤ)-1) else (1:ℝ)^(-(n/2:ℤ)-1))
+    Sequence.subseq (fun n ↦ if Even n then 1 + (10:ℝ)^(-(n/2:ℤ)-1) else (10:ℝ)^(-(n/2:ℤ)-1))
     (fun n ↦ 1 + (10:ℝ)^(-(n:ℤ)-1)) := by
   sorry
 
 example :
-    Sequence.subseq (fun n ↦ if Even n then 1 + (10:ℝ)^(-(n/2:ℤ)-1) else (1:ℝ)^(-(n/2:ℤ)-1))
+    Sequence.subseq (fun n ↦ if Even n then 1 + (10:ℝ)^(-(n/2:ℤ)-1) else (10:ℝ)^(-(n/2:ℤ)-1))
     (fun n ↦ (10:ℝ)^(-(n:ℤ)-1)) := by
   sorry
 
@@ -56,11 +56,9 @@ theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
 theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).IsBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).Convergent := by
   -- This proof is written to follow the structure of the original text.
-  obtain ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ L_minus, hL_minus ⟩ ⟩ := finite_limsup_liminf_of_bounded ha
+  obtain ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ _, _ ⟩ ⟩ := finite_limsup_liminf_of_bounded ha
   have := limit_point_of_limsup hL_plus
-  rw [limit_point_iff_subseq] at this
-  peel 2 this with b hsubseq this
-  exact ⟨ L_plus, this ⟩
+  rw [limit_point_iff_subseq] at this; peel 2 this; solve_by_elim
 
 /- Вправа 6.6.2 -/
 

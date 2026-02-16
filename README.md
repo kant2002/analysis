@@ -108,6 +108,7 @@ In order to align the formalization with Mathlib conventions, a small number of 
 
 I am using this repository to host some other minor Lean content unrelated to the text book:
 
+- [A formalization of my book on Measure Theory](https://github.com/teorth/analysis/tree/main/analysis/Analysis/MeasureTheory) (work in progress)
 - A formalization of physical units
   - Support for systems of units ([Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/UnitsSystem.html)) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/UnitsSystem.lean))
     - Examples of use ([Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/UnitsSystemExamples.html)) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/UnitsSystemExamples.lean))
@@ -116,6 +117,10 @@ I am using this repository to host some other minor Lean content unrelated to th
 - A formalization of finite choice avoiding Lean's axiom of choice
   - [Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/FiniteChoice.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/FiniteChoice.lean))
 - Some finite probability theory [Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/Probability.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/Probability.lean))
+- A [solution to Erdos problem \#379](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_379.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_379.lean))
+- [Pikhurko's counterexample to Erdos problem \#613](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_613.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_613.lean))
+- A [solution to Erdos problem \#707](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_707.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_707.lean))
+- A [solution to Erdos problem \#987](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_987.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_987.lean))
 
 ## Other resources
 
@@ -162,9 +167,7 @@ More resource suggestions welcome!
 To build this project after [installing Lean](https://lean-lang.org/documentation/setup/) and cloning this repository, follow these steps:
 
 ```
-% cd analysis/
-% lake exe cache get
-% lake build
+% ./build.sh
 ```
 
 ### Building the project's web page
@@ -172,14 +175,23 @@ To build this project after [installing Lean](https://lean-lang.org/documentatio
 To build the project's web page after [installing Lean](https://lean-lang.org/documentation/setup/) and cloning this repository, follow these steps:
 
 ```
-% cd analysis/
-% lake exe cache get
-% lake -R -Kenv=dev build Analysis:docs
-% lake build
-% cd ../book/
-% lake exe analysis-book
-% cd ../
+% ./build-web.sh
 ```
 
 After this, `book/_site/` contains the project's web page.
 This can be served as a webpage by executing `python3 serve.py`
+
+### Updating the Lean/Mathlib version
+
+Because this project uses a deprecated method to conditionally require `doc-gen4`
+in order to update the version of Lean and Mathlib used in the project you need to:
+* edit the `analysis/lakefile.lean` to change the `require` lines for Mathlib and doc-gen4,
+  to pin to the tag corresponding to the next Lean version
+  (it is highly recommended that you update in incremental steps)
+* edit the `analysis/lean-toolchain` to change the Lean version to the next version
+* in `analysis/`, run `lake update -R -Kenv=dev`
+* this may have the side effect of setting your `lean-toolchain` to the *latest* Lean version;
+  if so, revert it to the intended version
+
+It is essential that the dependencies on `subverso` in the `analysis/` and `book/` directories
+stay in sync (in particular, matching the toolchain used in the `book/` directory).

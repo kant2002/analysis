@@ -56,6 +56,13 @@ import Mathlib.Tactic
   Однак, через різні технічні несумісності між теорією множин та теорією типів, ми не намагатимемося
   створити будь-яку еквівалентність між цими двома поняттями множин. (Таким чином, це робить весь
   цей розділ необов'язковим з точки зору решти книги, хоча ми зберігаємо його для педагогічних цілей.)
+
+## Підказки від попередніх користувачів
+
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
+
+- (Додайте підказку тут)
+
 -/
 
 namespace Chapter3
@@ -162,7 +169,7 @@ lemma SetTheory.Set.nonempty_def {X:Set} (h: X ≠ ∅) : ∃ x, x ∈ X := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra! this
   have claim (x:Object) : x ∈ X ↔ x ∈ (∅:Set) := by simp [this, not_mem_empty]
-  replace claim := ext claim
+  apply ext at claim
   contradiction
 
 theorem SetTheory.Set.nonempty_of_inhabited {X:Set} {x:Object} (h:x ∈ X) : X ≠ ∅ := by
@@ -273,11 +280,10 @@ theorem SetTheory.Set.union_assoc (A B C:Set) : (A ∪ B) ∪ C = A ∪ (B ∪ C
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   ext x
   constructor
-  . intro hx
-    rw [mem_union] at hx
-    rcases hx with case1 | case2
+  . intro hx; rw [mem_union] at hx
+    obtain case1 | case2 := hx
     . rw [mem_union] at case1
-      rcases case1 with case1a | case1b
+      obtain case1a | case1b := case1
       . rw [mem_union]; tauto
       have : x ∈ B ∪ C := by rw [mem_union]; tauto
       rw [mem_union]; tauto
@@ -351,8 +357,8 @@ theorem SetTheory.Set.subset_trans {A B C:Set} (hAB:A ⊆ B) (hBC:B ⊆ C) : A �
   rw [subset_def]
   intro x hx
   rw [subset_def] at hAB
-  replace hx := hAB x hx
-  replace hx := hBC x hx
+  apply hAB x at hx
+  apply hBC x at hx
   assumption
 
 /-- Твердження 3.1.17 (Часткове впорядкування через підмножини) -/
@@ -501,15 +507,13 @@ theorem  SetTheory.Set.union_inter_distrib_left (A B C:Set) :
 theorem SetTheory.Set.union_compl {A X:Set} (hAX: A ⊆ X) : A ∪ (X \ A) = X := by sorry
 
 /-- Твердження 3.1.27(f) -/
-theorem SetTheory.Set.inter_compl {A X:Set} (hAX: A ⊆ X) : A ∩ (X \ A) = ∅ := by sorry
+theorem SetTheory.Set.inter_compl {A X:Set} : A ∩ (X \ A) = ∅ := by sorry
 
 /-- Твердження 3.1.27(g) -/
-theorem SetTheory.Set.compl_union {A B X:Set} (hAX: A ⊆ X) (hBX: B ⊆ X) :
-    X \ (A ∪ B) = (X \ A) ∩ (X \ B) := by sorry
+theorem SetTheory.Set.compl_union {A B X:Set} : X \ (A ∪ B) = (X \ A) ∩ (X \ B) := by sorry
 
 /-- Твердження 3.1.27(g) -/
-theorem SetTheory.Set.compl_inter {A B X:Set} (hAX: A ⊆ X) (hBX: B ⊆ X) :
-    X \ (A ∩ B) = (X \ A) ∪ (X \ B) := by sorry
+theorem SetTheory.Set.compl_inter {A B X:Set} : X \ (A ∩ B) = (X \ A) ∪ (X \ B) := by sorry
 
 /-- Не з підручника: множини утворюють дистрибутивну решітку. -/
 instance SetTheory.Set.instDistribLattice : DistribLattice Set where
@@ -618,6 +622,14 @@ example : Set := {1, 2, 3}
 lemma SetTheory.Object.ofnat_eq {n:ℕ} : ((n:Nat):Object) = (n:Object) := rfl
 
 lemma SetTheory.Object.ofnat_eq' {n:ℕ} : (ofNat(n):Object) = (n:Object) := rfl
+
+@[simp]
+lemma SetTheory.Object.ofnat_eq'' {n:Nat} : ((n:ℕ):Object) = (n: Object) := by
+  simp [instNatCast, Nat.cast, Set.instNatCast]
+
+@[simp]
+lemma SetTheory.Object.ofnat_eq''' {n:ℕ} {hn} : ((⟨(n:Object), hn⟩: nat): ℕ) = n := by
+  simp [instNatCast, Nat.cast, Set.instNatCast]
 
 lemma SetTheory.Set.nat_coe_eq {n:ℕ} : (n:Nat) = OfNat.ofNat n := rfl
 
@@ -835,7 +847,7 @@ theorem SetTheory.Set.coe_inj' (X Y:Set) :
 
 /-- Сумісність операції належності ∈ -/
 theorem SetTheory.Set.mem_coe (X:Set) (x:Object) : x ∈ (X : _root_.Set Object) ↔ x ∈ X := by
-  simp [Coe.coe]
+  simp
 
 /-- Сумісність порожньої множини -/
 theorem SetTheory.Set.coe_empty : ((∅:Set) : _root_.Set Object) = ∅ := by sorry
@@ -848,25 +860,25 @@ theorem SetTheory.Set.coe_ssubset (X Y:Set) :
     (X : _root_.Set Object) ⊂ (Y : _root_.Set Object) ↔ X ⊂ Y := by sorry
 
 /-- Сумісність синглтона -/
-theorem SetTheory.Set.coe_singleton (x: Object) : ({x} : _root_.Set Object) = {x} := by sorry
+theorem SetTheory.Set.coe_singleton (x: Object) : (({x}:Set) : _root_.Set Object) = {x} := by sorry
 
 /-- Сумісність об'еднання -/
 theorem SetTheory.Set.coe_union (X Y: Set) :
-    (X ∪ Y : _root_.Set Object) = (X : _root_.Set Object) ∪ (Y : _root_.Set Object) := by sorry
+    ((X ∪ Y:Set) : _root_.Set Object) = (X : _root_.Set Object) ∪ (Y : _root_.Set Object) := by sorry
 
 /-- Сумісність пари -/
-theorem SetTheory.Set.coe_pair (x y: Object) : ({x, y} : _root_.Set Object) = {x, y} := by sorry
+theorem SetTheory.Set.coe_pair (x y: Object) : (({x, y}:Set) : _root_.Set Object) = {x, y} := by sorry
 
 /-- Сумісність підтипу -/
 theorem SetTheory.Set.coe_subtype (X: Set) :  (X : _root_.Set Object) = X.toSubtype := by sorry
 
 /-- Сумісність перетину -/
 theorem SetTheory.Set.coe_intersection (X Y: Set) :
-    (X ∩ Y : _root_.Set Object) = (X : _root_.Set Object) ∩ (Y : _root_.Set Object) := by sorry
+    ((X ∩ Y:Set) : _root_.Set Object) = (X : _root_.Set Object) ∩ (Y : _root_.Set Object) := by sorry
 
 /-- Сумісність різниці множин-/
 theorem SetTheory.Set.coe_diff (X Y: Set) :
-    (X \ Y : _root_.Set Object) = (X : _root_.Set Object) \ (Y : _root_.Set Object) := by sorry
+    ((X \ Y:Set) : _root_.Set Object) = (X : _root_.Set Object) \ (Y : _root_.Set Object) := by sorry
 
 /-- Сумісність неперетинності -/
 theorem SetTheory.Set.coe_Disjoint (X Y: Set) :

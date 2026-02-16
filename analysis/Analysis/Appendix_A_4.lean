@@ -81,7 +81,7 @@ example : ∀ x, (3 < x ∧ x < 2) → (6 < 2*x ∧ 2*x < 4) := by
   intro x
   intro h
   obtain ⟨ h1, h2 ⟩ := h
-  -- попередні три рядки можна забуцкати в `rintro x ⟨ h1, h2 ⟩`
+  -- попередні три рядки можна забуцкати в `intro x ⟨ h1, h2 ⟩`
   constructor
   . linarith
   linarith

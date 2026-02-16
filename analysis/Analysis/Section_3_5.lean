@@ -18,6 +18,12 @@ import Analysis.Section_3_4
 - Зліченний вибіру.
 - Зв'язок із Mathlib аналогами такими як `Set.pi` та `Set.prod`.
 
+## Tips from past users
+
+Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+
+- (Add tip here)
+
 --/
 
 namespace Chapter3
@@ -53,14 +59,14 @@ def OrderedPair.toObject : OrderedPair ↪ Object where
   inj' := by sorry
 
 instance OrderedPair.inst_coeObject : Coe OrderedPair Object where
-  coe := OrderedPair.toObject
+  coe := toObject
 
 /--
   Технічна операція перетворююча об'єкт `x` та множину `Y` на множину `{x} × Y`, необхідна для
   визначення повного декартового добутку
 -/
 abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
-  Y.replace (P := fun y z ↦ z = (⟨x, y⟩:OrderedPair)) (by intros; simp_all)
+  Y.replace (P := fun y z ↦ z = (⟨x, y⟩:OrderedPair)) (by grind)
 
 @[simp]
 theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
@@ -68,7 +74,7 @@ theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
 
 /-- Визначення 3.5.4 (Декартовий добуток) -/
 abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
-  union (X.replace (P := fun x z ↦ z = slice x Y) (by intros; simp_all))
+  union (X.replace (P := fun x z ↦ z = slice x Y) (by grind))
 
 /-- Цей екземпляр дозволяє використовувати позначення ×ˢ для декартового добутку. -/
 instance SetTheory.Set.inst_SProd : SProd Set Set Set where
@@ -107,14 +113,14 @@ theorem SetTheory.Set.fst_of_mk_cartesian {X Y:Set} (x:X) (y:Y) :
     fst (mk_cartesian x y) = x := by
   let z := mk_cartesian x y; have := (mem_cartesian _ _ _).mp z.property
   obtain ⟨ y', hy: z.val = (⟨ fst z, y' ⟩:OrderedPair) ⟩ := this.choose_spec
-  simp [z, mk_cartesian, Subtype.val_inj] at hy ⊢; rw [←hy.1]
+  simp [z, mk_cartesian, Subtype.val_inj] at *; rw [←hy.1]
 
 @[simp]
 theorem SetTheory.Set.snd_of_mk_cartesian {X Y:Set} (x:X) (y:Y) :
     snd (mk_cartesian x y) = y := by
   let z := mk_cartesian x y; have := (mem_cartesian _ _ _).mp z.property
   obtain ⟨ x', hx: z.val = (⟨ x', snd z ⟩:OrderedPair) ⟩ := (exists_comm.mp this).choose_spec
-  simp [z, mk_cartesian, Subtype.val_inj] at hx ⊢; rw [←hx.2]
+  simp [z, mk_cartesian, Subtype.val_inj] at *; rw [←hx.2]
 
 @[simp]
 theorem SetTheory.Set.mk_cartesian_fst_snd_eq {X Y: Set} (z: X ×ˢ Y) :
@@ -128,10 +134,10 @@ theorem SetTheory.Set.mk_cartesian_fst_snd_eq {X Y: Set} (z: X ×ˢ Y) :
 -/
 noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
     ((X ×ˢ Y):_root_.Set Object) ≃ (X:_root_.Set Object) ×ˢ (Y:_root_.Set Object) where
-  toFun := fun z ↦ ⟨(fst z, snd z), by simp⟩
-  invFun := fun z ↦ mk_cartesian ⟨z.val.1, z.prop.1⟩ ⟨z.val.2, z.prop.2⟩
-  left_inv := by intro; simp
-  right_inv := by intro; simp
+  toFun z := ⟨(fst z, snd z), by simp⟩
+  invFun z := mk_cartesian ⟨z.val.1, z.prop.1⟩ ⟨z.val.2, z.prop.2⟩
+  left_inv _ := by simp
+  right_inv _ := by simp
 
 /-- Example 3.5.5 -/
 example : ({1, 2}: Set) ×ˢ ({3, 4, 5}: Set) = ({
@@ -152,10 +158,10 @@ noncomputable abbrev SetTheory.Set.prod_commutator (X Y:Set) : X ×ˢ Y ≃ Y ×
 
 /-- Example 3.5.5. A function of two variables can be thought of as a function of a pair. -/
 noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃ (X ×ˢ Y → Z) where
-  toFun := fun f z ↦ f (fst z) (snd z)
-  invFun := fun f x y ↦ f ⟨ (⟨ x, y ⟩:OrderedPair), by simp ⟩
-  left_inv := by intro; simp
-  right_inv := by intro; simp [←pair_eq_fst_snd]
+  toFun f z := f (fst z) (snd z)
+  invFun f x y := f ⟨ (⟨ x, y ⟩:OrderedPair), by simp ⟩
+  left_inv _ := by simp
+  right_inv _ := by simp [←pair_eq_fst_snd]
 
 /-- Definition 3.5.6.  The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
     See Exercise 3.5.10 below for some connections betweeen this concept and the preceding notion
@@ -185,10 +191,10 @@ theorem SetTheory.Set.tuple_inj {I:Set} {X: I → Set} (x y: ∀ i, X i) :
 
 /-- Example 3.5.8. There is a bijection between `(X ×ˢ Y) ×ˢ Z` and `X ×ˢ (Y ×ˢ Z)`. -/
 noncomputable abbrev SetTheory.Set.prod_associator (X Y Z:Set) : (X ×ˢ Y) ×ˢ Z ≃ X ×ˢ (Y ×ˢ Z) where
-  toFun := fun p ↦ mk_cartesian (fst (fst p)) (mk_cartesian (snd (fst p)) (snd p))
-  invFun := fun p ↦ mk_cartesian (mk_cartesian (fst p) (fst (snd p))) (snd (snd p))
-  left_inv := by intro; simp
-  right_inv := by intro; simp
+  toFun p := mk_cartesian (fst (fst p)) (mk_cartesian (snd (fst p)) (snd p))
+  invFun p := mk_cartesian (mk_cartesian (fst p) (fst (snd p))) (snd (snd p))
+  left_inv _ := by simp
+  right_inv _ := by simp
 
 /--
   Example 3.5.10. I suspect most of the equivalences will require classical reasoning and only be
@@ -210,7 +216,7 @@ abbrev SetTheory.Set.empty_iProd_equiv (X: (∅:Set) → Set) : iProd X ≃ Unit
 
 /-- Приклад 3.5.10 -/
 noncomputable abbrev SetTheory.Set.iProd_of_const_equiv (I:Set) (X: Set) :
-    iProd (fun i:I ↦ X) ≃ (I → X) where
+    iProd (fun _:I ↦ X) ≃ (I → X) where
   toFun := sorry
   invFun := sorry
   left_inv := sorry
@@ -235,25 +241,14 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_prod_triple (X: ({0,1,2}:Set) →
 /-- Зв'язки із Mathlib-овським `Set.pi` -/
 noncomputable abbrev SetTheory.Set.iProd_equiv_pi (I:Set) (X: I → Set) :
     iProd X ≃ Set.pi .univ (fun i:I ↦ ((X i):_root_.Set Object)) where
-  toFun := fun t ↦
-    have h := (mem_iProd _).mp t.property
-    have x := h.choose
-    ⟨fun i ↦ x i, by simp⟩
-  invFun := fun x ↦
-    ⟨tuple fun i ↦ ⟨x.val i, by
-      have := x.property i; simpa
-    ⟩, by apply tuple_mem_iProd⟩
-  left_inv := by
-    intro t; ext
-    have h := (mem_iProd _).mp t.property
-    rw [h.choose_spec, tuple_inj]
-  right_inv := by
-    intro x; ext i
-    dsimp only []
+  toFun t := ⟨fun i ↦ ((mem_iProd _).mp t.property).choose i, by simp⟩
+  invFun x :=
+    ⟨tuple fun i ↦ ⟨x.val i, by have := x.property i; simpa⟩, by apply tuple_mem_iProd⟩
+  left_inv t := by ext; rw [((mem_iProd _).mp t.property).choose_spec, tuple_inj]
+  right_inv x := by
+    ext; dsimp
     generalize_proofs _ h
-    have ht := h.choose_spec
-    rw [tuple_inj] at ht
-    rw [←ht]
+    rw [←(tuple_inj _ _).mp h.choose_spec]
 
 
 /-
@@ -270,24 +265,21 @@ abbrev SetTheory.Set.Fin (n:ℕ) : Set := nat.specify (fun m ↦ (m:ℕ) < n)
 theorem SetTheory.Set.mem_Fin (n:ℕ) (x:Object) : x ∈ Fin n ↔ ∃ m, m < n ∧ x = m := by
   rw [specification_axiom'']; constructor
   . intro ⟨ h1, h2 ⟩; use ↑(⟨ x, h1 ⟩:nat); simp [h2]
-    calc
-      x = (⟨ x, h1 ⟩:nat) := rfl
-      _ = _ := by congr; simp
   intro ⟨ m, hm, h ⟩
-  use (by rw [h, ←SetTheory.Object.ofnat_eq]; exact (m:nat).property)
-  convert hm; simp [h, Equiv.symm_apply_eq]; rfl
+  use (by rw [h, ←Object.ofnat_eq]; exact (m:nat).property)
+  grind [Object.ofnat_eq''']
 
 abbrev SetTheory.Set.Fin_mk (n m:ℕ) (h: m < n): Fin n := ⟨ m, by rw [mem_Fin]; use m ⟩
 
 theorem SetTheory.Set.mem_Fin' {n:ℕ} (x:Fin n) : ∃ m, ∃ h : m < n, x = Fin_mk n m h := by
-  obtain ⟨ m, hm, this ⟩ := (mem_Fin _ _).mp x.property; use m, hm
+  choose m hm this using (mem_Fin _ _).mp x.property; use m, hm
   simp [Fin_mk, ←Subtype.val_inj, this]
 
 @[coe]
 noncomputable abbrev SetTheory.Set.Fin.toNat {n:ℕ} (i: Fin n) : ℕ := (mem_Fin' i).choose
 
 noncomputable instance SetTheory.Set.Fin.inst_coeNat {n:ℕ} : CoeOut (Fin n) ℕ where
-  coe := SetTheory.Set.Fin.toNat
+  coe := toNat
 
 theorem SetTheory.Set.Fin.toNat_spec {n:ℕ} (i: Fin n) :
     ∃ h : i < n, i = Fin_mk n i h := (mem_Fin' i).choose_spec
@@ -298,22 +290,49 @@ theorem SetTheory.Set.Fin.toNat_lt {n:ℕ} (i: Fin n) : i < n := (toNat_spec i).
 theorem SetTheory.Set.Fin.coe_toNat {n:ℕ} (i: Fin n) : ((i:ℕ):Object) = (i:Object) := by
   set j := (i:ℕ); obtain ⟨ h, h':i = Fin_mk n j h ⟩ := toNat_spec i; rw [h']
 
+@[simp low]
+lemma SetTheory.Set.Fin.coe_inj {n:ℕ} {i j: Fin n} : i = j ↔ (i:ℕ) = (j:ℕ) := by
+  constructor
+  · simp_all
+  obtain ⟨_, hi⟩ := toNat_spec i
+  obtain ⟨_, hj⟩ := toNat_spec j
+  grind
+
+@[simp]
+theorem SetTheory.Set.Fin.coe_eq_iff {n:ℕ} (i: Fin n) {j:ℕ} : (i:Object) = (j:Object) ↔ i = j := by
+  constructor
+  · intro h
+    rw [Subtype.coe_eq_iff] at h
+    obtain ⟨_, rfl⟩ := h
+    simp [←Object.natCast_inj]
+  aesop
+
+@[simp]
+theorem SetTheory.Set.Fin.coe_eq_iff' {n m:ℕ} (i: Fin n) (hi : ↑i ∈ Fin m) : ((⟨i, hi⟩ : Fin m):ℕ) = (i:ℕ) := by
+  obtain ⟨val, property⟩ := i
+  simp only [toNat, Subtype.mk.injEq, exists_prop]
+  generalize_proofs h1 h2
+  suffices : (h1.choose: Object) = h2.choose
+  · aesop
+  have := h1.choose_spec
+  have := h2.choose_spec
+  grind
+
 @[simp]
 theorem SetTheory.Set.Fin.toNat_mk {n:ℕ} (m:ℕ) (h: m < n) : (Fin_mk n m h : ℕ) = m := by
   have := coe_toNat (Fin_mk n m h)
-  rwa [SetTheory.Object.natCast_inj] at this
+  rwa [Object.natCast_inj] at this
 
 abbrev SetTheory.Set.Fin_embed (n N:ℕ) (h: n ≤ N) (i: Fin n) : Fin N := ⟨ i.val, by
-  have := i.property; rw [mem_Fin] at this ⊢
-  obtain ⟨ m, hm, im ⟩ := this; use m, by linarith
+  have := i.property; rw [mem_Fin] at *; grind
 ⟩
 
 /-- Connections with Mathlib's `Fin n` -/
 noncomputable abbrev SetTheory.Set.Fin.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin n where
-  toFun := fun m ↦ _root_.Fin.mk m (toNat_lt m)
-  invFun := fun m ↦ Fin_mk n m.val m.isLt
-  left_inv := by intro m; exact (toNat_spec m).2.symm
-  right_inv := by intro m; simp
+  toFun m := _root_.Fin.mk m (toNat_lt m)
+  invFun m := Fin_mk n m.val m.isLt
+  left_inv m := (toNat_spec m).2.symm
+  right_inv m := by simp
 
 /-- Лема 3.5.11 (зліченний вибір) -/
 theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i ≠ ∅) : iProd X ≠ ∅ := by
@@ -321,24 +340,25 @@ theorem SetTheory.Set.finite_choice {n:ℕ} {X: Fin n → Set} (h: ∀ i, X i �
   -- (хоча зручніше проводити індукцію від 0, а не від 1)
   induction' n with n hn
   . have : Fin 0 = ∅ := by
-      rw [eq_empty_iff_forall_notMem]; intros; by_contra! h; simp at h
+      rw [eq_empty_iff_forall_notMem]
+      grind [specification_axiom'']
     have empty (i:Fin 0) : X i := False.elim (by rw [this] at i; exact not_mem_empty i i.property)
     apply nonempty_of_inhabited (x := tuple empty); rw [mem_iProd]; use empty
   set X' : Fin n → Set := fun i ↦ X (Fin_embed n (n+1) (by linarith) i)
   have hX' (i: Fin n) : X' i ≠ ∅ := h _
-  obtain ⟨ x'_obj, hx' ⟩ := nonempty_def (hn hX')
+  choose x'_obj hx' using nonempty_def (hn hX')
   rw [mem_iProd] at hx'; obtain ⟨ x', rfl ⟩ := hx'
   set last : Fin (n+1) := Fin_mk (n+1) n (by linarith)
-  obtain ⟨ a, ha ⟩ := nonempty_def (h last)
+  choose a ha using nonempty_def (h last)
   have x : ∀ i, X i := fun i =>
     if h : i = n then
       have : i = last := by ext; simpa [←Fin.coe_toNat, last]
-      ⟨a, by rwa [this]⟩
+      ⟨a, by grind⟩
     else
       have : i < n := lt_of_le_of_ne (Nat.lt_succ_iff.mp (Fin.toNat_lt i)) h
       let i' := Fin_mk n i this
       have : X i = X' i' := by simp [X', i', Fin_embed]
-      ⟨x' i', by rw [this]; exact (x' i').property⟩
+      ⟨x' i', by grind⟩
   exact nonempty_of_inhabited (tuple_mem_iProd x)
 
 /-- Вправа 3.5.1, друга частина (вимагає аксіоми регулярності) -/
@@ -349,7 +369,7 @@ abbrev OrderedPair.toObject' : OrderedPair ↪ Object where
 /-- Альтернативне визначення кортежу, використане у Вправі 3.5.2 -/
 structure SetTheory.Set.Tuple (n:ℕ) where
   X: Set
-  x: SetTheory.Set.Fin n → X
+  x: Fin n → X
   surj: Function.Surjective x
 
 /--
@@ -362,12 +382,7 @@ lemma SetTheory.Set.Tuple.ext {n:ℕ} {t t':Tuple n}
     (hX : t.X = t'.X)
     (hx : ∀ n : Fin n, ((t.x n):Object) = ((t'.x n):Object)) :
     t = t' := by
-  rcases t with ⟨tX, tx, tsurj⟩
-  rcases t' with ⟨tX', tx', tsurj'⟩
-  subst hX
-  congr
-  ext m
-  apply hx
+  have ⟨_, _, _⟩ := t; have ⟨_, _, _⟩ := t'; subst hX; congr; ext; grind
 
 /-- Exercise 3.5.2 -/
 theorem SetTheory.Set.Tuple.eq {n:ℕ} (t t':Tuple n) :
@@ -479,7 +494,7 @@ theorem SetTheory.Set.powerset_axiom' (X Y:Set) :
     ∃! S:Set, ∀(F:Object), F ∈ S ↔ ∃ f: Y → X, f = F := sorry
 
 /-- Вправа 3.5.12, з включеними помилками з веб-сайту -/
-theorem SetTheory.Set.recursion (X: Type) (f: nat → X → X) (c:X) :
+theorem SetTheory.Set.recursion (X: Set) (f: nat → X → X) (c:X) :
     ∃! a: nat → X, a 0 = c ∧ ∀ n, a (n + 1:ℕ) = f n (a n) := by sorry
 
 /-- Вправа 3.5.13 -/
@@ -487,7 +502,21 @@ theorem SetTheory.Set.nat_unique (nat':Set) (zero:nat') (succ:nat' → nat')
   (succ_ne: ∀ n:nat', succ n ≠ zero) (succ_of_ne: ∀ n m:nat', n ≠ m → succ n ≠ succ m)
   (ind: ∀ P: nat' → Prop, P zero → (∀ n, P n → P (succ n)) → ∀ n, P n) :
     ∃! f : nat → nat', Function.Bijective f ∧ f 0 = zero
-    ∧ ∀ (n:nat) (n':nat'), f n = n' ↔ f (n+1:ℕ) = succ n' := by sorry
+    ∧ ∀ (n:nat) (n':nat'), f n = n' ↔ f (n+1:ℕ) = succ n' := by
+  have nat_coe_eq {m:nat} {n} : (m:ℕ) = n → m = n := by aesop
+  have nat_coe_eq_zero {m:nat} : (m:ℕ) = 0 → m = 0 := nat_coe_eq
+  obtain ⟨f, hf⟩ := recursion nat' sorry sorry
+  apply existsUnique_of_exists_of_unique
+  · use f
+    constructor
+    · constructor
+      · intro x1 x2 heq
+        induction' hx1: (x1:ℕ) with i ih generalizing x1 x2
+        · sorry
+        sorry
+      sorry
+    sorry
+  sorry
 
 
 end Chapter3

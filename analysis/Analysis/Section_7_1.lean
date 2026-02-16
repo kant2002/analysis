@@ -40,7 +40,7 @@ namespace Finset
 
 /-- Визначення 7.1.1 -/
 theorem sum_of_empty {n m:ℤ} (h: n < m) (a: ℤ → ℝ) : ∑ i ∈ Icc m n, a i = 0 := by
-  rw [sum_eq_zero]; intro x hx; rw [mem_Icc] at hx; linarith
+  rw [sum_eq_zero]; intro _; rw [mem_Icc]; grind
 
 /--
   Визначення 7.1.1. This is similar to Mathlib's `Finset.sum_Icc_succ_top` except that the
@@ -103,7 +103,7 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
   -- This proof is written to broadly follow the structure of the original text.
   revert X n; intro n
   induction' n with n hn
-  . simp [sum_of_empty (show 0 < 1 by norm_num) (fun _ ↦ 0)]
+  . simp
   intro X hX g h hg hh
   -- A technical step: we extend g, h to the entire integers using a slightly artificial map π
   set π : ℤ → Icc (1:ℤ) (n+1) :=
@@ -116,12 +116,12 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
   simp [-mem_Icc, hπ]
   rw [sum_of_nonempty (by linarith) _]
   set x := g (π (n+1))
-  obtain ⟨⟨j, hj'⟩, hj⟩ := hh.surjective x
+  have ⟨⟨j, hj'⟩, hj⟩ := hh.surjective x
   simp at hj'; obtain ⟨ hj1, hj2 ⟩ := hj'
   set h' : ℤ → X := fun i ↦ if (i:ℤ) < j then h (π i) else h (π (i+1))
   have : ∑ i ∈ Icc (1:ℤ) (n + 1), f (h (π i)) = ∑ i ∈ Icc (1:ℤ) n, f (h' i) + f x := calc
     _ = ∑ i ∈ Icc (1:ℤ) j, f (h (π i)) + ∑ i ∈ Icc (j+1:ℤ) (n + 1), f (h (π i)) := by
-      convert (concat_finite_series _ _ _).symm <;> linarith
+      symm; apply concat_finite_series <;> linarith
     _ = ∑ i ∈ Icc (1:ℤ) (j-1), f (h (π i)) + f ( h (π j) )
         + ∑ i ∈ Icc (j+1:ℤ) (n + 1), f (h (π i)) := by
       congr; convert sum_of_nonempty _ _ <;> simp [hj1]
@@ -132,7 +132,7 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
     _ = ∑ i ∈ Icc (1:ℤ) (j-1), f (h (π i)) + ∑ i ∈ Icc (j:ℤ) n, f (h (π (i+1))) + f x := by abel
     _ = ∑ i ∈ Icc (1:ℤ) (j-1), f (h' i) + ∑ i ∈ Icc (j:ℤ) n, f (h' i) + f x := by
       congr 2
-      all_goals apply sum_congr rfl _; intro i hi; simp [h'] at hi ⊢
+      all_goals apply sum_congr rfl _; intro i hi; simp [h'] at *
       . simp [show i < j by linarith]
       simp [show ¬ i < j by linarith]
     _ = _ := by congr; convert concat_finite_series _ _ _ <;> linarith
@@ -160,14 +160,11 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
   have why2 : Function.Bijective htil := by sorry
   calc
     _ = ∑ i ∈ Icc (1:ℤ) n, if hi: i ∈ Icc (1:ℤ) n then ftil (gtil ⟨ i, hi ⟩ ) else 0 := by
-      apply sum_congr rfl _
-      intro i hi; simp [hi, gtil, ftil]
+      apply sum_congr rfl; grind
     _ = ∑ i ∈ Icc (1:ℤ) n, if hi: i ∈ Icc (1:ℤ) n then ftil (htil ⟨ i, hi ⟩ ) else 0 := by
       convert hn _ _ gtil htil why why2
       rw [Finset.card_erase_of_mem _, hX] <;> simp
-    _ = _ := by
-      apply sum_congr rfl _
-      intro i hi; simp [hi, htil, ftil]
+    _ = _ := by apply sum_congr rfl; grind
 
 /--
   This fact ensures that Definition 7.1.6 would be well-defined even if we did not appeal to the
@@ -184,12 +181,9 @@ theorem finite_series_eq {n:ℕ} {Y:Type*} (X: Finset Y) (f: Y → ℝ) (g: Icc 
     ∑ i ∈ X, f i = ∑ i ∈ Icc (1:ℤ) n, (if hi:i ∈ Icc (1:ℤ) n then f (g ⟨ i, hi ⟩) else 0) := by
   symm
   convert sum_bij (t:=X) (fun i hi ↦ g ⟨ i, hi ⟩ ) _ _ _ _
-  . intro i hi; simp [hi]
-  . intro i hi j hj h
-    simpa [Subtype.val_inj, hg.injective.eq_iff] using h
-  . intro b hb
-    obtain ⟨⟨i, hi⟩, h⟩ := hg.surjective ⟨ b, hb ⟩
-    use i, hi; simp [h]
+  . aesop
+  . intro _ _ _ _ h; simpa [Subtype.val_inj, hg.injective.eq_iff] using h
+  . intro b hb; have := hg.surjective ⟨ b, hb ⟩; grind
   intros; simp_all
 
 /-- Твердження 7.1.11(a) / Вправа 7.1.2 -/
@@ -241,11 +235,11 @@ theorem finite_series_of_finite_series {XX YY:Type*} (X: Finset XX) (Y: Finset Y
   revert X; induction' n with n hn
   . sorry
   intro X hX
-  have hnon : X.Nonempty := by rw [←card_ne_zero]; linarith
-  obtain ⟨ x₀, hx₀ ⟩ := hnon.exists_mem
+  have hnon : X.Nonempty := by grind [card_ne_zero]
+  choose x₀ hx₀ using hnon.exists_mem
   set X' := X.erase x₀
   have hcard : X'.card = n := by simp [X', card_erase_of_mem hx₀, hX]
-  have hunion : X = X' ∪ {x₀} := by ext x; by_cases h:x = x₀ <;> simp [h,X', hx₀]
+  have hunion : X = X' ∪ {x₀} := by ext x; by_cases x = x₀ <;> grind
   have hdisj : Disjoint X' {x₀} := by simp [X']
   calc
     _ = ∑ x ∈ X', ∑ y ∈ Y, f (x, y) + ∑ x ∈ {x₀}, ∑ y ∈ Y, f (x, y) := by
@@ -257,16 +251,14 @@ theorem finite_series_of_finite_series {XX YY:Type*} (X: Finset XX) (Y: Finset Y
       congr 1
       rw [finite_series_of_fintype, finite_series_of_fintype f]
       set π : Finset.product {x₀} Y → Y :=
-        fun z ↦ ⟨ z.val.2, by obtain ⟨ z, hz ⟩ := z; simp at hz ⊢; obtain ⟨ a, ⟨ ha, rfl ⟩ ⟩ := hz; simp [ha] ⟩
+        fun z ↦ ⟨ z.val.2, by obtain ⟨ z, hz ⟩ := z; simp at hz ⊢; grind ⟩
       have hπ : Function.Bijective π := by
         constructor
-        . intro ⟨ ⟨ x, y ⟩, hz ⟩ ⟨ ⟨ x', y' ⟩, hz' ⟩ hzz'
-          simp [π] at hz hz' hzz' ⊢
-          cc
+        . intro ⟨ ⟨ x, y ⟩, hz ⟩ ⟨ ⟨ x', y' ⟩, hz' ⟩ hzz'; simp [π] at hz hz' hzz' ⊢; grind
         intro ⟨ y, hy ⟩; use ⟨ (x₀, y), by simp [hy] ⟩
       convert map_finite_series _ hπ with z
       obtain ⟨⟨x, y⟩, hz ⟩ := z
-      simp at hz ⊢; cc
+      simp at hz ⊢; grind
     _ = _ := by
       symm; convert finite_series_of_disjoint_union _ _
       . sorry

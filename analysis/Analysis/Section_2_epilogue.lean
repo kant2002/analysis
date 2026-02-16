@@ -22,6 +22,13 @@ import Analysis.Section_2_3
 індуктивний тип для побудови рекурсора. Тут ми наводимо кілька вправ, щоб показати,
 як можна виконати ті ж завдання безпосередньо з аксіом Пеано, не знаючи конкретної
 реалізації натуральних чисел.
+
+## Підказки від попередніх користувачів
+
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
+
+- (Додайте підказку тут)
+
 -/
 
 /-- Converting a Chapter 2 natural number to a Mathlib natural number. -/
@@ -40,7 +47,7 @@ abbrev Chapter2.Nat.equivNat : Chapter2.Nat ≃ ℕ where
   invFun n := (n:Chapter2.Nat)
   left_inv n := by
     induction' n with n hn; rfl
-    simp [succ_toNat, hn]
+    simp [hn]
     rw [succ_eq_add_one]
   right_inv n := by
     induction' n with n hn; rfl
@@ -71,7 +78,7 @@ abbrev Chapter2.Nat.equivNat_ordered_ring : Chapter2.Nat ≃+*o ℕ where
 
 /-- The conversion preserves exponentiation. -/
 lemma Chapter2.Nat.pow_eq_pow (n m : Chapter2.Nat) :
-    n.toNat ^ m.toNat = n^m := by
+    n.toNat ^ m.toNat = (n^m).toNat := by
   sorry
 
 
@@ -112,7 +119,7 @@ abbrev natCast (P : PeanoAxioms) : ℕ → P.Nat := fun n ↦ match n with
   | Nat.succ n => P.succ (natCast P n)
 
 /-- One can start the proof here with `unfold Function.Injective`, although it is not strictly necessary. -/
-theorem natCast_injective (P : PeanoAxioms) : Function.Injective P.natCast  := by
+theorem natCast_injective (P : PeanoAxioms) : Function.Injective P.natCast := by
   sorry
 
 /-- One can start the proof here with `unfold Function.Surjective`, although it is not strictly necessary. -/

@@ -19,7 +19,7 @@ partial def getCommentString' (pref : String) (hl : Highlighted) : m String := d
   let str := str.stripPrefix pref |>.stripSuffix "-/" |>.trim
   pure str
 where getString : Highlighted → m String
-  | .text txt => pure txt
+  | .text txt | .unparsed txt => pure txt
   | .tactics .. => throwError "Tactics found in module docstring!"
   | .point .. => pure ""
   | .span _ hl => getCommentString' pref hl
@@ -118,6 +118,55 @@ where
 
 open Verso.Genre.Blog Literate
 
+section
+-- Some terms generated in the code, especially as part of proof goals, are very large, but also
+-- repetitive. This causes a lot of overhead both for the Lean compiler and the C compiler. Instead
+-- of compiling them to their representations as Lean code, they are saved in a de-duplicated JSON
+-- serialization as a string literal. At run time, this is deserialized into the actual highlighted
+-- term. This reduces the time spent compiling C from minutes to seconds and prevents the Lean compiler
+-- from encountering resource limitations.
+
+open Meta
+open Elab Term
+
+variable [Monad m] [MonadLiftT CoreM m] [MonadLiftT MetaM m] [MonadLiftT TermElabM m] [MonadMCtx m] [MonadLiftT IO m]
+
+deriving instance ToExpr for Token.Kind
+deriving instance ToExpr for Token
+deriving instance ToExpr for Highlighted.Span.Kind
+
+initialize hlExportExt : EnvExtension Exporting ←
+  registerEnvExtension (pure {})
+
+def hlFromExport (exportLit : String) : Highlighted :=
+  match Json.parse exportLit with
+  | .error e => panic! s!"Failed to parse SubVerso export data as JSON: {e}"
+  | .ok v =>
+    match ExportCode.fromJson? v with
+    | .error e => panic! s!"Failed to deserialize SubVerso export data from parsed JSON: {e}"
+    | .ok v' =>
+      match v'.toHighlighted with
+      | .error e => panic! s!"Failed to deserialize highlighted code from export data: {e}"
+      | .ok hl => hl
+
+def hlViaExport (hl : Highlighted) : m Name := do
+  let exportedLit := hl.exportCode |>.toJson |>.compress
+  defineHl (← mkAppM ``hlFromExport #[toExpr exportedLit])
+where
+  hlType : Expr := .const ``Highlighted []
+  defineHl (hl : Expr) : TermElabM Name := withOptions (·.setBool `compiler.extract_closed false) do
+    let name ← Lean.mkFreshUserName `hlViaExport
+    addAndCompile <| .defnDecl {
+      name, type := hlType, value := hl,
+      levelParams := []
+      hints := .regular 0
+      safety := .safe
+    }
+    return name
+end
+
+def codeOpts : CodeOpts := { contextName := `name }
+
 open Verso Doc Elab PartElabM in
 open Verso.Genre Blog in
 open Lean.Parser.Command in
@@ -131,7 +180,7 @@ partial def docFromModAndTerms
     match kind with
     | ``Lean.Parser.Module.header =>
       if config.header then
-        addBlock (← ``(Block.other (BlockExt.highlightedCode `name $(quote code)) Array.mkArray0))
+        addCodeBlock code
       else pure ()
     | ``moduleDoc =>
       let str ← getModuleDocString code
@@ -171,31 +220,38 @@ partial def docFromModAndTerms
           | _ => false)
         match docCommentIdx with
         | some i =>
+          let codeBefore ← hlViaExport (Highlighted.seq s[:i])
           let codeBefore ← ``(Block.other
-            (BlockExt.highlightedCode `name $(quote (Highlighted.seq s[:i]))) Array.mkArray0)
+            (BlockExt.highlightedCode codeOpts $(mkIdent codeBefore)) Array.mkArray0)
           let some ⟨mdBlocks⟩ := MD4Lean.parse (← getDocCommentString s[i]!)
             | throwError m!"Failed to parse Markdown: {← getDocCommentString s[i]!}"
           let docCommentBlocks ← mdBlocks.mapM (fun b => ofBlock tms b)
-          let codeAfter ←``(Block.other (BlockExt.highlightedCode `name $(quote (Highlighted.seq s[i+1:]))) Array.mkArray0)
-          let blocks := #[codeBefore] ++ docCommentBlocks ++ #[codeAfter]
+          let codeAfter ← hlViaExport (Highlighted.seq s[i+1:])
+          let codeAfter ←``(Block.other (BlockExt.highlightedCode codeOpts $(mkIdent codeAfter)) Array.mkArray0)
+
+          let blocks : Array Term := #[codeBefore] ++ docCommentBlocks ++ #[codeAfter]
           addBlock (← ``(Block.other (BlockExt.htmlDiv "declaration") #[$blocks,*]))
         | none =>
           -- No docComment attached to declaration, render definition as usual
-          addBlock (← ``(Block.other (BlockExt.highlightedCode `name $(quote code)) Array.mkArray0))
-      | _ => addBlock (← ``(Block.other (BlockExt.highlightedCode `name $(quote code)) Array.mkArray0))
+          addCodeBlock code
+          pure ()
+      | _ => addCodeBlock code
+        pure ()
 
     | ``eval | ``evalBang | ``reduceCmd | ``print | ``printAxioms | ``printEqns | ``«where» | ``version | ``synth | ``check =>
-      addBlock (← ``(Block.other (BlockExt.highlightedCode `name $(quote code)) Array.mkArray0))
-      if let some (k, msg) := getFirstMessage code then
-        let sev := match k with
-          | .error => "error"
-          | .info => "information"
-          | .warning => "warning"
-        addBlock (← ``(Block.other (Blog.BlockExt.htmlDiv $(quote sev)) (Array.mkArray1 (Block.code $(quote msg)))))
+      -- addCodeBlock code
+      if let some msg := getFirstMessage code then
+        let msg : Highlighted.Message := ⟨msg.1, msg.2⟩
+        addBlock (← ``(Block.other (Blog.BlockExt.message false $(quote msg) []) #[]))
     | _ =>
-      addBlock (← ``(Block.other (BlockExt.highlightedCode `name $(quote code)) Array.mkArray0))
+      pure ()
+      addCodeBlock code
   closePartsUntil 0 ⟨0⟩ -- TODO endPos?
 where
+  addCodeBlock (code : Highlighted) := do
+    let n ← hlViaExport code
+    addBlock (← ``(Block.other (BlockExt.highlightedCode codeOpts $(mkIdent n)) Array.mkArray0))
+
   arr (xs : Array Term) : PartElabM Term := do
     if xs.size ≤ 8 then
       pure <| Syntax.mkCApp (`Array ++ s!"mkArray{xs.size}".toName) xs
@@ -240,7 +296,7 @@ where
   | .code str => do
     let codeStr := String.join str.toList
     if let some hl := tms[codeStr]? then
-      ``(Inline.other (InlineExt.highlightedCode `name $(quote hl)) #[])
+      ``(Inline.other (InlineExt.highlightedCode codeOpts $(quote hl)) #[])
     else
       ``(Inline.code $(quote <| String.join str.toList))
   | .em txt => do ``(Inline.emph $(← arr (← txt.mapM (ofInline tms))))
@@ -283,17 +339,20 @@ open Verso Doc Concrete in
 open Lean Elab Command in
 open PartElabM in
 def elabAnalysisPage (x : Ident) (mod : Ident) (config : LitPageConfig) (title : StrLit) (genre : Term) (metadata? : Option Term) (rw : Option (TSyntax ``rewrites)) : CommandElabM Unit :=
-  withTraceNode `verso.blog.literate (fun _ => pure m!"Literate '{title.getString}'") do
 
+  withTraceNode `verso.blog.literate (fun _ => pure m!"Literate '{title.getString}'") do
   let rewriter ← rw.mapM fun
     | `(rewrites|rewriting $[| $cases]*) => cases.mapM Internal.getSubst
     | rw => panic! s!"Unknown rewriter {rw}"
+
   let rewriter := rewriter.getD #[]
 
   let titleParts ← stringToInlines title
   let titleString := inlinesToString (← getEnv) titleParts
   let initState : PartElabM.State := .init (.node .none nullKind titleParts)
 
+  -- Each item pairs a top-level command with a mapping from terms found in docstrings to their
+  -- parsed, elaborated forms
   let items ← withTraceNode `verso.blog.literate.loadMod (fun _ => pure m!"Loading '{mod}'") <|
     loadModuleContent mod.getId.toString
 
@@ -311,11 +370,11 @@ def elabAnalysisPage (x : Ident) (mod : Ident) (config : LitPageConfig) (title :
   let finished := st'.partContext.toPartFrame.close 0
   let finished :=
     -- Obey the Markdown convention of a single top-level header being the title of the document, if it's been followed
-    if let .mk _ _ _ meta #[] #[p] _ := finished then
+    if let .mk _ _ _ metadata #[] #[p] _ := finished then
       match p with
       | .mk t1 t2 t3 _ bs ps pos =>
         -- Propagate metadata fields
-        FinishedPart.mk t1 t2 t3 meta bs ps pos
+        FinishedPart.mk t1 t2 t3 metadata bs ps pos
       | _ => p
     else finished
 

@@ -28,8 +28,7 @@ abbrev EqualCard (X Y : Type) : Prop := ∃ f : X → Y, Function.Bijective f
 
 /-- Relation with Mathlib's `Equiv` concept -/
 theorem EqualCard.iff {X Y : Type} : EqualCard X Y ↔ Nonempty (X ≃ Y) := by
-  simp [EqualCard]
-  constructor
+  simp [EqualCard]; constructor
   . intro ⟨ f, hf ⟩; exact ⟨ .ofBijective f hf ⟩
   intro ⟨ e ⟩; exact ⟨ e.toFun, e.bijective ⟩
 
@@ -67,8 +66,7 @@ theorem AtMostCountable.equiv {X Y: Type} (hXY : EqualCard X Y) :
 
 /-- Equivalence with Mathlib's `Denumerable` concept (cf. Remark 8.1.2) -/
 theorem CountablyInfinite.iff (X : Type) : CountablyInfinite X ↔ Nonempty (Denumerable X) := by
-  simp [CountablyInfinite, EqualCard.iff]
-  constructor
+  simp [CountablyInfinite, EqualCard.iff]; constructor
   . intro ⟨ e ⟩; exact ⟨ Denumerable.mk' e ⟩
   intro ⟨ h ⟩; exact ⟨ h.eqv X ⟩
 
@@ -91,7 +89,7 @@ theorem AtMostCountable.iff (X : Type) : AtMostCountable X ↔ Countable X := by
 theorem CountablyInfinite.iff_image_inj {A:Type} (X: Set A) : CountablyInfinite X ↔ ∃ f : ℕ ↪ A, X = f '' .univ := by
   constructor
   . intro ⟨ g, hg ⟩
-    obtain ⟨ f, hleft, hright ⟩ := Function.bijective_iff_has_inverse.mp hg
+    choose f hleft hright using Function.bijective_iff_has_inverse.mp hg
     refine ⟨ ⟨ Subtype.val ∘ f, ?_ ⟩, ?_ ⟩
     . intro x y hxy; apply hright.injective; simp_all [Subtype.val_inj]
     ext; simp; constructor
@@ -99,12 +97,9 @@ theorem CountablyInfinite.iff_image_inj {A:Type} (X: Set A) : CountablyInfinite 
     rintro ⟨ _, rfl ⟩; aesop
   intro ⟨ f, hf ⟩
   have := Function.leftInverse_invFun (Function.Embedding.injective f)
-  use (Function.invFun f) ∘ Subtype.val
-  constructor
-  . rintro ⟨ x, hx ⟩ ⟨ y, hy ⟩ h; simp [hf] at h ⊢ hx hy
-    obtain ⟨ n, rfl ⟩ := hx; obtain ⟨ m, rfl ⟩ := hy
-    simp [this n, this m] at h; aesop
-  intro n; use ⟨ f n, by aesop ⟩; simp [this n]
+  use (Function.invFun f) ∘ Subtype.val; split_ands
+  . rintro ⟨ x, hx ⟩ ⟨ y, hy ⟩ h; grind
+  intro n; use ⟨ f n, by aesop ⟩; grind
 
 /-- Examples 8.1.3 -/
 example : CountablyInfinite ℕ := by sorry
@@ -148,14 +143,13 @@ theorem Nat.min_eq_sInf {X : Set ℕ} (hX : X.Nonempty) : min X = sInf X := by
 open Classical in
 /-- Equivalence with Mathlib's `Nat.find` method -/
 theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX := by
-  symm; rw [Nat.find_eq_iff]
-  have := min_spec hX; simp [this]; intro n hn; contrapose! hn; exact this.2 n hn
+  symm; rw [Nat.find_eq_iff]; have := min_spec hX; grind
 
 /-- Proposition 8.1.5 -/
 theorem Nat.monotone_enum_of_infinite (X : Set ℕ) [Infinite X] : ∃! f : ℕ → X, Function.Bijective f ∧ StrictMono f := by
   -- This proof is written to follow the structure of the original text.
   let a : ℕ → ℕ := Nat.strongRec (fun n a ↦ min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m h })
-  have ha (n:ℕ) : a n = min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m } := Nat.strongRec.eq_def _ n
+  have ha : ∀ n, a n = min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m } := Nat.strongRec.eq_def _
   have ha_infinite (n:ℕ) : Infinite { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m } := by
     sorry
   have ha_nonempty (n:ℕ) : { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m }.Nonempty := Set.Nonempty.of_subtype
@@ -196,14 +190,14 @@ theorem Nat.countable_of_infinite (X : Set ℕ) [Infinite X] : CountablyInfinite
 
 /-- Corollary 8.1.6 -/
 theorem Nat.atMostCountable_subset (X: Set ℕ) : AtMostCountable X := by
-  rcases finite_or_infinite X with _ | _
+  obtain _ | _ := finite_or_infinite X
   . tauto
   simp [AtMostCountable, countable_of_infinite]
 
 /-- Corollary 8.1.7 -/
 theorem AtMostCountable.subset {X: Type} (hX : AtMostCountable X) (Y: Set X) : AtMostCountable Y := by
   -- This proof is written to follow the structure of the original text.
-  rcases hX with ⟨ f, hf ⟩ | h
+  obtain ⟨ f, hf ⟩ | hX := hX
   . let f' : Y → f '' Y := fun y ↦ ⟨ f y, by aesop ⟩
     have hf' : Function.Bijective f' := by
       sorry
@@ -211,9 +205,9 @@ theorem AtMostCountable.subset {X: Type} (hX : AtMostCountable X) (Y: Set X) : A
   simp [AtMostCountable, show Finite Y by infer_instance]
 
 theorem AtMostCountable.subset' {A: Type} {X Y: Set A} (hX: AtMostCountable X) (hY: Y ⊆ X) : AtMostCountable Y := by
-  refine (equiv ⟨ fun y ↦ ⟨ ↑↑y, y.property ⟩, ?_, ?_ ⟩).mp (subset hX { x : X | ↑x ∈ Y })
+  refine' (equiv ⟨ fun y ↦ ⟨ ↑↑y, y.property ⟩, _, _ ⟩).mp (subset hX { x : X | ↑x ∈ Y })
   . intro ⟨ ⟨ _, _ ⟩, _ ⟩ ⟨ ⟨ _, _ ⟩, _ ⟩ _; simp_all
-  rintro ⟨ y, hy ⟩; use ⟨ ⟨ y, hY hy ⟩, by aesop ⟩
+  intro ⟨ y, hy ⟩; use ⟨ ⟨ y, hY hy ⟩, by aesop ⟩
 
 /-- Proposition 8.1.8 / Exercise 8.1.4 -/
 theorem AtMostCountable.image_nat (Y: Type) (f: ℕ → Y) : AtMostCountable (f '' .univ) := by
@@ -243,7 +237,7 @@ theorem Int.countablyInfinite : CountablyInfinite ℤ := by
     intro h; use (-n).toNat; simp [h]
   have : CountablyInfinite (.univ : Set ℤ) := by
     convert h1.union h2; ext; simp; omega
-  exact (CountablyInfinite.equiv (.univ _)).mp this
+  rwa [←CountablyInfinite.equiv (.univ _)]
 
 /-- Lemma 8.1.12 -/
 theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 ≤ n.1 } := by
@@ -256,7 +250,7 @@ theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 
   have hf : Function.Injective f := by
     rintro ⟨ ⟨ n, m ⟩, hnm ⟩ ⟨ ⟨ n',m'⟩, hnm' ⟩ h
     simp [A,f] at hnm hnm' ⊢ h
-    rcases lt_trichotomy n n' with hnn' | rfl | hnn'
+    obtain hnn' | rfl | hnn' := lt_trichotomy n n'
     . have : a n' + m' > a n + m := by calc
         _ ≥ a n' := by linarith
         _ ≥ a (n+1) := ha.monotone (by linarith)
@@ -276,7 +270,7 @@ theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 
     . intro p q hpq; simp [f'] at hpq; solve_by_elim
     intro ⟨ l, hl ⟩; simp at hl
     obtain ⟨ n, m, q, rfl ⟩ := hl; use ⟨ (n, m), q ⟩
-  have : AtMostCountable A := by rw [AtMostCountable.equiv ⟨ f', hf' ⟩]; apply Nat.atMostCountable_subset
+  have : AtMostCountable A := by rw [AtMostCountable.equiv ⟨ _, hf' ⟩]; apply Nat.atMostCountable_subset
   have hfin : ¬ Finite A := by
     sorry
   simp [AtMostCountable] at this; tauto
@@ -301,7 +295,7 @@ theorem Rat.countablyInfinite : CountablyInfinite ℚ := by
   -- This proof is written to follow the structure of the original text.
   have : CountablyInfinite { n:ℤ | n ≠ 0 } := by
     sorry
-  replace :  CountablyInfinite (ℤ × { n:ℤ | n ≠ 0 }) := Int.countablyInfinite.prod this
+  apply Int.countablyInfinite.prod at this
   let f : ℤ × { n:ℤ | n ≠ 0 } → ℚ := fun (a,b) ↦ (a/b:ℚ)
   replace := AtMostCountable.image this f
   have h : f '' .univ = .univ := by

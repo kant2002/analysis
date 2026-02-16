@@ -20,6 +20,13 @@ import Analysis.Section_2_2
 Примітка: наприкінці цього розділу клас `Chapter2.Nat` буде замінено на користь стандартного
 класу Mathlib `_root_.Nat`, або `ℕ`.  Однак, ми пропрацюємо властивості
 `Chapter2.Nat` "вручну" в наступних кількох розділах для педагогічних цілей.
+
+## Підказки від попередніх користувачів
+
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
+
+- (Додайте підказку тут)
+
 -/
 
 namespace Chapter2
@@ -121,7 +128,7 @@ example (a b c d:ℕ) : (a+b)*1*(c+d) = d*b+a*c+c*b+a*d+0 := by ring
 theorem Nat.mul_lt_mul_of_pos_right {a b c: Nat} (h: a < b) (hc: c.IsPos) : a * c < b * c := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   rw [lt_iff_add_pos] at h
-  obtain ⟨ d, hdpos, hd ⟩ := h
+  choose d hdpos hd using h
   replace hd := congr($hd * c)
   rw [add_mul] at hd
   have hdcpos : (d * c).IsPos := pos_mul_pos hdpos hc
@@ -147,13 +154,13 @@ Compare with Mathlib's `Nat.mul_right_cancel` -/
 lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.IsPos) : a = b := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have := trichotomous a b
-  rcases this with hlt | heq | hgt
+  obtain hlt | rfl | hgt := this
   . replace hlt := mul_lt_mul_of_pos_right hlt hc
-    replace hlt := ne_of_lt _ _ hlt
+    apply ne_of_lt at hlt
     contradiction
-  . assumption
+  . rfl
   replace hgt := mul_gt_mul_of_pos_right hgt hc
-  replace hgt := ne_of_gt _ _ hgt
+  apply ne_of_gt at hgt
   contradiction
 
 /-- (Не із книги) Nat є впорядкованим півкільцем.

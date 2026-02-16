@@ -20,6 +20,13 @@ import Analysis.Section_2_1
 Примітка: наприкінці цього розділу клас `Chapter2.Nat` буде замінено на користь стандартного
 класу Mathlib `_root_.Nat`, або `ℕ`.  Однак, ми пропрацюємо властивості
 `Chapter2.Nat` "вручну" в наступних кількох розділах для педагогічних цілей.
+
+## Підказки від попередніх користувачів
+
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
+
+- (Додайте підказку тут)
+
 -/
 
 namespace Chapter2
@@ -133,10 +140,12 @@ theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.IsPos) : (a + b).IsPos := by
   have : (a+b)++ ≠ 0 := succ_ne _
   exact this
 
-/-- Порівняйте із Mathlib-овським `Nat.add_pos_right` -/
+/-- Порівняйте із Mathlib-овським `Nat.add_pos_right`
+
+Ця теорема є наслідком попередньої теореми та `add_comm`, а `grind` може автоматично знаходити такі докази.
+-/
 theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.IsPos) : (b + a).IsPos := by
-  rw [add_comm]
-  exact add_pos_left _ ha
+  grind [add_comm, add_pos_left]
 
 /-- Наслідок 2.2.9 (якщо сума дорівнює нулю, тоді доданки дорівнюють нулю).
     Порівняйте із Mathlib-овським `Nat.add_eq_zero` -/
@@ -144,12 +153,12 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   by_contra h
   simp only [not_and_or, ←ne_eq] at h
-  rcases h with ha | hb
+  obtain ha | hb := h
   . rw [← isPos_iff] at ha
-    have : (a + b).IsPos := add_pos_left _ ha
+    observe : (a + b).IsPos
     contradiction
   rw [← isPos_iff] at hb
-  have : (a + b).IsPos := add_pos_right _ hb
+  observe : (a + b).IsPos
   contradiction
 
 /-
@@ -174,6 +183,7 @@ instance Nat.instLE : LE Nat where
 instance Nat.instLT : LT Nat where
   lt n m := n ≤ m ∧ n ≠ m
 
+/-- Compare with Mathlib's `le_iff_exists_add`. -/
 lemma Nat.le_iff (n m:Nat) : n ≤ m ↔ ∃ a:Nat, m = n + a := by rfl
 
 lemma Nat.lt_iff (n m:Nat) : n < m ↔ (∃ a:Nat, m = n + a) ∧ n ≠ m := by rfl
@@ -277,10 +287,9 @@ theorem Nat.not_lt_self {a: Nat} (h : a < a) : False := by
 
 theorem Nat.lt_of_le_of_lt {a b c : Nat} (hab: a ≤ b) (hbc: b < c) : a < c := by
   rw [lt_iff_add_pos] at *
-  rcases hab with ⟨d, hd⟩
-  rcases hbc with ⟨e, he1, he2⟩
-  use d + e
-  constructor
+  choose d hd using hab
+  choose e he1 he2 using hbc
+  use d + e; split_ands
   . exact add_pos_right d he1
   . rw [he2, hd, add_assoc]
 
@@ -294,11 +303,11 @@ theorem Nat.zero_le (a:Nat) : 0 ≤ a := by
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   revert a; apply induction
-  . have why : 0 ≤ b := b.zero_le
-    replace why := (le_iff_lt_or_eq _ _).mp why
+  . observe why : 0 ≤ b
+    rw [le_iff_lt_or_eq] at why
     tauto
   intro a ih
-  rcases ih with case1 | case2 | case3
+  obtain case1 | case2 | case3 := ih
   . rw [lt_iff_succ_le] at case1
     rw [le_iff_lt_or_eq] at case1
     tauto
@@ -341,29 +350,21 @@ such as `order` and `calc` to be applicable to the Chapter 2 natural numbers. -/
 instance Nat.instLinearOrder : LinearOrder Nat where
   le_refl := ge_refl
   le_trans a b c hab hbc := ge_trans hbc hab
-  lt_iff_le_not_le := by
-    intro a b
+  lt_iff_le_not_ge a b := by
     constructor
-    intro h
-    constructor
-    . exact le_of_lt h
-    . by_contra h'
+    . intro h; refine ⟨ le_of_lt h, ?_ ⟩
+      by_contra h'
       exact not_lt_self (lt_of_le_of_lt h' h)
-
     rintro ⟨ h1, h2 ⟩
-    rw [lt_iff, ← le_iff]
-    constructor
-    exact h1
+    rw [lt_iff, ←le_iff]; refine ⟨ h1, ?_ ⟩
     by_contra h
-    rw [h] at h2
-    apply h2
-    exact ge_refl b
+    subst h
+    contradiction
   le_antisymm a b hab hba := ge_antisymm hba hab
-  le_total := by
-    intro a b
-    obtain h | h | h := trichotomous a b
+  le_total a b := by
+    obtain h | rfl | h := trichotomous a b
     . left; exact le_of_lt h
-    . simp [h, ge_refl]
+    . simp [ge_refl]
     . right; exact le_of_lt h
   toDecidableLE := decidableRel
 
@@ -385,9 +386,7 @@ example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hcd: c ≤ d)
 /-- (Not from textbook) Nat has the structure of an ordered monoid. This allows for tactics
 such as `gcongr` to be applicable to the Chapter 2 natural numbers. -/
 instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
-  add_le_add_left := by
-    intro a b hab c
-    exact (add_le_add_left a b c).mp hab
+  add_le_add_left a b hab c := (add_le_add_left a b c).mp hab
 
 /-- This illustration of the `gcongr` tactic is not from the
     textbook. -/

@@ -15,6 +15,13 @@ Main constructions and results of this section:
 
 Many of the results here can be established more quickly by relying more heavily on the Mathlib
 API; one can set oneself the exercise of doing so.
+
+## Tips from past users
+
+Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+
+- (Add tip here)
+
 -/
 
 /-- Твердження 4.4.1 (Interspersing of integers by rationals) / Вправа 4.4.1 -/
@@ -34,17 +41,21 @@ theorem Rat.exists_between_rat {x y:ℚ} (h: x < y) : ∃ z:ℚ, x < z ∧ z < y
     rw [show x/2 = x*(1/2) by ring, show y/2 = y*(1/2) by ring]
     apply mul_lt_mul_of_pos_right h; positivity
   constructor
-  . replace h' := add_lt_add_right h' (x/2)
-    convert h' using 1 <;> ring
-  replace h' := add_lt_add_right h' (y/2)
-  convert h' using 1 <;> ring
+  . convert add_lt_add_right h' (x/2) using 1 <;> ring
+  convert add_lt_add_right h' (y/2) using 1 <;> ring
 
-/-- Вправа 4.4.2 -/
+/-- Вправа 4.4.2 (a) -/
 theorem Nat.no_infinite_descent : ¬ ∃ a:ℕ → ℕ, ∀ n, a (n+1) < a n := by
   sorry
 
+/-- Exercise 4.4.2 (b) -/
 def Int.infinite_descent : Decidable (∃ a:ℕ → ℤ, ∀ n, a (n+1) < a n) := by
   -- перший рядок цієї конструкції має бути або `apply isTrue`, або `apply isFalse`.
+  sorry
+
+/-- Exercise 4.4.2 (b) -/
+def Rat.pos_infinite_descent : Decidable (∃ a:ℕ → {x: ℚ // 0 < x}, ∀ n, a (n+1) < a n) := by
+  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry
 
 #check even_iff_exists_two_mul
@@ -61,11 +72,10 @@ theorem Nat.not_even_and_odd (n:ℕ) : ¬ (Even n ∧ Odd n) := by
 /-- Твердження 4.4.4 / Вправа 4.4.3  -/
 theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
-  by_contra h; obtain ⟨ x, hx ⟩ := h
+  by_contra h; choose x hx using h
   have hnon : x ≠ 0 := by aesop
   wlog hpos : x > 0
-  . have hneg : -x > 0 := by simp; order
-    apply this _ _ _ hneg <;> simp [hx,hnon]
+  . apply this _ _ _ (show -x>0 by simp; order) <;> grind
   have hrep : ∃ p q:ℕ, p > 0 ∧ q > 0 ∧ p^2 = 2*q^2 := by
     use x.num.toNat, x.den
     observe hnum_pos : x.num > 0
@@ -77,10 +87,10 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   set P : ℕ → Prop := fun p ↦ p > 0 ∧ ∃ q > 0, p^2 = 2*q^2
   have hP : ∃ p, P p := by aesop
   have hiter (p:ℕ) (hPp: P p) : ∃ q, q < p ∧ P q := by
-    rcases p.even_or_odd'' with hp | hp
+    obtain hp | hp := p.even_or_odd''
     . rw [even_iff_exists_two_mul] at hp
       obtain ⟨ k, rfl ⟩ := hp
-      obtain ⟨ q, hpos, hq ⟩ := hPp.2
+      choose q hpos hq using hPp.2
       have : q^2 = 2 * k^2 := by linarith
       use q; constructor
       . sorry
@@ -88,7 +98,7 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
     have h1 : Odd (p^2) := by
       sorry
     have h2 : Even (p^2) := by
-      obtain ⟨ q, hpos, hq ⟩ := hPp.2
+      choose q hpos hq using hPp.2
       rw [even_iff_exists_two_mul]
       use q^2
     observe : ¬(Even (p ^ 2) ∧ Odd (p ^ 2))
@@ -97,7 +107,7 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   set f : ℕ → ℕ := fun p ↦ if hPp: P p then (hiter p hPp).choose else 0
   have hf (p:ℕ) (hPp: P p) : (f p < p) ∧ P (f p) := by
     simp [f, hPp]; exact (hiter p hPp).choose_spec
-  obtain ⟨ p, hP ⟩ := hP
+  choose p hP using hP
   set a : ℕ → ℕ := Nat.rec p (fun n p ↦ f p)
   have ha (n:ℕ) : P (a n) := by
     induction n with
@@ -105,7 +115,7 @@ theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
     | succ n ih => exact (hf _ ih).2
   have hlt (n:ℕ) : a (n+1) < a n := by
     have : a (n+1) = f (a n) := n.rec_add_one p (fun n p ↦ f p)
-    simp [this, hf _ (ha n)]
+    grind
   exact Nat.no_infinite_descent ⟨ a, hlt ⟩
 
 
@@ -119,9 +129,9 @@ theorem Rat.exist_approx_sqrt_two {ε:ℚ} (hε:ε>0) : ∃ x ≥ (0:ℚ), x^2 <
     apply lt_of_le_of_ne (h (n*ε) (by positivity) hn)
     have := not_exist_sqrt_two
     aesop
-  obtain ⟨ n, hn ⟩ := Nat.exists_gt (2/ε)
+  choose n hn using Nat.exists_gt (2/ε)
   rw [gt_iff_lt, div_lt_iff₀', mul_comm, ←sq_lt_sq₀] at hn <;> try positivity
-  linarith [this n]
+  grind
 
 /-- Приклад 4.4.6 -/
 example :

@@ -18,6 +18,12 @@ import Mathlib.Algebra.Group.MinimalAxioms
 
 - Еквівалентність із Mathlib-овськими цілими `_root_.Int` (або `ℤ`), які ми будемо використовувати в подальшому.
 
+## Tips from past users
+
+Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+
+- (Add tip here)
+
 -/
 
 namespace Section_4_1
@@ -34,7 +40,7 @@ instance PreInt.instSetoid : Setoid PreInt where
     symm := by sorry
     trans := by
       -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
-      intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2; simp at h1 h2 ⊢
+      intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2; simp_all
       have h3 := congrArg₂ (· + ·) h1 h2; simp at h3
       have : (a + f) + (c + d) = (e + b) + (c + d) := calc
         (a + f) + (c + d) = a + d + (c + f) := by abel
@@ -84,7 +90,7 @@ theorem Int.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) :=
 /-- Лема 4.1.3 (Множення чітко визначене) -/
 theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') :
     (a*c+b*d) —— (a*d+b*c) = (a'*c+b'*d) —— (a'*d+b'*c) := by
-  simp only [eq] at h ⊢
+  simp only [eq] at *
   calc
     _ = c*(a+b') + d*(a'+b) := by ring
     _ = c*(a'+b) + d*(a+b') := by rw [h]
@@ -93,7 +99,7 @@ theorem Int.mul_congr_left (a b a' b' c d : ℕ) (h: a —— b = a' —— b') 
 /-- Лема 4.1.3 (Множення чітко визначене) -/
 theorem Int.mul_congr_right (a b c d c' d' : ℕ) (h: c —— d = c' —— d') :
     (a*c+b*d) —— (a*d+b*c) = (a*c'+b*d') —— (a*d'+b*c') := by
-  simp only [eq] at h ⊢
+  simp only [eq] at *
   calc
     _ = a*(c+d') + b*(c'+d) := by ring
     _ = a*(c'+d) + b*(c+d') := by rw [h]
@@ -156,9 +162,8 @@ abbrev Int.IsNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
 theorem Int.trichotomous (x:Int) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by
   -- Цей доказ дещо змінений порівняно з оригінальним текстом.
   obtain ⟨ a, b, rfl ⟩ := eq_diff x
-  have := _root_.trichotomous (r := LT.lt) a b
-  rcases this with h_lt | rfl | h_gt
-  . obtain ⟨ c,rfl ⟩ := Nat.exists_eq_add_of_lt h_lt
+  obtain h_lt | rfl | h_gt := _root_.trichotomous (r := LT.lt) a b
+  . obtain ⟨ c, rfl ⟩ := Nat.exists_eq_add_of_lt h_lt
     right; right; refine ⟨ c+1, by linarith, ?_ ⟩
     simp_rw [natCast_eq, neg_eq, eq]; abel
   . left; simp_rw [ofNat_eq, eq, add_zero, zero_add]
@@ -168,16 +173,16 @@ theorem Int.trichotomous (x:Int) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_pos_zero (x:Int) : x = 0 ∧ x.IsPos → False := by
-  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩; simp_all [←natCast_ofNat]
+  rintro ⟨ rfl, ⟨ n, _, _ ⟩ ⟩; simp_all [←natCast_ofNat]
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_neg_zero (x:Int) : x = 0 ∧ x.IsNeg → False := by
-  rintro ⟨ rfl, ⟨ n, hn, hn' ⟩ ⟩; simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn'
+  rintro ⟨ rfl, ⟨ n, _, hn ⟩ ⟩; simp_rw [←natCast_ofNat, natCast_eq, neg_eq, eq] at hn
   linarith
 
 /-- Лема 4.1.5 (трихотомія цілих чисел)-/
 theorem Int.not_pos_neg (x:Int) : x.IsPos ∧ x.IsNeg → False := by
-  rintro ⟨ ⟨ n, hn, rfl ⟩, ⟨ m, hm, hm' ⟩ ⟩; simp_rw [natCast_eq, neg_eq, eq] at hm'
+  rintro ⟨ ⟨ n, _, rfl ⟩, ⟨ m, _, hm ⟩ ⟩; simp_rw [natCast_eq, neg_eq, eq] at hm
   linarith
 
 /-- Твердження 4.1.6 (закони алгебри) / Вправа 4.1.4 -/
@@ -284,7 +289,7 @@ lemma Int.is_additive_identity_iff_eq_0 (b : Int) : (∀ a, a = a + b) ↔ b = 0
 instance Int.instLinearOrder : LinearOrder Int where
   le_refl := sorry
   le_trans := sorry
-  lt_iff_le_not_le := sorry
+  lt_iff_le_not_ge := sorry
   le_antisymm := sorry
   le_total := sorry
   toDecidableLE := decidableRel
@@ -293,7 +298,7 @@ instance Int.instLinearOrder : LinearOrder Int where
 theorem Int.neg_one_mul (a:Int) : -1 * a = -a := by sorry
 
 /-- Вправа 4.1.8 -/
-theorem Int.no_induction : ∃ P: Int → Prop, P 0 ∧ ∀ n, P n → P (n+1) ∧ ¬ ∀ n, P n := by sorry
+theorem Int.no_induction : ∃ P: Int → Prop, (P 0 ∧ ∀ n, P n → P (n+1)) ∧ ¬ ∀ n, P n := by sorry
 
 /-- Невід'ємне число в квадраті є невід'ємним. Це окремий випадок із 4.1.9, корисний для доведення загального випадку. --/
 lemma Int.sq_nonneg_of_pos (n:Int) (h: 0 ≤ n) : 0 ≤ n*n := by sorry
@@ -321,6 +326,5 @@ abbrev Int.equivInt_ordered_ring : Int ≃+*o ℤ where
   map_add' := by sorry
   map_mul' := by sorry
   map_le_map_iff' := by sorry
-
 
 end Section_4_1

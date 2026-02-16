@@ -20,6 +20,13 @@ import Analysis.Section_3_1
 
 - Парадокс Рассела (виключення аксіоми універсальної специфікації)
 - Аксіома регулярності - аксіома, розроблена для уникнення парадоксу Рассела
+
+## Підказки від попередніх користувачів
+
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
+
+- (Додайте підказку тут)
+
 --/
 
 namespace Chapter3
@@ -36,7 +43,7 @@ theorem Russells_paradox : ¬ axiom_of_universal_specification := by
   -- Цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   intro h
   set P : Object → Prop := fun x ↦ ∃ X:Set, x = X ∧ x ∉ X
-  obtain ⟨Ω, hΩ⟩ := h P
+  choose Ω hΩ using h P
   by_cases h: (Ω:Object) ∈ Ω
   . have : P (Ω:Object) := (hΩ _).mp h
     obtain ⟨ Ω', ⟨ hΩ1, hΩ2⟩ ⟩ := this
@@ -44,13 +51,13 @@ theorem Russells_paradox : ¬ axiom_of_universal_specification := by
     rw [←hΩ1] at hΩ2
     contradiction
   have : P (Ω:Object) := by use Ω
-  replace this := (hΩ _).mpr this
+  rw [←hΩ] at this
   contradiction
 
 /-- Аксіома 3.9 (Регулярність) -/
 theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
     ∃ x:A, ∀ S:Set, x.val = S → Disjoint S A := by
-  obtain ⟨ x, h, h' ⟩ := SetTheory.regularity_axiom A (nonempty_def h)
+  choose x h h' using regularity_axiom A (nonempty_def h)
   use ⟨x, h⟩
   intro S hS; specialize h' S hS
   rw [disjoint_iff, eq_empty_iff_forall_notMem]
