@@ -78,7 +78,7 @@ theorem Function.to_fn_eval {X Y: Set} (f: Function X Y) (x:X) : f.to_fn x = f x
 abbrev Function.mk_fn {X Y: Set} (f: X → Y) : Function X Y :=
   Function.mk (fun x y ↦ y = f x) (by simp)
 
-/-- Визначення 3.3.1 -/
+/- Визначення 3.3.1 -/
 theorem Function.eval {X Y: Set} (f: Function X Y) (x: X) (y: Y) : y = f x ↔ f.P x y := by
   convert ((f.unique x).choose_iff y).symm
 
@@ -196,7 +196,7 @@ abbrev SetTheory.Set.f_3_3_5 : Function Nat Nat := Function.mk P_3_3_5 P_3_3_5_e
 theorem SetTheory.Set.f_3_3_5_eval (x: Nat) : f_3_3_5 x = 7 := by
   symm; rw [Function.eval]
 
-/-- Визначення 3.3.8 (Рівність функцій) -/
+/- Визначення 3.3.8 (Рівність функцій) -/
 theorem Function.eq_iff {X Y: Set} (f g: Function X Y) : f = g ↔ ∀ x: X, f x = g x := by
   constructor <;> intro h
   . simp [h]
@@ -232,7 +232,7 @@ abbrev SetTheory.Set.f_3_3_11 (X:Set) : Function (∅:Set) X :=
 
 theorem SetTheory.Set.empty_function_unique {X: Set} (f g: Function (∅:Set) X) : f = g := by sorry
 
-/-- Визначення 3.3.13 (Композиція) -/
+/- Визначення 3.3.13 (Композиція) -/
 noncomputable abbrev Function.comp {X Y Z: Set} (g: Function Y Z) (f: Function X Y) :
     Function X Z :=
   Function.mk_fn (fun x ↦ g (f x))
@@ -312,7 +312,7 @@ theorem SetTheory.Set.two_to_one {X Y: Set} {f: Function X Y} (h: ¬ f.one_to_on
     ∃ x x': X, x ≠ x' ∧ f x = f x' := by
   rw [Function.one_to_one] at h; aesop
 
-/-- Визначення 3.3.20 (Сур'єктивні функції) -/
+/- Визначення 3.3.20 (Сур'єктивні функції) -/
 abbrev Function.onto {X Y: Set} (f: Function X Y) : Prop := ∀ y: Y, ∃ x: X, f x = y
 
 /-- Сумісність із Mathlib-івським Function.Surjective-/
@@ -330,7 +330,7 @@ example : Function.Surjective (fun (n:ℤ) ↦ ⟨ n^2, by use n ⟩ : ℤ → A
   rintro ⟨b, ⟨a, ha⟩⟩; use a
   simp only [ha]
 
-/-- Визначення 3.3.23 (Бієктивні функції) -/
+/- Визначення 3.3.23 (Бієктивні функції) -/
 abbrev Function.bijective {X Y: Set} (f: Function X Y) : Prop := f.one_to_one ∧ f.onto
 
 /-- Сумісність із Mathlib-івським Function.Bijective-/

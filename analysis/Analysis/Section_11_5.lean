@@ -193,7 +193,7 @@ theorem integ_of_bdd_cts {I: BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn f I
     grind
   exact ⟨ hbound, by linarith [nonneg_of_le_const_mul_eps this] ⟩
 
-/-- Definition 11.5.4 -/
+/-- Визначення 11.5.4 -/
 abbrev PiecewiseContinuousOn (f:ℝ → ℝ) (I:BoundedInterval) : Prop :=
   ∃ P: Partition I, ∀ J ∈ P.intervals, ContinuousOn f J
 
@@ -218,7 +218,7 @@ theorem integ_of_bdd_piecewise_cts {I: BoundedInterval} {f:ℝ → ℝ}
   (hbound: BddOn f I) (hf: PiecewiseContinuousOn f I) : IntegrableOn f I := by
   sorry
 
-/-- Exercise 11.5.2 -/
+/-- Вправа 11.5.2 -/
 theorem integ_zero {a b:ℝ} (hab: a ≤ b) (f: ℝ → ℝ) (hf: ContinuousOn f (Icc a b))
   (hnonneg: MajorizesOn f (fun _ ↦ 0) (Icc a b)) (hinteg : integ f (Icc a b) = 0) :
   ∀ x ∈ Icc a b, f x = 0 := by

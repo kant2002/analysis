@@ -99,7 +99,7 @@ theorem LIM_def {a:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) :
     LIM a = Quotient.mk _ (CauchySequence.mk' ha) := by
   rw [LIM, dif_pos ha]
 
-/-- Definition 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Real numbers) -/
 theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).IsCauchy ∧ x = LIM a := by
   apply Quotient.ind _ x; intro a; use (a:ℕ → ℚ)
   observe : ((a:ℕ → ℚ):Sequence) = a.toSequence
@@ -107,7 +107,7 @@ theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).IsCauchy ∧ x 
   refine ⟨ a.cauchy, ?_ ⟩
   congr; ext n; simp; replace := congr($this n); simp_all
 
-/-- Definition 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Real numbers) -/
 theorem Real.LIM_eq_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
   LIM a = LIM b ↔ Sequence.Equiv a b := by
   constructor
@@ -156,7 +156,7 @@ theorem Sequence.add_equiv {a b a' b':ℕ → ℚ} (haa': Equiv a a')
     Equiv (a + b) (a' + b') :=
   equiv_trans (add_equiv_left _ haa') (add_equiv_right _ hbb')
 
-/-- Визначення 5.3.4 (Addition of reals) -/
+/- Визначення 5.3.4 (Addition of reals) -/
 noncomputable instance Real.add_inst : Add Real where
   add := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a + b)) (by
@@ -167,7 +167,7 @@ noncomputable instance Real.add_inst : Add Real where
       all_goals apply Sequence.IsCauchy.add <;> rw [CauchySequence.coe_to_sequence] <;> convert @CauchySequence.cauchy ?_
       )
 
-/-- Definition 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Addition of reals) -/
 theorem Real.LIM_add {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
   LIM a + LIM b = LIM (a + b) := by
   simp_rw [LIM_def ha, LIM_def hb, LIM_def (Sequence.IsCauchy.add ha hb)]
@@ -197,7 +197,7 @@ theorem Sequence.mul_equiv
   (hbb': Equiv b b') : Equiv (a * b) (a' * b') :=
     equiv_trans (mul_equiv_right _ ha hbb') (mul_equiv_left _ hb' haa')
 
-/-- Визначення 5.3.9 (Product of reals) -/
+/- Визначення 5.3.9 (Product of reals) -/
 noncomputable instance Real.mul_inst : Mul Real where
   mul := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a * b)) (by
@@ -328,7 +328,7 @@ example : BoundedAwayZero (fun n ↦ 10^(n+1)) := by
 /-- Examples 5.3.13 -/
 example : ¬ ((fun (n:ℕ) ↦ (10:ℚ)^(n+1)):Sequence).IsBounded := by sorry
 
-/-- Lemma 5.3.14 -/
+/-- Лема 5.3.14 -/
 theorem Real.boundedAwayZero_of_nonzero {x:Real} (hx: x ≠ 0) :
     ∃ a:ℕ → ℚ, (a:Sequence).IsCauchy ∧ BoundedAwayZero a ∧ x = LIM a := by
   -- This proof is written to follow the structure of the original text.
@@ -360,7 +360,7 @@ theorem Real.lim_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a)
 theorem Real.nonzero_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a) (n: ℕ) : a n ≠ 0 := by
    choose c hc ha using ha; specialize ha n; contrapose! ha; simp [ha, hc]
 
-/-- Lemma 5.3.15 -/
+/-- Лема 5.3.15 -/
 theorem Real.inv_isCauchy_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) :
     ((a⁻¹:ℕ → ℚ):Sequence).IsCauchy := by
@@ -378,7 +378,7 @@ theorem Real.inv_isCauchy_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZer
     _ ≤ (c^2 * ε) / c^2 := by gcongr
     _ = ε := by field_simp [hc]
 
-/-- Lemma 5.3.17 (Reciprocation is well-defined) -/
+/-- Лема 5.3.17 (Reciprocation is well-defined) -/
 theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) (hb: BoundedAwayZero b)
   (hb_cauchy: (b:Sequence).IsCauchy) (hlim: LIM a = LIM b) :
@@ -448,7 +448,7 @@ theorem Real.mul_right_cancel₀ {x y z:Real} (hz: z ≠ 0) (h: x * z = y * z) :
 theorem Real.mul_right_nocancel : ¬ ∀ (x y z:Real), (hz: z = 0) → (x * z = y * z) → x = y := by
   sorry
 
-/-- Exercise 5.3.4 -/
+/-- Вправа 5.3.4 -/
 theorem Real.IsBounded.equiv {a b:ℕ → ℚ} (ha: (a:Sequence).IsBounded) (hab: Sequence.Equiv a b) :
     (b:Sequence).IsBounded := by sorry
 
@@ -461,7 +461,7 @@ theorem Sequence.IsCauchy.harmonic' : ((fun n ↦ 1/((n:ℚ)+1): ℕ → ℚ):Se
   use N.toNat; intro j _ k _; specialize h2 (j+1) _ (k+1) _ <;> try omega
   simp_all
 
-/-- Exercise 5.3.5 -/
+/-- Вправа 5.3.5 -/
 theorem Real.LIM.harmonic : LIM (fun n ↦ 1/((n:ℚ)+1)) = 0 := by sorry
 
 end Chapter5

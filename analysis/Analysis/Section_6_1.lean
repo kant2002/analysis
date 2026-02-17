@@ -20,7 +20,7 @@ Main constructions and results of this section:
 -/
 
 
-/- Definition 6.1.1 (Distance).  Here we use the Mathlib distance. -/
+/- Визначення 6.1.1 (Distance).  Here we use the Mathlib distance. -/
 #check Real.dist_eq
 
 abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
@@ -82,19 +82,19 @@ lemma Sequence.from_eval (a:Sequence) {m₁ n:ℤ} (hn: n ≥ m₁) :
 
 end Chapter6
 
-/-- Definition 6.1.3 (ε-steady) -/
+/-- Визначення 6.1.3 (ε-steady) -/
 abbrev Real.Steady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m)
 
-/-- Визначення 6.1.3 (ε-steady) -/
+/- Визначення 6.1.3 (ε-steady) -/
 lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.Steady a ↔ ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m) := by rfl
 
-/-- Definition 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Eventually ε-steady) -/
 abbrev Real.EventuallySteady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∃ N ≥ a.m, ε.Steady (a.from N)
 
-/-- Визначення 6.1.3 (Eventually ε-steady) -/
+/- Визначення 6.1.3 (Eventually ε-steady) -/
 lemma Real.eventuallySteady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.EventuallySteady a ↔ ∃ N, (N ≥ a.m) ∧ ε.Steady (a.from N) := by rfl
 
@@ -109,10 +109,10 @@ theorem Real.EventuallySteady.mono {a: Chapter6.Sequence} {ε₁ ε₂: ℝ} (h�
 
 namespace Chapter6
 
-/-- Definition 6.1.3 (Cauchy sequence) -/
+/-- Визначення 6.1.3 (Cauchy sequence) -/
 abbrev Sequence.IsCauchy (a:Sequence) : Prop := ∀ ε > (0:ℝ), ε.EventuallySteady a
 
-/-- Визначення 6.1.3 (Cauchy sequence) -/
+/- Визначення 6.1.3 (Cauchy sequence) -/
 lemma Sequence.isCauchy_def (a:Sequence) :
   a.IsCauchy ↔ ∀ ε > (0:ℝ), ε.EventuallySteady a := by rfl
 
@@ -190,18 +190,18 @@ theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.IsCauchy ↔ (a:Sequ
 
 end Chapter6
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 abbrev Real.CloseSeq (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) : Prop := ∀ n ≥ a.m, ε.Close (a n) L
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 theorem Real.closeSeq_def (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) :
   ε.CloseSeq a L ↔ ∀ n ≥ a.m, dist (a n) L ≤ ε := by rfl
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 abbrev Real.EventuallyClose (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) : Prop :=
   ∃ N ≥ a.m, ε.CloseSeq (a.from N) L
 
-/-- Definition 6.1.5 -/
+/-- Визначення 6.1.5 -/
 theorem Real.eventuallyClose_def (ε: ℝ) (a: Chapter6.Sequence) (L:ℝ) :
   ε.EventuallyClose a L ↔ ∃ N, (N ≥ a.m) ∧ ε.CloseSeq (a.from N) L := by rfl
 
@@ -278,16 +278,16 @@ theorem Sequence.tendsTo_unique (a:Sequence) {L L':ℝ} (h:L ≠ L') :
     _ = 2 * |L-L'|/3 := by grind
   linarith
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 abbrev Sequence.Convergent (a:Sequence) : Prop := ∃ L, a.TendsTo L
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.convergent_def (a:Sequence) : a.Convergent ↔ ∃ L, a.TendsTo L := by rfl
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 abbrev Sequence.Divergent (a:Sequence) : Prop := ¬ a.Convergent
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.divergent_def (a:Sequence) : a.Divergent ↔ ¬ a.Convergent := by rfl
 
 open Classical in
@@ -296,11 +296,11 @@ open Classical in
 -/
 noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.Convergent then h.choose else 0
 
-/-- Definition 6.1.8 -/
+/-- Визначення 6.1.8 -/
 theorem Sequence.lim_def {a:Sequence} (h: a.Convergent) : a.TendsTo (lim a) := by
   simp [lim, h]; exact h.choose_spec
 
-/-- Визначення 6.1.8-/
+/- Визначення 6.1.8-/
 theorem Sequence.lim_eq {a:Sequence} {L:ℝ} :
 a.TendsTo L ↔ a.Convergent ∧ lim a = L := by
   constructor
@@ -352,18 +352,18 @@ example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).Convergent := by sorry
 theorem Sequence.lim_eq_LIM {a:ℕ → ℚ} (h: (a:Chapter5.Sequence).IsCauchy) :
     ((a:Chapter5.Sequence):Sequence).TendsTo (Chapter5.Real.equivR (Chapter5.LIM a)) := by sorry
 
-/-- Визначення 6.1.16 -/
+/- Визначення 6.1.16 -/
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℝ) : Prop :=
   ∀ n, |a n| ≤ M
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 lemma Sequence.boundedBy_def (a:Sequence) (M:ℝ) :
   a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
-/-- Definition 6.1.16 -/
+/-- Визначення 6.1.16 -/
 abbrev Sequence.IsBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/-- Визначення 6.1.16 -/
+/- Визначення 6.1.16 -/
 lemma Sequence.isBounded_def (a:Sequence) :
   a.IsBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
@@ -616,7 +616,7 @@ abbrev Chapter5.Sequence.RatEquiv (a b: ℕ → ℚ) : Prop :=
   ∀ (ε:ℝ), ε > 0 → ε.SeqEventuallyClose (a:Chapter5.Sequence) (b:Chapter5.Sequence)
 
 namespace Chapter6
-/-- Exercise 6.1.10 -/
+/-- Вправа 6.1.10 -/
 theorem Chapter5.Sequence.equiv_rat (a b: ℕ → ℚ) :
   Chapter5.Sequence.Equiv a b ↔ Chapter5.Sequence.RatEquiv a b := by sorry
 

@@ -239,7 +239,7 @@ theorem Int.countablyInfinite : CountablyInfinite ℤ := by
     convert h1.union h2; ext; simp; omega
   rwa [←CountablyInfinite.equiv (.univ _)]
 
-/-- Lemma 8.1.12 -/
+/-- Лема 8.1.12 -/
 theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 ≤ n.1 } := by
   -- This proof is written to follow the structure of the original text.
   let A := { n : ℕ × ℕ | n.2 ≤ n.1 }
@@ -309,19 +309,19 @@ theorem Rat.countablyInfinite : CountablyInfinite ℚ := by
     apply this; infer_instance
   tauto
 
-/-- Exercise 8.1.1 -/
+/-- Вправа 8.1.1 -/
 example (X: Type) : Infinite X ↔ ∃ Y : Set X, Y ≠ .univ ∧ EqualCard Y X := by
   sorry
 
-/-- Exercise 8.1.6 -/
+/-- Вправа 8.1.6 -/
 example (A: Type) : AtMostCountable A ↔ ∃ f : A → ℕ, Function.Injective f := by
   sorry
 
-/-- Exercise 8.1.9 -/
+/-- Вправа 8.1.9 -/
 example {I X:Type} (hI: AtMostCountable I) (A: I → Set X) (hA: ∀ i, AtMostCountable (A i)) :
   AtMostCountable (⋃ i, A i) := by sorry
 
-/-- Exercise 8.1.10.  Note the lack of the `noncomputable` keyword in the `abbrev`. -/
+/-- Вправа 8.1.10.  Note the lack of the `noncomputable` keyword in the `abbrev`. -/
 abbrev explicit_bijection : ℕ → ℚ := sorry
 
 theorem explicit_bijection_spec : Function.Bijective explicit_bijection := by sorry

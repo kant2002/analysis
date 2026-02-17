@@ -9,7 +9,7 @@ A companion to (the introduction to) Section 1.4.1 of the book "An introduction 
 
 -/
 
-/-- Definition 1.4.1 -/
+/-- Визначення 1.4.1 -/
 class ConcreteBooleanAlgebra (X:Type*) where
   measurable : Set X → Prop
   empty_mem : measurable (∅ : Set X)
@@ -53,7 +53,7 @@ instance ConcreteBooleanAlgebra.instOrderBot {X:Type*} : OrderBot (ConcreteBoole
     bot_le := sorry
   }
 
-/-- Exercise 1.4.1 (Elementary algebra) -/
+/-- Вправа 1.4.1 (Elementary algebra) -/
 def EuclideanSpace'.elementary_boolean_algebra (d:ℕ) : ConcreteBooleanAlgebra (EuclideanSpace' d) :=
   {
     measurable := fun E => IsElementary E ∨ IsElementary Eᶜ
@@ -101,7 +101,7 @@ def IsNull.lt_lebesgue_boolean_algebra (d:ℕ) :
   IsNull.boolean_algebra d ≤ LebesgueMeasurable.boolean_algebra d :=
   by sorry
 
-/-- Exercise 1.4.2 (Restriction) -/
+/-- Вправа 1.4.2 (Restriction) -/
 def ConcreteBooleanAlgebra.restrict {X:Type*} (B: ConcreteBooleanAlgebra X) (A:Set X) : ConcreteBooleanAlgebra A :=
   {
     measurable := fun E => ∃ E' : Set X, B.measurable E ∧ E = E' ∩ A
@@ -187,7 +187,7 @@ def DyadicCube'.boolean_algebra_mono (d:ℕ) {m n:ℕ} (h: m ≤ n) :
 
 def IsPartition.relabels {I J X:Type*} {parts_I: I → Set X} (_: IsPartition parts_I) {parts_J : J → Set X} (_: IsPartition parts_J) : Prop := ∃ e : I ≃ J, ∀ i:I, parts_I i = parts_J (e i)
 
-/-- Exercise 1.4.3 (Non-empty atoms of an atomic algebra determined up to relabeling) -/
+/-- Вправа 1.4.3 (Non-empty atoms of an atomic algebra determined up to relabeling) -/
 def IsPartition.boolean_algebra_eq_iff {I J X:Type*} {parts_I: I → Set X} {parts_J: J → Set X}
   (hI: IsPartition parts_I) (hJ: IsPartition parts_J) : hI.to_ConcreteBooleanAlgebra = hJ.to_ConcreteBooleanAlgebra ↔ hI.remove_empty.relabels hJ.remove_empty := by sorry
 
@@ -199,29 +199,29 @@ def IsPartition.boolean_algebra_eq_iff' {I J X:Type*} {parts_I: I → Set X} {pa
 def ConcreteBooleanAlgebra.isAtomic {X:Type*} (B: ConcreteBooleanAlgebra X) : Prop :=
   ∃ (I:Type*) (parts: I → Set X) (hI:IsPartition parts), B = hI.to_ConcreteBooleanAlgebra
 
-/-- Exercise 1.4.4 (Finite boolean algebras are atomic) -/
+/-- Вправа 1.4.4 (Finite boolean algebras are atomic) -/
 def ConcreteBooleanAlgebra.atomic_of_finite {X:Type*} (B: ConcreteBooleanAlgebra X) (h_fin: (B.measurableSets).Finite) : B.isAtomic :=
   by sorry
 
 def ConcreteBooleanAlgebra.card_of_finite {X:Type*} (B: ConcreteBooleanAlgebra X) (h_fin: (B.measurableSets).Finite) : ∃ n:ℕ, (B.measurableSets).ncard = 2^n := by sorry
 
-/-- Exercise 1.4.5 (elementary algebra not atomic) -/
+/-- Вправа 1.4.5 (elementary algebra not atomic) -/
 def EuclideanSpace'.elementary_boolean_algebra_not_atomic (d:ℕ) (hd: d ≥ 1) : ¬ (EuclideanSpace'.elementary_boolean_algebra d).isAtomic :=
   by sorry
 
-/-- Exercise 1.4.5 (Jordan algebra not atomic) -/
+/-- Вправа 1.4.5 (Jordan algebra not atomic) -/
 def JordanMeasurable.boolean_algebra_not_atomic (d:ℕ) (hd: d ≥ 1) : ¬ (JordanMeasurable.boolean_algebra d).isAtomic :=
   by sorry
 
-/-- Exercise 1.4.5 (Lebesgue algebra not atomic) -/
+/-- Вправа 1.4.5 (Lebesgue algebra not atomic) -/
 def LebesgueMeasurable.boolean_algebra_not_atomic (d:ℕ) (hd: d ≥ 1) : ¬ (LebesgueMeasurable.boolean_algebra d).isAtomic :=
   by sorry
 
-/-- Exercise 1.4.6 (Null algebra not atomic) -/
+/-- Вправа 1.4.6 (Null algebra not atomic) -/
 def IsNull.boolean_algebra_not_atomic (d:ℕ) (hd: d ≥ 1) : ¬ (IsNull.boolean_algebra d).isAtomic :=
   by sorry
 
-/-- Exercise 1.4.6 (Intersection of algebras) -/
+/-- Вправа 1.4.6 (Intersection of algebras) -/
 instance ConcreteBooleanAlgebra.instInfSet {X:Type*} : InfSet (ConcreteBooleanAlgebra X) :=
   {
       sInf S :=
@@ -236,7 +236,7 @@ instance ConcreteBooleanAlgebra.instInfSet {X:Type*} : InfSet (ConcreteBooleanAl
 def ConcreteBooleanAlgebra.generated_by {X:Type*} (F: Set (Set X)) : ConcreteBooleanAlgebra X :=
   sInf { B | ∀ E ∈ F, B.measurable E }
 
-/-- Definition 1.4.10 (Generation of algebras) -/
+/-- Визначення 1.4.10 (Generation of algebras) -/
 instance ConcreteBooleanAlgebra.instSupSet {X:Type*} : SupSet (ConcreteBooleanAlgebra X) :=
   {
       sSup S := ConcreteBooleanAlgebra.generated_by (⋃ B ∈ S, B.measurableSets)
@@ -263,13 +263,11 @@ instance ConcreteBooleanAlgebra.instCompleteLattice {X:Type*} : CompleteLattice 
 /-- Example 1.4.11 -/
 instance ConcreteBooleanAlgebra.eq_generated_by_iff {X:Type*} (F: Set (Set X)) : ∃ (B : ConcreteBooleanAlgebra X), B.measurableSets = F ↔ (ConcreteBooleanAlgebra.generated_by F).measurableSets = F := by sorry
 
-/-- Exercise 1.4.7 (Generation by boxes) -/
+/-- Вправа 1.4.7 (Generation by boxes) -/
 instance EuclideanSpace'.elementary_boolean_algebra_generated_by_boxes (d:ℕ) : EuclideanSpace'.elementary_boolean_algebra d =
   ConcreteBooleanAlgebra.generated_by (Box.toSet '' Set.univ) := by sorry
 
-/-- Exercise 1.4.9 (Recursive definition of generated Boolean algebra)-/
+/-- Вправа 1.4.9 (Recursive definition of generated Boolean algebra)-/
 def ConcreteBooleanAlgebra.generated_by_eq {X:Type*} (F: Set (Set X)) :
   (ConcreteBooleanAlgebra.generated_by F).measurableSets =
   ⋃ n, Nat.rec (motive := fun _ ↦ Set (Set X)) F (fun n G ↦ { E: Set X | (∃ S: Finset G, E = ⋃ (H:S), H) ∨ (∃ S: Finset G, E = (⋃ (H:S), H))ᶜ }) n := by sorry
-
-  

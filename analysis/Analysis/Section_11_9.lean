@@ -102,10 +102,10 @@ theorem DifferentiableOn.of_F_11_9_2 {x:ℝ} (hx: ¬ ∃ r:ℚ, x = r) (hx': x �
   rw [hasDerivWithinAt_iff_hasFDerivWithinAt] at this
   use (ContinuousLinearMap.smulRight (1:ℝ →L[ℝ] ℝ) (f_9_8_5 x))
 
-/-- Exercise 11.9.1 -/
+/-- Вправа 11.9.1 -/
 theorem DifferentiableOn.of_F_11_9_2' {q:ℚ} (hq: (q:ℝ) ∈ Set.Icc 0 1) : ¬ DifferentiableWithinAt ℝ F_11_9_2 (.Icc 0 1) q := by sorry
 
-/-- Definition 11.9.3.  We drop the requirement that x be a limit point as this makes
+/-- Визначення 11.9.3.  We drop the requirement that x be a limit point as this makes
     the Lean arguments slightly cleaner -/
 abbrev AntiderivOn (F f: ℝ → ℝ) (I: BoundedInterval) :=
   DifferentiableOn ℝ F I ∧ ∀ x ∈ I, HasDerivWithinAt F (f x) I x
@@ -222,13 +222,13 @@ example : ¬ BddOn (deriv F_11_9) (.Icc (-1) 1) := by sorry
 
 example : AntiderivOn F_11_9 (deriv F_11_9) (Icc (-1) 1) := by sorry
 
-/-- Lemma 11.9.5 / Exercise 11.9.2 -/
+/-- Лема 11.9.5 / Exercise 11.9.2 -/
 theorem antideriv_eq_antideriv_add_const {I:BoundedInterval} {f F G : ℝ → ℝ}
   (hfF: AntiderivOn F f I) (hfG: AntiderivOn G f I) :
    ∃ C, ∀ x ∈ (I:Set ℝ), F x = G x + C := by
     sorry
 
-/-- Exercise 11.9.3 -/
+/-- Вправа 11.9.3 -/
 example {a b x₀:ℝ} (hab: a < b) (hx₀: x₀ ∈ Icc a b) {f: ℝ → ℝ} (hf: MonotoneOn f (Icc a b)) :
   DifferentiableWithinAt ℝ (fun x => integ f (Icc a x)) (Icc a b) x₀ ↔
   ContinuousWithinAt f (Icc a b) x₀ := by
@@ -236,7 +236,7 @@ example {a b x₀:ℝ} (hab: a < b) (hx₀: x₀ ∈ Icc a b) {f: ℝ → ℝ} (
 
 end Chapter11
 
-/-- Exercise 11.6.5, moved to Section 11.9 -/
+/-- Вправа 11.6.5, moved to Section 11.9 -/
 theorem Chapter7.Series.converges_qseries' (p:ℝ) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ p : Series).converges ↔ (p>1) := by
   sorry
 

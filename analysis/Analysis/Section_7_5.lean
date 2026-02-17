@@ -205,7 +205,7 @@ theorem Series.root_self_converges : (fun (n:ℕ) ↦ (n:ℝ)^(1 / n : ℝ) : Se
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   sorry
 
-/-- Exercise 7.5.2 -/
+/-- Вправа 7.5.2 -/
 theorem Series.poly_mul_geom_converges {x:ℝ} (hx: |x|<1) (q:ℝ) : (fun n:ℕ ↦ (n:ℝ)^q * x^n : Series).converges
   ∧ atTop.Tendsto (fun n:ℕ ↦ (n:ℝ)^q * x^n) (nhds 0) := by
   sorry

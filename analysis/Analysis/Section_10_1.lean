@@ -24,7 +24,7 @@ namespace Chapter10
 
 variable (x₀ : ℝ)
 
-/-- Definition 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
+/-- Визначення 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
 hypothesis that `x₀` is a limit point is not needed. -/
 theorem _root_.HasDerivWithinAt.iff (X: Set ℝ) (x₀ : ℝ) (f: ℝ → ℝ)
   (L:ℝ) :

@@ -74,7 +74,7 @@ example : (∅:Set ℝ).OrdConnected := by sorry
 
 example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 
-/-- Lemma 11.1.4 / Exercise 11.1.1 -/
+/-- Лема 11.1.4 / Exercise 11.1.1 -/
 theorem Bornology.IsBounded.of_boundedInterval (I: BoundedInterval) : Bornology.IsBounded (I:Set ℝ) := by
   sorry
 
@@ -389,7 +389,7 @@ theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   rw [h3, ←Finset.add_sum_erase _ _ hK, ←hP', add_comm]; congr
   apply hn; simp [hP', Finset.card_erase_of_mem hK, hcard]
 
-/-- Визначення 11.1.14 (Finer and coarser partitions) -/
+/- Визначення 11.1.14 (Finer and coarser partitions) -/
 instance Partition.instLE (I: BoundedInterval) : LE (Partition I) where
   le P P' := ∀ J ∈ P'.intervals, ∃ K ∈ P, J ⊆ K
 
@@ -411,7 +411,7 @@ example : ∃ P P' : Partition (Icc 1 4),
   P' ≤ P := by
   sorry
 
-/-- Визначення 11.1.16 (Common refinement)-/
+/- Визначення 11.1.16 (Common refinement)-/
 noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I) where
   max P P' := {
     intervals := Finset.image₂ (fun J K ↦ J ∩ K) P.intervals P'.intervals

@@ -26,7 +26,7 @@ namespace Chapter6
 
 open Sequence Real
 
-/-- Lemma 6.7.1 (Continuity of exponentiation) -/
+/-- Лема 6.7.1 (Continuity of exponentiation) -/
 lemma ratPow_continuous {x α:ℝ} (hx: x > 0) {q: ℕ → ℚ}
  (hq: ((fun n ↦ (q n:ℝ)):Sequence).TendsTo α) :
  ((fun n ↦ x^(q n:ℝ)):Sequence).Convergent := by
@@ -126,7 +126,7 @@ theorem Real.eq_lim_of_rat (α:ℝ) : ∃ q: ℕ → ℚ, ((fun n ↦ (q n:ℝ))
   simp only [←hLIM, Equiv.apply_symm_apply] at hcauchy
   convert hcauchy; aesop
 
-/-- Definition 6.7.2 (Exponentiation to a real exponent) -/
+/-- Визначення 6.7.2 (Exponentiation to a real exponent) -/
 noncomputable abbrev Real.rpow (x:ℝ) (α:ℝ) :ℝ := lim ((fun n ↦ x^((eq_lim_of_rat α).choose n:ℝ)):Sequence)
 
 lemma Real.rpow_eq_lim_ratPow {x α:ℝ} (hx: x > 0) {q: ℕ → ℚ}

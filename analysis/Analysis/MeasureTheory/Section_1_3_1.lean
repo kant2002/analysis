@@ -22,7 +22,7 @@ def Real.EReal_fun {X:Type*} (f: X → ℝ) : X → EReal := fun x ↦ Real.toER
 noncomputable def EReal.indicator {X:Type*} (A: Set X) : X → EReal := Real.EReal_fun A.indicator'
 noncomputable def Complex.indicator {X:Type*} (A: Set X) : X → ℂ := Real.complex_fun A.indicator'
 
-/-- Definition 1.3.2 -/
+/-- Визначення 1.3.2 -/
 def UnsignedSimpleFunction {d:ℕ} (f: EuclideanSpace' d → EReal) : Prop := ∃ (k:ℕ) (c: Fin k → EReal) (E: Fin k → Set (EuclideanSpace' d)),
   (∀ i, LebesgueMeasurable (E i) ∧ c i ≥ 0) ∧ f = ∑ i, (c i) • (EReal.indicator (E i))
 
@@ -785,7 +785,7 @@ noncomputable def atomValue {k : ℕ} (c : Fin k → ℝ) (n : Fin (2^k)) : ℝ 
 
 end UnsignedSimpleFunction.IntegralWellDef
 
-/-- Lemma 1.3.4 (Well-definedness of simple integral) -/
+/-- Лема 1.3.4 (Well-definedness of simple integral) -/
 lemma UnsignedSimpleFunction.integral_eq {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) {k:ℕ} {c: Fin k → EReal}
     {E: Fin k → Set (EuclideanSpace' d)} (hmes: ∀ i, LebesgueMeasurable (E i)) (hnonneg: ∀ i, c i ≥ 0)
     (heq: f = ∑ i, (c i) • (EReal.indicator (E i))) :
@@ -812,15 +812,15 @@ lemma UnsignedSimpleFunction.integral_eq {d:ℕ} {f: EuclideanSpace' d → EReal
   simp only [UnsignedSimpleFunction.IntegralWellDef.weightedMeasureSum] at h
   exact h.symm
 
-/-- Definition 1.3.5 -/
+/-- Визначення 1.3.5 -/
 def AlmostAlways {d:ℕ} (P: EuclideanSpace' d → Prop) : Prop :=
   IsNull { x | ¬ P x }
 
-/-- Definition 1.3.5 -/
+/-- Визначення 1.3.5 -/
 def AlmostEverywhereEqual {d:ℕ} {X: Type*} (f g: EuclideanSpace' d → X) : Prop :=
   AlmostAlways (fun x ↦ f x = g x)
 
-/-- Definition 1.3.5 -/
+/-- Визначення 1.3.5 -/
 def Support {X Y: Type*} [Zero Y] (f: X → Y) : Set X := { x | f x ≠ 0 }
 
 lemma UnsignedSimpleFunction.support_measurable {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) : LebesgueMeasurable (Support f) := by
@@ -1020,44 +1020,44 @@ theorem AlmostEverywhereEqual.equivalence {d:ℕ} {X: Type*} :
     Equivalence (@AlmostEverywhereEqual d X) :=
   ⟨refl, symm, trans⟩
 
-/-- Exercise 1.3.1 (i) (Unsigned linearity) -/
+/-- Вправа 1.3.1 (i) (Unsigned linearity) -/
 lemma UnsignedSimpleFunction.integral_add {d:ℕ} {f g: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) (hg: UnsignedSimpleFunction g) :
   (hf.add hg).integ = hf.integ + hg.integ := by
   sorry
 
-/-- Exercise 1.3.1 (i) (Unsigned linearity) -/
+/-- Вправа 1.3.1 (i) (Unsigned linearity) -/
 lemma UnsignedSimpleFunction.integral_smul {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) {c:EReal} (hc: c ≥ 0) :
   (hf.smul hc).integ = c * hf.integ := by
   sorry
 
-/-- Exercise 1.3.1 (ii) (Finiteness) -/
+/-- Вправа 1.3.1 (ii) (Finiteness) -/
 lemma UnsignedSimpleFunction.integral_finite_iff {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) :
   (hf.integ < ⊤) ↔ (AlmostAlways (fun x ↦ f x < ⊤)) ∧ (Lebesgue_measure (Support f)) < ⊤ := by
   sorry
 
-/-- Exercise 1.3.1 (iii) (Vanishing) -/
+/-- Вправа 1.3.1 (iii) (Vanishing) -/
 lemma UnsignedSimpleFunction.integral_eq_zero_iff {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) :
   (hf.integ = 0) ↔ AlmostAlways (fun x ↦ f x = 0) := by
   sorry
 
-/-- Exercise 1.3.1 (iv) (Equivalence) -/
+/-- Вправа 1.3.1 (iv) (Equivalence) -/
 lemma UnsignedSimpleFunction.integral_eq_integral_of_aeEqual {d:ℕ} {f g: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) (hg: UnsignedSimpleFunction g)
   (hae: AlmostEverywhereEqual f g) :
   hf.integ = hg.integ := by
   sorry
 
-/-- Exercise 1.3.1 (v) (Monotonicity) -/
+/-- Вправа 1.3.1 (v) (Monotonicity) -/
 lemma UnsignedSimpleFunction.integral_le_integral_of_aeLe {d:ℕ} {f g: EuclideanSpace' d → EReal} (hf: UnsignedSimpleFunction f) (hg: UnsignedSimpleFunction g)
   (hae: AlmostAlways (fun x ↦ f x ≤ g x)) :
   hf.integ ≤ hg.integ := by
   sorry
 
-/-- Exercise 1.3.1(vi) (Compatibility with Lebesgue measure) -/
+/-- Вправа 1.3.1(vi) (Compatibility with Lebesgue measure) -/
 lemma UnsignedSimpleFunction.indicator {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) :
   UnsignedSimpleFunction (Real.toEReal ∘ E.indicator') := by
   sorry
 
-/-- Exercise 1.3.1(vi) (Compatibility with Lebesgue measure) -/
+/-- Вправа 1.3.1(vi) (Compatibility with Lebesgue measure) -/
 lemma UnsignedSimpleFunction.integral_indicator {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) :
   (UnsignedSimpleFunction.indicator hE).integ = Lebesgue_measure E := by
   sorry
@@ -1068,11 +1068,11 @@ lemma RealSimpleFunction.abs {d:ℕ} {f: EuclideanSpace' d → ℝ} (hf: RealSim
 lemma ComplexSimpleFunction.abs {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf: ComplexSimpleFunction f) : UnsignedSimpleFunction (EReal.abs_fun f) := by
   sorry
 
-/-- Definition 1.3.6 (Absolutely convergent simple integral) -/
+/-- Визначення 1.3.6 (Absolutely convergent simple integral) -/
 def RealSimpleFunction.AbsolutelyIntegrable {d:ℕ} {f: EuclideanSpace' d → ℝ} (hf: RealSimpleFunction f) : Prop :=
   (hf.abs).integ < ⊤
 
-/-- Definition 1.3.6 (Absolutely convergent simple integral) -/
+/-- Визначення 1.3.6 (Absolutely convergent simple integral) -/
 def ComplexSimpleFunction.AbsolutelyIntegrable {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf: ComplexSimpleFunction f) : Prop :=
   (hf.abs).integ < ⊤
 
@@ -1265,31 +1265,31 @@ lemma ComplexSimpleFunction.AbsolutelyIntegrable.smul {d:ℕ} {f: EuclideanSpace
 lemma ComplexSimpleFunction.AbsolutelyIntegrable.conj {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) :
   (hf.conj).AbsolutelyIntegrable := by sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Вправа 1.3.2 (i) (*-linearity) -/
 lemma RealSimpleFunction.integ_add {d:ℕ} {f g: EuclideanSpace' d → ℝ} {hf: RealSimpleFunction f} {hg: RealSimpleFunction g} (hf_integ: hf.AbsolutelyIntegrable) (hg_integ: hg.AbsolutelyIntegrable) : (hf.add hg).integ = hf.integ + hg.integ := by sorry
 
 lemma ComplexSimpleFunction.integ_add {d:ℕ} {f g: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} {hg: ComplexSimpleFunction g} (hf_integ: hf.AbsolutelyIntegrable) (hg_integ: hg.AbsolutelyIntegrable) : (hf.add hg).integ = hf.integ + hg.integ := by
   sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Вправа 1.3.2 (i) (*-linearity) -/
 lemma RealSimpleFunction.integ_smul {d:ℕ} {f: EuclideanSpace' d → ℝ} {hf: RealSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) (a: ℝ) : (hf.smul a).integ = a * hf.integ := by
   sorry
 
 lemma ComplexSimpleFunction.integ_smul {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) (a: ℂ) : (hf.smul a).integ = a * hf.integ := by
   sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Вправа 1.3.2 (i) (*-linearity) -/
 lemma ComplexSimpleFunction.integral_conj {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) : (hf.conj).integ = (starRingEnd ℂ) hf.integ := by
   sorry
 
-/-- Exercise 1.3.2 (ii) (equivalence) -/
+/-- Вправа 1.3.2 (ii) (equivalence) -/
 lemma RealSimpleFunction.integral_eq_integral_of_aeEqual {d:ℕ} {f g: EuclideanSpace' d → ℝ} {hf: RealSimpleFunction f} {hg: RealSimpleFunction g} (hf_integ: hf.AbsolutelyIntegrable) (hg_integ: hg.AbsolutelyIntegrable) (h_ae: AlmostEverywhereEqual f g) : hf.integ = hg.integ := by
   sorry
 
 lemma ComplexSimpleFunction.integral_eq_integral_of_aeEqual {d:ℕ} {f g: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} {hg: ComplexSimpleFunction g} (hf_integ: hf.AbsolutelyIntegrable) (hg_integ: hg.AbsolutelyIntegrable) (h_ae: AlmostEverywhereEqual f g) : hf.integ = hg.integ := by
   sorry
 
-/-- Exercise 1.3.2(iii) (Compatibility with Lebesgue measure) -/
+/-- Вправа 1.3.2(iii) (Compatibility with Lebesgue measure) -/
 lemma RealSimpleFunction.indicator {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) :
   RealSimpleFunction (E.indicator') := by
   sorry
@@ -1298,7 +1298,7 @@ lemma ComplexSimpleFunction.indicator {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: 
   ComplexSimpleFunction (Complex.indicator E) := by
   sorry
 
-/-- Exercise 1.3.2(iii) (Compatibility with Lebesgue measure) -/
+/-- Вправа 1.3.2(iii) (Compatibility with Lebesgue measure) -/
 lemma RealSimpleFunction.integral_indicator {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) (hfin: Lebesgue_measure E < ⊤): (RealSimpleFunction.indicator hE).integ = (Lebesgue_measure E).toReal := by
   sorry
 

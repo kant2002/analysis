@@ -8,7 +8,7 @@ A companion to Section 1.1.1 of the book "An introduction to Measure Theory".
 
 -/
 
-/- Definition 1.1.1.  (Intervals) We use the same formalization of intervals used in
+/- Визначення 1.1.1.  (Intervals) We use the same formalization of intervals used in
 Chapter 11 of "Analysis I".  Following the usual Lean preference to admit `junk` values,
 we allow for the possibility that `b < a`. -/
 inductive BoundedInterval where
@@ -518,7 +518,7 @@ theorem BoundedInterval.Ioo_subset (I: BoundedInterval) : Ioo I.a I.b ⊆ I := m
   | Ioc _ _ => by simp [subset_iff, Set.Ioo_subset_Ioc_self]
   | Ico _ _ => by simp [subset_iff, Set.Ioo_subset_Ico_self]
 
-/-- Definition 1.1.1 (boxes): The length of an interval is max(b - a, 0). -/
+/-- Визначення 1.1.1 (boxes): The length of an interval is max(b - a, 0). -/
 abbrev BoundedInterval.length (I: BoundedInterval) : ℝ := max (I.b - I.a) 0
 
 /-- Length is always non-negative -/
@@ -569,7 +569,7 @@ theorem BoundedInterval.coe_of_box (I:BoundedInterval) : (I:Box 1).toSet = Real.
   have : i=0 := by omega
   grind
 
-/-- Definition 1.1.1 (boxes): The volume of a box is the product of its side lengths. -/
+/-- Визначення 1.1.1 (boxes): The volume of a box is the product of its side lengths. -/
 abbrev Box.volume {d:ℕ} (B: Box d) : ℝ := ∏ i, |B.side i|ₗ
 
 /-- Using ||ᵥ subscript here to not override || -/
@@ -696,7 +696,7 @@ theorem IsElementary.box {d:ℕ} (B: Box d) : IsElementary B.toSet := by
   use {B}
   simp
 
-/-- Exercise 1.1.1 (Boolean closure): The union of two elementary sets is elementary. -/
+/-- Вправа 1.1.1 (Boolean closure): The union of two elementary sets is elementary. -/
 theorem IsElementary.union {d:ℕ} {E F: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (hF: IsElementary F) : IsElementary (E ∪ F) := by
   sorry
@@ -705,7 +705,7 @@ theorem IsElementary.union {d:ℕ} {E F: Set (EuclideanSpace' d)}
 lemma IsElementary.union' {d:ℕ} {S: Finset (Set (EuclideanSpace' d))}
 (hE: ∀ E ∈ S, IsElementary E) : IsElementary (⋃ E ∈ S, E) := by sorry
 
-/-- Exercise 1.1.1 (Boolean closure): The intersection of two elementary sets is elementary. -/
+/-- Вправа 1.1.1 (Boolean closure): The intersection of two elementary sets is elementary. -/
 theorem IsElementary.inter {d:ℕ} {E F: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (hF: IsElementary F) : IsElementary (E ∩ F) := by
   sorry
@@ -714,19 +714,19 @@ theorem IsElementary.inter {d:ℕ} {E F: Set (EuclideanSpace' d)}
 theorem IsElementary.empty (d:ℕ) : IsElementary (∅: Set (EuclideanSpace' d)) := by
   sorry
 
-/-- Exercise 1.1.1 (Boolean closure): The set difference of two elementary sets is elementary. -/
+/-- Вправа 1.1.1 (Boolean closure): The set difference of two elementary sets is elementary. -/
 theorem IsElementary.sdiff {d:ℕ} {E F: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (hF: IsElementary F) : IsElementary (E \ F) := by
   sorry
 
-/-- Exercise 1.1.1 (Boolean closure): The symmetric difference of two elementary sets is elementary. -/
+/-- Вправа 1.1.1 (Boolean closure): The symmetric difference of two elementary sets is elementary. -/
 theorem IsElementary.symmDiff {d:ℕ} {E F: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (hF: IsElementary F) : IsElementary (symmDiff E F) := by
   sorry
 
 open Pointwise
 
-/-- Exercise 1.1.1 (Boolean closure): Translation of an elementary set is elementary. -/
+/-- Вправа 1.1.1 (Boolean closure): Translation of an elementary set is elementary. -/
 theorem IsElementary.translate {d:ℕ} {E: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (x: EuclideanSpace' d) : IsElementary (E + {x}) := by
   sorry
@@ -806,7 +806,7 @@ theorem BoundedInterval.partition (S: Finset BoundedInterval) : ∃ T: Finset Bo
     grind
   grind
 
-/-- Lemma 1.1.2(i): Any finset of boxes admits a common refinement into pairwise disjoint sub-boxes. -/
+/-- Лема 1.1.2(i): Any finset of boxes admits a common refinement into pairwise disjoint sub-boxes. -/
 theorem Box.partition {d:ℕ} (S: Finset (Box d)) : ∃ T: Finset (Box d), T.toSet.PairwiseDisjoint Box.toSet ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
   choose T hTdisj hT using BoundedInterval.partition
   let J : Fin d → Finset BoundedInterval := fun i ↦ T (S.image (fun B ↦ B.side i))
@@ -881,7 +881,7 @@ theorem BoundedInterval.sample_finite (I : BoundedInterval) {N:ℕ} (hN: N ≠ 0
       exact Int.le_floor.mpr this
   exact Set.Finite.subset ((Finset.finite_toSet _).image _) this
 
-/-- Exercise for Lemma 1.1.2(ii): Interval length equals the limit of lattice point counts scaled by 1/N. -/
+/-- Вправа for Lemma 1.1.2(ii): Interval length equals the limit of lattice point counts scaled by 1/N. -/
 theorem BoundedInterval.length_eq (I : BoundedInterval) :
   Filter.atTop.Tendsto (fun N:ℕ ↦ (N:ℝ)⁻¹ * Nat.card ↥(I.toSet ∩ (Set.range (fun n:ℤ ↦ (N:ℝ)⁻¹*n))))
   (nhds |I|ₗ) := by
@@ -923,7 +923,7 @@ theorem Box.vol_eq {d:ℕ} (B: Box d):
   apply Nat.card_congr (B.sample_congr N)
 
 
-/-- Lemma 1.1.2(ii), helper lemma: Sum of volumes equals limit of lattice counts over a disjoint union. -/
+/-- Лема 1.1.2(ii), helper lemma: Sum of volumes equals limit of lattice counts over a disjoint union. -/
 theorem Box.sum_vol_eq {d:ℕ} {T: Finset (Box d)}
  (hT: T.toSet.PairwiseDisjoint Box.toSet) :
   Filter.atTop.Tendsto (fun N:ℕ ↦ (N:ℝ)^(-d:ℝ) * Nat.card ↥((⋃ B ∈ T, B.toSet) ∩ (Set.range (fun (n:Fin d → ℤ) i ↦ (N:ℝ)⁻¹*(n i)))))
@@ -958,7 +958,7 @@ theorem Box.sum_vol_eq {d:ℕ} {T: Finset (Box d)}
   intro ⟨ B, _ ⟩; convert B.sample_finite ?_
   omega
 
-/-- Lemma 1.1.2(ii): Two disjoint partitions of the same set have equal sums of volumes. -/
+/-- Лема 1.1.2(ii): Two disjoint partitions of the same set have equal sums of volumes. -/
 theorem Box.measure_uniq {d:ℕ} {T₁ T₂: Finset (Box d)}
  (hT₁: T₁.toSet.PairwiseDisjoint Box.toSet)
  (hT₂: T₂.toSet.PairwiseDisjoint Box.toSet)
@@ -980,7 +980,7 @@ theorem IsElementary.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsElem
   apply Box.measure_uniq hE.partition.choose_spec.1 hT _
   rw [←heq, ←hE.partition.choose_spec.2]
 
-/-- Exercise 1.1.2: give an alternate proof of this proposition by showing that
+/-- Вправа 1.1.2: give an alternate proof of this proposition by showing that
 the two partitions `T₁`, `T₂` admit a mutual refinement into boxes arising from
 taking Cartesian products of elements from finite collections of disjoint intervals. -/
 theorem Box.measure_uniq' {d:ℕ} {T₁ T₂: Finset (Box d)}
@@ -1582,7 +1582,7 @@ lemma IsElementary.measure_of_translate {d:ℕ} {E: Set (EuclideanSpace' d)}
       exact Finset.sum_congr rfl fun B hB => (hf_spec B hB).2
     rw [h_translate_measure, h_sum_eq, hE.measure_eq hT_disj hE_eq]
 
-/-- Exercise 1.1.3 (uniqueness of elementary measure): Any non-negative, additive, translation-invariant
+/-- Вправа 1.1.3 (uniqueness of elementary measure): Any non-negative, additive, translation-invariant
 function on elementary sets is a scalar multiple of the standard elementary measure. -/
 theorem IsElementary.measure_uniq {d:ℕ} {m': (E: Set (EuclideanSpace' d)) → (IsElementary E) → ℝ}
   (hnonneg: ∀ E: Set (EuclideanSpace' d), ∀ hE: IsElementary E, m' E hE ≥ 0)
@@ -1610,7 +1610,7 @@ abbrev Box.prod {d₁ d₂:ℕ} (B₁: Box d₁) (B₂: Box d₂) : Box (d₁ + 
     obtain ⟨ i, hi ⟩ := i
     exact if h : i < d₁ then B₁.side ⟨i, h⟩ else (B₂.side ⟨i - d₁, by omega⟩)
 
-/-- Exercise 1.1.4: The Cartesian product of two elementary sets is elementary. -/
+/-- Вправа 1.1.4: The Cartesian product of two elementary sets is elementary. -/
 theorem IsElementary.prod {d₁ d₂:ℕ} {E₁: Set (EuclideanSpace' d₁)} {E₂: Set (EuclideanSpace' d₂)}
   (hE₁: IsElementary E₁) (hE₂: IsElementary E₂) : IsElementary (EuclideanSpace'.prod E₁ E₂) := by sorry
 

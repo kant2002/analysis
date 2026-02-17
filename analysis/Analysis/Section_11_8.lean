@@ -143,7 +143,7 @@ theorem right_lim_le_left_lim_of_monotone {f:ℝ → ℝ} {a b:ℝ} (hab: a < b)
       . rw [bddAbove_def]; use f b; intro y hy; simp at hy; obtain ⟨ x, hx, rfl ⟩ := hy; apply hf; grind
       simp; use (a+b)/2; simp; linarith
 
-/-- Definition 11.8.1 -/
+/-- Визначення 11.8.1 -/
 noncomputable abbrev α_length (α: ℝ → ℝ) (I: BoundedInterval) : ℝ := match I with
 | Icc a b => if a ≤ b then (right_lim α b) - (left_lim α a) else 0
 | Ico a b => if a ≤ b then (left_lim α b) - (left_lim α a) else 0
@@ -232,7 +232,7 @@ theorem Partition.sum_of_α_length  {I: BoundedInterval} (P: Partition I) (α: �
   ∑ J ∈ P.intervals, α[J]ₗ = α[I]ₗ := by
   sorry
 
-/-- Definition 11.8.5 (Piecewise constant RS integral)-/
+/-- Визначення 11.8.5 (Piecewise constant RS integral)-/
 noncomputable abbrev PiecewiseConstantWith.RS_integ (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) (α: ℝ → ℝ)   :
   ℝ := ∑ J ∈ P.intervals, constant_value_on f (J:Set ℝ) * α[J]ₗ
 
@@ -456,13 +456,13 @@ theorem RS_IntegrableOn_iff_IntegrableOn (f:ℝ → ℝ) (I: BoundedInterval) :
   RS_IntegrableOn f I (fun x ↦ x) ↔ IntegrableOn f I := by
   sorry
 
-/-- Exercise 11.8.4 -/
+/-- Вправа 11.8.4 -/
 theorem RS_integ_of_uniform_cts {I: BoundedInterval} {f:ℝ → ℝ} (hf: UniformContinuousOn f I)
  {α:ℝ → ℝ} (hα: Monotone α):
   RS_IntegrableOn f I α := by
   sorry
 
-/-- Exercise 11.8.5 -/
+/-- Вправа 11.8.5 -/
 theorem RS_integ_with_sign (f:ℝ → ℝ) (hf: ContinuousOn f (.Icc (-1) 1)) : RS_IntegrableOn f (Icc (-1) 1) Real.sign ∧ RS_integ f (Icc (-1) 1) (fun x ↦ -Real.sign x) = 2 * f 0 := by
   sorry
 

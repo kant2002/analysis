@@ -31,7 +31,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Визначення 3.6.1 (Рівна потужність) -/
+/- Визначення 3.6.1 (Рівна потужність) -/
 abbrev SetTheory.Set.EqualCard (X Y:Set) : Prop := ∃ f : X → Y, Function.Bijective f
 
 /-- Приклад 3.6.2 -/
@@ -67,7 +67,7 @@ theorem SetTheory.Set.EqualCard.trans {X Y Z:Set} (h1: EqualCard X Y) (h2: Equal
 /-- Твердження 3.6.4 / Вправа 3.6.1 -/
 instance SetTheory.Set.EqualCard.inst_setoid : Setoid SetTheory.Set := ⟨ EqualCard, {refl, symm, trans} ⟩
 
-/-- Визначення 3.6.5 -/
+/- Визначення 3.6.5 -/
 abbrev SetTheory.Set.has_card (X:Set) (n:ℕ) : Prop := X ≈ Fin n
 
 theorem SetTheory.Set.has_card_iff (X:Set) (n:ℕ) :
@@ -343,15 +343,15 @@ theorem SetTheory.Set.card_union_add_card_inter {A B:Set} (hA: A.finite) (hB: B.
 theorem SetTheory.Set.pigeonhole_principle {n:ℕ} {A: Fin n → Set}
   (hA: ∀ i, (A i).finite) (hAcard: (iUnion _ A).card > n) : ∃ i, (A i).card ≥ 2 := by sorry
 
-/-- Exercise 3.6.11 -/
+/-- Вправа 3.6.11 -/
 theorem SetTheory.Set.two_to_two_iff {X Y:Set} (f: X → Y): Function.Injective f ↔
     ∀ S ⊆ X, S.card = 2 → (image f S).card = 2 := by sorry
 
-/-- Exercise 3.6.12 -/
+/-- Вправа 3.6.12 -/
 def SetTheory.Set.Permutations (n: ℕ): Set := (Fin n ^ Fin n).specify (fun F ↦
     Function.Bijective (pow_fun_equiv F))
 
-/-- Exercise 3.6.12 (i), first part -/
+/-- Вправа 3.6.12 (i), first part -/
 theorem SetTheory.Set.Permutations_finite (n: ℕ): (Permutations n).finite := by sorry
 
 /- To continue Exercise 3.6.12 (i), we'll first develop some theory about `Permutations` and `Fin`. -/
@@ -442,7 +442,7 @@ theorem SetTheory.Set.Fin.succAbove_predAbove {n} (i : Fin (n + 1)) (x : Fin (n 
 theorem SetTheory.Set.Fin.predAbove_succAbove {n} (i : Fin (n + 1)) (x : Fin n) :
     (predAbove i) (succAbove i x) (succAbove_ne i x) = x := by sorry
 
-/-- Exercise 3.6.12 (i), second part -/
+/-- Вправа 3.6.12 (i), second part -/
 theorem SetTheory.Set.Permutations_ih (n: ℕ):
     (Permutations (n + 1)).card = (n + 1) * (Permutations n).card := by
   let S i := (Permutations (n + 1)).specify (fun p ↦ perm_equiv_equiv p (Fin.last n) = i)
@@ -456,7 +456,7 @@ theorem SetTheory.Set.Permutations_ih (n: ℕ):
   -- Hint: you might find `card_iUnion_card_disjoint` and `Permutations_finite` useful.
   sorry
 
-/-- Exercise 3.6.12 (ii) -/
+/-- Вправа 3.6.12 (ii) -/
 theorem SetTheory.Set.Permutations_card (n: ℕ):
     (Permutations n).card = n.factorial := by sorry
 

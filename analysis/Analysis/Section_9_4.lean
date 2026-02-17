@@ -19,7 +19,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Визначення 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
+/- Визначення 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
 theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
   ContinuousWithinAt f X x₀ ↔ Convergesto X f (f x₀) x₀ := by
   rw [ContinuousWithinAt.eq_1, Convergesto.iff, nhdsWithin.eq_1]

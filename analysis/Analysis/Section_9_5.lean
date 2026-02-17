@@ -18,7 +18,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.5.1.  We give left and right limits the "junk" value of 0 if the limit does not exist. -/
+/-- Визначення 9.5.1.  We give left and right limits the "junk" value of 0 if the limit does not exist. -/
 abbrev RightLimitExists (X: Set ℝ) (f: ℝ → ℝ) (x₀:ℝ) : Prop := ∃ L, (nhdsWithin x₀ (X ∩ .Ioi x₀)).Tendsto f (nhds L)
 
 open Classical in

@@ -9,7 +9,7 @@ A companion to Section 1.1.3 of the book "An introduction to Measure Theory".
 
 open BoundedInterval
 
-/-- Definition 1.1.5.  (Riemann integrability) The interval `I` should be closed, though we will not enforce this.  We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
+/-- Визначення 1.1.5.  (Riemann integrability) The interval `I` should be closed, though we will not enforce this.  We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
 in the text as this is slightly more convenient in Lean. -/
 @[ext]
 structure TaggedPartition (I: BoundedInterval) (n:ℕ) where
@@ -264,7 +264,7 @@ lemma eq_of_length_zero_of_Icc {I : BoundedInterval}
     rw [h_empty] at h_nonempty
     exact Set.not_nonempty_empty h_nonempty
 
-/-- Definition 1.1.15 (Riemann integrability) -/
+/-- Визначення 1.1.15 (Riemann integrability) -/
 -- For a Riemann integrable function, the Riemann sums converge to the integral value.
 lemma riemann_integral_of_integrable {f:ℝ → ℝ} {I: BoundedInterval} (h: RiemannIntegrableOn f I) : riemann_integral_eq f I (riemannIntegral f I) := by
   -- Strategy: Since `h : RiemannIntegrableOn f I` means `∃ R, riemann_integral_eq f I R`,
@@ -277,7 +277,7 @@ lemma riemann_integral_of_integrable {f:ℝ → ℝ} {I: BoundedInterval} (h: Ri
   -- In the `then` branch, we have `h.2.choose = h.2.choose` by reflexivity
   · rfl
 
-/-- Definition 1.1.15 (Riemann integrability) -/
+/-- Визначення 1.1.15 (Riemann integrability) -/
 -- Characterization of the Riemann integral: R is the integral iff the Riemann sums converge to R.
 lemma riemann_integral_eq_iff_of_integrable {f:ℝ → ℝ} {I: BoundedInterval} (h: RiemannIntegrableOn f I) (R:ℝ): riemann_integral_eq f I R ↔ R = riemannIntegral f I := by
   constructor
@@ -313,7 +313,7 @@ lemma riemann_integral_eq_iff_of_integrable {f:ℝ → ℝ} {I: BoundedInterval}
     rw [hRe]
     exact riemann_integral_of_integrable h
 
-/-- Definition 1.1.15 (Riemann integrability)-/
+/-- Визначення 1.1.15 (Riemann integrability)-/
 -- ε-δ characterization: Riemann sums converge to R iff for all ε > 0, there exists δ > 0 such that partitions with norm ≤ δ have Riemann sums within ε of R.
 lemma riemann_integral_eq_iff {f:ℝ → ℝ} {I: BoundedInterval} (R:ℝ): riemann_integral_eq f I R ↔ ∀ ε>0, ∃ δ>0, ∀ n, ∀ P: TaggedPartition I n, P.norm ≤ δ → |P.RiemannSum f - R| ≤ ε := by
   -- Show equivalence between filter convergence and ε-δ definition.
@@ -430,7 +430,7 @@ lemma riemann_integral_eq_iff {f:ℝ → ℝ} {I: BoundedInterval} (R:ℝ): riem
     have h_applied := hδ (Sigma.fst a) a.snd hP_norm_le
     linarith
 
-/-- Definition 1.1.15.  (Riemann integrability)  -/
+/-- Визначення 1.1.15.  (Riemann integrability)  -/
 -- Any function is Riemann integrable on a degenerate interval [a,a] with integral zero.
 lemma RiemannIntegrable.of_zero_length (f: ℝ → ℝ) {I: BoundedInterval} {a : ℝ} (h: I = Icc a a) : RiemannIntegrableOn f I ∧ riemannIntegral f I = 0 := by
   -- First establish basic facts from h : I = Icc a a
@@ -579,7 +579,7 @@ lemma findSubintervalIndex_spec (lo hi : ℝ) (n : ℕ) (hn : n > 0) (hlohi : lo
              _ = lo + (↑k + 1) * Δ := by rw [h_k_eq_floor]
       linarith [h_lt]
 
-/-- Definition 1.1.15 -/
+/-- Визначення 1.1.15 -/
 theorem RiemannIntegrable.bounded {f: ℝ → ℝ} {I: BoundedInterval} (h: RiemannIntegrableOn f I) : ∃ M, ∀ x ∈ I, |f x| ≤ M := by
   obtain ⟨hIcc, h_nonempty, R, hR⟩ := h
   -- Handle zero-length case separately
@@ -752,50 +752,50 @@ def PiecewiseConstantOn (f: ℝ → ℝ) (I: BoundedInterval) : Prop := ∃ F: P
 def PiecewiseConstantFunction.integral {I: BoundedInterval} (g: PiecewiseConstantFunction I) : ℝ :=
   ∑ J : g.T, g.c J * |J|ₗ
 
-/-- Exercise 1.1.20 (Piecewise constant functions) -/
+/-- Вправа 1.1.20 (Piecewise constant functions) -/
 -- The integral is well-defined: different representations of the same piecewise constant function have the same integral.
 theorem PiecewiseConstantFunction.integral_eq (f: ℝ → ℝ) {I: BoundedInterval} (F F': PiecewiseConstantFunction I) (hF: F.agreesWith f) (hF': F'.agreesWith f) : F.integral = F'.integral := by sorry
 
 -- The integral of a piecewise constant function on I.
 noncomputable def PiecewiseConstantOn.integral (f: ℝ → ℝ) {I: BoundedInterval} (h: PiecewiseConstantOn f I) : ℝ := h.choose.integral
 
-/-- Exercise 1.1.20 (Piecewise constant functions) -/
+/-- Вправа 1.1.20 (Piecewise constant functions) -/
 -- The integral of a piecewise constant function equals the integral of any of its representations.
 theorem PiecewiseConstantOn.integral_eq (f: ℝ → ℝ) {I: BoundedInterval} (h: PiecewiseConstantOn f I) (F: PiecewiseConstantFunction I) (hF: F.agreesWith f) : h.integral = F.integral := by sorry
 
-/-- Exercise 1.1.21 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.21 (a) (Linearity of the piecewise constant integral) -/
 -- A scalar multiple of a piecewise constant function is piecewise constant.
 theorem PiecewiseConstantOn.smul {I: BoundedInterval} (c:ℝ) {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) : PiecewiseConstantOn (c • f) I := by sorry
 
-/-- Exercise 1.1.21 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.21 (a) (Linearity of the piecewise constant integral) -/
 -- The integral is linear: integral(c * f) = c * integral(f).
 theorem PiecewiseConstantFunction.integral_smul {I:BoundedInterval} (c:ℝ) {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) : (h.smul c).integral = h.integral := by sorry
 
-/-- Exercise 1.1.21 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.21 (a) (Linearity of the piecewise constant integral) -/
 -- The sum of two piecewise constant functions is piecewise constant.
 theorem PiecewiseConstantOn.add {I: BoundedInterval} {f g: ℝ → ℝ} (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) : PiecewiseConstantOn (f + g) I := by sorry
 
-/-- Exercise 1.1.21 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.21 (a) (Linearity of the piecewise constant integral) -/
 -- The integral is linear: integral(f + g) = integral(f) + integral(g).
 theorem PiecewiseConstantFunction.integral_add {I: BoundedInterval} {f g: ℝ → ℝ} (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) : (hf.add hg).integral = hf.integral + hg.integral := by sorry
 
-/-- Exercise 1.1.21 (b) (Monotonicity of the piecewise constant integral) -/
+/-- Вправа 1.1.21 (b) (Monotonicity of the piecewise constant integral) -/
 -- The integral is monotone: if f ≤ g pointwise, then integral(f) ≤ integral(g).
 theorem PiecewiseConstantFunction.integral_mono {I: BoundedInterval} {f g: ℝ → ℝ} (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) (hmono: ∀ x ∈ I.toSet, f x ≤ g x): hf.integral ≤ hg.integral := by sorry
 
-/-- Exercise 1.1.21 (c) (Piecewise constant integral of indicator functions) -/
+/-- Вправа 1.1.21 (c) (Piecewise constant integral of indicator functions) -/
 -- The indicator function of an elementary set is piecewise constant.
 theorem PiecewiseConstantOn.indicator_of_elem (I: BoundedInterval) {E:Set ℝ} (hE: IsElementary (Real.equiv_EuclideanSpace' '' E) ) : PiecewiseConstantOn E.indicator' I := by sorry
 
-/-- Exercise 1.1.21 (c) (Piecewise constant integral of indicator functions) -/
+/-- Вправа 1.1.21 (c) (Piecewise constant integral of indicator functions) -/
 -- The integral of an indicator function of an elementary set equals its elementary measure.
 theorem PiecewiseConstantFunction.integral_of_elem {I: BoundedInterval} {E:Set ℝ} (hE: IsElementary (Real.equiv_EuclideanSpace' '' E) ) (hsub: E ⊆ I.toSet) : (PiecewiseConstantOn.indicator_of_elem I hE).integral = hE.measure := by sorry
 
-/-- Definition 1.1.6 (Darboux integral) -/
+/-- Визначення 1.1.6 (Darboux integral) -/
 -- The lower Darboux integral: supremum of integrals of piecewise constant functions that underestimate f.
 noncomputable def LowerDarbouxIntegral (f:ℝ → ℝ) (I: BoundedInterval) : ℝ := sSup { R | ∃ g: PiecewiseConstantFunction I, g.integral = R ∧ ∀ x ∈ I.toSet, g.f x ≤ f x }
 
-/-- Definition 1.1.6 (Darboux integral) -/
+/-- Визначення 1.1.6 (Darboux integral) -/
 -- The upper Darboux integral: infimum of integrals of piecewise constant functions that overestimate f.
 noncomputable def UpperDarbouxIntegral (f:ℝ → ℝ) (I: BoundedInterval) : ℝ := sInf { R | ∃ h: PiecewiseConstantFunction I, h.integral = R ∧ ∀ x ∈ I.toSet, f x ≤ h.f x }
 
@@ -903,7 +903,7 @@ lemma UpperDarbouxIntegral.bddBelow {f:ℝ → ℝ} {I: BoundedInterval} (M: ℝ
   rw [PiecewiseConstantFunction.integral_mkConst] at h_mono
   exact h_mono
 
-/-- Definition 1.1.6 (Darboux integral) -/
+/-- Визначення 1.1.6 (Darboux integral) -/
 -- For any bounded function, the lower Darboux integral is at most the upper Darboux integral.
 lemma lower_darboux_le_upper_darboux {f:ℝ → ℝ} {I: BoundedInterval} (hbound: ∃ M, ∀ x ∈ I, |f x| ≤ M) : LowerDarbouxIntegral f I ≤ UpperDarbouxIntegral f I := by
   obtain ⟨M, hM⟩ := hbound
@@ -939,7 +939,7 @@ lemma lower_darboux_le_upper_darboux {f:ℝ → ℝ} {I: BoundedInterval} (hboun
         linarith
       exact PiecewiseConstantFunction.integral_mono' g h h_pointwise
 
-/-- Definition 1.1.6 (Darboux integral) -/
+/-- Визначення 1.1.6 (Darboux integral) -/
 -- A function is Darboux integrable if it is bounded and its lower and upper Darboux integrals coincide.
 noncomputable def DarbouxIntegrableOn (f:ℝ → ℝ) (I: BoundedInterval) : Prop := (I = Icc I.a I.b) ∧ ∃ M, ∀ x ∈ I, |f x| ≤ M ∧ LowerDarbouxIntegral f I = UpperDarbouxIntegral f I
 
@@ -967,7 +967,7 @@ lemma UpperDarbouxIntegral.bddBelow_neg {f:ℝ → ℝ} {I: BoundedInterval} (M:
   rw [PiecewiseConstantFunction.integral_mkConst] at h_mono
   exact h_mono
 
-/-- Definition 1.1.6 (Darboux integral) -/
+/-- Визначення 1.1.6 (Darboux integral) -/
 -- For the negation of a function, the upper Darboux integral of -f equals minus the lower Darboux integral of f.
 lemma UpperDarbouxIntegral.neg {f:ℝ → ℝ} {I: BoundedInterval} (hbound: ∃ M, ∀ x ∈ I, |f x| ≤ M) : UpperDarbouxIntegral (-f) I = -LowerDarbouxIntegral f I := by
   obtain ⟨M, hM⟩ := hbound
@@ -1028,15 +1028,15 @@ lemma UpperDarbouxIntegral.neg {f:ℝ → ℝ} {I: BoundedInterval} (hbound: ∃
         le_csSup h_bdd h_neg_in_set
       linarith
 
-/-- Exercise 1.1.22 -/
+/-- Вправа 1.1.22 -/
 -- Riemann integrability is equivalent to Darboux integrability for bounded functions.
 lemma RiemannIntegrableOn.iff_darbouxIntegrable {f:ℝ → ℝ} {I: BoundedInterval} (hbound: ∃ M, ∀ x ∈ I, |f x| ≤ M) : RiemannIntegrableOn f I ↔ DarbouxIntegrableOn f I := by sorry
 
-/-- Exercise 1.1.22 -/
+/-- Вправа 1.1.22 -/
 -- For Riemann integrable functions, the Riemann integral equals the Darboux integral.
 lemma riemann_integral_eq_darboux_integral {f:ℝ → ℝ} {I: BoundedInterval} (hf: RiemannIntegrableOn f I) : riemannIntegral f I = darbouxIntegral f I := by sorry
 
-/-- Exercise 1.1.23 -/
+/-- Вправа 1.1.23 -/
 -- Any function continuous on a closed interval is Riemann integrable.
 lemma RiemannIntegrableOn.continuous {f:ℝ → ℝ} {I: BoundedInterval} (hI: I = Icc I.a I.b) (hcont: ContinuousOn f I.toSet) : RiemannIntegrableOn f I := by sorry
 
@@ -1045,35 +1045,35 @@ lemma RiemannIntegrableOn.piecewise_continuous {f:ℝ → ℝ} {I: BoundedInterv
  (T: Finset BoundedInterval)  (hdisjoint: T.toSet.PairwiseDisjoint BoundedInterval.toSet)
  (hcover : I.toSet = ⋃ J ∈ T, J.toSet) (hcont: ∀ J ∈ T, ContinuousOn f J.toSet) : RiemannIntegrableOn f I := by sorry
 
-/-- Exercise 1.1.24 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.24 (a) (Linearity of the piecewise constant integral) -/
 -- A scalar multiple of a Riemann integrable function is Riemann integrable.
 theorem RiemannIntegrableOn.smul {I: BoundedInterval} (c:ℝ) {f: ℝ → ℝ} (h: RiemannIntegrableOn f I) : RiemannIntegrableOn (c • f) I := by sorry
 
-/-- Exercise 1.1.24 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.24 (a) (Linearity of the piecewise constant integral) -/
 -- The integral of a scalar multiple: integral(c * f) = c * integral(f).
 theorem riemann_integral_smul {I:BoundedInterval} (c:ℝ) {f: ℝ → ℝ} (h: RiemannIntegrableOn f I) : riemannIntegral (c • f) = c • (riemannIntegral f) := by sorry
 
-/-- Exercise 1.1.24 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.24 (a) (Linearity of the piecewise constant integral) -/
 -- The sum of two Riemann integrable functions is Riemann integrable.
 theorem RiemannIntegrableOn.add {I: BoundedInterval} {f g: ℝ → ℝ} (hf: RiemannIntegrableOn f I) (hg: RiemannIntegrableOn g I) : RiemannIntegrableOn (f + g) I := by sorry
 
-/-- Exercise 1.1.24 (a) (Linearity of the piecewise constant integral) -/
+/-- Вправа 1.1.24 (a) (Linearity of the piecewise constant integral) -/
 -- The integral of a sum: integral(f + g) = integral(f) + integral(g).
 theorem riemann_integral_add {I: BoundedInterval} {f g: ℝ → ℝ} (hf: RiemannIntegrableOn f I) (hg: RiemannIntegrableOn g I) : riemannIntegral (f+g) = riemannIntegral f + riemannIntegral g := by sorry
 
-/-- Exercise 1.1.24 (b) (Monotonicity of the piecewise constant integral) -/
+/-- Вправа 1.1.24 (b) (Monotonicity of the piecewise constant integral) -/
 -- The integral is monotone: if f ≤ g pointwise, then integral(f) ≤ integral(g).
 theorem riemann_integral_mono {I: BoundedInterval} {f g: ℝ → ℝ} (hf: RiemannIntegrableOn f I) (hg: RiemannIntegrableOn g I) (hmono: ∀ x ∈ I.toSet, f x ≤ g x): riemannIntegral f ≤ riemannIntegral g := by sorry
 
-/-- Exercise 1.1.24 (c) (Indicator functions) -/
+/-- Вправа 1.1.24 (c) (Indicator functions) -/
 -- The indicator function of a Jordan measurable set is Riemann integrable.
 theorem RiemannIntegrableOn.indicator_of_elem (I: BoundedInterval) {E:Set ℝ} (hE: JordanMeasurable (Real.equiv_EuclideanSpace' '' E) ) : RiemannIntegrableOn E.indicator' I := by sorry
 
-/-- Exercise 1.1.24 (c) (Piecewise constant integral of indicator functions) -/
+/-- Вправа 1.1.24 (c) (Piecewise constant integral of indicator functions) -/
 -- The integral of an indicator function equals the measure of the set it indicates.
 theorem riemann_integral_of_elem {I: BoundedInterval} {E:Set ℝ} (hE: JordanMeasurable (Real.equiv_EuclideanSpace' '' E) ) (hsub: E ⊆ I.toSet) : riemannIntegral E.indicator' I = hE.measure := by sorry
 
-/-- Exercise 1.1.24 (Uniqueness) -/
+/-- Вправа 1.1.24 (Uniqueness) -/
 -- The Riemann integral is the unique integral satisfying linearity, monotonicity, and normalization on indicator functions.
 theorem riemann_integral_unique {I: BoundedInterval} (integ: (ℝ → ℝ) → ℝ)
   (hsmul: ∀ (c:ℝ) (f: ℝ → ℝ) (hf: RiemannIntegrableOn f I), integ (c • f) = c • (integ f))
@@ -1082,19 +1082,19 @@ theorem riemann_integral_unique {I: BoundedInterval} (integ: (ℝ → ℝ) → �
   (hindicator: ∀ (E:Set ℝ) (hE: JordanMeasurable (Real.equiv_EuclideanSpace' '' E) ) (hsub: E ⊆ I.toSet), integ E.indicator' = hE.measure) :
   ∀ f, RiemannIntegrableOn f I → integ f = riemannIntegral f I := by sorry
 
-/-- Exercise 1.1.25 (Area interpretation of Riemann integral) -/
+/-- Вправа 1.1.25 (Area interpretation of Riemann integral) -/
 -- The region under the graph of a Riemann integrable function is Jordan measurable.
 theorem RiemannIntegrableOn.measurable_upper {I: BoundedInterval}
   {f: ℝ → ℝ} (hfint: RiemannIntegrableOn f I) :
   JordanMeasurable { p:EuclideanSpace' 2 | p 0 ∈ I.toSet ∧ 0 ≤ p 1 ∧ p 1 ≤ f (p 0) } := by sorry
 
-/-- Exercise 1.1.25 (Area interpretation of Riemann integral) -/
+/-- Вправа 1.1.25 (Area interpretation of Riemann integral) -/
 -- The region below the graph of a Riemann integrable function is Jordan measurable.
 theorem RiemannIntegrableOn.measurable_lower {I: BoundedInterval}
   {f: ℝ → ℝ} (hfint: RiemannIntegrableOn f I) :
   JordanMeasurable { p:EuclideanSpace' 2 | p 0 ∈ I.toSet ∧ f (p 0) ≤ p 1 ∧ p 1 ≤ 0 } := by sorry
 
-/-- Exercise 1.1.25 (Area interpretation of Riemann integral) -/
+/-- Вправа 1.1.25 (Area interpretation of Riemann integral) -/
 -- A function is Riemann integrable iff the regions above and below its graph are both Jordan measurable.
 theorem JordanMeasurable.iff_integrable {I: BoundedInterval} (hI: I = Icc I.a I.b)
   {f: ℝ → ℝ} (hf: ∃ M, ∀ x ∈ I.toSet, |f x| ≤ M) : RiemannIntegrableOn f I ↔
@@ -1102,7 +1102,7 @@ theorem JordanMeasurable.iff_integrable {I: BoundedInterval} (hI: I = Icc I.a I.
   JordanMeasurable { p:EuclideanSpace' 2 | p 0 ∈ I.toSet ∧ f (p 0) ≤ p 1 ∧ p 1 ≤ 0 }
   := by sorry
 
-/-- Exercise 1.1.25 (Area interpretation of Riemann integral) -/
+/-- Вправа 1.1.25 (Area interpretation of Riemann integral) -/
 -- The Riemann integral equals the difference between the measures of the upper and lower regions.
 theorem RiemannIntegrableOn.eq_measure {I: BoundedInterval}
   {f: ℝ → ℝ} (hfint: RiemannIntegrableOn f I) :

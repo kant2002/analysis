@@ -32,7 +32,7 @@ structure PreInt where
   minuend : ℕ
   subtrahend : ℕ
 
-/-- Визначення 4.1.1 -/
+/- Визначення 4.1.1 -/
 instance PreInt.instSetoid : Setoid PreInt where
   r a b := a.minuend + b.subtrahend = b.minuend + a.subtrahend
   iseqv := {
@@ -58,7 +58,7 @@ abbrev Int.formalDiff (a b:ℕ)  : Int := Quotient.mk PreInt.instSetoid ⟨ a,b 
 
 infix:100 " —— " => Int.formalDiff
 
-/-- Визначення 4.1.1 (Цілі числа) -/
+/- Визначення 4.1.1 (Цілі числа) -/
 theorem Int.eq (a b c d:ℕ): a —— b = c —— d ↔ a + d = c + b :=
   ⟨ Quotient.exact, by intro h; exact Quotient.sound h ⟩
 
@@ -72,7 +72,7 @@ instance Int.decidableEq : DecidableEq Int := by
     exact decEq _ _
   exact Quotient.recOnSubsingleton₂ a b this
 
-/-- Визначення 4.1.1 (Integers) -/
+/- Визначення 4.1.1 (Integers) -/
 theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by apply n.ind _; intro ⟨ a, b ⟩; use a, b
 /-- Лема 4.1.3 (Додавання чітко визначене) -/
 instance Int.instAdd : Add Int where
@@ -84,7 +84,7 @@ instance Int.instAdd : Add Int where
       _ = (a'+b) + (c'+d) := by rw [h1,h2]
       _ = _ := by abel)
 
-/-- Визначення 4.1.2 (Визначення додавання) -/
+/- Визначення 4.1.2 (Визначення додавання) -/
 theorem Int.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) := Quotient.lift₂_mk _ _ _ _
 
 /-- Лема 4.1.3 (Множення чітко визначене) -/
@@ -116,7 +116,7 @@ instance Int.instMul : Mul Int where
     convert mul_congr _ _ <;> simpa
     )
 
-/-- Визначення 4.1.2 (Множення цілих чисел) -/
+/- Визначення 4.1.2 (Множення цілих чисел) -/
 theorem Int.mul_eq (a b c d:ℕ) : a —— b * c —— d = (a*c+b*d) —— (a*d+b*c) := Quotient.lift₂_mk _ _ _ _
 
 instance Int.instOfNat {n:ℕ} : OfNat Int n where
@@ -147,7 +147,7 @@ example : 3 = 4 —— 1 := by rw [Int.ofNat_eq, Int.eq]
 /-- (Не із книги) 0 is the only natural whose cast is 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
-/-- Визначення 4.1.4 (Протилежність цілих чисел) / Вправа 4.1.2 -/
+/- Визначення 4.1.4 (Протилежність цілих чисел) / Вправа 4.1.2 -/
 instance Int.instNeg : Neg Int where
   neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b —— a) (by sorry)
 
@@ -213,7 +213,7 @@ instance Int.instCommRing : CommRing Int where
   zero_mul := by sorry
   mul_zero := by sorry
 
-/-- Визначення віднімання -/
+/- Визначення віднімання -/
 theorem Int.sub_eq (a b:Int) : a - b = a + (-b) := by rfl
 
 theorem Int.sub_eq_formal_sub (a b:ℕ) : (a:Int) - (b:Int) = a —— b := by sorry
@@ -224,11 +224,11 @@ theorem Int.mul_eq_zero {a b:Int} (h: a * b = 0) : a = 0 ∨ b = 0 := by sorry
 /-- Наслідок 4.1.9 (Властивість скорочення) / Вправа 4.1.6 -/
 theorem Int.mul_right_cancel₀ (a b c:Int) (h: a*c = b*c) (hc: c ≠ 0) : a = b := by sorry
 
-/-- Визначення 4.1.10 (Упорядкування цілих чисел) -/
+/- Визначення 4.1.10 (Упорядкування цілих чисел) -/
 instance Int.instLE : LE Int where
   le n m := ∃ a:ℕ, m = n + a
 
-/-- Визначення 4.1.10 (Упорядкування цілих чисел) -/
+/- Визначення 4.1.10 (Упорядкування цілих чисел) -/
 instance Int.instLT : LT Int where
   lt n m := n ≤ m ∧ n ≠ m
 

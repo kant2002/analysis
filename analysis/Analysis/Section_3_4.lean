@@ -29,11 +29,11 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
+/- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
   X.replace (P := fun x y ↦ f x = y ∧ x.val ∈ S) (by simp_all)
 
-/-- Визначення 3.4.1 -/
+/- Визначення 3.4.1 -/
 theorem SetTheory.Set.mem_image {X Y:Set} (f:X → Y) (S: Set) (y:Object) :
     y ∈ image f S ↔ ∃ x:X, x.val ∈ S ∧ f x = y := by
   grind [replacement_axiom]

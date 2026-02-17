@@ -23,7 +23,7 @@ example : 8 = (7:Nat).succ := rfl
 example : 9 = (8:Nat).succ := rfl
 example : 10 = (9:Nat).succ := rfl
 
-/-- Definition B.1.1 -/
+/-- Визначення B.1.1 -/
 def Digit := Fin 10
 
 instance Digit.instZero : Zero Digit := ⟨0, by decide⟩
@@ -74,7 +74,7 @@ theorem Digit.mk_eq_iff (d:Digit) {n:ℕ} (h: n < 10) : d = mk h ↔ (d:ℕ) = n
 theorem Digit.eq (n: Digit) : n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 ∨ n = 5 ∨ n = 6 ∨ n = 7 ∨ n = 8 ∨ n = 9 := by
   fin_cases n <;> simp
 
-/-- Definition B.1.2 -/
+/-- Визначення B.1.2 -/
 structure PosintDecimal where
   digits : List Digit
   nonempty : digits ≠ []
@@ -309,7 +309,7 @@ abbrev PosintDecimal.sum_digit (p q:PosintDecimal) (i:ℕ) : ℕ :=
   else
     p.digit i + q.digit i + (p.carry q) i - 10
 
-/-- Exercise B.1.1 -/
+/-- Вправа B.1.1 -/
 theorem PosintDecimal.sum_digit_lt (p q:PosintDecimal) (i:ℕ) :
   p.sum_digit q i < 10 := by sorry
 

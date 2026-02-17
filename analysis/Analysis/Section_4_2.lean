@@ -62,11 +62,11 @@ abbrev Rat.formalDiv (a b:ℤ) : Rat :=
 
 infix:100 " // " => Rat.formalDiv
 
-/-- Визначення 4.2.1 (Rationals) -/
+/- Визначення 4.2.1 (Rationals) -/
 theorem Rat.eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0): a // b = c // d ↔ a * d = c * b := by
   simp [hb, hd, Setoid.r]
 
-/-- Визначення 4.2.1 (Rationals) -/
+/- Визначення 4.2.1 (Rationals) -/
 theorem Rat.eq_diff (n:Rat) : ∃ a b, b ≠ 0 ∧ n = a // b := by
   apply Quotient.ind _ n; intro ⟨ a, b, h ⟩
   refine ⟨ a, b, h, ?_ ⟩
@@ -91,7 +91,7 @@ instance Rat.add_inst : Add Rat where
       _ = _ := by ring
   )
 
-/-- Визначення 4.2.2 (Addition of rationals) -/
+/- Визначення 4.2.2 (Addition of rationals) -/
 theorem Rat.add_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
     (a // b) + (c // d) = (a*d + b*c) // (b*d) := by
   convert Quotient.lift₂_mk _ _ _ _ <;> simp [hb, hd]
@@ -100,7 +100,7 @@ theorem Rat.add_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
 instance Rat.mul_inst : Mul Rat where
   mul := Quotient.lift₂ (fun ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ↦ (a*c) // (b*d)) (by sorry)
 
-/-- Визначення 4.2.2 (Multiplication of rationals) -/
+/- Визначення 4.2.2 (Multiplication of rationals) -/
 theorem Rat.mul_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
     (a // b) * (c // d) = (a*c) // (b*d) := by
   convert Quotient.lift₂_mk _ _ _ _ <;> simp [hb, hd]
@@ -109,7 +109,7 @@ theorem Rat.mul_eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0) :
 instance Rat.neg_inst : Neg Rat where
   neg := Quotient.lift (fun ⟨ a, b, h1 ⟩ ↦ (-a) // b) (by sorry)
 
-/-- Визначення 4.2.2 (Negation of rationals) -/
+/- Визначення 4.2.2 (Negation of rationals) -/
 theorem Rat.neg_eq (a:ℤ) {b:ℤ} (hb: b ≠ 0) : - (a // b) = (-a) // b := by
   convert Quotient.lift_mk _ _ _ <;> simp [hb]
 
@@ -237,7 +237,7 @@ instance Rat.instField : Field Rat where
 
 example : (3//4) / (5//6) = 9 // 10 := by sorry
 
-/-- Definition of subtraction -/
+/-- Визначення of subtraction -/
 theorem Rat.sub_eq (a b:Rat) : a - b = a + (-b) := by rfl
 
 def Rat.coe_int_hom : ℤ →+* Rat where
@@ -247,10 +247,10 @@ def Rat.coe_int_hom : ℤ →+* Rat where
   map_add' := by sorry
   map_mul' := by sorry
 
-/-- Визначення 4.2.6 (positivity) -/
+/- Визначення 4.2.6 (positivity) -/
 def Rat.isPos (q:Rat) : Prop := ∃ a b:ℤ, a > 0 ∧ b > 0 ∧ q = a/b
 
-/-- Визначення 4.2.6 (negativity) -/
+/- Визначення 4.2.6 (negativity) -/
 def Rat.isNeg (q:Rat) : Prop := ∃ r:Rat, r.isPos ∧ q = -r
 
 /-- Лема 4.2.7 (trichotomy of rationals) / Вправа 4.2.4 -/
@@ -265,11 +265,11 @@ theorem Rat.not_zero_and_neg (x:Rat) : ¬(x = 0 ∧ x.isNeg) := by sorry
 /-- Лема 4.2.7 (trichotomy of rationals) / Вправа 4.2.4 -/
 theorem Rat.not_pos_and_neg (x:Rat) : ¬(x.isPos ∧ x.isNeg) := by sorry
 
-/-- Визначення 4.2.8 (Ordering of the rationals) -/
+/- Визначення 4.2.8 (Ordering of the rationals) -/
 instance Rat.instLT : LT Rat where
   lt x y := (x-y).isNeg
 
-/-- Визначення 4.2.8 (Ordering of the rationals) -/
+/- Визначення 4.2.8 (Ordering of the rationals) -/
 instance Rat.instLE : LE Rat where
   le x y := (x < y) ∨ (x = y)
 

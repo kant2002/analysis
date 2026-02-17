@@ -298,7 +298,7 @@ theorem Sequence.Cauchy_iff_convergent (a:Sequence) :
   . specialize hup ((L_plus - L_minus)/3) ?_ <;> linarith
   grind
 
-/-- Exercise 6.4.6 -/
+/-- Вправа 6.4.6 -/
 theorem Sequence.sup_not_strict_mono : ∃ (a b:ℕ → ℝ), (∀ n, a n < b n) ∧ ¬ (a:Sequence).sup < (b:Sequence).sup := by
   sorry
 
@@ -311,20 +311,20 @@ def Sequence.tendsTo_real_iff :
 /-- This definition is needed for Exercises 6.4.8 and 6.4.9. -/
 abbrev Sequence.ExtendedLimitPoint (a:Sequence) (x:EReal) : Prop := if x = ⊤ then ¬ a.BddAbove else if x = ⊥ then ¬ a.BddBelow else a.LimitPoint x.toReal
 
-/-- Exercise 6.4.8 -/
+/-- Вправа 6.4.8 -/
 theorem Sequence.extended_limit_point_of_limsup (a:Sequence) : a.ExtendedLimitPoint a.limsup := by sorry
 
-/-- Exercise 6.4.8 -/
+/-- Вправа 6.4.8 -/
 theorem Sequence.extended_limit_point_of_liminf (a:Sequence) : a.ExtendedLimitPoint a.liminf := by sorry
 
 theorem Sequence.extended_limit_point_le_limsup {a:Sequence} {L:EReal} (h:a.ExtendedLimitPoint L): L ≤ a.limsup := by sorry
 
 theorem Sequence.extended_limit_point_ge_liminf {a:Sequence} {L:EReal} (h:a.ExtendedLimitPoint L): L ≥ a.liminf := by sorry
 
-/-- Exercise 6.4.9 -/
+/-- Вправа 6.4.9 -/
 theorem Sequence.exists_three_limit_points : ∃ a:Sequence, ∀ L:EReal, a.ExtendedLimitPoint L ↔ L = ⊥ ∨ L = 0 ∨ L = ⊤ := by sorry
 
-/-- Exercise 6.4.10 -/
+/-- Вправа 6.4.10 -/
 theorem Sequence.limit_points_of_limit_points {a b:Sequence} {c:ℝ} (hab: ∀ n ≥ b.m, a.LimitPoint (b n)) (hbc: b.LimitPoint c) : a.LimitPoint c := by sorry
 
 

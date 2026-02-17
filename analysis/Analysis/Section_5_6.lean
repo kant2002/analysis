@@ -27,7 +27,7 @@ Users of the companion who have completed the exercises in this section are welc
 
 namespace Chapter5
 
-/-- Definition 5.6.1 (Exponentiating a real by a natural number). Here we use the
+/-- Визначення 5.6.1 (Exponentiating a real by a natural number). Here we use the
     Mathlib definition coming from `Monoid`. -/
 
 lemma Real.pow_zero (x: Real) : x ^ 0 = 1 := rfl
@@ -67,7 +67,7 @@ theorem Real.pow_gt_pow (x y:Real) (n:ℕ) (hxy: x > y) (hy: y ≥ 0) (hn: n > 0
 /-- Analogue of Proposition 4.3.10(d) -/
 theorem Real.pow_abs (x:Real) (n:ℕ) : |x|^n = |x^n| := by sorry
 
-/-- Definition 5.6.2 (Exponentiating a real by an integer). Here we use the Mathlib definition coming from `DivInvMonoid`. -/
+/-- Визначення 5.6.2 (Exponentiating a real by an integer). Here we use the Mathlib definition coming from `DivInvMonoid`. -/
 lemma Real.pow_eq_pow (x: Real) (n:ℕ): x ^ (n:ℤ) = x ^ n := by rfl
 
 @[simp]
@@ -100,12 +100,12 @@ theorem Real.zpow_inj {x y:Real} {n:ℤ} (hx: x > 0) (hy : y > 0) (hn: n ≠ 0) 
 /-- Analogue of Proposition 4.3.12(d) -/
 theorem Real.zpow_abs (x:Real) (n:ℤ) : |x|^n = |x^n| := by sorry
 
-/-- Definition 5.6.2.  We permit ``junk values'' when `x` is negative or `n` vanishes. -/
+/-- Визначення 5.6.2.  We permit ``junk values'' when `x` is negative or `n` vanishes. -/
 noncomputable abbrev Real.root (x:Real) (n:ℕ) : Real := sSup { y:Real | y ≥ 0 ∧ y^n ≤ x }
 
 noncomputable abbrev Real.sqrt (x:Real) := x.root 2
 
-/-- Lemma 5.6.5 (Existence of n^th roots) -/
+/-- Лема 5.6.5 (Existence of n^th roots) -/
 theorem Real.rootset_nonempty {x:Real} (hx: x ≥ 0) (n:ℕ) (hn: n ≥ 1) : { y:Real | y ≥ 0 ∧ y^n ≤ x }.Nonempty := by
   use 0
   sorry
@@ -125,14 +125,14 @@ theorem Real.rootset_bddAbove {x:Real} (n:ℕ) (hn: n ≥ 1) : BddAbove { y:Real
     sorry
   linarith
 
-/-- Lemma 5.6.6 (ab) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (ab) / Exercise 5.6.1 -/
 theorem Real.eq_root_iff_pow_eq {x y:Real} (hx: x ≥ 0) (hy: y ≥ 0) {n:ℕ} (hn: n ≥ 1) :
   y = x.root n ↔ y^n = x := by sorry
 
-/-- Lemma 5.6.6 (c) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (c) / Exercise 5.6.1 -/
 theorem Real.root_nonneg {x:Real} (hx: x ≥ 0) {n:ℕ} (hn: n ≥ 1) : x.root n ≥ 0 := by sorry
 
-/-- Lemma 5.6.6 (c) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (c) / Exercise 5.6.1 -/
 theorem Real.root_pos {x:Real} (hx: x ≥ 0) {n:ℕ} (hn: n ≥ 1) : x.root n > 0 ↔ x > 0 := by sorry
 
 theorem Real.pow_of_root {x:Real} (hx: x ≥ 0) {n:ℕ} (hn: n ≥ 1) :
@@ -141,22 +141,22 @@ theorem Real.pow_of_root {x:Real} (hx: x ≥ 0) {n:ℕ} (hn: n ≥ 1) :
 theorem Real.root_of_pow {x:Real} (hx: x ≥ 0) {n:ℕ} (hn: n ≥ 1) :
   (x^n).root n = x := by sorry
 
-/-- Lemma 5.6.6 (d) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (d) / Exercise 5.6.1 -/
 theorem Real.root_mono {x y:Real} (hx: x ≥ 0) (hy: y ≥ 0) {n:ℕ} (hn: n ≥ 1) : x > y ↔ x.root n > y.root n := by sorry
 
-/-- Lemma 5.6.6 (e) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (e) / Exercise 5.6.1 -/
 theorem Real.root_mono_of_gt_one {x : Real} (hx: x > 1) {k l: ℕ} (hkl: k > l) (hl: l ≥ 1) : x.root k < x.root l := by sorry
 
-/-- Lemma 5.6.6 (e) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (e) / Exercise 5.6.1 -/
 theorem Real.root_mono_of_lt_one {x : Real} (hx0: 0 < x) (hx: x < 1) {k l: ℕ} (hkl: k > l) (hl: l ≥ 1) : x.root k > x.root l := by sorry
 
-/-- Lemma 5.6.6 (e) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (e) / Exercise 5.6.1 -/
 theorem Real.root_of_one {k: ℕ} (hk: k ≥ 1): (1:Real).root k = 1 := by sorry
 
-/-- Lemma 5.6.6 (f) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (f) / Exercise 5.6.1 -/
 theorem Real.root_mul {x y:Real} (hx: x ≥ 0) (hy: y ≥ 0) {n:ℕ} (hn: n ≥ 1) : (x*y).root n = (x.root n) * (y.root n) := by sorry
 
-/-- Lemma 5.6.6 (g) / Exercise 5.6.1 -/
+/-- Лема 5.6.6 (g) / Exercise 5.6.1 -/
 theorem Real.root_root {x:Real} (hx: x ≥ 0) {n m:ℕ} (hn: n ≥ 1) (hm: m ≥ 1): (x.root n).root m = x.root (n*m) := by sorry
 
 theorem Real.root_one {x:Real} (hx: x > 0): x.root 1 = x := by sorry
@@ -167,7 +167,7 @@ theorem Real.pow_cancel {y z:Real} (hy: y > 0) (hz: z > 0) {n:ℕ} (hn: n ≥ 1)
 example : ¬(∀ (y:Real) (z:Real) (n:ℕ) (_: n ≥ 1) (_: y^n = z^n), y = z) := by
   simp; refine ⟨ (-3), 3, 2, ?_, ?_, ?_ ⟩ <;> norm_num
 
-/-- Definition 5.6.7 -/
+/-- Визначення 5.6.7 -/
 noncomputable abbrev Real.ratPow (x:Real) (q:ℚ) : Real := (x.root q.den)^(q.num)
 
 noncomputable instance Real.instRatPow : Pow Real ℚ where
@@ -177,7 +177,7 @@ theorem Rat.eq_quot (q:ℚ) : ∃ a:ℤ, ∃ b:ℕ, b > 0 ∧ q = a / b := by
   use q.num, q.den; have := q.den_nz
   refine ⟨ by omega, (Rat.num_div_den q).symm ⟩
 
-/-- Lemma 5.6.8 -/
+/-- Лема 5.6.8 -/
 theorem Real.pow_root_eq_pow_root {a a':ℤ} {b b':ℕ} (hb: b > 0) (hb' : b' > 0)
   (hq : (a/b:ℚ) = (a'/b':ℚ)) {x:Real} (hx: x > 0) :
     (x.root b')^(a') = (x.root b)^(a) := by
@@ -213,47 +213,47 @@ theorem Real.ratPow_eq_root {x:Real} (hx: x > 0) {n:ℕ} (hn: n ≥ 1) : x^(1/n:
 
 theorem Real.ratPow_eq_pow {x:Real} (hx: x > 0) (n:ℤ) : x^(n:ℚ) = x^n := by sorry
 
-/-- Lemma 5.6.9(a) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(a) / Exercise 5.6.2 -/
 theorem Real.ratPow_pos {x:Real} (hx: x > 0) (q:ℚ) : x^q > 0 := by
   sorry
 
-/-- Lemma 5.6.9(b) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(b) / Exercise 5.6.2 -/
 theorem Real.ratPow_add {x:Real} (hx: x > 0) (q r:ℚ) : x^(q+r) = x^q * x^r := by
   sorry
 
-/-- Lemma 5.6.9(b) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(b) / Exercise 5.6.2 -/
 theorem Real.ratPow_ratPow {x:Real} (hx: x > 0) (q r:ℚ) : (x^q)^r = x^(q*r) := by
   sorry
 
-/-- Lemma 5.6.9(c) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(c) / Exercise 5.6.2 -/
 theorem Real.ratPow_neg {x:Real} (hx: x > 0) (q:ℚ) : x^(-q) = 1 / x^q := by
   sorry
 
-/-- Lemma 5.6.9(d) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(d) / Exercise 5.6.2 -/
 theorem Real.ratPow_mono {x y:Real} (hx: x > 0) (hy: y > 0) {q:ℚ} (h: q > 0) : x > y ↔ x^q > y^q := by
   sorry
 
-/-- Lemma 5.6.9(e) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(e) / Exercise 5.6.2 -/
 theorem Real.ratPow_mono_of_gt_one {x:Real} (hx: x > 1) {q r:ℚ} : x^q > x^r ↔ q > r := by
   sorry
 
-/-- Lemma 5.6.9(e) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(e) / Exercise 5.6.2 -/
 theorem Real.ratPow_mono_of_lt_one {x:Real} (hx0: 0 < x) (hx: x < 1) {q r:ℚ} : x^q > x^r ↔ q < r := by
   sorry
 
-/-- Lemma 5.6.9(f) / Exercise 5.6.2 -/
+/-- Лема 5.6.9(f) / Exercise 5.6.2 -/
 theorem Real.ratPow_mul {x y:Real} (hx: x > 0) (hy: y > 0) (q:ℚ) : (x*y)^q = x^q * y^q := by
   sorry
 
-/-- Exercise 5.6.3 -/
+/-- Вправа 5.6.3 -/
 theorem Real.pow_even (x:Real) {n:ℕ} (hn: Even n) : x^n ≥ 0 := by sorry
 
-/-- Exercise 5.6.5 -/
+/-- Вправа 5.6.5 -/
 theorem Real.max_ratPow {x y:Real} (hx: x > 0) (hy: y > 0) {q:ℚ} (hq: q > 0) :
   max (x^q) (y^q) = (max x y)^q := by
   sorry
 
-/-- Exercise 5.6.5 -/
+/-- Вправа 5.6.5 -/
 theorem Real.min_ratPow {x y:Real} (hx: x > 0) (hy: y > 0) {q:ℚ} (hq: q > 0) :
   min (x^q) (y^q) = (min x y)^q := by
   sorry

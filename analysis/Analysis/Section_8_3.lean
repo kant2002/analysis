@@ -155,12 +155,12 @@ theorem Uncountable.real : Uncountable ℝ := by
   rw [not_uncountable_iff] at this ⊢
   apply SetCoe.countable
 
-/-- Exercise 8.3.1 -/
+/-- Вправа 8.3.1 -/
 example {X:Type} [Finite X] : Nat.card (Set X) = 2 ^ Nat.card X := by
   sorry
 
 open Classical in
-/-- Exercise 8.3.2.  Some subtle type changes due to how sets are implemented in Mathlib. Also we shift the sequence `D` by one so that we can work in `Set A` rather than `Set B`. -/
+/-- Вправа 8.3.2.  Some subtle type changes due to how sets are implemented in Mathlib. Also we shift the sequence `D` by one so that we can work in `Set A` rather than `Set B`. -/
 theorem Schroder_Bernstein_lemma {X: Type} {A B C: Set X} (hAB: A ⊆ B) (hBC: B ⊆ C) (f: C ↪ A) :
   let D : ℕ → Set A := Nat.rec ((f.image ∘ ((B.embeddingOfSubset _ hBC).image)) {x:B | ↑x ∉ A}) (fun _ ↦ (f.image ∘ ((B.embeddingOfSubset _ hBC).image) ∘ (A.embeddingOfSubset _ hAB).image))
   Set.univ.PairwiseDisjoint D ∧
@@ -171,13 +171,13 @@ theorem Schroder_Bernstein_lemma {X: Type} {A B C: Set X} (hAB: A ⊆ B) (hBC: B
 
 abbrev LeCard (X Y: Type) : Prop := ∃ f: X → Y, Function.Injective f
 
-/-- Exercise 8.3.3 -/
+/-- Вправа 8.3.3 -/
 theorem Schroder_Bernstein {X Y:Type} (hXY : LeCard X Y) (hYX : LeCard Y X) : EqualCard X Y := by
   sorry
 
 abbrev LtCard (X Y: Type) : Prop := LeCard X Y ∧ ¬ EqualCard X Y
 
-/-- Exercise 8.3.4 -/
+/-- Вправа 8.3.4 -/
 example {X:Type} : LtCard X (Set X) := by sorry
 
 example {A B C: Type} (hAB: LtCard A B) (hBC: LtCard B C) :
@@ -195,7 +195,7 @@ abbrev CardOrder : Preorder Type := {
     sorry
 }
 
-/-- Exercise 8.3.5 -/
+/-- Вправа 8.3.5 -/
 example (X:Type) : ¬ CountablyInfinite (Set X) := by
   sorry
 

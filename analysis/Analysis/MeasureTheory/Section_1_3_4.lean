@@ -9,7 +9,7 @@ A companion to (the introduction to) Section 1.3.4 of the book "An introduction 
 
 -- It is probably possible to unify the real and complex theory here using the `RCLike` class in Mathlib, but we will adopt the more pedestrian approach of duplicating definitions in the real and complex cases.
 
-/-- Definition 1.3.17 -/
+/-- Визначення 1.3.17 -/
 
 def UnsignedAbsolutelyIntegrable {d:ℕ} (f: EuclideanSpace' d → EReal) : Prop := UnsignedMeasurable f ∧ UnsignedLebesgueIntegral f < ⊤
 
@@ -995,7 +995,7 @@ theorem L1.dist_eq_zero {d:ℕ} (f g: EuclideanSpace' d → ℂ) (hf: ComplexAbs
       exact sub_eq_zero.mp (norm_eq_zero.mp h_norm_zero)
   rw [h_sets_eq]
 
-/-- Exercise 1.3.19 (Integration is linear) -/
+/-- Вправа 1.3.19 (Integration is linear) -/
 noncomputable def L1.integ {d:ℕ} : L1 d →ₗ[ℂ] ℂ := {
   toFun := Quotient.lift (fun F ↦ F.integrable.integ) (by sorry)
   map_smul' := by sorry
@@ -1006,7 +1006,7 @@ noncomputable def L1.conj {d:ℕ} : L1 d → L1 d := Quotient.lift (fun F ↦ (F
 
 theorem L1.integ_conj {d:ℕ} (F: L1 d) : L1.integ (L1.conj F) = starRingEnd ℂ (L1.integ F) := by sorry
 
-/-- Exercise 1.3.20 (Translation invariance)-/
+/-- Вправа 1.3.20 (Translation invariance)-/
 theorem RealAbsolutelyIntegrable.trans {d:ℕ} {f: EuclideanSpace' d → ℝ} (hf: RealAbsolutelyIntegrable f) (a: EuclideanSpace' d) : RealAbsolutelyIntegrable (fun x ↦ f (x + a)) := by sorry
 
 theorem RealAbsolutelyIntegrable.integ_trans {d:ℕ} {f: EuclideanSpace' d → ℝ} (hf: RealAbsolutelyIntegrable f) (a: EuclideanSpace' d) : (hf.trans a).integ = hf.integ  := by sorry
@@ -1015,7 +1015,7 @@ theorem ComplexAbsolutelyIntegrable.trans {d:ℕ} {f: EuclideanSpace' d → ℂ}
 
 theorem ComplexAbsolutelyIntegrable.integ_trans {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf: ComplexAbsolutelyIntegrable f) (a: EuclideanSpace' d) : (hf.trans a).integ = hf.integ  := by sorry
 
-/-- Exercise 1.3.20 (Linear change of variables)-/
+/-- Вправа 1.3.20 (Linear change of variables)-/
 theorem RealAbsolutelyIntegrable.comp_linear {d:ℕ} {f: EuclideanSpace' d → ℝ} (hf: RealAbsolutelyIntegrable f) {A: EuclideanSpace' d →ₗ[ℝ] EuclideanSpace' d} (hA: A.det ≠ 0) :
     RealAbsolutelyIntegrable (fun x ↦ f (A x)) := by sorry
 
@@ -1028,13 +1028,13 @@ theorem ComplexAbsolutelyIntegrable.comp_linear {d:ℕ} {f: EuclideanSpace' d �
 theorem ComplexAbsolutelyIntegrable.integ_comp_linear {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf: ComplexAbsolutelyIntegrable f) {A: EuclideanSpace' d →ₗ[ℝ] EuclideanSpace' d} (hA: A.det ≠ 0) :
     (hf.comp_linear hA).integ = |A.det|⁻¹ * hf.integ := by sorry
 
-/-- Exercise 1.3.20 (Compatibility with the Riemann integral)-/
+/-- Вправа 1.3.20 (Compatibility with the Riemann integral)-/
 theorem RiemannIntegrableOn.realAbsolutelyIntegrable {I: BoundedInterval} {f: ℝ → ℝ} (hf: RiemannIntegrableOn f I) : RealAbsolutelyIntegrable ((fun x ↦ (f x) * (I.toSet.indicator' x)) ∘ EuclideanSpace'.equiv_Real) := by sorry
 
 theorem RiemannIntegral.eq_integ {I: BoundedInterval} {f: ℝ → ℝ} (hf: RiemannIntegrableOn f I) :
     riemannIntegral f I  = hf.realAbsolutelyIntegrable.integ := by sorry
 
-/-- Exercise 1.3.21 (Absolute summability is a special case of absolute integrability)-/
+/-- Вправа 1.3.21 (Absolute summability is a special case of absolute integrability)-/
 theorem AbsolutelySummable.realAbsolutelyIntegrable_iff {a: ℤ → ℝ} : ∑' n, |a n|.toEReal < ⊤ ↔ RealAbsolutelyIntegrable (fun x ↦ a ⌊EuclideanSpace'.equiv_Real x⌋) := by sorry
 
 theorem AbsolutelySummable.complexAbsolutelyIntegrable_iff {a: ℤ → ℂ} : ∑' n, ‖a n‖.toEReal < ⊤ ↔ ComplexAbsolutelyIntegrable (fun x ↦ a ⌊EuclideanSpace'.equiv_Real x⌋) := by sorry
@@ -1044,7 +1044,7 @@ def ComplexAbsolutelyIntegrableOn {d:ℕ} (f: EuclideanSpace' d → ℂ) (E: Set
 noncomputable def ComplexAbsolutelyIntegrableOn.integ {d:ℕ} {f: EuclideanSpace' d → ℂ} {E: Set (EuclideanSpace' d)} (hf: ComplexAbsolutelyIntegrableOn f E) : ℂ :=
   ComplexAbsolutelyIntegrable.integ hf
 
-/-- Exercise 1.3.22 -/
+/-- Вправа 1.3.22 -/
 theorem ComplexAbsolutelyIntegrableOn.glue {d:ℕ} {f: EuclideanSpace' d → ℂ} {E F: Set (EuclideanSpace' d)} (hdisj: Disjoint E F) (hf: ComplexAbsolutelyIntegrableOn f (E ∪ F)) : ∃ hE : ComplexAbsolutelyIntegrableOn f E, ∃ hF: ComplexAbsolutelyIntegrableOn f F, hf.integ = hE.integ + hF.integ := by sorry
 
 def ComplexAbsolutelyIntegrableOn.restrict {d:ℕ} {f: EuclideanSpace' d → ℂ} {E F: Set (EuclideanSpace' d)} (hf: ComplexAbsolutelyIntegrableOn f E) (hF: LebesgueMeasurable F): ComplexAbsolutelyIntegrableOn (f * Complex.indicator F) E := by sorry
@@ -1053,7 +1053,7 @@ def ComplexAbsolutelyIntegrableOn.mono {d:ℕ} {f: EuclideanSpace' d → ℂ} {E
 
 theorem ComplexAbsolutelyIntegrableOn.integ_restrict {d:ℕ} {f: EuclideanSpace' d → ℂ} {E F: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) (hF: LebesgueMeasurable F) (hsub: F ⊆ E) (hf: ComplexAbsolutelyIntegrableOn f E) : (hf.mono hE hF hsub).integ = (hf.restrict hF).integ:= by sorry
 
-/-- Lemma 1.3.19 (Triangle inequality) -/
+/-- Лема 1.3.19 (Triangle inequality) -/
 
 -- Helper: |∫f| ≤ ∫|f| for real absolutely integrable functions
 lemma RealAbsolutelyIntegrable.abs_integ_le {d:ℕ} {f: EuclideanSpace' d → ℝ}

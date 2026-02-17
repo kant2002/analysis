@@ -153,7 +153,7 @@ theorem summable_iff_integ_of_antitone {f:ℝ → ℝ} (hnon: ∀ x ≥ 0, f x �
 -- Exercise 11.6.2: Formulate a reasonable notion of a piecewise monotone function, and then
 -- show that all bounded piecewise monotone functions are Riemann integrable.
 
-/-- Exercise 11.6.4 -/
+/-- Вправа 11.6.4 -/
 example : ∃ (f:ℝ → ℝ) (hnon: ∀ x ≥ 0, f x ≥ 0), Summable f ∧ ¬ ∃ M, ∀ N ≥ 0, integ f (Icc 0 N) ≤ M := by
   sorry
 

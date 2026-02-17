@@ -11,11 +11,11 @@ A companion to (the introduction to) Section 1.2.1 of the book "An introduction 
 
 open BoundedInterval
 
-/-- Exercise 1.2.3(i) (Empty set) -/
+/-- Вправа 1.2.3(i) (Empty set) -/
 theorem Lebesgue_outer_measure.of_empty (d:ℕ) : Lebesgue_outer_measure (∅: Set (EuclideanSpace' d)) = 0 := by
   sorry
 
-/-- Exercise 1.2.3(ii) (Monotonicity) -/
+/-- Вправа 1.2.3(ii) (Monotonicity) -/
 theorem Lebesgue_outer_measure.mono {d: ℕ} {E F : Set (EuclideanSpace' d)} (h : E ⊆ F) :
     Lebesgue_outer_measure E ≤ Lebesgue_outer_measure F := by
   sorry
@@ -40,7 +40,7 @@ theorem Lebesgue_outer_measure.nonneg {d: ℕ} (E : Set (EuclideanSpace' d)) :
     exact le_max_right _ _
   exact EReal.coe_nonneg.mpr hvol
 
-/-- Exercise 1.2.3(iii) (Countable subadditivity) -/
+/-- Вправа 1.2.3(iii) (Countable subadditivity) -/
 theorem Lebesgue_outer_measure.union_le {d: ℕ} (E : ℕ → Set (EuclideanSpace' d)) :
     Lebesgue_outer_measure (⋃ i, E i) ≤ ∑' i, Lebesgue_outer_measure (E i) := by
   sorry
@@ -1884,7 +1884,7 @@ end Lebesgue_outer_measure
 -- End of Helpers for lemma 1.2.5
 -- ========================================================================
 
-/-- Lemma 1.2.5 (Finite additivity for separated sets).
+/-- Лема 1.2.5 (Finite additivity for separated sets).
     If E and F are separated (dist(E,F) > 0), then m*(E ∪ F) = m*(E) + m*(F).
 
     Proof strategy (from textbook):
@@ -2144,7 +2144,7 @@ example : set_dist (Ico 0 1).toSet (Icc 1 2).toSet = 0 := by
       obtain ⟨⟨x, y⟩, ⟨_, _⟩, rfl⟩ := hr
       exact dist_nonneg
 
-/-- Exercise 1.2.4 -/
+/-- Вправа 1.2.4 -/
 theorem dist_of_disj_compact_pos {d:ℕ} (E F: Set (EuclideanSpace' d)) (hE: IsCompact E) (hF: IsCompact F) (hdisj: E ∩ F = ∅) :
     set_dist E F > 0 := by
   sorry
@@ -3084,7 +3084,7 @@ lemma Lebesgue_outer_measure.elementary_dim_zero (E: Set (EuclideanSpace' 0)) (h
 -- ========================================================================
 -- End of Helper lemmas for Lemma 1.2.6
 -- ========================================================================
-/-- Lemma 1.2.6 (Outer measure of elementary sets).
+/-- Лема 1.2.6 (Outer measure of elementary sets).
     For any elementary set E, Lebesgue outer measure equals elementary measure. -/
 theorem Lebesgue_outer_measure.elementary {d:ℕ} (E: Set (EuclideanSpace' d)) (hE: IsElementary E) :
     Lebesgue_outer_measure E = hE.measure := by
@@ -4109,7 +4109,7 @@ lemma EReal.tsum_le_of_sum_range_le {f : ℕ → ℝ} {c : EReal}
   calc (∑' n, g n : ENNReal).toEReal ≤ (c.toENNReal).toEReal := h_coe_le
     _ = c := EReal.coe_toENNReal hc_nn
 
-/-- Lemma 1.2.9 (Outer measure of countable unions of almost disjoint boxes).
+/-- Лема 1.2.9 (Outer measure of countable unions of almost disjoint boxes).
     For pairwise almost disjoint boxes, m*(⋃ Bᵢ) = ∑' m*(Bᵢ) = ∑' |Bᵢ|. -/
 theorem Lebesgue_outer_measure.union_of_almost_disjoint {d:ℕ} {B : ℕ → Box d} (h : Pairwise (Function.onFun AlmostDisjoint B)) :
     Lebesgue_outer_measure (⋃ i, (B i).toSet) = ∑' i, Lebesgue_outer_measure (B i).toSet := by
@@ -4335,7 +4335,7 @@ theorem Box.sum_volume_eq {d:ℕ} (B B': ℕ → Box d) (hdisj: Pairwise (Functi
   simp only [f, f', ENNReal.toReal_ofReal (h_vol_nn _), ENNReal.toReal_ofReal (h_vol_nn' _)] at h_toReal_eq
   exact h_toReal_eq
 
-/-- Exercise 1.2.5: For any set that equals a countable union of almost disjoint boxes,
+/-- Вправа 1.2.5: For any set that equals a countable union of almost disjoint boxes,
     the Lebesgue outer measure equals the Jordan inner measure. -/
 theorem Lebesgue_outer_measure.eq_Jordan_inner_of_boxes {d:ℕ} (E: Set (EuclideanSpace' d)) (B: ℕ → Box d)
     (hE: E = ⋃ n, (B n).toSet) (hdisj: Pairwise (Function.onFun AlmostDisjoint B)) :
@@ -4856,7 +4856,7 @@ lemma dyadicCubeLargerNotInSmaller {d:ℕ} (hd : 0 < d) {n m : ℤ} (hnm : n < m
       _ = (2:ℝ)^(-m) := by field_simp
   linarith
 
-/-- Lemma 1.2.11: Every open set is a countable union of almost disjoint dyadic cubes.
+/-- Лема 1.2.11: Every open set is a countable union of almost disjoint dyadic cubes.
 Note: every dyadic cube is nonempty
     Proof outline:
     1. For each x ∈ E, by exists_dyadic_cube_subset, there exists a dyadic cube containing x ⊆ E
@@ -5261,7 +5261,7 @@ theorem Lebesgue_outer_measure.of_open {d:ℕ} (E: Set (EuclideanSpace' d)) (hE:
       -- Apply lemma eq_Jordan_inner_of_boxes (Exercise 1.2.5)
       exact Lebesgue_outer_measure.eq_Jordan_inner_of_boxes E B hE_eq hB_disj
 
-/-- Lemma 1.2.12 (Outer regularity). m*(E) = inf{m*(U) : E ⊆ U, U open}. -/
+/-- Лема 1.2.12 (Outer regularity). m*(E) = inf{m*(U) : E ⊆ U, U open}. -/
 theorem Lebesgue_outer_measure.eq {d:ℕ} (E: Set (EuclideanSpace' d)) : Lebesgue_outer_measure E = sInf { M | ∃ U, E ⊆ U ∧ IsOpen U ∧ M = Lebesgue_outer_measure U} := by
   let S := { M | ∃ U, E ⊆ U ∧ IsOpen U ∧ M = Lebesgue_outer_measure U}
   apply le_antisymm
@@ -5630,5 +5630,5 @@ lemma Lebesgue_outer_measure.finite_of_compact {d : ℕ} {E : Set (EuclideanSpac
     exact EReal.coe_ne_top _
   exact ne_top_of_le_ne_top h_B_finite (Lebesgue_outer_measure.mono h_E_sub_B)
 
-/-- Exercise 1.2.6 -/
+/-- Вправа 1.2.6 -/
 example : ∃ (d:ℕ) (E: Set (EuclideanSpace' d)), Lebesgue_outer_measure E ≠ sSup { M | ∃ U, U ⊆ E ∧ IsOpen U ∧ M = Lebesgue_outer_measure U} := by sorry

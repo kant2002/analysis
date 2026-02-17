@@ -38,7 +38,7 @@ namespace Finset
 -- standard Mathlib tool for checking membership in such intervals.
 #check mem_Icc
 
-/-- Визначення 7.1.1 -/
+/- Визначення 7.1.1 -/
 theorem sum_of_empty {n m:ℤ} (h: n < m) (a: ℤ → ℝ) : ∑ i ∈ Icc m n, a i = 0 := by
   rw [sum_eq_zero]; intro _; rw [mem_Icc]; grind
 
@@ -175,7 +175,7 @@ theorem exist_bijection {n:ℕ} {Y:Type*} (X: Finset Y) (hcard: X.card = n) :
   have := Finset.equivOfCardEq (show (Icc (1:ℤ) n).card = X.card by simp [hcard])
   exact ⟨ this, this.bijective ⟩
 
-/-- Визначення 7.1.6 -/
+/- Визначення 7.1.6 -/
 theorem finite_series_eq {n:ℕ} {Y:Type*} (X: Finset Y) (f: Y → ℝ) (g: Icc (1:ℤ) n → X)
   (hg: Function.Bijective g) :
     ∑ i ∈ X, f i = ∑ i ∈ Icc (1:ℤ) n, (if hi:i ∈ Icc (1:ℤ) n then f (g ⟨ i, hi ⟩) else 0) := by

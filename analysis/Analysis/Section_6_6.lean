@@ -17,7 +17,7 @@ Main constructions and results of this section:
 
 namespace Chapter6
 
-/-- Визначення 6.6.1 -/
+/- Визначення 6.6.1 -/
 abbrev Sequence.subseq (a b: ℕ → ℝ) : Prop := ∃ f : ℕ → ℕ, StrictMono f ∧ ∀ n, b n = a (f n)
 
 /- Example 6.6.2 -/

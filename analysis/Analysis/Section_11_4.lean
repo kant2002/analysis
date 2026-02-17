@@ -286,7 +286,7 @@ theorem integ_of_mul {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f 
   exact ((hfplusgplus.add (hfplusgminus.neg.1.sub hfminusgplus).1).1.add hfminusgminus).1
 open BoundedInterval
 
-/-- Exercise 11.4.2 -/
+/-- Вправа 11.4.2 -/
 theorem IntegrableOn.split {I: BoundedInterval} {f: ℝ → ℝ} (hf: IntegrableOn f I) (P: Partition I) :
   integ f I = ∑ J ∈ P.intervals, integ f J := by
     sorry

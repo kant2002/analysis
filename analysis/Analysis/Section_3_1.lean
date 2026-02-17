@@ -110,7 +110,7 @@ export SetTheory (Set Object)
 -- Цей екземпляр неявно нав'язує аксіоми теорії множин Цермело-Френкеля з атомами.
 variable [SetTheory]
 
-/-- Визначення 3.1.1 (об'єкти можуть бути елементами множин) -/
+/- Визначення 3.1.1 (об'єкти можуть бути елементами множин) -/
 instance SetTheory.objects_mem_sets : Membership Object Set where
   mem X x := mem x X
 
@@ -314,7 +314,7 @@ theorem SetTheory.Set.pair_union_pair (a b c:Object) :
     ({a,b}:Set) ∪ {b,c} = {a,b,c} := by
   ext; simp only [mem_union, mem_pair, mem_triple]; tauto
 
-/-- Визначення 3.1.14.   -/
+/- Визначення 3.1.14.   -/
 instance SetTheory.Set.instSubset : HasSubset Set where
   Subset X Y := ∀ x, x ∈ X → x ∈ Y
 
@@ -331,7 +331,7 @@ instance SetTheory.Set.instSSubset : HasSSubset Set where
 -- Now we can use `⊂` for a strict subset relationship between two `Set`s.
 example (X Y: Set) : X ⊂ Y ↔ X ⊆ Y ∧ X ≠ Y := by rfl
 
-/-- Визначення 3.1.14. -/
+/- Визначення 3.1.14. -/
 theorem SetTheory.Set.subset_def (X Y:Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x ∈ Y := by rfl
 
 /--
@@ -454,7 +454,7 @@ instance SetTheory.Set.instIntersection : Inter Set where
 -- Now we can use the `X ∩ Y` notation for an intersection of two `Set`s.
 example (X Y: Set) : X ∩ Y = X.specify (fun x ↦ x.val ∈ Y) := rfl
 
-/-- Визначення 3.1.22 (Перетин) -/
+/- Визначення 3.1.22 (Перетин) -/
 @[simp]
 theorem SetTheory.Set.mem_inter (x:Object) (X Y:Set) : x ∈ (X ∩ Y) ↔ (x ∈ X ∧ x ∈ Y) := by
   constructor
@@ -468,7 +468,7 @@ instance SetTheory.Set.instSDiff : SDiff Set where
 -- Now we can use the `X \ Y` notation for a difference of two `Set`s.
 example (X Y: Set) : X \ Y = X.specify (fun x ↦ x.val ∉ Y) := rfl
 
-/-- Визначення 3.1.26 (Різниця множин) -/
+/- Визначення 3.1.26 (Різниця множин) -/
 @[simp]
 theorem SetTheory.Set.mem_sdiff (x:Object) (X Y:Set) : x ∈ (X \ Y) ↔ (x ∈ X ∧ x ∉ Y) := by
   constructor
@@ -544,7 +544,7 @@ example (A B: Set) : (A ≤ B) ↔ (A ⊆ B) := by rfl
 example : ⊥ = (∅: Set) := by rfl
 example (A B: Set) : Prop := Disjoint A B
 
-/-- Визначення неперетинності (з використанням попередніх прикладів) -/
+/- Визначення неперетинності (з використанням попередніх прикладів) -/
 theorem SetTheory.Set.disjoint_iff (A B:Set) : Disjoint A B ↔ A ∩ B = ∅ := by
   convert _root_.disjoint_iff
 
@@ -722,7 +722,7 @@ example : ¬ Disjoint ({1, 2, 3}:Set) {2,3,4} := by
 
 example : Disjoint (∅:Set) ∅ := by sorry
 
-/-- Визначення 3.1.26 приклад -/
+/- Визначення 3.1.26 приклад -/
 
 example : ({1, 2, 3, 4}:Set) \ {2,4,6} = {1, 3} := by
   apply ext; aesop

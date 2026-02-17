@@ -20,7 +20,7 @@ Main constructions and results of this section:
 open Chapter9
 namespace Chapter10
 
-/-- Визначення 10.2.1 (Local maxima and minima).  Here we use Mathlib's `IsLocalMaxOn` type. -/
+/- Визначення 10.2.1 (Local maxima and minima).  Here we use Mathlib's `IsLocalMaxOn` type. -/
 theorem IsLocalMaxOn.iff (X:Set ℝ) (f:ℝ → ℝ) (x₀:ℝ) :
   IsLocalMaxOn f X x₀ ↔
   ∃ δ > 0, IsMaxOn f (X ∩ .Ioo (x₀ - δ) (x₀ + δ)) x₀ := by
@@ -91,12 +91,12 @@ theorem _root_.HasDerivWithinAt.mean_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ
   ∃ x ∈ Set.Ioo a b, HasDerivWithinAt f ((f b - f a) / (b - a)) (.Ioo a b) x := by
   sorry
 
-/-- Exercise 10.2.2 -/
+/-- Вправа 10.2.2 -/
 example : ∃ f:ℝ → ℝ, ContinuousOn f (.Icc (-1) 1) ∧
   IsMaxOn f (.Icc (-1) 1) 0 ∧ ¬ DifferentiableWithinAt ℝ f (.Icc (-1) 1) 0 := by
   sorry
 
-/-- Exercise 10.2.3 -/
+/-- Вправа 10.2.3 -/
 example : ∃ f:ℝ → ℝ, DifferentiableOn ℝ f (.Icc (-1) 1) ∧
   HasDerivWithinAt f 0 (.Ioo (-1) 1) 0 ∧
   ¬ IsLocalMaxOn f (.Icc (-1) 1) 0 ∧ ¬ IsLocalMinOn f (.Icc (-1) 1) 0 := by
@@ -111,7 +111,7 @@ theorem lipschitz_bound {M a b:ℝ} (hM: M > 0) (hab: a < b) {f:ℝ → ℝ}
   |f x - f y| ≤ M * |x - y| := by
   sorry
 
-/-- Exercise 10.2.7 -/
+/-- Вправа 10.2.7 -/
 theorem _root_.UniformContinuousOn.of_lipschitz {f:ℝ → ℝ}
   (hcont: ContinuousOn f .univ)
   (hderiv: DifferentiableOn ℝ f .univ)

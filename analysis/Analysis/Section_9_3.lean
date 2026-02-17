@@ -25,11 +25,11 @@ our functions defined on all of `ℝ` (with the understanding that they are assi
 outside of the domain `X` of interest).
 -/
 
-/-- Definition 9.3.1 -/
+/-- Визначення 9.3.1 -/
 abbrev Real.CloseFn (ε:ℝ) (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) : Prop :=
   ∀ x ∈ X, |f x - L| < ε
 
-/-- Definition 9.3.3 -/
+/-- Визначення 9.3.3 -/
 abbrev Real.CloseNear (ε:ℝ) (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) : Prop :=
   ∃ δ > 0, ε.CloseFn (X ∩ .Ioo (x₀-δ) (x₀+δ)) f L
 
@@ -57,7 +57,7 @@ example: ¬(0.1:ℝ).CloseFn (.Icc 1 3) (fun x ↦ x^2) 9 := by
 example: (0.1:ℝ).CloseNear (.Icc 1 3) (fun x ↦ x^2) 9 3 := by
   sorry
 
-/-- Definition 9.3.6 (Convergence of functions at a point)-/
+/-- Визначення 9.3.6 (Convergence of functions at a point)-/
 abbrev Convergesto (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) : Prop := ∀ ε > (0:ℝ), ε.CloseNear X f L x₀
 
 /-- Connection with Mathlib filter convergence concepts -/

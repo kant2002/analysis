@@ -31,18 +31,18 @@ import Analysis.Section_2_2
 
 namespace Chapter2
 
-/-- Визначення 2.3.1 (Множення натуральних чисел) -/
+/- Визначення 2.3.1 (Множення натуральних чисел) -/
 abbrev Nat.mul (n m : Nat) : Nat := Nat.recurse (fun _ prod ↦ prod + m) 0 n
 
-/-- This instance allows for the `*` notation to be used for natural number multiplication. -/
+/-- Цей інстанс дозволяє використовувати позначення `*` для множення натуральних чисел. -/
 instance Nat.instMul : Mul Nat where
   mul := mul
 
-/-- Визначення 2.3.1 (Множення натуральних чисел)
+/- Визначення 2.3.1 (Множення натуральних чисел)
 Порівняйте із Mathlib-івської `Nat.zero_mul` -/
 theorem Nat.zero_mul (m: Nat) : 0 * m = 0 := recurse_zero (fun _ prod ↦ prod+m) _
 
-/-- Визначення 2.3.1 (Множення натуральних чисел)
+/- Визначення 2.3.1 (Множення натуральних чисел)
 Порівняйте із Mathlib-івської `Nat.succ_mul` -/
 theorem Nat.succ_mul (n m: Nat) : (n++) * m = n * m + m := recurse_succ (fun _ prod ↦ prod+m) _ _
 
@@ -75,12 +75,12 @@ lemma Nat.mul_comm (n m: Nat) : n * m = m * n := by
 theorem Nat.mul_one (m: Nat) : m * 1 = m := by
   rw [mul_comm, one_mul]
 
-/-- This lemma will be useful to prove Lemma 2.3.3.
+/-- Ця лема буде корисною для доведення Леми 2.3.3.
 Порівняйте із Mathlib-овським `Nat.mul_pos` -/
 lemma Nat.pos_mul_pos {n m: Nat} (h₁: n.IsPos) (h₂: m.IsPos) : (n * m).IsPos := by
   sorry
 
-/-- Lemma 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2.
+/-- Лема 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2.
     Порівняйте із Mathlib-овським `Nat.mul_eq_zero`.  -/
 lemma Nat.mul_eq_zero (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
   sorry
@@ -183,22 +183,22 @@ theorem Nat.exists_div_mod (n:Nat) {q: Nat} (hq: q.IsPos) :
     ∃ m r: Nat, 0 ≤ r ∧ r < q ∧ n = m * q + r := by
   sorry
 
-/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
+/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
 abbrev Nat.pow (m n: Nat) : Nat := Nat.recurse (fun _ prod ↦ prod * m) 1 n
 
 instance Nat.instPow : HomogeneousPow Nat where
   pow := Nat.pow
 
-/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
+/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
 Порівняйте із Mathlib-івським `Nat.pow_zero` -/
 @[simp]
 theorem Nat.pow_zero (m: Nat) : m ^ (0:Nat) = 1 := recurse_zero (fun _ prod ↦ prod * m) _
 
-/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
+/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
 @[simp]
 theorem Nat.zero_pow_zero : (0:Nat) ^ 0 = 1 := recurse_zero (fun _ prod ↦ prod * 0) _
 
-/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
+/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
 Порівняйте із Mathlib-івським `Nat.pow_succ` -/
 theorem Nat.pow_succ (m n: Nat) : (m:Nat) ^ n++ = m^n * m :=
   recurse_succ (fun _ prod ↦ prod * m) _ _

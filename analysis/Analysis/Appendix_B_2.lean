@@ -27,7 +27,7 @@ noncomputable def NNRealDecimal.toNNReal (d:NNRealDecimal) : NNReal :=
 noncomputable instance NNRealDecimal.instCoeNNReal : Coe NNRealDecimal NNReal where
   coe := toNNReal
 
-/-- Exercise B.2.1 -/
+/-- Вправа B.2.1 -/
 theorem NNRealDecimal.toNNReal_conv (d:NNRealDecimal) :
   Summable fun i ↦ (d.fracPart i) * (10:NNReal) ^ (-i-1:ℝ) := by
   sorry
@@ -121,18 +121,18 @@ theorem RealDecimal.surj (x:ℝ) : ∃ d:RealDecimal, x = d := by
   . choose d hd using NNRealDecimal.surj (x.toNNReal); use pos d; simp [←hd, h]
   . choose d hd using NNRealDecimal.surj ((-x).toNNReal); use neg d; simp [←hd, show 0 ≤ -x by linarith]
 
-/-- Exercise B.2.2 -/
+/-- Вправа B.2.2 -/
 theorem RealDecimal.not_inj_one (d: RealDecimal) : (d:ℝ) = 1 ↔ (d = pos (mk 1 fun _ ↦ 0) ∨ d = pos (mk 0 fun _ ↦ 9)) := by
   sorry
 
-/-- Exercise B.2.3 -/
+/-- Вправа B.2.3 -/
 abbrev TerminatingDecimal (x:ℝ) : Prop := ∃ (n:ℤ) (m:ℕ), x = n / (10:ℝ)^m
 
 theorem RealDecimal.not_inj_terminating {x:ℝ} (hx: TerminatingDecimal x) : ∃ d₁ d₂:RealDecimal, d₁ ≠ d₂ ∧ ∀ d: RealDecimal, d = x ↔ d = d₁ ∨ d = d₂ := by sorry
 
 theorem RealDecimal.inj_nonterminating {x:ℝ} (hx: ¬TerminatingDecimal x) : ∃! d:RealDecimal, d = x := by sorry
 
-/-- Exercise B.2.4.  This is Corollary 8.3.4, but the intent is to rewrite the proof using the decimal system. -/
+/-- Вправа B.2.4.  This is Corollary 8.3.4, but the intent is to rewrite the proof using the decimal system. -/
 example : Uncountable ℝ := by sorry
 
 

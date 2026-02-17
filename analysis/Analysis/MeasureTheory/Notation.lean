@@ -181,7 +181,7 @@ example : ∃ (x y:ℕ → ENNReal) (_hx: Antitone x) (_hy: Antitone y)
 
 #check Equiv.tsum_eq
 
-/-- Exercise 0.0.1 -/
+/-- Вправа 0.0.1 -/
 example {A:Type} {x : A → ENNReal} (hx: ∑' α, x α < ⊤) :
   ∃ E: Set A, Countable E ∧ ∀ α ∉ E, x α = 0 := by
   refine ⟨{a | x a ≠ 0}, ?_, ?_⟩
@@ -228,7 +228,7 @@ theorem ENNReal.tsum_of_tsum' (x: ℕ → ℕ → ENNReal) : ∑' p:ℕ × ℕ, 
 
 #check ENNReal.tsum_comm
 
-/-- Exercise 0.0.2 (Tonelli's theorem for series over arbitrary sets)-/
+/-- Вправа 0.0.2 (Tonelli's theorem for series over arbitrary sets)-/
 example {A B:Type*} (x: A → B → ENNReal) : ∑' p:A × B, x p.1 p.2 = ∑' a, ∑' b, x a b := by
   simpa using ENNReal.tsum_prod (f := x)
 

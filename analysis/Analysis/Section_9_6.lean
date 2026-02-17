@@ -19,7 +19,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.6.1 -/
+/-- Визначення 9.6.1 -/
 abbrev BddAboveOn (f:ℝ → ℝ) (X:Set ℝ) : Prop := ∃ M, ∀ x ∈ X, f x ≤ M
 
 abbrev BddBelowOn (f:ℝ → ℝ) (X:Set ℝ) : Prop := ∃ M, ∀ x ∈ X, -M ≤ f x
@@ -47,7 +47,7 @@ example : ¬ BddOn (fun x:ℝ ↦ 1/x) (.Ioo 0 1) := by sorry
 
 theorem why_7_6_3 {n: ℕ → ℕ} (hn: StrictMono n) (j:ℕ) : n j ≥ j := by sorry
 
-/-- Lemma 9.6.3 -/
+/-- Лема 9.6.3 -/
 theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b) ) :
   BddOn f (.Icc a b) := by
   -- This proof is written to follow the structure of the original text.
@@ -72,7 +72,7 @@ theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: 
   have : n j ≥ (j:ℝ) := by simp [why j]
   linarith
 
-/- Definition 9.6.5.  Use the Mathlib `IsMaxOn` type. -/
+/- Визначення 9.6.5.  Use the Mathlib `IsMaxOn` type. -/
 #check isMaxOn_iff
 #check isMinOn_iff
 
@@ -153,25 +153,25 @@ theorem sInf.of_continuous_on_compact {a b:ℝ} (h:a < b) (f:ℝ → ℝ) (hf: C
   choose x hx h' using IsMinOn.of_continuous_on_compact h hf
   grind [sInf.of_isMinOn]
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ContinuousOn f (.Ioo 1 2) ∧ BddOn f (.Ioo 1 2) ∧
   ∃ x₀ ∈ Set.Ioo 1 2, IsMinOn f (.Ioo 1 2) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Ioo 1 2, IsMaxOn f (.Ioo 1 2) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ContinuousOn f (.Ioo 1 2) ∧ BddOn f (.Ioo 1 2) ∧
   ∃ x₀ ∈ Set.Ioo 1 2, IsMaxOn f (.Ioo 1 2) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Ioo 1 2, IsMinOn f (.Ioo 1 2) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, BddOn f (.Icc (-1) 1) ∧
   ¬ ∃ x₀ ∈ Set.Icc (-1) 1, IsMinOn f (.Icc (-1) 1) x₀ ∧
   ¬ ∃ x₀ ∈ Set.Icc (-1) 1, IsMaxOn f (.Icc (-1) 1) x₀
   := by sorry
 
-/-- Exercise 9.6.1 -/
+/-- Вправа 9.6.1 -/
 example : ∃ f: ℝ → ℝ, ¬ BddAboveOn f (.Icc (-1) 1) ∧ ¬ BddBelowOn f (.Icc (-1) 1) := by sorry
 
 

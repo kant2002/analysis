@@ -30,7 +30,7 @@ working throughout with custom structures such as `Chapter3.SetTheory` and
 
 namespace Chapter8
 
-/-- Definition 8.4.1 (Infinite Cartesian products).  We will avoid using this definition in favor
+/-- Визначення 8.4.1 (Infinite Cartesian products).  We will avoid using this definition in favor
 of the Mathlib form `∀ α, X α` which we will shortly show is equivalent to (or more precisely,
 generalizes) this one.
 
@@ -96,7 +96,7 @@ theorem axiom_of_choice {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
 theorem axiom_of_countable_choice {I: Type} {X: I → Type} [Countable I] (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := axiom_of_choice h
 
-/-- Lemma 8.4.5 -/
+/-- Лема 8.4.5 -/
 theorem exist_tendsTo_sup {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) :
   ∃ a : ℕ → ℝ, (∀ n, a n ∈ E) ∧ Filter.atTop.Tendsto a (nhds (sSup E)) := by
   -- This proof is written to follow the structure of the original text.
@@ -143,31 +143,31 @@ theorem exists_function {X Y : Type} {P : X → Y → Prop} (h: ∀ x, ∃ y, P 
   ∃ f : X → Y, ∀ x, P x (f x) := by
   sorry
 
-/-- Exercise 8.4.1.  The spirit of the question here is to establish this result directly
+/-- Вправа 8.4.1.  The spirit of the question here is to establish this result directly
 from `exists_function`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_exists_function {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := ⟨ fun i ↦ (h i).some ⟩
 
-/-- Exercise 8.4.2 -/
+/-- Вправа 8.4.2 -/
 theorem exists_set_singleton_intersect {I U:Type} {X: I → Set U} (h: Set.PairwiseDisjoint .univ X)
   (hnon: ∀ α, Nonempty (X α)) :
   ∃ Y : Set U, ∀ α, Nat.card (Y ∩ X α : Set U) = 1 := by
   sorry
 
-/-- Exercise 8.4.2.  The spirit of the question here is to establish this result directly
+/-- Вправа 8.4.2.  The spirit of the question here is to establish this result directly
 from `exists_set_singleton_intersect`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_exists_set_singleton_intersect {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := by
   sorry
 
-/-- Exercise 8.4.3 -/
+/-- Вправа 8.4.3 -/
 theorem Function.Injective.inv_surjective {A B:Type} {g: B → A} (hg: Function.Surjective g) :
   ∃ f : A → B, Function.Injective f ∧ Function.RightInverse f g := by
   sorry
 
-/-- Exercise 8.4.3.  The spirit of the question here is to establish this result directly
+/-- Вправа 8.4.3.  The spirit of the question here is to establish this result directly
 from `Function.Injective.inv_surjective`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_function_injective_inv_surjective {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :

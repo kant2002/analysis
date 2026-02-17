@@ -32,15 +32,15 @@ namespace Chapter5
 abbrev BoundedAwayPos (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 abbrev BoundedAwayNeg (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 theorem boundedAwayPos_def (a:ℕ → ℚ) : BoundedAwayPos a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c := by
   rfl
 
-/-- Definition 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
 theorem boundedAwayNeg_def (a:ℕ → ℚ) : BoundedAwayNeg a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c := by
   rfl
 
@@ -120,29 +120,29 @@ open Classical in
 /-- Need to use classical logic here because isPos and isNeg are not decidable -/
 noncomputable abbrev Real.abs (x:Real) : Real := if x.IsPos then x else (if x.IsNeg then -x else 0)
 
-/-- Визначення 5.4.5 (absolute value) -/
+/- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_pos (x:Real) (hx: x.IsPos) : abs x = x := by
   simp [abs, hx]
 
-/-- Визначення 5.4.5 (absolute value) -/
+/- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_neg (x:Real) (hx: x.IsNeg) : abs x = -x := by
   have : ¬x.IsPos := by have := not_pos_neg x; simpa [hx] using this
   simp [abs, hx, this]
 
-/-- Визначення 5.4.5 (absolute value) -/
+/- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_zero : abs 0 = 0 := by
   have hpos: ¬(0:Real).IsPos := by have := not_zero_pos 0; simpa using this
   have hneg: ¬(0:Real).IsNeg := by have := not_zero_neg 0; simpa using this
   simp [abs, hpos, hneg]
 
-/-- Визначення 5.4.6 (Ordering of the reals) -/
+/- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLT : LT Real where
   lt x y := (x-y).IsNeg
 
-/-- Визначення 5.4.6 (Ordering of the reals) -/
+/- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLE : LE Real where
   le x y := (x < y) ∨ (x = y)
 
@@ -326,7 +326,7 @@ theorem Real.rat_between {x y:Real} (hxy: x < y) : ∃ q:ℚ, x < (q:Real) ∧ (
 /-- Вправа 5.4.3 -/
 theorem Real.floor_exist (x:Real) : ∃! n:ℤ, (n:Real) ≤ x ∧ x < (n:Real)+1 := by sorry
 
-/-- Exercise 5.4.4 -/
+/-- Вправа 5.4.4 -/
 theorem Real.exist_inv_nat_le {x:Real} (hx: x.IsPos) : ∃ N:ℤ, N>0 ∧ (N:Real)⁻¹ < x := by sorry
 
 /-- Вправа 5.4.6 -/
@@ -341,11 +341,11 @@ theorem Real.le_add_eps_iff (x y:Real) : (∀ ε > 0, x ≤ y+ε) ↔ x ≤ y :=
 /-- Вправа 5.4.7 -/
 theorem Real.dist_le_eps_iff (x y:Real) : (∀ ε > 0, |x-y| ≤ ε) ↔ x = y := by sorry
 
-/-- Exercise 5.4.8 -/
+/-- Вправа 5.4.8 -/
 theorem Real.LIM_of_le {x:Real} {a:ℕ → ℚ} (hcauchy: (a:Sequence).IsCauchy) (h: ∀ n, a n ≤ x) :
     LIM a ≤ x := by sorry
 
-/-- Exercise 5.4.8 -/
+/-- Вправа 5.4.8 -/
 theorem Real.LIM_of_ge {x:Real} {a:ℕ → ℚ} (hcauchy: (a:Sequence).IsCauchy) (h: ∀ n, a n ≥ x) :
     LIM a ≥ x := by sorry
 
@@ -368,7 +368,7 @@ theorem Real.max_self (x:Real) : max x x = x := by sorry
 /-- Вправа 5.4.9 -/
 theorem Real.max_add (x y z:Real) : max (x + z) (y + z) = max x y + z := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.max_mul (x y :Real) {z:Real} (hz: z.IsPos) : max (x * z) (y * z) = max x y * z := by
   sorry
 /- Additional exercise: What happens if z is negative? -/
@@ -382,14 +382,14 @@ theorem Real.min_self (x:Real) : min x x = x := by sorry
 /-- Вправа 5.4.9 -/
 theorem Real.min_add (x y z:Real) : min (x + z) (y + z) = min x y + z := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.min_mul (x y :Real) {z:Real} (hz: z.IsPos) : min (x * z) (y * z) = min x y * z := by
   sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.inv_max {x y :Real} (hx:x.IsPos) (hy:y.IsPos) : (max x y)⁻¹ = min x⁻¹ y⁻¹ := by sorry
 
-/-- Exercise 5.4.9 -/
+/-- Вправа 5.4.9 -/
 theorem Real.inv_min {x y :Real} (hx:x.IsPos) (hy:y.IsPos) : (min x y)⁻¹ = max x⁻¹ y⁻¹ := by sorry
 
 /-- Not from textbook: the rationals map as an ordered ring homomorphism into the reals. -/

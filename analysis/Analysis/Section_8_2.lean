@@ -29,7 +29,7 @@ After this section, the summation notation developed here will be deprecated in 
 namespace Chapter8
 open Chapter7 Chapter7.Series Finset Function Filter
 
-/-- Definition 8.2.1 (Series on countable sets).  Note that with this definition, functions defined
+/-- Визначення 8.2.1 (Series on countable sets).  Note that with this definition, functions defined
 on finite sets will not be absolutely convergent; one should use `AbsConvergent'` instead for such
 cases.-/
 abbrev AbsConvergent {X:Type} (f: X → ℝ) : Prop := ∃ g: ℕ → X, Bijective g ∧ (f ∘ g: Series).absConverges
@@ -206,7 +206,7 @@ theorem sum_comm {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) :
   simp [sum_of_converges (sum_of_sum_of_AbsConvergent hf).2,
         sum_of_converges (sum_of_sum_of_AbsConvergent' hf).2]
 
-/-- Lemma 8.2.3 / Exercise 8.2.1 -/
+/-- Лема 8.2.3 / Exercise 8.2.1 -/
 theorem AbsConvergent.iff {X:Type} (hX:CountablyInfinite X) (f : X → ℝ) :
   AbsConvergent f ↔ BddAbove ( (fun A ↦ ∑ x ∈ A, |f x|) '' .univ ) := by
     sorry
@@ -235,7 +235,7 @@ theorem AbsConvergent'.of_countable {X:Type} (hX:CountablyInfinite X) {f:X → �
     intro n; by_cases h: n ≥ 0 <;> simp [h]
   intro hf; rwa [AbsConvergent.iff hX f] at hf
 
-/-- Lemma 8.2.5 / Exercise 8.2.2-/
+/-- Лема 8.2.5 / Exercise 8.2.2-/
 theorem AbsConvergent'.countable_supp {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) :
   AtMostCountable { x | f x ≠ 0 } := by
     sorry
@@ -446,7 +446,7 @@ theorem Sum'.of_comp {X Y:Type} {f:X → ℝ} (hf: AbsConvergent' f) {φ: Y → 
   AbsConvergent' (f ∘ φ) ∧ Sum' f = Sum' (f ∘ φ) := by
   sorry
 
-/-- Lemma 8.2.7 / Exercise 8.2.4 -/
+/-- Лема 8.2.7 / Exercise 8.2.4 -/
 theorem divergent_parts_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   (ha': ¬ (a:Series).absConverges) :
   ¬ AbsConvergent (fun n : {n | a n ≥ 0} ↦ a n) ∧ ¬ AbsConvergent (fun n : {n | a n < 0} ↦ a n)
@@ -492,7 +492,7 @@ theorem permute_convergesTo_of_divergent {a: ℕ → ℝ} (ha: (a:Series).conver
   use n'
   refine ⟨ ⟨ hn'_inj, hn'_surj ⟩, ?_ ⟩; convert hsum
 
-/-- Exercise 8.2.6 -/
+/-- Вправа 8.2.6 -/
 theorem permute_diverges_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   (ha': ¬ (a:Series).absConverges)  :
   ∃ f : ℕ → ℕ,  Bijective f ∧ atTop.Tendsto (fun N ↦ ((a ∘ f:Series).partial N : EReal)) (nhds ⊤) := by

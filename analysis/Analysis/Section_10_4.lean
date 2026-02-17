@@ -81,7 +81,7 @@ theorem inverse_function_theorem {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
     rw [HasDerivWithinAt.iff, ←Convergesto.iff, Convergesto.iff_conv _ _ had'] at hf
     convert (hf _ hx _).inv₀ _ using 2 with n <;> grind
 
-/-- Exercise 10.4.1(a) -/
+/-- Вправа 10.4.1(a) -/
 example {n:ℕ} (hn: n > 0) : ContinuousOn (fun x:ℝ ↦ x^(1/n:ℝ)) (.Ici 0) := by sorry
 
 /-- Вправа 10.4.1(b) -/
@@ -93,15 +93,15 @@ example (q:ℚ) {x:ℝ} (hx: x ∈ Set.Ici 0) :
   HasDerivWithinAt (fun x:ℝ ↦ x^(q:ℝ)) (q * x^(q-1:ℝ)) (.Ici 0) x := by
   sorry
 
-/-- Exercise 10.4.2(b) -/
+/-- Вправа 10.4.2(b) -/
 example (q:ℚ) : (nhdsWithin 1 (.Ici 0 \ {1})).Tendsto (fun x:ℝ ↦ (x^(q:ℝ)-1)/(x-1)) (nhds q) := by
   sorry
 
-/-- Exercise 10.4.3(a) -/
+/-- Вправа 10.4.3(a) -/
 example (α:ℝ) : (nhdsWithin 1 (.Ici 0 \ {1})).Tendsto (fun x:ℝ ↦ (x^α-1^α)/(x-1)) (nhds α) := by
   sorry
 
-/-- Exercise 10.4.2(b) -/
+/-- Вправа 10.4.2(b) -/
 example (α:ℝ) {x:ℝ} (hx: x ∈ Set.Ici 0) : HasDerivWithinAt (fun x:ℝ ↦ x^α) (α * x^(α-1)) (.Ici 0) x := by
   sorry
 

@@ -353,9 +353,9 @@ theorem LebesgueMeasurable.nonmeasurable : ∃ E : Set (EuclideanSpace' 1), E �
     exact ⟨r, VitaliSet_subset_unit_interval hr, rfl⟩
   · exact VitaliSet.nonmeasurable
 
-/-- Exercise 1.2.26 (Outer measure is not finitely additive)-/
+/-- Вправа 1.2.26 (Outer measure is not finitely additive)-/
 example : ∃ E F : Set (EuclideanSpace' 1), E ∩ F = ∅ ∧ Bornology.IsBounded E ∧ Bornology.IsBounded F ∧ Lebesgue_outer_measure (E ∪ F) ≠ Lebesgue_outer_measure E + Lebesgue_outer_measure F := by
   sorry
 
-/-- Exercise 1.2.27 (Projections of measurable sets need not be measurable) -/
+/-- Вправа 1.2.27 (Projections of measurable sets need not be measurable) -/
 example : ∃ E : Set (EuclideanSpace' 2), LebesgueMeasurable E ∧ ¬ LebesgueMeasurable ((fun x ↦ Real.equiv_EuclideanSpace' (x 0: ℝ)) '' E) := by sorry

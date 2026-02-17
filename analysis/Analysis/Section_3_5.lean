@@ -34,7 +34,7 @@ variable [SetTheory]
 
 open SetTheory.Set
 
-/-- Визначення 3.5.1 (Впорядкована пара).  One could also have used `Object × Object` to
+/- Визначення 3.5.1 (Впорядкована пара).  One could also have used `Object × Object` to
 define `OrderedPair` here. -/
 @[ext]
 structure OrderedPair where
@@ -43,7 +43,7 @@ structure OrderedPair where
 
 #check OrderedPair.ext
 
-/-- Визначення 3.5.1 (Впорядкована пара) -/
+/- Визначення 3.5.1 (Впорядкована пара) -/
 @[simp]
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
@@ -53,7 +53,7 @@ lemma SetTheory.Set.pair_eq_singleton_iff {a b c: Object} : {a, b} = ({c}: Set) 
     a = c ∧ b = c := by
   sorry
 
-/-- Exercise 3.5.1, first part -/
+/-- Вправа 3.5.1, first part -/
 def OrderedPair.toObject : OrderedPair ↪ Object where
   toFun p := ({ (({p.fst}:Set):Object), (({p.fst, p.snd}:Set):Object) }:Set)
   inj' := by sorry
@@ -72,7 +72,7 @@ abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
 theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
     z ∈ (SetTheory.Set.slice x Y) ↔ ∃ y:Y, z = (⟨x, y⟩:OrderedPair) := replacement_axiom _ _
 
-/-- Визначення 3.5.4 (Декартовий добуток) -/
+/- Визначення 3.5.4 (Декартовий добуток) -/
 abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
   union (X.replace (P := fun x z ↦ z = slice x Y) (by grind))
 
@@ -163,17 +163,17 @@ noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃
   left_inv _ := by simp
   right_inv _ := by simp [←pair_eq_fst_snd]
 
-/-- Definition 3.5.6.  The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
+/-- Визначення 3.5.6.  The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
     See Exercise 3.5.10 below for some connections betweeen this concept and the preceding notion
     of Cartesian product and ordered pair.  -/
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (x: ∀ i, X i) : Object :=
   ((fun i ↦ ⟨ x i, by rw [mem_iUnion]; use i; exact (x i).property ⟩):I → iUnion I X)
 
-/-- Визначення 3.5.6 -/
+/- Визначення 3.5.6 -/
 abbrev SetTheory.Set.iProd {I: Set} (X: I → Set) : Set :=
   ((iUnion I X)^I).specify (fun t ↦ ∃ x : ∀ i, X i, t = tuple x)
 
-/-- Визначення 3.5.6 -/
+/- Визначення 3.5.6 -/
 theorem SetTheory.Set.mem_iProd {I: Set} {X: I → Set} (t:Object) :
     t ∈ iProd X ↔ ∃ x: ∀ i, X i, t = tuple x := by
   simp only [iProd, specification_axiom'']; constructor
@@ -384,7 +384,7 @@ lemma SetTheory.Set.Tuple.ext {n:ℕ} {t t':Tuple n}
     t = t' := by
   have ⟨_, _, _⟩ := t; have ⟨_, _, _⟩ := t'; subst hX; congr; ext; grind
 
-/-- Exercise 3.5.2 -/
+/-- Вправа 3.5.2 -/
 theorem SetTheory.Set.Tuple.eq {n:ℕ} (t t':Tuple n) :
     t = t' ↔ ∀ n : Fin n, ((t.x n):Object) = ((t'.x n):Object) := by sorry
 

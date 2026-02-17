@@ -53,7 +53,7 @@ def UniformlyConvergesTo {X Y:Type*} [PseudoMetricSpace Y] (f: ℕ → X → Y) 
 
 def UniformlyConvergesToOn {X Y:Type*} [PseudoMetricSpace Y] (f: ℕ → X → Y) (g: X → Y) (S: Set X): Prop := UniformlyConvergesTo (fun n (x:S) ↦ f n x.val) (fun x ↦ g x.val)
 
-/-- Definition 1.3.21 (Locally uniform convergence) -/
+/-- Визначення 1.3.21 (Locally uniform convergence) -/
 def LocallyUniformlyConvergesTo {X Y:Type*} [PseudoMetricSpace X] [PseudoMetricSpace Y] (f: ℕ → X → Y) (g: X → Y) : Prop :=
   ∀ (K: Set X), Bornology.IsBounded K → UniformlyConvergesToOn f g K
 
@@ -135,7 +135,7 @@ example : ∃ (d:ℕ) (f : EuclideanSpace' d → ℝ),
 def LocallyComplexAbsolutelyIntegrable {d:ℕ} (f: EuclideanSpace' d → ℂ) : Prop :=
   ∀ (S: Set (EuclideanSpace' d)), MeasurableSet S ∧ Bornology.IsBounded S → ComplexAbsolutelyIntegrableOn f S
 
-/-- Exercise 1.3.23 (Lusin's theorem only requires local absolute integrability )-/
+/-- Вправа 1.3.23 (Lusin's theorem only requires local absolute integrability )-/
 theorem LocallyComplexAbsolutelyIntegrable.approx_by_continuous_outside_small {d:ℕ} {f : EuclideanSpace' d → ℂ}
   (hf: LocallyComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
@@ -150,7 +150,7 @@ theorem ComplexMeasurable.approx_by_continuous_outside_small {d:ℕ} {f : Euclid
       Lebesgue_measure E ≤ ε ∧
       ∀ x ∉ E, g x = f x := by sorry
 
-/-- Exercise 1.3.24 -/
+/-- Вправа 1.3.24 -/
 theorem ComplexMeasurable.iff_pointwiseae_of_continuous {d:ℕ} {f : EuclideanSpace' d → ℂ} :
   ComplexMeasurable f ↔
   ∃ (g : ℕ → EuclideanSpace' d → ℂ), (∀ n, Continuous (g n)) ∧ PointwiseAeConvergesTo g f := by sorry
@@ -163,7 +163,7 @@ theorem UnsignedMeasurable.approx_by_continuous_outside_small {d:ℕ} {f : Eucli
       Lebesgue_measure E ≤ ε ∧
       ∀ x ∉ E, g x = f x := by sorry
 
-/-- Exercise 1.3.25 (a) (Littlewood-like principle) -/
+/-- Вправа 1.3.25 (a) (Littlewood-like principle) -/
 theorem ComplexAbsolutelyIntegrable.almost_bounded_support {d:ℕ} {f : EuclideanSpace' d → ℂ}
   (hf: ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
@@ -171,7 +171,7 @@ theorem ComplexAbsolutelyIntegrable.almost_bounded_support {d:ℕ} {f : Euclidea
 
 def BoundedOn {X Y:Type*} [PseudoMetricSpace Y] (f: X → Y) (S: Set X) : Prop := Bornology.IsBounded (f '' S)
 
-/-- Exercise 1.3.25 (b) (Littlewood-like principle) -/
+/-- Вправа 1.3.25 (b) (Littlewood-like principle) -/
 theorem ComplexAbsolutelyIntegrable.almost_bounded {d:ℕ} {f : EuclideanSpace' d → ℂ}
   (hf: ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :

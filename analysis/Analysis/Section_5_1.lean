@@ -208,7 +208,7 @@ lemma Sequence.from_eval (a:Sequence) {n₁ n:ℤ} (hn: n ≥ n₁) :
 
 end Chapter5
 
-/-- Визначення 5.1.6 (Eventually ε-steady) -/
+/- Визначення 5.1.6 (Eventually ε-steady) -/
 abbrev Rat.EventuallySteady (ε: ℚ) (a: Chapter5.Sequence) : Prop := ∃ N ≥ a.n₀, ε.Steady (a.from N)
 
 lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
@@ -261,7 +261,7 @@ abbrev Sequence.IsCauchy (a:Sequence) : Prop := ∀ ε > (0:ℚ), ε.EventuallyS
 lemma Sequence.isCauchy_def (a:Sequence) :
   a.IsCauchy ↔ ∀ ε > (0:ℚ), ε.EventuallySteady a := by rfl
 
-/-- Definition of Cauchy sequences, for a sequence starting at 0 -/
+/-- Визначення of Cauchy sequences, for a sequence starting at 0 -/
 lemma Sequence.IsCauchy.coe (a:ℕ → ℚ) :
     (a:Sequence).IsCauchy ↔ ∀ ε > (0:ℚ), ∃ N, ∀ j ≥ N, ∀ k ≥ N,
     Section_4_3.dist (a j) (a k) ≤ ε := by
@@ -352,12 +352,12 @@ lemma boundedBy_def {n:ℕ} (a: Fin n → ℚ) (M:ℚ) : BoundedBy a M ↔ ∀ i
 
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℚ) : Prop := ∀ n, |a n| ≤ M
 
-/-- Визначення 5.1.12 (bounded sequences) -/
+/- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.boundedBy_def (a:Sequence) (M:ℚ) : a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
 abbrev Sequence.IsBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/-- Визначення 5.1.12 (bounded sequences) -/
+/- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.isBounded_def (a:Sequence) : a.IsBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
 /-- Приклад 5.1.13 -/
@@ -401,7 +401,7 @@ lemma IsBounded.finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M 
 lemma Sequence.isBounded_of_isCauchy {a:Sequence} (h: a.IsCauchy) : a.IsBounded := by
   sorry
 
-/-- Exercise 5.1.2 -/
+/-- Вправа 5.1.2 -/
 theorem Sequence.isBounded_add {a b:ℕ → ℚ} (ha: (a:Sequence).IsBounded) (hb: (b:Sequence).IsBounded):
     (a + b:Sequence).IsBounded := by sorry
 
