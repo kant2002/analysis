@@ -16,7 +16,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/- Визначення 9.8.1 -/
+/-- Визначення 9.8.1 -/
 theorem MonotoneOn.iff {X: Set ℝ} (f: ℝ → ℝ) : MonotoneOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y ≥ f x := by
   constructor
   . intros; solve_by_elim [le_of_lt]

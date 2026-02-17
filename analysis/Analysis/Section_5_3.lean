@@ -156,7 +156,7 @@ theorem Sequence.add_equiv {a b a' b':ℕ → ℚ} (haa': Equiv a a')
     Equiv (a + b) (a' + b') :=
   equiv_trans (add_equiv_left _ haa') (add_equiv_right _ hbb')
 
-/- Визначення 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Addition of reals) -/
 noncomputable instance Real.add_inst : Add Real where
   add := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a + b)) (by
@@ -197,7 +197,7 @@ theorem Sequence.mul_equiv
   (hbb': Equiv b b') : Equiv (a * b) (a' * b') :=
     equiv_trans (mul_equiv_right _ ha hbb') (mul_equiv_left _ hb' haa')
 
-/- Визначення 5.3.9 (Product of reals) -/
+/-- Визначення 5.3.9 (Product of reals) -/
 noncomputable instance Real.mul_inst : Mul Real where
   mul := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a * b)) (by

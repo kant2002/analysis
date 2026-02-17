@@ -120,29 +120,29 @@ open Classical in
 /-- Need to use classical logic here because isPos and isNeg are not decidable -/
 noncomputable abbrev Real.abs (x:Real) : Real := if x.IsPos then x else (if x.IsNeg then -x else 0)
 
-/- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_pos (x:Real) (hx: x.IsPos) : abs x = x := by
   simp [abs, hx]
 
-/- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_neg (x:Real) (hx: x.IsNeg) : abs x = -x := by
   have : ¬x.IsPos := by have := not_pos_neg x; simpa [hx] using this
   simp [abs, hx, this]
 
-/- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (absolute value) -/
 @[simp]
 theorem Real.abs_of_zero : abs 0 = 0 := by
   have hpos: ¬(0:Real).IsPos := by have := not_zero_pos 0; simpa using this
   have hneg: ¬(0:Real).IsNeg := by have := not_zero_neg 0; simpa using this
   simp [abs, hpos, hneg]
 
-/- Визначення 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLT : LT Real where
   lt x y := (x-y).IsNeg
 
-/- Визначення 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Ordering of the reals) -/
 instance Real.instLE : LE Real where
   le x y := (x < y) ∨ (x = y)
 

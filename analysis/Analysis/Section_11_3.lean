@@ -20,7 +20,7 @@ Main constructions and results of this section:
 namespace Chapter11
 open BoundedInterval Chapter9
 
-/- Визначення 11.3.1 (Majorization of functions) -/
+/-- Визначення 11.3.1 (Majorization of functions) -/
 abbrev MajorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), f x ≤ g x
 
 abbrev MinorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), g x ≤ f x
@@ -121,7 +121,7 @@ lemma gt_of_lt_lower_integral {f:ℝ → ℝ} {I: BoundedInterval} (hf: BddOn f 
   choose Y hY hYX using exists_lt_of_lt_csSup (integral_bound_lower_nonempty hf) hX
   simp at hY; peel hY; simp_all; tauto
 
-/- Визначення 11.3.4 (Riemann integral)
+/-- Визначення 11.3.4 (Riemann integral)
 As we permit junk values, the simplest definition for the Riemann integral is the upper integral.-/
 noncomputable abbrev integ (f:ℝ → ℝ) (I: BoundedInterval) : ℝ := upper_integral f I
 
@@ -144,7 +144,7 @@ theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ =
   convert integ_of_piecewise_const hconst.piecewiseConstantOn
   simp [PiecewiseConstantOn.integ_const' hconst, hI]
 
-/- Визначення 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
+/-- Визначення 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
 noncomputable abbrev upper_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sSup (f '' (J:Set ℝ))) * |J|ₗ
 

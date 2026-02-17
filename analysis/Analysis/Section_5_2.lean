@@ -68,7 +68,7 @@ example : (0.01:ℚ).EventuallyClose ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Se
 abbrev Sequence.Equiv (a b: ℕ → ℚ) : Prop :=
   ∀ ε > (0:ℚ), ε.EventuallyClose (a:Sequence) (b:Sequence)
 
-/- Визначення 5.2.6 (Equivalent sequences) -/
+/-- Визначення 5.2.6 (Equivalent sequences) -/
 lemma Sequence.equiv_def (a b: ℕ → ℚ) :
     Equiv a b ↔ ∀ (ε:ℚ), ε > 0 → ε.EventuallyClose (a:Sequence) (b:Sequence) := by rfl
 

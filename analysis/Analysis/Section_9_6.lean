@@ -72,7 +72,7 @@ theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: 
   have : n j ≥ (j:ℝ) := by simp [why j]
   linarith
 
-/- Визначення 9.6.5.  Use the Mathlib `IsMaxOn` type. -/
+/-- Визначення 9.6.5.  Use the Mathlib `IsMaxOn` type. -/
 #check isMaxOn_iff
 #check isMinOn_iff
 

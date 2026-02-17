@@ -208,7 +208,7 @@ lemma Sequence.from_eval (a:Sequence) {n₁ n:ℤ} (hn: n ≥ n₁) :
 
 end Chapter5
 
-/- Визначення 5.1.6 (Eventually ε-steady) -/
+/-- Визначення 5.1.6 (Eventually ε-steady) -/
 abbrev Rat.EventuallySteady (ε: ℚ) (a: Chapter5.Sequence) : Prop := ∃ N ≥ a.n₀, ε.Steady (a.from N)
 
 lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
@@ -352,12 +352,12 @@ lemma boundedBy_def {n:ℕ} (a: Fin n → ℚ) (M:ℚ) : BoundedBy a M ↔ ∀ i
 
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℚ) : Prop := ∀ n, |a n| ≤ M
 
-/- Визначення 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.boundedBy_def (a:Sequence) (M:ℚ) : a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
 abbrev Sequence.IsBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/- Визначення 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (bounded sequences) -/
 lemma Sequence.isBounded_def (a:Sequence) : a.IsBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
 /-- Приклад 5.1.13 -/

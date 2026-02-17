@@ -34,7 +34,7 @@ variable [SetTheory]
 
 open SetTheory.Set
 
-/- Визначення 3.5.1 (Впорядкована пара).  One could also have used `Object × Object` to
+/-- Визначення 3.5.1 (Впорядкована пара).  One could also have used `Object × Object` to
 define `OrderedPair` here. -/
 @[ext]
 structure OrderedPair where
@@ -43,7 +43,7 @@ structure OrderedPair where
 
 #check OrderedPair.ext
 
-/- Визначення 3.5.1 (Впорядкована пара) -/
+/-- Визначення 3.5.1 (Впорядкована пара) -/
 @[simp]
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
@@ -72,7 +72,7 @@ abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
 theorem SetTheory.Set.mem_slice (x z:Object) (Y:Set) :
     z ∈ (SetTheory.Set.slice x Y) ↔ ∃ y:Y, z = (⟨x, y⟩:OrderedPair) := replacement_axiom _ _
 
-/- Визначення 3.5.4 (Декартовий добуток) -/
+/-- Визначення 3.5.4 (Декартовий добуток) -/
 abbrev SetTheory.Set.cartesian (X Y:Set) : Set :=
   union (X.replace (P := fun x z ↦ z = slice x Y) (by grind))
 
@@ -169,11 +169,11 @@ noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (x: ∀ i, X i) : Object :=
   ((fun i ↦ ⟨ x i, by rw [mem_iUnion]; use i; exact (x i).property ⟩):I → iUnion I X)
 
-/- Визначення 3.5.6 -/
+/-- Визначення 3.5.6 -/
 abbrev SetTheory.Set.iProd {I: Set} (X: I → Set) : Set :=
   ((iUnion I X)^I).specify (fun t ↦ ∃ x : ∀ i, X i, t = tuple x)
 
-/- Визначення 3.5.6 -/
+/-- Визначення 3.5.6 -/
 theorem SetTheory.Set.mem_iProd {I: Set} {X: I → Set} (t:Object) :
     t ∈ iProd X ↔ ∃ x: ∀ i, X i, t = tuple x := by
   simp only [iProd, specification_axiom'']; constructor

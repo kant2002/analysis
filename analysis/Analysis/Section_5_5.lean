@@ -25,7 +25,7 @@ Users of the companion who have completed the exercises in this section are welc
 
 namespace Chapter5
 
-/- Визначення 5.5.1 (upper bounds).  Here we use the `upperBounds` set defined in Mathlib. -/
+/-- Визначення 5.5.1 (upper bounds).  Here we use the `upperBounds` set defined in Mathlib. -/
 theorem Real.upperBound_def (E: Set Real) (M: Real) : M ∈ upperBounds E ↔ ∀ x ∈ E, x ≤ M :=
   mem_upperBounds
 
@@ -53,7 +53,7 @@ example : ∀ M, M ∈ upperBounds (∅ : Set Real) := by sorry
 theorem Real.upperBound_upper {M M': Real} (h: M ≤ M') {E: Set Real} (hb: M ∈ upperBounds E) :
     M' ∈ upperBounds E := by sorry
 
-/- Визначення 5.5.5 (least upper bound).  Here we use the `isLUB` predicate defined in Mathlib. -/
+/-- Визначення 5.5.5 (least upper bound).  Here we use the `isLUB` predicate defined in Mathlib. -/
 theorem Real.isLUB_def (E: Set Real) (M: Real) :
     IsLUB E M ↔ M ∈ upperBounds E ∧ ∀ M' ∈ upperBounds E, M' ≥ M := by rfl
 
@@ -69,7 +69,7 @@ example : ¬∃ M, IsLUB (∅: Set Real) M := by sorry
 /-- Твердження 5.5.8 (Uniqueness of least upper bound)-/
 theorem Real.LUB_unique {E: Set Real} {M M': Real} (h1: IsLUB E M) (h2: IsLUB E M') : M = M' := by grind [Real.isLUB_def]
 
-/- Визначення of "bounded above", using Mathlib notation -/
+/-- Визначення of "bounded above", using Mathlib notation -/
 theorem Real.bddAbove_def (E: Set Real) : BddAbove E ↔ ∃ M, M ∈ upperBounds E := Set.nonempty_def
 
 theorem Real.bddBelow_def (E: Set Real) : BddBelow E ↔ ∃ M, M ∈ lowerBounds E := Set.nonempty_def
@@ -220,19 +220,19 @@ theorem ExtendedReal.finite_eq_coe {X: ExtendedReal} (hX: X.IsFinite) :
   simp
 
 open Classical in
-/- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 noncomputable abbrev ExtendedReal.sup (E: Set Real) : ExtendedReal :=
   if h1:E.Nonempty then (if h2:BddAbove E then ((Real.LUB_exist h1 h2).choose:Real) else ⊤) else ⊥
 
 /-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_empty : sup ∅ = ⊥ := by simp [sup]
 
-/- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_unbounded {E: Set Real} (hb: ¬ BddAbove E) : sup E = ⊤ := by
   have hE : E.Nonempty := by contrapose! hb; simp [hb]
   simp [sup, hE, hb]
 
-/- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Supremum)-/
 theorem ExtendedReal.sup_of_bounded {E: Set Real} (hnon: E.Nonempty) (hb: BddAbove E) :
     IsLUB E (sup E) := by
   simp [hnon, hb, sup]; exact (Real.LUB_exist hnon hb).choose_spec

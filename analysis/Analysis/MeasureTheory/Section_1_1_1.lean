@@ -8,7 +8,7 @@ A companion to Section 1.1.1 of the book "An introduction to Measure Theory".
 
 -/
 
-/- Визначення 1.1.1.  (Intervals) We use the same formalization of intervals used in
+/-- Визначення 1.1.1.  (Intervals) We use the same formalization of intervals used in
 Chapter 11 of "Analysis I".  Following the usual Lean preference to admit `junk` values,
 we allow for the possibility that `b < a`. -/
 inductive BoundedInterval where

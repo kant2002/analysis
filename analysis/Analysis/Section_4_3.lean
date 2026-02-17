@@ -37,15 +37,15 @@ def Rat.Close (ε : ℚ) (x y:ℚ) := |x-y| ≤ ε
 
 namespace Section_4_3
 
-/- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Absolute value) -/
 abbrev abs (x:ℚ) : ℚ := if x > 0 then x else (if x < 0 then -x else 0)
 
 theorem abs_of_pos {x: ℚ} (hx: 0 < x) : abs x = x := by grind
 
-/- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Absolute value) -/
 theorem abs_of_neg {x: ℚ} (hx: x < 0) : abs x = -x := by grind
 
-/- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Absolute value) -/
 theorem abs_of_zero : abs 0 = 0 := rfl
 
 /--
@@ -173,12 +173,12 @@ theorem close_mul_mul' {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z 
     (ε*|z|+δ*|y|).Close (x * z) (y * w) := by
     sorry
 
-/- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
 lemma pow_zero (x:ℚ) : x^0 = 1 := rfl
 
 example : (0:ℚ)^0 = 1 := pow_zero 0
 
-/- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
 lemma pow_succ (x:ℚ) (n:ℕ) : x^(n+1) = x^n * x := _root_.pow_succ x n
 
 /-- Твердження 4.3.10(a) (Properties of exponentiation, I) / Вправа 4.3.3 -/

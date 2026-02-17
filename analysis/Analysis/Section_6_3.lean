@@ -20,10 +20,10 @@ Main constructions and results of this section:
 
 namespace Chapter6
 
-/- Визначення 6.3.1 -/
+/-- Визначення 6.3.1 -/
 noncomputable abbrev Sequence.sup (a:Sequence) : EReal := sSup { x | ∃ n ≥ a.m, x = a n }
 
-/- Визначення 6.3.1 -/
+/-- Визначення 6.3.1 -/
 noncomputable abbrev Sequence.inf (a:Sequence) : EReal := sInf { x | ∃ n ≥ a.m, x = a n }
 
 /-- Приклад 6.3.3 -/

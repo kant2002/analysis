@@ -64,7 +64,7 @@ example (x₀ x : ℝ) :
   extract_lets g ε δ
   sorry
 
-/- Визначення 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
+/-- Визначення 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
   ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.Close x x₀ → ε.Close (f x) (f x₀) := by
   simp_rw [Metric.uniformContinuousOn_iff_le, Real.Close]

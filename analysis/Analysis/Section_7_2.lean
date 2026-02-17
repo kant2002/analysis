@@ -50,7 +50,7 @@ abbrev Series.mk' {m:ℤ} (a: { n // n ≥ m } → ℝ) : Series where
 theorem Series.eval_mk' {m:ℤ} (a : { n // n ≥ m } → ℝ) {n : ℤ} (h:n ≥ m) :
     (Series.mk' a).seq n = a ⟨ n, h ⟩ := by simp [h]
 
-/- Визначення 7.2.2 (Convergence of series) -/
+/-- Визначення 7.2.2 (Convergence of series) -/
 abbrev Series.partial (s : Series) (N:ℤ) : ℝ := ∑ n ∈ Finset.Icc s.m N, s.seq n
 
 theorem Series.partial_succ (s : Series) {N:ℤ} (h: N ≥ s.m-1) : s.partial (N+1) = s.partial N + s.seq (N+1) := by
@@ -127,7 +127,7 @@ theorem Series.example_7_2_7' : ((fun n:ℕ ↦ (-1:ℝ)^n):Series).diverges := 
   apply diverges_of_nodecay
   sorry
 
-/- Визначення 7.2.8 (Absolute convergence) -/
+/-- Визначення 7.2.8 (Absolute convergence) -/
 abbrev Series.abs (s:Series) : Series := mk' (m:=s.m) (fun n ↦ |s.seq n|)
 
 abbrev Series.absConverges (s:Series) : Prop := s.abs.converges

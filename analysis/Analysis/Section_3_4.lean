@@ -29,11 +29,11 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
+/-- Визначення 3.4.1.  Цікаво, що визначення не вимагає, щоб S було підмножиною X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
   X.replace (P := fun x y ↦ f x = y ∧ x.val ∈ S) (by simp_all)
 
-/- Визначення 3.4.1 -/
+/-- Визначення 3.4.1 -/
 theorem SetTheory.Set.mem_image {X Y:Set} (f:X → Y) (S: Set) (y:Object) :
     y ∈ image f S ↔ ∃ x:X, x.val ∈ S ∧ f x = y := by
   grind [replacement_axiom]
@@ -91,16 +91,6 @@ theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
   . intro h; by_cases hx: x ∈ X
     . use ⟨ x, hx ⟩; have := mem_preimage f U ⟨ _, hx ⟩; simp_all
     . grind [specification_axiom]
-  . rintro ⟨ x', rfl, hfx' ⟩; rwa [mem_preimage]
-/--
-  A version of mem_preimage that does not require x to be of type X.
--/
-theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
-    x ∈ preimage f U ↔ ∃ x': X, x'.val = x ∧ (f x').val ∈ U := by
-  constructor
-  . intro h; by_cases hx: x ∈ X
-    . use ⟨ x, hx ⟩; have := mem_preimage f U ⟨ x, hx ⟩; simp_all
-    . simp_all [X.specification_axiom h]
   . rintro ⟨ x', rfl, hfx' ⟩; rwa [mem_preimage]
 
 /-- Звя'зок із Mathlib-овським поняттям прообразу. -/

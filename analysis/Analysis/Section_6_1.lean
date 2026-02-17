@@ -20,7 +20,7 @@ Main constructions and results of this section:
 -/
 
 
-/- Визначення 6.1.1 (Distance).  Here we use the Mathlib distance. -/
+/-- Визначення 6.1.1 (Distance).  Here we use the Mathlib distance. -/
 #check Real.dist_eq
 
 abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
@@ -86,7 +86,7 @@ end Chapter6
 abbrev Real.Steady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m)
 
-/- Визначення 6.1.3 (ε-steady) -/
+/-- Визначення 6.1.3 (ε-steady) -/
 lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.Steady a ↔ ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m) := by rfl
 
@@ -94,7 +94,7 @@ lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
 abbrev Real.EventuallySteady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∃ N ≥ a.m, ε.Steady (a.from N)
 
-/- Визначення 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Eventually ε-steady) -/
 lemma Real.eventuallySteady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.EventuallySteady a ↔ ∃ N, (N ≥ a.m) ∧ ε.Steady (a.from N) := by rfl
 
@@ -112,7 +112,7 @@ namespace Chapter6
 /-- Визначення 6.1.3 (Cauchy sequence) -/
 abbrev Sequence.IsCauchy (a:Sequence) : Prop := ∀ ε > (0:ℝ), ε.EventuallySteady a
 
-/- Визначення 6.1.3 (Cauchy sequence) -/
+/-- Визначення 6.1.3 (Cauchy sequence) -/
 lemma Sequence.isCauchy_def (a:Sequence) :
   a.IsCauchy ↔ ∀ ε > (0:ℝ), ε.EventuallySteady a := by rfl
 
@@ -300,7 +300,7 @@ noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.Convergent then h.choose 
 theorem Sequence.lim_def {a:Sequence} (h: a.Convergent) : a.TendsTo (lim a) := by
   simp [lim, h]; exact h.choose_spec
 
-/- Визначення 6.1.8-/
+/-- Визначення 6.1.8-/
 theorem Sequence.lim_eq {a:Sequence} {L:ℝ} :
 a.TendsTo L ↔ a.Convergent ∧ lim a = L := by
   constructor
@@ -352,7 +352,7 @@ example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).Convergent := by sorry
 theorem Sequence.lim_eq_LIM {a:ℕ → ℚ} (h: (a:Chapter5.Sequence).IsCauchy) :
     ((a:Chapter5.Sequence):Sequence).TendsTo (Chapter5.Real.equivR (Chapter5.LIM a)) := by sorry
 
-/- Визначення 6.1.16 -/
+/-- Визначення 6.1.16 -/
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℝ) : Prop :=
   ∀ n, |a n| ≤ M
 
@@ -363,7 +363,7 @@ lemma Sequence.boundedBy_def (a:Sequence) (M:ℝ) :
 /-- Визначення 6.1.16 -/
 abbrev Sequence.IsBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/- Визначення 6.1.16 -/
+/-- Визначення 6.1.16 -/
 lemma Sequence.isBounded_def (a:Sequence) :
   a.IsBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 

@@ -31,7 +31,7 @@ import Analysis.Section_2_1
 
 namespace Chapter2
 
-/- Визначення 2.2.1. (Додавання натуральних чисел.
+/-- Визначення 2.2.1. (Додавання натуральних чисел.
     Порівняйте із Mathlib-овським `Nat.add` -/
 abbrev Nat.add (n m : Nat) : Nat := Nat.recurse (fun _ sum ↦ sum++) m n
 
@@ -123,7 +123,7 @@ instance Nat.addCommMonoid : AddCommMonoid Nat where
 /-- Ця ілюстрація тактики `abel` взята не з підручника. -/
 example (a b c d:Nat) : (a+b)+(c+0+d) = (b+c)+(d+a) := by abel
 
-/- Визначення 2.2.7 (Додатні натуральні числе).-/
+/-- Визначення 2.2.7 (Додатні натуральні числе).-/
 def Nat.IsPos (n:Nat) : Prop := n ≠ 0
 
 theorem Nat.isPos_iff (n:Nat) : n.IsPos ↔ n ≠ 0 := by rfl
@@ -172,12 +172,12 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
 lemma Nat.uniq_succ_eq (a:Nat) (ha: a.IsPos) : ∃! b, b++ = a := by
   sorry
 
-/- Визначення 2.2.11 (Порядок натуральних чисел)
+/-- Визначення 2.2.11 (Порядок натуральних чисел)
     Це визначає операцію `≤` на натуральних числах. -/
 instance Nat.instLE : LE Nat where
   le n m := ∃ a:Nat, m = n + a
 
-/- Визначення 2.2.11 (Порядок натуральних чисел)
+/-- Визначення 2.2.11 (Порядок натуральних чисел)
     Це визначає операцію `<` на натуральних числах. -/
 instance Nat.instLT : LT Nat where
   lt n m := n ≤ m ∧ n ≠ m

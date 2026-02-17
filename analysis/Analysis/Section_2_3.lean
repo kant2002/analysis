@@ -31,18 +31,18 @@ import Analysis.Section_2_2
 
 namespace Chapter2
 
-/- Визначення 2.3.1 (Множення натуральних чисел) -/
+/-- Визначення 2.3.1 (Множення натуральних чисел) -/
 abbrev Nat.mul (n m : Nat) : Nat := Nat.recurse (fun _ prod ↦ prod + m) 0 n
 
 /-- Цей інстанс дозволяє використовувати позначення `*` для множення натуральних чисел. -/
 instance Nat.instMul : Mul Nat where
   mul := mul
 
-/- Визначення 2.3.1 (Множення натуральних чисел)
+/-- Визначення 2.3.1 (Множення натуральних чисел)
 Порівняйте із Mathlib-івської `Nat.zero_mul` -/
 theorem Nat.zero_mul (m: Nat) : 0 * m = 0 := recurse_zero (fun _ prod ↦ prod+m) _
 
-/- Визначення 2.3.1 (Множення натуральних чисел)
+/-- Визначення 2.3.1 (Множення натуральних чисел)
 Порівняйте із Mathlib-івської `Nat.succ_mul` -/
 theorem Nat.succ_mul (n m: Nat) : (n++) * m = n * m + m := recurse_succ (fun _ prod ↦ prod+m) _ _
 
@@ -181,22 +181,22 @@ theorem Nat.exists_div_mod (n:Nat) {q: Nat} (hq: q.IsPos) :
     ∃ m r: Nat, 0 ≤ r ∧ r < q ∧ n = m * q + r := by
   sorry
 
-/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
+/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
 abbrev Nat.pow (m n: Nat) : Nat := Nat.recurse (fun _ prod ↦ prod * m) 1 n
 
 instance Nat.instPow : HomogeneousPow Nat where
   pow := Nat.pow
 
-/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
+/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
 Порівняйте із Mathlib-івським `Nat.pow_zero` -/
 @[simp]
 theorem Nat.pow_zero (m: Nat) : m ^ (0:Nat) = 1 := recurse_zero (fun _ prod ↦ prod * m) _
 
-/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
+/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел) -/
 @[simp]
 theorem Nat.zero_pow_zero : (0:Nat) ^ 0 = 1 := recurse_zero (fun _ prod ↦ prod * 0) _
 
-/- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
+/-- Визначення 2.3.11 (Піднесення до степеня для натуральних чисел)
 Порівняйте із Mathlib-івським `Nat.pow_succ` -/
 theorem Nat.pow_succ (m n: Nat) : (m:Nat) ^ n++ = m^n * m :=
   recurse_succ (fun _ prod ↦ prod * m) _ _

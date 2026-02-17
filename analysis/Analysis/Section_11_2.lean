@@ -19,7 +19,7 @@ Main constructions and results of this section:
 namespace Chapter11
 open BoundedInterval
 
-/- Визначення 11.2.1 -/
+/-- Визначення 11.2.1 -/
 abbrev Constant {X Y:Type} (f: X → Y) : Prop := ∃ c, ∀ x, f x = c
 
 open Classical in
@@ -70,7 +70,7 @@ theorem constant_value_on_congr {f g: ℝ → ℝ} {X: Set ℝ} (h: ∀ x ∈ X,
   constant_value_on f X = constant_value_on g X := by
   simp [constant_value_on]; congr; grind
 
-/- Визначення 11.2.3 (Piecewise constant functions I) -/
+/-- Визначення 11.2.3 (Piecewise constant functions I) -/
 abbrev PiecewiseConstantWith (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : Prop := ∀ J ∈ P, ConstantOn f (J:Set ℝ)
 
 theorem PiecewiseConstantWith.def (f:ℝ → ℝ) {I: BoundedInterval} {P: Partition I} :
@@ -83,7 +83,7 @@ theorem PiecewiseConstantWith.congr {f g:ℝ → ℝ} {I: BoundedInterval} {P: P
   simp [PiecewiseConstantWith]; peel with J hJ
   apply ConstantOn.congr; have := P.contains _ hJ; grind [subset_iff]
 
-/- Визначення 11.2.5 (Piecewise constant functions I) -/
+/-- Визначення 11.2.5 (Piecewise constant functions I) -/
 abbrev PiecewiseConstantOn (f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∃ P : Partition I, PiecewiseConstantWith f P
 
 theorem PiecewiseConstantOn.def (f:ℝ → ℝ) (I: BoundedInterval):
@@ -160,7 +160,7 @@ theorem PiecewiseConstantOn.div {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f / g) I := by
   sorry
 
-/- Визначення 11.2.9 (Piecewise constant integral I)-/
+/-- Визначення 11.2.9 (Piecewise constant integral I)-/
 noncomputable abbrev PiecewiseConstantWith.integ (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I)  :
   ℝ := ∑ J ∈ P.intervals, constant_value_on f (J:Set ℝ) * |J|ₗ
 
@@ -207,7 +207,7 @@ theorem PiecewiseConstantWith.integ_eq {f:ℝ → ℝ} {I: BoundedInterval} {P P
   sorry
 
 open Classical in
-/- Визначення 11.2.14 (Piecewise constant integral II)  -/
+/-- Визначення 11.2.14 (Piecewise constant integral II)  -/
 noncomputable abbrev PiecewiseConstantOn.integ (f:ℝ → ℝ) (I: BoundedInterval) :
   ℝ := if h: PiecewiseConstantOn f I then PiecewiseConstantWith.integ f h.choose else 0
 

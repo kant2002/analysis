@@ -31,7 +31,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/- Визначення 3.6.1 (Рівна потужність) -/
+/-- Визначення 3.6.1 (Рівна потужність) -/
 abbrev SetTheory.Set.EqualCard (X Y:Set) : Prop := ∃ f : X → Y, Function.Bijective f
 
 /-- Приклад 3.6.2 -/
@@ -67,7 +67,7 @@ theorem SetTheory.Set.EqualCard.trans {X Y Z:Set} (h1: EqualCard X Y) (h2: Equal
 /-- Твердження 3.6.4 / Вправа 3.6.1 -/
 instance SetTheory.Set.EqualCard.inst_setoid : Setoid SetTheory.Set := ⟨ EqualCard, {refl, symm, trans} ⟩
 
-/- Визначення 3.6.5 -/
+/-- Визначення 3.6.5 -/
 abbrev SetTheory.Set.has_card (X:Set) (n:ℕ) : Prop := X ≈ Fin n
 
 theorem SetTheory.Set.has_card_iff (X:Set) (n:ℕ) :
