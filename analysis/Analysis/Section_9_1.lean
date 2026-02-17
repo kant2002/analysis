@@ -22,7 +22,7 @@ Main constructions and results of this section:
 
 variable (I : Type*)
 
-/-- Визначення 9.1.1 (Intervals) -/
+/- Визначення 9.1.1 (Intervals) -/
 #check Set.Icc_def
 #check Set.Ico_def
 #check Set.Ioc_def

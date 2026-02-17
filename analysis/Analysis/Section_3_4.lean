@@ -140,8 +140,8 @@ theorem SetTheory.Set.coe_of_fun_inj {X Y:Set} (f g:X → Y) : (f:Object) = (g:O
 theorem SetTheory.Set.powerset_axiom {X Y:Set} (F:Object) :
     F ∈ (X ^ Y) ↔ ∃ f: Y → X, f = F := SetTheory.powerset_axiom X Y F
 
-/-- Приклад 3.4.8 -/
-abbrev f_3_4_8_a : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 0, by simp ⟩
+/-- Приклад 3.4.9 -/
+abbrev f_3_4_9_a : ({4,7}:Set) → ({0,1}:Set) := fun x ↦ ⟨ 0, by simp ⟩
 
 open Classical in
 noncomputable abbrev f_3_4_9_b : ({4,7}:Set) → ({0,1}:Set) :=
