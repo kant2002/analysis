@@ -49,7 +49,7 @@ theorem Nat.succ_mul (n m: Nat) : (n++) * m = n * m + m := recurse_succ (fun _ p
 theorem Nat.one_mul' (m: Nat) : 1 * m = 0 + m := by
   rw [←zero_succ, succ_mul, zero_mul]
 
-/-- Compare with Mathlib's `Nat.one_mul` -/
+/-- Порівняйте із Mathlib-овським `Nat.one_mul` -/
 theorem Nat.one_mul (m: Nat) : 1 * m = m := by
   rw [one_mul', zero_add]
 
@@ -71,17 +71,17 @@ lemma Nat.mul_succ (n m:Nat) : n * m++ = n * m + n := by
 lemma Nat.mul_comm (n m: Nat) : n * m = m * n := by
   sorry
 
-/-- Compare with Mathlib's `Nat.mul_one` -/
+/-- Порівняйте із Mathlib-овським `Nat.mul_one` -/
 theorem Nat.mul_one (m: Nat) : m * 1 = m := by
   rw [mul_comm, one_mul]
 
 /-- This lemma will be useful to prove Lemma 2.3.3.
-Compare with Mathlib's `Nat.mul_pos` -/
+Порівняйте із Mathlib-овським `Nat.mul_pos` -/
 lemma Nat.pos_mul_pos {n m: Nat} (h₁: n.IsPos) (h₂: m.IsPos) : (n * m).IsPos := by
   sorry
 
 /-- Lemma 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2.
-    Compare with Mathlib's `Nat.mul_eq_zero`.  -/
+    Порівняйте із Mathlib-овським `Nat.mul_eq_zero`.  -/
 lemma Nat.mul_eq_zero (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
   sorry
 
@@ -150,7 +150,7 @@ theorem Nat.mul_gt_mul_of_pos_left {a b c: Nat} (h: a > b) (hc: c.IsPos) :
     c * a > c * b := mul_lt_mul_of_pos_left h hc
 
 /-- Наслідок 2.3.7 (Властивість скорочення)
-Compare with Mathlib's `Nat.mul_right_cancel` -/
+Порівняйте із Mathlib-овським `Nat.mul_right_cancel` -/
 lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.IsPos) : a = b := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   have := trichotomous a b

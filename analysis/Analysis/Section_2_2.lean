@@ -120,8 +120,7 @@ instance Nat.addCommMonoid : AddCommMonoid Nat where
   add_zero := add_zero
   nsmul := nsmulRec
 
-/-- This illustration of the `abel` tactic is not from the
-    textbook. -/
+/-- Ця ілюстрація тактики `abel` взята не з підручника. -/
 example (a b c d:Nat) : (a+b)+(c+0+d) = (b+c)+(d+a) := by abel
 
 /-- Визначення 2.2.7 (Додатні натуральні числе).-/
@@ -183,7 +182,7 @@ instance Nat.instLE : LE Nat where
 instance Nat.instLT : LT Nat where
   lt n m := n ≤ m ∧ n ≠ m
 
-/-- Compare with Mathlib's `le_iff_exists_add`. -/
+/-- Порівняйте із Mathlib-овським `le_iff_exists_add`. -/
 lemma Nat.le_iff (n m:Nat) : n ≤ m ↔ ∃ a:Nat, m = n + a := by rfl
 
 lemma Nat.lt_iff (n m:Nat) : n < m ↔ (∃ a:Nat, m = n + a) ∧ n ≠ m := by rfl
@@ -229,7 +228,7 @@ theorem Nat.ge_refl (a:Nat) : a ≥ a := by
 @[refl]
 theorem Nat.le_refl (a:Nat) : a ≤ a := a.ge_refl
 
-/-- The refl tag allows for the `rfl` tactic to work for inequalities. -/
+/-- Тег `refl` дозволяє тактиці `rfl` працювати для нерівностей. -/
 example (a b:Nat): a+b ≥ a+b := by rfl
 
 /-- (b) (Порядок транзітивен).  Тут буде корисною тактика `obtain`.
@@ -262,7 +261,7 @@ theorem Nat.add_le_add_left (a b c:Nat) : a ≤ b ↔ c + a ≤ c + b := add_ge_
 theorem Nat.lt_iff_succ_le (a b:Nat) : a < b ↔ a++ ≤ b := by
   sorry
 
-/-- (f) a < b if and only if b = a + d for positive d. -/
+/-- (f) a < b якщо та лише якщо b = a + d для додатного d. -/
 theorem Nat.lt_iff_add_pos (a b:Nat) : a < b ↔ ∃ d:Nat, d.IsPos ∧ b = a + d := by
   sorry
 
@@ -293,8 +292,8 @@ theorem Nat.lt_of_le_of_lt {a b c : Nat} (hab: a ≤ b) (hbc: b < c) : a < c := 
   . exact add_pos_right d he1
   . rw [he2, hd, add_assoc]
 
-/-- This lemma was a `why?` statement from Proposition 2.2.13,
-but is more broadly useful, so is extracted here. -/
+/-- Ця лема була твердженням `why?` з Пропозиції 2.2.13,
+але є кориснішою в ширшому контексті, тому її винесено окремо. -/
 theorem Nat.zero_le (a:Nat) : 0 ≤ a := by
   sorry
 
@@ -345,8 +344,8 @@ def Nat.decLe : (a b : Nat) → Decidable (a ≤ b)
 
 instance Nat.decidableRel : DecidableRel (· ≤ · : Nat → Nat → Prop) := Nat.decLe
 
-/-- (Не із книги) Nat має структуру лінійне впорядкування. This allows for tactics
-such as `order` and `calc` to be applicable to the Chapter 2 natural numbers. -/
+/-- (Не із книги) Nat має структуру лінійне впорядкування. Це дозволяє
+  застосовувати такі тактики, як `order` і `calc`, до натуральних чисел Розділу 2. -/
 instance Nat.instLinearOrder : LinearOrder Nat where
   le_refl := ge_refl
   le_trans a b c hab hbc := ge_trans hbc hab
@@ -368,12 +367,11 @@ instance Nat.instLinearOrder : LinearOrder Nat where
     . right; exact le_of_lt h
   toDecidableLE := decidableRel
 
-/-- This illustration of the `order` tactic is not from the
-    textbook. -/
+/-- Ця ілюстрація тактики `order` взята не з підручника. -/
 example (a b c d:Nat) (hab: a ≤ b) (hbc: b ≤ c) (hcd: c ≤ d)
         (hda: d ≤ a) : a = c := by order
 
-/-- An illustration of the `calc` tactic with `≤/<`. -/
+/-- Ця ілюстрація тактики `calc` із `≤/<`. -/
 example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hcd: c ≤ d)
         (hde: d ≤ e) : a + 0 < e := by
   calc
@@ -383,13 +381,12 @@ example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hcd: c ≤ d)
         _ ≤ d := hcd
         _ ≤ e := hde
 
-/-- (Not from textbook) Nat has the structure of an ordered monoid. This allows for tactics
-such as `gcongr` to be applicable to the Chapter 2 natural numbers. -/
+/-- (Не з підручника.) `Nat` має структуру впорядкованого моноїда. Це дозволяє
+  застосовувати такі тактики, як `gcongr`, до натуральних чисел Розділу 2. -/
 instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
   add_le_add_left a b hab c := (add_le_add_left a b c).mp hab
 
-/-- This illustration of the `gcongr` tactic is not from the
-    textbook. -/
+/-- Ця ілюстрація тактики `gcongr` взята не з підручника. -/
 example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hde: d < e) :
   a + d ≤ c + e := by
   gcongr

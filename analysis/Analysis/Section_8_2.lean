@@ -240,7 +240,7 @@ theorem AbsConvergent'.countable_supp {X:Type} {f:X → ℝ} (hf: AbsConvergent'
   AtMostCountable { x | f x ≠ 0 } := by
     sorry
 
-/-- Compare with Mathlib's `Summable.subtype`-/
+/-- Порівняйте із Mathlib-овським `Summable.subtype`-/
 theorem AbsConvergent'.subtype {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (A: Set X) :
   AbsConvergent' (fun x:A ↦ f x) := by
   apply BddAbove.mono _ hf
