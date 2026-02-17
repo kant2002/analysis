@@ -35,15 +35,6 @@ import Analysis.Tools.ExistsUnique
 
 -/
 
-/-
-Тут ми працюватимемо з версією `nat` натуральних чисел, що є внутрішньою для теорії множин з Розділу 3,
-хоча зазвичай ми використовуватимемо перетворення, щоб одразу ж перетворити їх на натуральні
-числа із Mathlib - `ℕ`.
--/
-namespace Chapter3
-
-
-
 namespace Chapter3
 
 export SetTheory (Set Object)
