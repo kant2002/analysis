@@ -80,7 +80,7 @@ theorem Nat.mul_one (m: Nat) : m * 1 = m := by
 lemma Nat.pos_mul_pos {n m: Nat} (h₁: n.IsPos) (h₂: m.IsPos) : (n * m).IsPos := by
   sorry
 
-/-- Лема 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2.
+/-- Лема 2.3.3 (Додатні натуральні числа не мають нульових дільників.) / Вправа 2.3.2.
     Порівняйте із Mathlib-овським `Nat.mul_eq_zero`.  -/
 lemma Nat.mul_eq_zero (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
   sorry
@@ -107,7 +107,7 @@ theorem Nat.mul_assoc (a b c: Nat) : (a * b) * c = a * (b * c) := by
   sorry
 
 /-- (Не із книги)  Nat є комутативним півкільцем.
-    This allows tactics such as `ring` to apply to the Chapter 2 natural numbers. -/
+    Це дозволяє застосовувати такі тактики, як `ring`, до натуральних чисел Розділу 2. -/
 instance Nat.instCommSemiring : CommSemiring Nat where
   left_distrib := mul_add
   right_distrib := add_mul
@@ -118,8 +118,7 @@ instance Nat.instCommSemiring : CommSemiring Nat where
   mul_one := mul_one
   mul_comm := mul_comm
 
-/-- This illustration of the `ring` tactic is not from the
-    textbook. -/
+/-- Ця ілюстрація тактики `ring` не взята з підручника. -/
 example (a b c d:ℕ) : (a+b)*1*(c+d) = d*b+a*c+c*b+a*d+0 := by ring
 
 
@@ -164,14 +163,13 @@ lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.IsPos) : a = b
   contradiction
 
 /-- (Не із книги) Nat є впорядкованим півкільцем.
-This allows tactics such as `gcongr` to apply to the Chapter 2 natural numbers. -/
+Це дозволяє застосовувати такі тактики, як `gcongr`, до натуральних чисел Розділу 2. -/
 instance Nat.isOrderedRing : IsOrderedRing Nat where
   zero_le_one := by sorry
   mul_le_mul_of_nonneg_left := by sorry
   mul_le_mul_of_nonneg_right := by sorry
 
-/-- This illustration of the `gcongr` tactic is not from the
-    textbook. -/
+/-- Ця ілюстрація тактики `gcongr` не взята з підручника. -/
 example (a b c d:Nat) (hab: a ≤ b) : c*a*d ≤ c*b*d := by
   gcongr
   . exact d.zero_le

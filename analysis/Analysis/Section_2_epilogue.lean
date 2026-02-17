@@ -31,7 +31,7 @@ import Analysis.Section_2_3
 
 -/
 
-/-- Converting a Chapter 2 natural number to a Mathlib natural number. -/
+/-- Перетворення натурального числа з Розділу 2 на натуральне число Mathlib. -/
 abbrev Chapter2.Nat.toNat (n : Chapter2.Nat) : ℕ := match n with
   | zero => 0
   | succ n' => n'.toNat + 1
@@ -40,8 +40,8 @@ lemma Chapter2.Nat.zero_toNat : (0 : Chapter2.Nat).toNat = 0 := rfl
 
 lemma Chapter2.Nat.succ_toNat (n : Chapter2.Nat) : (n++).toNat = n.toNat + 1 := rfl
 
-/-- The conversion is a bijection. Here we use the existing capability (from Section 2.1) to map
-the Mathlib natural numbers to the Chapter 2 natural numbers. -/
+/-- Перетворення є бієкцією. Тут ми використовуємо наявну можливість (з Розділу 2.1)
+ для відображення натуральних чисел Mathlib на натуральні числа Розділу 2. -/
 abbrev Chapter2.Nat.equivNat : Chapter2.Nat ≃ ℕ where
   toFun := toNat
   invFun n := (n:Chapter2.Nat)
@@ -53,19 +53,19 @@ abbrev Chapter2.Nat.equivNat : Chapter2.Nat ≃ ℕ where
     induction' n with n hn; rfl
     simp [←succ_eq_add_one, hn]
 
-/-- The conversion preserves addition. -/
+/-- Перетворення зберігає операцію додавання. -/
 abbrev Chapter2.Nat.map_add : ∀ (n m : Nat), (n + m).toNat = n.toNat + m.toNat := by
   intro n m
   induction' n with n hn
   · rw [show zero = 0 from rfl, zero_add, _root_.Nat.zero_add]
   sorry
 
-/-- The conversion preserves multiplication. -/
+/-- Перетворення зберігає операцію множення. -/
 abbrev Chapter2.Nat.map_mul : ∀ (n m : Nat), (n * m).toNat = n.toNat * m.toNat := by
   intro n m
   sorry
 
-/-- The conversion preserves order. -/
+/-- Перетворення зберігає порядок. -/
 abbrev Chapter2.Nat.map_le_map_iff : ∀ {n m : Nat}, n.toNat ≤ m.toNat ↔ n ≤ m := by
   intro n m
   sorry
@@ -76,7 +76,7 @@ abbrev Chapter2.Nat.equivNat_ordered_ring : Chapter2.Nat ≃+*o ℕ where
   map_mul' := map_mul
   map_le_map_iff' := map_le_map_iff
 
-/-- The conversion preserves exponentiation. -/
+/-- Перетворення зберігає піднесення до степеня. -/
 lemma Chapter2.Nat.pow_eq_pow (n m : Chapter2.Nat) :
     n.toNat ^ m.toNat = (n^m).toNat := by
   sorry
@@ -118,37 +118,37 @@ abbrev natCast (P : PeanoAxioms) : ℕ → P.Nat := fun n ↦ match n with
   | Nat.zero => P.zero
   | Nat.succ n => P.succ (natCast P n)
 
-/-- One can start the proof here with `unfold Function.Injective`, although it is not strictly necessary. -/
+/-- Доведення можна почати тут з `unfold Function.Injective`, хоча це не є строго обов’язковим. -/
 theorem natCast_injective (P : PeanoAxioms) : Function.Injective P.natCast := by
   sorry
 
-/-- One can start the proof here with `unfold Function.Surjective`, although it is not strictly necessary. -/
+/-- Доведення можна почати тут з `unfold Function.Surjective`, хоча це не є строго обов’язковим. -/
 theorem natCast_surjective (P : PeanoAxioms) : Function.Surjective P.natCast := by
   sorry
 
-/-- The notion of an equivalence between two structures obeying the Peano axioms.
-    The symbol `≃` is an alias for Mathlib's `Equiv` class; for instance `P.Nat ≃ Q.Nat` is
-    an alias for `_root_.Equiv P.Nat Q.Nat`. -/
+/-- Поняття еквівалентності між двома структурами, що задовольняють аксіоми Пеано.
+Символ `≃` є псевдонімом для класу `Equiv` у Mathlib; наприклад, `P.Nat ≃ Q.Nat`
+є псевдонімом для `_root_.Equiv P.Nat Q.Nat`. -/
 class Equiv (P Q : PeanoAxioms) where
   equiv : P.Nat ≃ Q.Nat
   equiv_zero : equiv P.zero = Q.zero
   equiv_succ : ∀ n : P.Nat, equiv (P.succ n) = Q.succ (equiv n)
 
-/-- This exercise will require application of Mathlib's API for the `Equiv` class.
-    Some of this API can be invoked automatically via the `simp` tactic. -/
+/-- Ця вправа вимагатиме застосування API Mathlib для класу `Equiv`.
+    Деякі частини цього API можна викликати автоматично за допомогою тактики `simp`. -/
 abbrev Equiv.symm {P Q: PeanoAxioms} (equiv : Equiv P Q) : Equiv Q P where
   equiv := equiv.equiv.symm
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- This exercise will require application of Mathlib's API for the `Equiv` class.
-    Some of this API can be invoked automatically via the `simp` tactic. -/
+/-- Ця вправа вимагатиме застосування API Mathlib для класу `Equiv`.
+    Деякі частини цього API можна викликати автоматично за допомогою тактики `simp`. -/
 abbrev Equiv.trans {P Q R: PeanoAxioms} (equiv1 : Equiv P Q) (equiv2 : Equiv Q R) : Equiv P R where
   equiv := equiv1.equiv.trans equiv2.equiv
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- Useful Mathlib tools for inverting bijections include `Function.surjInv` and `Function.invFun`. -/
+/-- Корисні інструменти Mathlib для інверсії бієкцій включають `Function.surjInv` та `Function.invFun`. -/
 noncomputable abbrev Equiv.fromNat (P : PeanoAxioms) : Equiv Mathlib_Nat P where
   equiv := {
     toFun := P.natCast
@@ -159,10 +159,10 @@ noncomputable abbrev Equiv.fromNat (P : PeanoAxioms) : Equiv Mathlib_Nat P where
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- The task here is to establish that any two structures obeying the Peano axioms are equivalent. -/
+/-- Завдання тут полягає в тому, щоб довести, що будь-які дві структури, які задовольняють аксіоми Пеано, є еквівалентними. -/
 noncomputable abbrev Equiv.mk' (P Q : PeanoAxioms) : Equiv P Q := by sorry
 
-/-- There is only one equivalence between any two structures obeying the Peano axioms. -/
+/-- Існує лише одна еквівалентність між будь-якими двома структурами, що задовольняють аксіоми Пеано. -/
 theorem Equiv.uniq {P Q : PeanoAxioms} (equiv1 equiv2 : PeanoAxioms.Equiv P Q) :
     equiv1 = equiv2 := by
   obtain ⟨equiv1, equiv_zero1, equiv_succ1⟩ := equiv1
