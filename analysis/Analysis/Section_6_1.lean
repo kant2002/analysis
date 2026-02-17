@@ -20,7 +20,7 @@ Main constructions and results of this section:
 -/
 
 
-/-- Визначення 6.1.1 (Distance).  Here we use the Mathlib distance. -/
+/- Визначення 6.1.1 (Distance).  Here we use the Mathlib distance. -/
 #check Real.dist_eq
 
 abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
