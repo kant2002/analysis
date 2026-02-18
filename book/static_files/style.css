@@ -42,6 +42,7 @@ nav ol li a:focus {
     header,
     div.main {
         margin-left: 16em;
+        border: none;
     }
     #togglemenu {
         display: none;
