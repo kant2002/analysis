@@ -67,11 +67,11 @@ import Mathlib.Tactic
 
 namespace Chapter3
 
-/- The ability to work in multiple universe is not relevant immediately, but
-becomes relevant when constructing models of set theory in the Chapter 3 epilogue. -/
+/- Можливість працювати в кількох універсах наразі не є суттєвою, але стає важливою під час
+   побудови моделей теорії множин в епілозі Розділу 3. -/
 universe u v
 
-/-- The axioms of Zermelo-Frankel theory with atoms.  -/
+/-- Аксиоми теорії Zermelo-Frankel з атомами.  -/
 class SetTheory where
   Set : Type u -- Аксіома 3.1
   Object : Type v -- Аксіома 3.1
@@ -104,7 +104,7 @@ class SetTheory where
   union : Set → Set -- Аксіома 3.12
   union_axiom A x : mem x (union A) ↔ ∃ S, mem x S ∧ mem (set_to_object S) A -- Аксіома 3.12
 
--- This enables one to use `Set` and `Object` instead of `SetTheory.Set` and `SetTheory.Object`.
+-- Ця дозволяє використовувати `Set` та `Object` замість `SetTheory.Set` і `SetTheory.Object`.
 export SetTheory (Set Object)
 
 -- Цей екземпляр неявно нав'язує аксіоми теорії множин Цермело-Френкеля з атомами.
@@ -114,14 +114,14 @@ variable [SetTheory]
 instance SetTheory.objects_mem_sets : Membership Object Set where
   mem X x := mem x X
 
--- Now we can use the `∈` notation between our `Object` and `Set`.
+-- Тепер можна використовувати оператор `∈` між нашим `Object` і `Set`.
 example (X: Set) (x: Object) : x ∈ X ↔ SetTheory.mem x X := by rfl
 
 /-- Аксіома 3.1 (Множини це об'єкти)-/
 instance SetTheory.sets_are_objects : Coe Set Object where
   coe X := set_to_object X
 
--- Now we can treat a `Set` as an `Object` when needed.
+-- Тепер ми можемо розглядати `Set` як `Object`, коли це потрібно.
 example (X: Set) : (X: Object) = SetTheory.set_to_object X := rfl
 
 /-- Аксіома 3.1 (Множини це об'єкти)-/
@@ -133,7 +133,7 @@ theorem SetTheory.Set.coe_eq {X Y:Set} (h: (X: Object) = (Y: Object)) : X = Y :=
 theorem SetTheory.Set.coe_eq_iff (X Y:Set) : (X: Object) = (Y: Object) ↔  X = Y :=
   ⟨ coe_eq, by rintro rfl; rfl ⟩
 
-/-- Аксіома 3.2 (Рівність множин).  The `[ext]` tag allows the `ext` tactic to work for sets. -/
+/-- Аксіома 3.2 (Рівність множин).  `[ext]` тег дозволяє тактиці `ext` працювати для множин. -/
 @[ext]
 theorem SetTheory.Set.ext {X Y:Set} (h: ∀ x, x ∈ X ↔ x ∈ Y) : X = Y := extensionality _ _ h
 
@@ -143,10 +143,10 @@ theorem SetTheory.Set.ext {X Y:Set} (h: ∀ x, x ∈ X ↔ x ∈ Y) : X = Y := e
 instance SetTheory.Set.instEmpty : EmptyCollection Set where
   emptyCollection := emptyset
 
--- Now we can use the `∅` notation to refer to `SetTheory.emptyset`.
+-- Тепер ми можемо використовувати нотацію `∅` для вказання на `SetTheory.emptyset`.
 example : ∅ = SetTheory.emptyset := rfl
 
--- Make everything we define in `SetTheory.Set.*` accessible directly.
+-- Зробіть все, що ми визначаємо в `SetTheory.Set.*` доступним безпосередньо.
 open SetTheory.Set
 
 /--
@@ -180,7 +180,7 @@ theorem SetTheory.Set.nonempty_of_inhabited {X:Set} {x:Object} (h:x ∈ X) : X �
 instance SetTheory.Set.instSingleton : Singleton Object Set where
   singleton := singleton
 
--- Now we can use the `{x}` notation for a single element `Set`.
+-- Тепер ми можемо використовувати нотацію `{x}` для однієї одиниці `Set`.
 example (x: Object) : {x} = SetTheory.singleton x := rfl
 
 /--
@@ -194,7 +194,7 @@ theorem SetTheory.Set.mem_singleton (x a:Object) : x ∈ ({a}:Set) ↔ x = a := 
 instance SetTheory.Set.instUnion : Union Set where
   union := union_pair
 
--- Now we can use the `X ∪ Y` notation for a union of two `Set`s.
+-- Тепер ми можемо використовувати нотацію `X ∪ Y` для об’єднання двох `Set`-ів.
 example (X Y: Set) : X ∪ Y = SetTheory.union_pair X Y := rfl
 
 /-- Аксіома 3.4 (Попарне об'єднання)-/
@@ -318,7 +318,7 @@ theorem SetTheory.Set.pair_union_pair (a b c:Object) :
 instance SetTheory.Set.instSubset : HasSubset Set where
   Subset X Y := ∀ x, x ∈ X → x ∈ Y
 
--- Now we can use `⊆` for a subset relationship between two `Set`s.
+-- Тепер ми можемо використовувати нотацію `⊆` для відношення підмножини між двома `Set`-ами.
 example (X Y: Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x ∈ Y := by rfl
 
 /--
@@ -328,7 +328,7 @@ example (X Y: Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x ∈ Y := by rfl
 instance SetTheory.Set.instSSubset : HasSSubset Set where
   SSubset X Y := X ⊆ Y ∧ X ≠ Y
 
--- Now we can use `⊂` for a strict subset relationship between two `Set`s.
+-- Тепер ми можемо використовувати нотацію `⊂` для відношення строгої підмножини між двома `Set`-ами.
 example (X Y: Set) : X ⊂ Y ↔ X ⊆ Y ∧ X ≠ Y := by rfl
 
 /-- Визначення 3.1.14. -/
@@ -371,13 +371,13 @@ theorem SetTheory.Set.ssubset_trans (A B C:Set) (hAB:A ⊂ B) (hBC:B ⊂ C) : A 
 
 
 /--
-  This defines the subtype `A.toSubtype` for any `A:Set`.
-  Note that `A.toSubtype` gives you a type, similar to how `Object` or `Set` are types.
-  A value `x'` of type `A.toSubtype` combines some `x: Object` with a proof that `hx: x ∈ A`.
+  Це визначає підтип `A.toSubtype` для будь-якого `A : Set`.
+  Зауважте, що `A.toSubtype` задає тип, подібно до того, як `Object` або `Set` є типами.
+  Значення `x'` типу `A.toSubtype` поєднує деякий `x : Object` із доведенням `hx : x ∈ A`.
 
-  To produce an element `x'` of this subtype, use `⟨ x, hx ⟩`, where `x: Object` and `hx: x ∈ A`.
-  The object `x` associated to a subtype element `x'` is recovered as `x'.val`, and
-  the property `hx` that `x` belongs to `A` is recovered as `x'.property`.
+  Щоб створити елемент `x'` цього підтипу, використовуйте `⟨ x, hx ⟩`, де `x : Object`, а `hx : x ∈ A`.
+  Об’єкт `x`, пов’язаний з елементом підтипу `x'`, відновлюється як `x'.val`,
+  а властивість `hx`, що `x` належить `A`, відновлюється як `x'.property`.
 -/
 abbrev SetTheory.Set.toSubtype (A:Set) := Subtype (fun x ↦ x ∈ A)
 
@@ -385,16 +385,16 @@ example (A: Set) (x: Object) (hx: x ∈ A) : A.toSubtype := ⟨x, hx⟩
 example (A: Set) (x': A.toSubtype) : Object := x'.val
 example (A: Set) (x': A.toSubtype) : x'.val ∈ A := x'.property
 
--- In practice, a subtype lets us carry an object with a membership proof as a single value.
--- Compare these two proofs. They are equivalent, but the latter packs `x` and `hx` into `x'`.
+-- В практиці, підтип дозволяє нам носити об'єкт з доказом належності як одну величину.
+-- Порівняйте ці два докази. Вони еквівалентні, але остання версія покладає на себе `x` і `hx` в `x'`.
 example (A B: Set) (x: Object) (hx: x ∈ A) : x ∈ A ∪ B := by simp; left; exact hx
 example (A B: Set) (x': A.toSubtype) : x'.val ∈ A ∪ B := by simp; left; exact x'.property
 
 instance : CoeSort (Set) (Type v) where
   coe A := A.toSubtype
 
--- Now instead of writing `x': A.toSubtype`, we can just write `x': A`.
--- Compare these three proofs. They are equivalent, but the last one reads most concisely.
+-- Тепер замість написання `x': A.toSubtype`, ми можемо просто написати `x': A`.
+-- Порівняйте ці три доведення. Вони еквівалентні, але останнє читається лаконічніше.
 example (A B: Set) (x: Object) (hx: x ∈ A) : x ∈ A ∪ B := by simp; left; exact hx
 example (A B: Set) (x': A.toSubtype) : x'.val ∈ A ∪ B := by simp; left; exact x'.property
 example (A B: Set) (x': A) : x'.val ∈ A ∪ B := by simp; left; exact x'.property
@@ -451,7 +451,7 @@ theorem SetTheory.Set.specify_congr {A A':Set} (hAA':A = A') {P: A → Prop} {P'
 instance SetTheory.Set.instIntersection : Inter Set where
   inter X Y := X.specify (fun x ↦ x.val ∈ Y)
 
--- Now we can use the `X ∩ Y` notation for an intersection of two `Set`s.
+-- Тепер ми можемо використовувати нотацію `X ∩ Y` для перетину двох `Set`-ів.
 example (X Y: Set) : X ∩ Y = X.specify (fun x ↦ x.val ∈ Y) := rfl
 
 /-- Визначення 3.1.22 (Перетин) -/
@@ -465,7 +465,7 @@ theorem SetTheory.Set.mem_inter (x:Object) (X Y:Set) : x ∈ (X ∩ Y) ↔ (x �
 instance SetTheory.Set.instSDiff : SDiff Set where
   sdiff X Y := X.specify (fun x ↦ x.val ∉ Y)
 
--- Now we can use the `X \ Y` notation for a difference of two `Set`s.
+-- Тепер ми можемо використовувати нотацію `X ∩ Y` для різниці `Set`-ів.
 example (X Y: Set) : X \ Y = X.specify (fun x ↦ x.val ∉ Y) := rfl
 
 /-- Визначення 3.1.26 (Різниця множин) -/
@@ -538,8 +538,8 @@ instance SetTheory.Set.instOrderBot : OrderBot Set where
   bot := ∅
   bot_le := empty_subset
 
--- Now we've defined `A ≤ B` to mean `A ⊆ B`, and set `⊥` to `∅`.
--- This makes the `Disjoint` definition from Mathlib work with our `Set`.
+-- Тепер ми визначили `A ≤ B` як `A ⊆ B`, і `⊥` як `∅`.
+-- Це дозволяє визначенню `Disjoint` з Mathlib працювати з нашим `Set`.
 example (A B: Set) : (A ≤ B) ↔ (A ⊆ B) := by rfl
 example : ⊥ = (∅: Set) := by rfl
 example (A B: Set) : Prop := Disjoint A B
@@ -559,11 +559,11 @@ theorem SetTheory.Set.replacement_axiom {A:Set} {P: A → Object → Prop}
 
 abbrev Nat := SetTheory.nat
 
--- Going forward, we'll use `Nat` as a type.
--- However, notice we've set `Nat` to `SetTheory.nat` which is a `Set` and not a type.
--- The only reason we can write `x: Nat` is because we've previously defined a `CoeSort`
--- coercion that lets us write `x: A` (when `A` is a `Set`) as a shortcut for `x: A.toSubtype`.
--- This is why, whenever you see `x: Nat`, you're really looking at `x: Nat.toSubtype`.
+-- Надалі ми використовуватимемо `Nat` як тип.
+-- Проте зауважте, що ми встановили `Nat` як `SetTheory.nat`, який є `Set`, а не типом.
+-- Єдина причина, чому ми можемо писати `x: Nat`, полягає в тому, що раніше ми визначили приведення `CoeSort`,
+-- яке дозволяє записувати `x: A` (коли `A` є `Set`) як скорочення для `x: A.toSubtype`.
+-- Саме тому, коли ви бачите `x: Nat`, насправді мається на увазі `x: Nat.toSubtype`.
 example (x: Nat) : Nat.toSubtype := x
 example (x: Nat) : Object := x.val
 example (x: Nat) : (x.val ∈ Nat) := x.property
@@ -577,34 +577,34 @@ def SetTheory.Set.nat_equiv : ℕ ≃ Nat := SetTheory.nat_equiv
 instance SetTheory.Set.instOfNat {n:ℕ} : OfNat Nat n where
   ofNat := nat_equiv n
 
--- Now we can define `Nat` with a natural literal.
+-- Тепер ми можемо визначити `Nat` за допомогою натурального літерала.
 example : Nat := 5
 example : (5 : Nat).val ∈ Nat := (5 : Nat).property
 
 instance SetTheory.Set.instNatCast : NatCast Nat where
   natCast n := nat_equiv n
 
--- Now we can turn `ℕ` into `Nat`.
+-- Тепер ми можемо перетворити `ℕ` на `Nat`.
 example (n : ℕ) : Nat := n
 example (n : ℕ) : (n : Nat).val ∈ Nat := (n : Nat).property
 
 instance SetTheory.Set.toNat : Coe Nat ℕ where
   coe n := nat_equiv.symm n
 
--- Now we can turn `Nat` into `ℕ`.
+-- Тепер ми можемо перетворити `Nat` на `ℕ`.
 example (n : Nat) : ℕ := n
 
 instance SetTheory.Object.instNatCast : NatCast Object where
   natCast n := (n:Nat).val
 
--- Now we can turn `ℕ` into an `Object`.
+-- Тепер ми можемо перетворити `Nat` на `Object`.
 example (n: ℕ) : Object := n
 example (n: ℕ) : Set := {(n: Object)}
 
 instance SetTheory.Object.instOfNat {n:ℕ} : OfNat Object n where
   ofNat := ((n:Nat):Object)
 
--- Now we can define `Object` with a natural literal.
+-- Тепер ми можемо визначити `Object` за допомогою літерала натурального числа.
 example : Object := 1
 example : Set := {1, 2, 3}
 
@@ -693,8 +693,8 @@ example : ({3, 5}:Set).specify (fun x ↦ x.val ≠ 3) = ({5}:Set) := by
 /-- Приклад 3.1.24 -/
 example : ({1, 2, 4}:Set) ∩ {2,3,4} = {2, 4} := by
   ext x
-  -- Instead of unfolding repetitive branches by hand like earlier,
-  -- you can use the `aesop` tactic which does this automatically.
+  -- Замість того щоб розгортати повторювані варіанти вручну, як раніше,
+  -- можна використати тактику `aesop`, яка робить це автоматично.
   aesop
 
 /-- Приклад 3.1.24 -/
@@ -773,7 +773,7 @@ theorem SetTheory.Set.partition_right {A B X:Set} (h_union: A ∪ B = X) (h_inte
 
 /--
   Вправа 3.1.10.
-  You may find `Function.onFun_apply` and the `fin_cases` tactic useful.
+  Вам можуть стати в пригоді `Function.onFun_apply` та тактика `fin_cases`.
 -/
 theorem SetTheory.Set.pairwise_disjoint (A B:Set) :
     Pairwise (Function.onFun Disjoint ![A \ B, A ∩ B, B \ A]) := by sorry
@@ -819,8 +819,8 @@ theorem SetTheory.Set.singleton_iff (A:Set) (hA: A ≠ ∅) : (¬∃ B ⊂ A, B 
 instance SetTheory.Set.inst_coe_set : Coe Set (_root_.Set Object) where
   coe X := { x | x ∈ X }
 
--- Now we can convert our `Set` into a Mathlib `_root_.Set`.
--- Notice that Mathlib sets are parameterized by the element type, in our case `Object`.
+-- Тепер ми можемо перетворити наш `Set` на `_root_.Set` з Mathlib.
+-- Зауважте, що множини в Mathlib параметризуються типом елементів, у нашому випадку — `Object`.
 example (X: Set) : _root_.Set Object := X
 
 /--
