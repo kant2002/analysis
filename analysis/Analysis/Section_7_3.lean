@@ -26,7 +26,7 @@ abbrev Series.nonneg (s: Series) : Prop := ∀ n, s.seq n ≥ 0
 
 abbrev Series.partial_of_nonneg {s: Series} (h: s.nonneg) : Monotone s.partial := by sorry
 
-/-- Proposition 7.3.1 -/
+/-- Твердження 7.3.1 -/
 theorem Series.converges_of_nonneg_iff {s: Series} (h: s.nonneg) : s.converges ↔ ∃ M, ∀ N, s.partial N ≤ M := by
   -- This broadly follows the argument in the text, though for one direction I choose to use Mathlib routines rather than Chapter6 results.
   constructor
@@ -64,12 +64,12 @@ theorem Series.sum_of_nonneg {s:Series} (hnon: s.nonneg) : 0 ≤ s.sum := by
   by_cases h: s.converges <;> simp [Series.sum, h]
   exact ge_of_tendsto' h.choose_spec (partial_nonneg hnon)
 
-/-- Corollary 7.3.2 (Comparison test) / Exercise 7.3.1 -/
+/-- Corollary 7.3.2 (Comparison test) / Вправа 7.3.1 -/
 theorem Series.converges_of_le {s t: Series} (hm: s.m = t.m) (hcomp: ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hconv : t.converges) : s.absConverges ∧ |s.sum| ≤ s.abs.sum ∧ s.abs.sum ≤ t.sum := by sorry
 
 theorem Series.diverges_of_ge {s t: Series} (hm: s.m = t.m) (hcomp: ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hdiv: ¬ s.absConverges) : t.diverges := by sorry
 
-/-- Лема 7.3.3 (Geometric series) / Exercise 7.3.2 -/
+/-- Лема 7.3.3 (Geometric series) / Вправа 7.3.2 -/
 theorem Series.converges_geom {x: ℝ} (hx: |x| < 1) : (fun n ↦ x ^ n : Series).convergesTo (1 / (1 - x)) := by sorry
 
 theorem Series.absConverges_geom {x: ℝ} (hx: |x| < 1) : (fun n ↦ x ^ n : Series).absConverges := by sorry

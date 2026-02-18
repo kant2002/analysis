@@ -88,7 +88,7 @@ theorem deriv_of_integ {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: IntegrableOn 
   . simp
   sorry
 
-/-- Example 11.9.2 -/
+/-- Приклад 11.9.2 -/
 theorem IntegrableOn.of_f_9_8_5 : IntegrableOn f_9_8_5 (Icc 0 1) :=
   integ_of_monotone (StrictMonoOn.of_f_9_8_5.mono (by simp)).monotoneOn
 
@@ -222,7 +222,7 @@ example : ¬ BddOn (deriv F_11_9) (.Icc (-1) 1) := by sorry
 
 example : AntiderivOn F_11_9 (deriv F_11_9) (Icc (-1) 1) := by sorry
 
-/-- Лема 11.9.5 / Exercise 11.9.2 -/
+/-- Лема 11.9.5 / Вправа 11.9.2 -/
 theorem antideriv_eq_antideriv_add_const {I:BoundedInterval} {f F G : ℝ → ℝ}
   (hfF: AntiderivOn F f I) (hfG: AntiderivOn G f I) :
    ∃ C, ∀ x ∈ (I:Set ℝ), F x = G x + C := by

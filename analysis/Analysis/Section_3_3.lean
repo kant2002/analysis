@@ -3,7 +3,7 @@ import Analysis.Section_3_1
 import Analysis.Tools.ExistsUnique
 
 /-!
-# Аналіз I, Глава 3.3: Функції
+# Аналіз I, Розділ 3.3: Функції
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -412,8 +412,8 @@ theorem Function.inverse_eq {X Y: Set} [Nonempty X] {f: Function X Y} (h: f.bije
   apply Function.rightInverse_invFun (f.bijective_iff.mp h).2
 
 /--
-  Вправа 3.3.1.  Although a proof operating directly on functions would be shorter,
-  the spirit of the exercise is to show these using the `Function.eq_iff` definition.
+  Вправа 3.3.1.  Хоча доведення, що безпосередньо оперує функціями, було б коротшим,
+  суть вправи полягає в тому, щоб показати це, використовуючи визначення `Function.eq_iff`.
 -/
 theorem Function.refl {X Y:Set} (f: Function X Y) : f = f := by sorry
 
@@ -450,11 +450,11 @@ theorem Function.comp_cancel_right {X Y Z:Set} {f: Function X Y} {g g': Function
   (heq : g ○ f = g' ○ f) (hf: f.onto) : g = g' := by sorry
 
 def Function.comp_cancel_left_without_hg : Decidable (∀ (X Y Z:Set) (f f': Function X Y) (g : Function Y Z) (heq : g ○ f = g ○ f'), f = f') := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Function.comp_cancel_right_without_hg : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g g': Function Y Z) (heq : g ○ f = g' ○ f), g = g') := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /--
@@ -468,12 +468,12 @@ theorem Function.comp_surjective {X Y Z:Set} {f: Function X Y} {g : Function Y Z
 
 def Function.comp_injective' : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g : Function Y Z) (hinj :
     (g ○ f).one_to_one), g.one_to_one) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def Function.comp_surjective' : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g : Function Y Z) (hsurj :
     (g ○ f).onto), f.onto) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа 3.3.6 -/

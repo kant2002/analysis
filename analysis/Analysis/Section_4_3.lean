@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Глава 4.3: Абсолютні значення та піднесення до степеня
+# Аналіз I, Розділ 4.3: Абсолютні значення та піднесення до степеня
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -20,11 +20,11 @@ easily using the Mathlib API for these operations.  However, the spirit of the e
 solve these instead using the API provided in this section, as well as more basic Mathlib API for
 the rational numbers that does not reference either absolute value or exponentiation.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 

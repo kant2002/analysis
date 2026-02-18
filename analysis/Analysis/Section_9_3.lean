@@ -35,25 +35,25 @@ abbrev Real.CloseNear (ε:ℝ) (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) :
 
 namespace Chapter9
 
-/-- Example 9.3.2 -/
+/-- Приклад 9.3.2 -/
 example : (5:ℝ).CloseFn (.Icc 1 3) (fun x ↦ x^2) 4 := by sorry
 
-/-- Example 9.3.2 -/
+/-- Приклад 9.3.2 -/
 example : (0.41:ℝ).CloseFn (.Icc 1.9 2.1) (fun x ↦ x^2) 4 := by sorry
 
-/-- Example 9.3.4 -/
+/-- Приклад 9.3.4 -/
 example: ¬(0.1:ℝ).CloseFn (.Icc 1 3) (fun x ↦ x^2) 4 := by
   sorry
 
-/-- Example 9.3.4 -/
+/-- Приклад 9.3.4 -/
 example: (0.1:ℝ).CloseNear (.Icc 1 3) (fun x ↦ x^2) 4 2 := by
   sorry
 
-/-- Example 9.3.5 -/
+/-- Приклад 9.3.5 -/
 example: ¬(0.1:ℝ).CloseFn (.Icc 1 3) (fun x ↦ x^2) 9 := by
   sorry
 
-/-- Example 9.3.5 -/
+/-- Приклад 9.3.5 -/
 example: (0.1:ℝ).CloseNear (.Icc 1 3) (fun x ↦ x^2) 9 3 := by
   sorry
 
@@ -81,7 +81,7 @@ theorem Convergesto.iff (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) :
   specialize h (show x ∈ .Ioo l u by simp; grind)
   simpa [hxX] using h
 
-/-- Example 9.3.8 -/
+/-- Приклад 9.3.8 -/
 example: Convergesto (.Icc 1 3) (fun x ↦ x^2) 4 2 := by
   sorry
 
@@ -175,13 +175,13 @@ theorem Convergesto.restrict {X Y:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (
 
 theorem Real.sign_def (x:ℝ) : Real.sign x = if x < 0 then -1 else if x > 0 then 1 else 0 := rfl
 
-/-- Example 9.3.16 -/
+/-- Приклад 9.3.16 -/
 theorem Convergesto.sign_right : Convergesto (.Ioi 0) Real.sign 1 0 := by sorry
 
-/-- Example 9.3.16 -/
+/-- Приклад 9.3.16 -/
 theorem Convergesto.sign_left : Convergesto (.Iio 0) Real.sign (-1) 0 := by sorry
 
-/-- Example 9.3.16 -/
+/-- Приклад 9.3.16 -/
 theorem Convergesto.sign_all : ¬ ∃ L, Convergesto (.univ) Real.sign L 0 := by sorry
 
 noncomputable abbrev f_9_3_17 : ℝ → ℝ := fun x ↦ if x = 0 then 1 else 0
@@ -195,14 +195,14 @@ theorem Convergesto.local {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Ad
   Convergesto E f L x₀ ↔ Convergesto (E ∩ .Ioo (x₀-δ) (x₀+δ)) f L x₀ := by
     sorry
 
-/-- Example 9.3.19.  The point of this example is somewhat blunted by the ability to remove the hypothesis that `g` is non-zero from the relevant part of Proposition 9.3.14 -/
+/-- Приклад 9.3.19.  The point of this example is somewhat blunted by the ability to remove the hypothesis that `g` is non-zero from the relevant part of Proposition 9.3.14 -/
 example : Convergesto .univ (fun x ↦ (x+2)/(x+1)) (4/3:ℝ) 2 := by sorry
 
-/-- Example 9.3.20 -/
+/-- Приклад 9.3.20 -/
 example : Convergesto (.univ \ {1}) (fun x ↦ (x^2-1)/(x-1)) 2 1 := by sorry
 
 open Classical in
-/-- Example 9.3.21 -/
+/-- Приклад 9.3.21 -/
 noncomputable abbrev f_9_3_21 : ℝ → ℝ := fun x ↦ if x ∈ (fun q:ℚ ↦ (q:ℝ)) '' .univ then 1 else 0
 
 example : Filter.atTop.Tendsto (fun n ↦ f_9_3_21 (1/n:ℝ)) (nhds 1) := by sorry

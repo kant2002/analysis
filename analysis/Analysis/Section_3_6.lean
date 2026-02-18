@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_3_5
 
 /-!
-# Аналіз I, Глава 3.6: Кардинальність множин
+# Аналіз I, Розділ 3.6: Кардинальність множин
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -17,11 +17,11 @@ import Analysis.Section_3_5
 
 Після цього розділу ці нотації будуть вважатися застарілими на користь їхніх еквівалентів із Mathlib.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -351,10 +351,10 @@ theorem SetTheory.Set.two_to_two_iff {X Y:Set} (f: X → Y): Function.Injective 
 def SetTheory.Set.Permutations (n: ℕ): Set := (Fin n ^ Fin n).specify (fun F ↦
     Function.Bijective (pow_fun_equiv F))
 
-/-- Вправа 3.6.12 (i), first part -/
+/-- Вправа 3.6.12 (i), перша частина -/
 theorem SetTheory.Set.Permutations_finite (n: ℕ): (Permutations n).finite := by sorry
 
-/- To continue Exercise 3.6.12 (i), we'll first develop some theory about `Permutations` and `Fin`. -/
+/- Щоб продовжити Вправу 3.6.12 (i), спершу розв’яжемо деяку теорію про `Permutations` та `Fin`. -/
 
 noncomputable def SetTheory.Set.Permutations_toFun {n: ℕ} (p: Permutations n) : (Fin n) → (Fin n) := by
   have := p.property
@@ -367,7 +367,7 @@ theorem SetTheory.Set.Permutations_bijective {n: ℕ} (p: Permutations n) :
 theorem SetTheory.Set.Permutations_inj {n: ℕ} (p1 p2: Permutations n) :
     Permutations_toFun p1 = Permutations_toFun p2 ↔ p1 = p2 := by sorry
 
-/-- This connects our concept of a permutation with Mathlib's `Equiv` between `Fin n` and `Fin n`. -/
+/-- Це пов'язує нашу концепцію перестановки з Mathlib-им `Equiv` між `Fin n` та `Fin n`. -/
 noncomputable def SetTheory.Set.perm_equiv_equiv {n : ℕ} : Permutations n ≃ (Fin n ≃ Fin n) := {
   toFun := fun p => Equiv.ofBijective (Permutations_toFun p) (Permutations_bijective p)
   invFun := sorry
@@ -375,9 +375,9 @@ noncomputable def SetTheory.Set.perm_equiv_equiv {n : ℕ} : Permutations n ≃ 
   right_inv := sorry
 }
 
-/- Exercise 3.6.12 involves a lot of moving between `Fin n` and `Fin (n + 1)` so let's add some conveniences. -/
+/- Вправа 3.6.12 включає багато переходів між `Fin n` та `Fin (n + 1}`, тому додамо деякі зручності. -/
 
-/-- Any `Fin n` can be cast to `Fin (n + 1)`. Compare to Mathlib `Fin.castSucc`. -/
+/-- Будь-який `Fin n` можна перетворити на `Fin (n + 1)`. Порівняйте з Mathlib `Fin.castSucc`. -/
 def SetTheory.Set.Fin.castSucc {n} (x : Fin n) : Fin (n + 1) :=
   Fin_embed _ _ (by omega) x
 
@@ -387,7 +387,7 @@ lemma SetTheory.Set.Fin.castSucc_inj {n} {x y : Fin n} : castSucc x = castSucc y
 @[simp]
 theorem SetTheory.Set.Fin.castSucc_ne {n} (x : Fin n) : castSucc x ≠ n := by sorry
 
-/-- Any `Fin (n + 1)` except `n` can be cast to `Fin n`. Compare to Mathlib `Fin.castPred`. -/
+/-- Будь-який `Fin (n + 1)`, крім `n`, можна перетворити на `Fin n`. Порівняйте з Mathlib `Fin.castPred`. -/
 noncomputable def SetTheory.Set.Fin.castPred {n} (x : Fin (n + 1)) (h : (x : ℕ) ≠ n) : Fin n :=
   Fin_mk _ (x : ℕ) (by have := Fin.toNat_lt x; omega)
 
@@ -399,20 +399,20 @@ theorem SetTheory.Set.Fin.castSucc_castPred {n} (x : Fin (n + 1)) (h : (x : ℕ)
 theorem SetTheory.Set.Fin.castPred_castSucc {n} (x : Fin n) (h : ((castSucc x : Fin (n + 1)) : ℕ) ≠ n) :
     castPred (castSucc x) h = x := by sorry
 
-/-- Any natural `n` can be cast to `Fin (n + 1)`. Compare to Mathlib `Fin.last`. -/
+/-- Будь-яке натуральне число `n` можна перетворити на `Fin (n + 1)`. Порівняйте з Mathlib `Fin.last`. -/
 def SetTheory.Set.Fin.last (n : ℕ) : Fin (n + 1) := Fin_mk _ n (by omega)
 
-/-- Now is a good time to prove this result, which will be useful for completing Exercise 3.6.12 (i). -/
+/-- Зараз хороший час, щоб довести цей результат, який буде корисним для виконання вправи 3.6.12 (i). -/
 theorem SetTheory.Set.card_iUnion_card_disjoint {n m: ℕ} {S : Fin n → Set}
     (hSc : ∀ i, (S i).has_card m)
     (hSd : Pairwise fun i j => Disjoint (S i) (S j)) :
     ((Fin n).iUnion S).finite ∧ ((Fin n).iUnion S).card = n * m := by sorry
 
-/- Finally, we'll set up a way to shrink `Fin (n + 1)` into `Fin n` (or expand the latter) by making a hole. -/
+/- Нарешті, ми організуємо спосіб зменшити `Fin (n + 1)` до `Fin n` (або розширити останнє), створюючи "дірку". -/
 
 /--
-  If some `x : Fin (n+1)` is never equal to `i`, we can shrink it into `Fin n` by shifting all `x > i` down by one.
-  Compare to Mathlib `Fin.predAbove`.
+  Якщо деякий `x : Fin (n+1)` ніколи не дорівнює `i`, ми можемо зменшити його до `Fin n`, зсунувши всі `x > i` на один вниз.
+  Порівняйте з Mathlib `Fin.predAbove`.
 -/
 noncomputable def SetTheory.Set.Fin.predAbove {n} (i : Fin (n + 1)) (x : Fin (n + 1)) (h : x ≠ i) : Fin n :=
   if hx : (x:ℕ) < i then
@@ -421,9 +421,9 @@ noncomputable def SetTheory.Set.Fin.predAbove {n} (i : Fin (n + 1)) (x : Fin (n 
     Fin_mk _ ((x:ℕ) - 1) (by sorry)
 
 /--
-  We can expand `x : Fin n` into `Fin (n + 1)` by shifting all `x ≥ i` up by one.
-  The output is never `i`, so it forms an inverse to the shrinking done by `predAbove`.
-  Compare to Mathlib `Fin.succAbove`.
+  Ми можемо розширити `x : Fin n` до `Fin (n + 1}`, зсуваючи всі `x ≥ i` на один вверх. Результат ніколи не дорівнює `i`,
+  тому він утворює обернений процес до зменшення, виконаного `predAbove`.
+  Порівняйте з Mathlib `Fin.succAbove`.
 -/
 noncomputable def SetTheory.Set.Fin.succAbove {n} (i : Fin (n + 1)) (x : Fin n) : Fin (n + 1) :=
   if (x:ℕ) < i then
@@ -442,18 +442,18 @@ theorem SetTheory.Set.Fin.succAbove_predAbove {n} (i : Fin (n + 1)) (x : Fin (n 
 theorem SetTheory.Set.Fin.predAbove_succAbove {n} (i : Fin (n + 1)) (x : Fin n) :
     (predAbove i) (succAbove i x) (succAbove_ne i x) = x := by sorry
 
-/-- Вправа 3.6.12 (i), second part -/
+/-- Вправа 3.6.12 (i), друга частина -/
 theorem SetTheory.Set.Permutations_ih (n: ℕ):
     (Permutations (n + 1)).card = (n + 1) * (Permutations n).card := by
   let S i := (Permutations (n + 1)).specify (fun p ↦ perm_equiv_equiv p (Fin.last n) = i)
 
   have hSe : ∀ i, S i ≈ Permutations n := by
     intro i
-    -- Hint: you might find `perm_equiv_equiv`, `Fin.succAbove`, and `Fin.predAbove` useful.
+    -- Підказка: вам можуть стати в нагоді `perm_equiv_equiv`, `Fin.succAbove` та `Fin.predAbove`.
     have equiv : S i ≃ Permutations n := sorry
     use equiv, equiv.injective, equiv.surjective
 
-  -- Hint: you might find `card_iUnion_card_disjoint` and `Permutations_finite` useful.
+  -- Підказка: вам можуть стати в нагоді `card_iUnion_card_disjoint` та `Permutations_finite`.
   sorry
 
 /-- Вправа 3.6.12 (ii) -/
@@ -480,7 +480,7 @@ theorem SetTheory.Set.finite_iff_set_finite {X:Set} :
   rw [finite_iff_finite]
   rfl
 
-/-- Connections with Mathlib's `Nat.card` -/
+/-- Зв'язки із Mathlib-овським `Nat.card` -/
 theorem SetTheory.Set.card_eq_nat_card {X:Set} : X.card = Nat.card X := by
   by_cases hf : X.finite
   · by_cases hz : X.card = 0
@@ -498,7 +498,7 @@ theorem SetTheory.Set.card_eq_nat_card {X:Set} : X.card = Nat.card X := by
   right
   rwa [finite_iff_set_finite] at hf
 
-/-- Connections with Mathlib's `Set.ncard` -/
+/-- Зв'язки із Mathlib-овським `Set.ncard` -/
 theorem SetTheory.Set.card_eq_ncard {X:Set} : X.card = (X: _root_.Set Object).ncard := by
   rw [card_eq_nat_card]
   rfl

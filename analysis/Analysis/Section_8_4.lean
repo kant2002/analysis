@@ -48,7 +48,7 @@ def CartesianProduct.equiv {I U: Type} (X : I → Set U) :
   right_inv x := by aesop
   }
 
-/-- Example 8.4.2. -/
+/-- Приклад 8.4.2. -/
 def Function.equiv {I X:Type} : (∀ _:I, X) ≃ (I → X) := {
   toFun f := f
   invFun f := f
@@ -138,7 +138,7 @@ theorem exist_tendsTo_sup_of_closed {E: Set ℝ} (hnon: E.Nonempty) (hbound: Bdd
   . exact tendsto_const_nhds
   all_goals intro _; simp_all [X]
 
-/-- Proposition 8.4.7 / Exercise 8.4.1 -/
+/-- Твердження 8.4.7 / Вправа 8.4.1 -/
 theorem exists_function {X Y : Type} {P : X → Y → Prop} (h: ∀ x, ∃ y, P x y) :
   ∃ f : X → Y, ∀ x, P x (f x) := by
   sorry

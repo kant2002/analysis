@@ -162,7 +162,7 @@ theorem lower_riemann_sum_ge {f h: ℝ → ℝ} {I:BoundedInterval} (P: Partitio
   integ h I ≤ lower_riemann_sum f P := by
    sorry
 
-/-- Proposition 11.3.12 / Exercise 11.3.5 -/
+/-- Твердження 11.3.12 / Вправа 11.3.5 -/
 theorem upper_integ_le_upper_sum {f:ℝ → ℝ} {I:BoundedInterval} (hf: BddOn f I)
   (P: Partition I): upper_integral f I ≤ upper_riemann_sum f P := by
   sorry

@@ -91,7 +91,7 @@ example : IsMax (⟨ {2,3,4}, by aesop ⟩ : X_8_5_4) := by sorry
 example : IsMin (⟨ {5}, by aesop ⟩ : X_8_5_4) ∧ IsMax (⟨ {5}, by aesop ⟩ : X_8_5_4) := by sorry
 example : ¬ IsMin (⟨ {2,3}, by aesop ⟩ : X_8_5_4) ∧ ¬ IsMax (⟨ {2,3}, by aesop ⟩ : X_8_5_4) := by sorry
 
-/-- Example 8.5.7 -/
+/-- Приклад 8.5.7 -/
 example : IsMin (0:ℕ) := by sorry
 example (n:ℕ) : ¬ IsMax n := by sorry
 example (n:ℤ): ¬ IsMin n ∧ ¬ IsMax n := by sorry
@@ -110,7 +110,7 @@ theorem WellFoundedLT.iff (X:Type) [LinearOrder X] :
 theorem WellFoundedLT.iff' {X:Type} [PartialOrder X] (h: IsTotal X) :
   WellFoundedLT X ↔ ∀ A:Set X, A.Nonempty → ∃ x:A, IsMin x := @iff X (LinearOrder.mk h)
 
-/-- Example 8.5.9 -/
+/-- Приклад 8.5.9 -/
 example : WellFoundedLT ℕ := by
   rw [WellFoundedLT.iff]
   intro A hA; use ⟨ _, (Nat.min_spec hA).1 ⟩
@@ -139,7 +139,7 @@ theorem WellFoundedLT.subset {X:Type} [PartialOrder X] {A B: Set X} (hA: IsTotal
   simp at hx'; choose y hy hyC this using hx'; use ⟨ _, hyC ⟩
   simp_all [IsMin, Set.embeddingOfSubset]; grind
 
-/-- Proposition 8.5.10 / Exercise 8.5.10 -/
+/-- Твердження 8.5.10 / Вправа 8.5.10 -/
 theorem WellFoundedLT.strong_induction {X:Type} [LinearOrder X] [WellFoundedLT X] {P:X → Prop}
   (h: ∀ n, (∀ m < n, P m) → P n) : ∀ n, P n := by
   sorry
@@ -301,7 +301,7 @@ theorem WellFoundedLT.partialOrder {X:Type} [PartialOrder X] (x₀ : X) : ∃ Y 
   specialize hs _ hs_mem; order
 
 
-/-- Лема 8.5.15 (Zorn's lemma) / Exercise 8.5.14 -/
+/-- Лема 8.5.15 (Zorn's lemma) / Вправа 8.5.14 -/
 theorem Zorns_lemma {X:Type} [PartialOrder X] [Nonempty X]
   (hchain: ∀ Y:Set X, IsTotal Y ∧ Y.Nonempty → ∃ x, IsUpperBound Y x) : ∃ x:X, IsMax x := by
   sorry

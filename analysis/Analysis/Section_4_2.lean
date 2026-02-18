@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Group.MinimalAxioms
 
 /-!
-# Аналіз I, Глава 4.2
+# Аналіз I, Розділ 4.2
 
 This file is a translation of Section 4.2 of Analysis I to Lean 4.
 All numbering refers to the original text.
@@ -26,11 +26,11 @@ Main constructions and results of this section:
 Note: here (and in the sequel) we use Mathlib's natural numbers `ℕ` and integers `ℤ` rather than
 the Chapter 2 natural numbers and Section 4.1 integers.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 

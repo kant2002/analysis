@@ -112,7 +112,7 @@ example : f_9_7_2 1 = 0 := by sorry
 /-- Ремарка 9.7.3 -/
 example : ∃ x:ℝ, 0 ≤ x ∧ x ≤ 2 ∧ x^2 = 2 := by sorry
 
-/-- Corollary 9.7.4 (Images of continuous functions) / Exercise 9.7.1 -/
+/-- Corollary 9.7.4 (Images of continuous functions) / Вправа 9.7.1 -/
 theorem continuous_image_Icc {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) {y:ℝ} (hy: sInf (f '' .Icc a b) ≤ y ∧ y ≤ sSup (f '' .Icc a b)) : ∃ c ∈ Set.Icc a b, f c = y := by
   sorry
 

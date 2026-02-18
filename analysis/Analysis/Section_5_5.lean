@@ -15,11 +15,11 @@ Main constructions and results of this section:
 
 - Upper bound and least upper bound on the real line
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -38,13 +38,13 @@ theorem Real.Icc_def (x y:Real) : .Icc x y = { z | x ≤ z ∧ z ≤ y } := rfl
 /-- API for Example 5.5.2 -/
 theorem Real.mem_Icc (x y z:Real) : z ∈ Set.Icc x y ↔ x ≤ z ∧ z ≤ y := by simp [Real.Icc_def]
 
-/-- Example 5.5.2 -/
+/-- Приклад 5.5.2 -/
 example (M: Real) : M ∈ upperBounds (.Icc 0 1) ↔ M ≥ 1 := by sorry
 
 /-- API for Example 5.5.3 -/
 theorem Real.Ioi_def (x:Real) : .Ioi x = { z | z > x } := rfl
 
-/-- Example 5.5.3 -/
+/-- Приклад 5.5.3 -/
 example : ¬ ∃ M : Real, M ∈ upperBounds (.Ioi 0) := by sorry
 
 /-- Приклад 5.5.4 -/
@@ -60,7 +60,7 @@ theorem Real.isLUB_def (E: Set Real) (M: Real) :
 theorem Real.isGLB_def (E: Set Real) (M: Real) :
     IsGLB E M ↔ M ∈ lowerBounds E ∧ ∀ M' ∈ lowerBounds E, M' ≤ M := by rfl
 
-/-- Example 5.5.6 -/
+/-- Приклад 5.5.6 -/
 example : IsLUB (.Icc 0 1) (1 : Real) := by sorry
 
 /-- Приклад 5.5.7 -/

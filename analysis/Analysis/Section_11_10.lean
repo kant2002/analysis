@@ -22,7 +22,7 @@ namespace Chapter11
 
 open BoundedInterval Chapter9 Chapter10
 
-/-- Proposition 11.10.1 (Integration by parts formula) / Exercise 11.10.1 -/
+/-- Твердження 11.10.1 (Integration by parts formula) / Вправа 11.10.1 -/
 theorem integ_of_mul_deriv {a b:ℝ} (hab: a ≤ b) {F G: ℝ → ℝ}
   (hF: DifferentiableOn ℝ F (Icc a b)) (hG : DifferentiableOn ℝ G (Icc a b))
   (hF': IntegrableOn (derivWithin F (Icc a b)) (Icc a b))
@@ -125,7 +125,7 @@ theorem RS_integ_eq_integ_of_mul_deriv
     upper_integral (f * α') (Icc a b) := lower_integral_le_upper hfα'_bound
   refine ⟨ ⟨ hfα'_bound, ?_ ⟩, ?_ ⟩ <;> linarith
 
-/-- Лема 11.10.5 / Exercise 11.10.2-/
+/-- Лема 11.10.5 / Вправа 11.10.2-/
 theorem PiecewiseConstantOn.RS_integ_of_comp {a b:ℝ} (hab: a < b) {φ f:ℝ → ℝ}
   (hφ_cont: Continuous φ) (hφ_mono: Monotone φ) (hf: PiecewiseConstantOn f (Icc (φ a) (φ b))) :
   PiecewiseConstantOn (f ∘ φ) (Icc a b) ∧ RS_integ (f ∘ φ) (Icc a b) φ =
@@ -175,7 +175,7 @@ theorem PiecewiseConstantOn.RS_integ_of_comp {a b:ℝ} (hab: a < b) {φ f:ℝ �
     exact this h1.2
   ext; apply (P.exists_unique _ h3).unique <;> simp [J.property, K.property, mem_iff, h1, h2]
 
-/-- Proposition 11.10.6 (Change of variables formula II)-/
+/-- Твердження 11.10.6 (Change of variables formula II)-/
 theorem RS_integ_of_comp {a b:ℝ} (hab: a < b) {φ f: ℝ → ℝ}
   (hφ_cont: Continuous φ) (hφ_mono: Monotone φ) (hf: IntegrableOn f (Icc (φ a) (φ b))) :
   RS_IntegrableOn (f ∘ φ) (Icc a b) φ ∧
@@ -205,7 +205,7 @@ theorem RS_integ_of_comp {a b:ℝ} (hab: a < b) {φ f: ℝ → ℝ}
     lower_RS_integral_le_upper hfφ_bdd hφ_mono
   refine ⟨ ⟨ hfφ_bdd, ?_ ⟩, ?_ ⟩ <;> linarith
 
-/-- Proposition 11.10.7 (Change of variables formula III)-/
+/-- Твердження 11.10.7 (Change of variables formula III)-/
 theorem integ_of_comp {a b:ℝ} (hab: a < b) {φ f: ℝ → ℝ}
   (hφ_diff: DifferentiableOn ℝ φ (Icc a b))
   (hφ_cont: Continuous φ) (hφ_mono: Monotone φ)
@@ -224,6 +224,6 @@ example {a b:ℝ} (hab: a < b) {f: ℝ → ℝ} (hf: IntegrableOn f (Icc a b)) :
   integ (fun x ↦ f (-x)) (Icc (-b) (-a)) = -integ f (Icc a b) := by
   sorry
 
-/- Exercise 11.10.4: state and prove a version of `integ_of_comp` in which `φ` is `Antitone` rather than `Monotone`. -/
+/- Вправа 11.10.4: state and prove a version of `integ_of_comp` in which `φ` is `Antitone` rather than `Monotone`. -/
 
 end Chapter11

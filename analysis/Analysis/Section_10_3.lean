@@ -16,7 +16,7 @@ Main constructions and results of this section:
 
 namespace Chapter10
 
-/-- Proposition 10.3.1 / Exercise 10.3.1 -/
+/-- Твердження 10.3.1 / Вправа 10.3.1 -/
 theorem derivative_of_monotone (X:Set ℝ) {x₀:ℝ} (hx₀: ClusterPt x₀ (.principal (X \ {x₀})))
   {f:ℝ → ℝ} (hmono: Monotone f) (hderiv: DifferentiableWithinAt ℝ f X x₀) :
     derivWithin f X x₀ ≥ 0 := by

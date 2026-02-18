@@ -17,7 +17,7 @@ class FinitelyAdditiveMeasure {X:Type*} (B: ConcreteBooleanAlgebra X) where
   measure_finite_additive : ∀ E F : Set X, B.measurable E → B.measurable F → Disjoint E F →
     measure (E ∪ F) = measure E + measure F
 
-/-- Example 1.4.21 -/
+/-- Приклад 1.4.21 -/
 noncomputable def FinitelyAdditiveMeasure.lebesgue (d:ℕ) : FinitelyAdditiveMeasure (LebesgueMeasurable.boolean_algebra d) :=
   {
     measure A := Lebesgue_measure A
@@ -26,7 +26,7 @@ noncomputable def FinitelyAdditiveMeasure.lebesgue (d:ℕ) : FinitelyAdditiveMea
     measure_finite_additive := by sorry
   }
 
-/-- Example 1.4.21 -/
+/-- Приклад 1.4.21 -/
 def FinitelyAdditiveMeasure.restrict_alg {X:Type*} {B: ConcreteBooleanAlgebra X} (μ: FinitelyAdditiveMeasure B) {B':ConcreteBooleanAlgebra X} (hBB': B' ≤ B) : FinitelyAdditiveMeasure B' :=
   {
     measure := μ.measure
@@ -35,20 +35,20 @@ def FinitelyAdditiveMeasure.restrict_alg {X:Type*} {B: ConcreteBooleanAlgebra X}
     measure_finite_additive := by sorry
   }
 
-/-- Example 1.4.21 -/
+/-- Приклад 1.4.21 -/
 noncomputable def FinitelyAdditiveMeasure.jordan (d:ℕ) : FinitelyAdditiveMeasure (JordanMeasurable.boolean_algebra d) :=
 (FinitelyAdditiveMeasure.lebesgue d).restrict_alg (LebesgueMeasurable.gt_jordan_boolean_algebra d)
 
-/-- Example 1.4.21 -/
+/-- Приклад 1.4.21 -/
 noncomputable def FinitelyAdditiveMeasure.null (d:ℕ) : FinitelyAdditiveMeasure (IsNull.boolean_algebra d) :=
 (FinitelyAdditiveMeasure.lebesgue d).restrict_alg (IsNull.lt_lebesgue_boolean_algebra d)
 
-/-- Example 1.4.21 -/
+/-- Приклад 1.4.21 -/
 noncomputable def FinitelyAdditiveMeasure.elem (d:ℕ) : FinitelyAdditiveMeasure (EuclideanSpace'.elementary_boolean_algebra d) :=
 (FinitelyAdditiveMeasure.lebesgue d).restrict_alg (by sorry)
 
 open Classical in
-/-- Example 1.4.22 (Dirac measure) -/
+/-- Приклад 1.4.22 (Dirac measure) -/
 noncomputable def FinitelyAdditiveMeasure.dirac {X:Type*} (x₀:X) (B: ConcreteBooleanAlgebra X) : FinitelyAdditiveMeasure B :=
   {
     measure := fun A => if x₀ ∈ A then 1 else 0
@@ -57,7 +57,7 @@ noncomputable def FinitelyAdditiveMeasure.dirac {X:Type*} (x₀:X) (B: ConcreteB
     measure_finite_additive := by sorry
   }
 
-/-- Example 1.4.23 (Zero measure) -/
+/-- Приклад 1.4.23 (Zero measure) -/
 instance FinitelyAdditiveMeasure.instZero {X:Type*} (B: ConcreteBooleanAlgebra X) : Zero (FinitelyAdditiveMeasure B) :=
   {
     zero := {
@@ -68,7 +68,7 @@ instance FinitelyAdditiveMeasure.instZero {X:Type*} (B: ConcreteBooleanAlgebra X
     }
   }
 
-/-- Example 1.4.24 (linear combinations of measures) -/
+/-- Приклад 1.4.24 (linear combinations of measures) -/
 instance FinitelyAdditiveMeasure.instAdd {X:Type*} {B: ConcreteBooleanAlgebra X} : Add (FinitelyAdditiveMeasure B) :=
   {
     add := fun μ ν =>
@@ -108,7 +108,7 @@ noncomputable instance FinitelyAdditiveMeasure.instDistribMulAction {X:Type*} {B
   mul_smul := by sorry
 }
 
-/-- Example 1.4.25 (Restriction of a measure) -/
+/-- Приклад 1.4.25 (Restriction of a measure) -/
 def FinitelyAdditiveMeasure.restrict {X:Type*} {B: ConcreteBooleanAlgebra X} (μ: FinitelyAdditiveMeasure B) (A:Set X) (hA:B.measurable A) : FinitelyAdditiveMeasure (B.restrict A) :=
   {
     measure := fun E => μ.measure E
@@ -117,7 +117,7 @@ def FinitelyAdditiveMeasure.restrict {X:Type*} {B: ConcreteBooleanAlgebra X} (μ
     measure_finite_additive := by sorry
   }
 
-/-- Example 1.4.26 (Counting a measure) -/
+/-- Приклад 1.4.26 (Counting a measure) -/
 noncomputable def FinitelyAdditiveMeasure.counting (X:Type*) : FinitelyAdditiveMeasure (⊤  : ConcreteBooleanAlgebra X) :=
   {
     measure := fun E => ENat.card E
@@ -164,7 +164,7 @@ def FinitelyAdditiveMeasure.isCountablyAdditive.toCountablyAdditive {X:Type*} {B
     measure_countable_additive := h.2
   }
 
-/-- Example 1.4.28-/
+/-- Приклад 1.4.28-/
 theorem FinitelyAdditiveMeasure.lebesgue_isCountablyAdditive (d:ℕ) : (FinitelyAdditiveMeasure.lebesgue d).isCountablyAdditive :=
   by sorry
 
@@ -177,15 +177,15 @@ def CountablyAdditiveMeasure.restrict_alg {X:Type*} {B B': ConcreteSigmaAlgebra 
     measure_countable_additive := by sorry
   }
 
-/-- Example 1.4.29-/
+/-- Приклад 1.4.29-/
 theorem FinitelyAdditiveMeasure.dirac_isCountablyAdditive {X:Type*} (x₀:X) (B: ConcreteBooleanAlgebra X) : (FinitelyAdditiveMeasure.dirac x₀ B).isCountablyAdditive :=
   by sorry
 
-/-- Example 1.4.29-/
+/-- Приклад 1.4.29-/
 theorem FinitelyAdditiveMeasure.counting_isCountablyAdditive {X:Type*} : (FinitelyAdditiveMeasure.counting X).isCountablyAdditive :=
   by sorry
 
-/-- Example 1.4.30 -/
+/-- Приклад 1.4.30 -/
 def CountablyAdditiveMeasure.restrict {X:Type*} {B: ConcreteSigmaAlgebra X} (μ: CountablyAdditiveMeasure B) (A:Set X) (hA:B.measurable A) : CountablyAdditiveMeasure (B.restrict A) :=
   {
     toFinitelyAdditiveMeasure := μ.toFinitelyAdditiveMeasure.restrict A hA,

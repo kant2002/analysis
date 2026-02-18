@@ -19,7 +19,7 @@ Main constructions and results of this section:
 namespace Chapter11
 open BoundedInterval Chapter9
 
-/-- Proposition 11.7.1 -/
+/-- Твердження 11.7.1 -/
 theorem not_integrable : BddOn f_9_3_21 (Icc 0 1) ∧ ¬ IntegrableOn f_9_3_21 (Icc 0 1) := by
   -- This proof is adapted from the structure of the original text.
   have hbdd: BddOn f_9_3_21 (Icc 0 1):= by

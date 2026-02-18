@@ -16,7 +16,7 @@ doing so.
 Main constructions and results of this section:
 
 - Absolute convergence and summation on countably infinite or general sets.
-- Connections with Mathlib's `Summable` and `tsum`.
+- Зв'язки із Mathlib-овським `Summable` and `tsum`.
 - The Riemann rearrangement theorem.
 
 Some non-trivial API is provided beyond what is given in the textbook in order connect these
@@ -206,7 +206,7 @@ theorem sum_comm {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) :
   simp [sum_of_converges (sum_of_sum_of_AbsConvergent hf).2,
         sum_of_converges (sum_of_sum_of_AbsConvergent' hf).2]
 
-/-- Лема 8.2.3 / Exercise 8.2.1 -/
+/-- Лема 8.2.3 / Вправа 8.2.1 -/
 theorem AbsConvergent.iff {X:Type} (hX:CountablyInfinite X) (f : X → ℝ) :
   AbsConvergent f ↔ BddAbove ( (fun A ↦ ∑ x ∈ A, |f x|) '' .univ ) := by
     sorry
@@ -235,7 +235,7 @@ theorem AbsConvergent'.of_countable {X:Type} (hX:CountablyInfinite X) {f:X → �
     intro n; by_cases h: n ≥ 0 <;> simp [h]
   intro hf; rwa [AbsConvergent.iff hX f] at hf
 
-/-- Лема 8.2.5 / Exercise 8.2.2-/
+/-- Лема 8.2.5 / Вправа 8.2.2-/
 theorem AbsConvergent'.countable_supp {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) :
   AtMostCountable { x | f x ≠ 0 } := by
     sorry
@@ -411,12 +411,12 @@ theorem Sum'.eq_tsum {X:Type} (f:X → ℝ) (h: AbsConvergent' f) :
   all_goals simp [E]
 
 
-/-- Proposition 8.2.6 (a) (Absolutely convergent series laws) / Exercise 8.2.3 -/
+/-- Твердження 8.2.6 (a) (Absolutely convergent series laws) / Вправа 8.2.3 -/
 theorem Sum'.add {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConvergent' g) :
   AbsConvergent' (f+g) ∧ Sum' (f + g) = Sum' f + Sum' g := by
   sorry
 
-/-- Proposition 8.2.6 (b) (Absolutely convergent series laws) / Exercise 8.2.3 -/
+/-- Твердження 8.2.6 (b) (Absolutely convergent series laws) / Вправа 8.2.3 -/
 theorem Sum'.smul {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (c: ℝ) :
   AbsConvergent' (c • f) ∧ Sum' (c • f) = c * Sum' f := by
   sorry
@@ -429,7 +429,7 @@ theorem Sum'.sub {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConverg
   . congr; simp; abel
   rw [(smul hg (-1)).2]; ring
 
-/-- Proposition 8.2.6 (c) (Absolutely convergent series laws) / Exercise 8.2.3.  The first
+/-- Твердження 8.2.6 (c) (Absolutely convergent series laws) / Вправа 8.2.3.  The first
     part of this proposition has been moved to `AbsConvergent'.subtype`. -/
 theorem Sum'.of_disjoint_union {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) {X₁ X₂ : Set X} (hdisj: Disjoint X₁ X₂):
   Sum' (fun x: (X₁ ∪ X₂: Set X) ↦ f x) = Sum' (fun x : X₁ ↦ f x) + Sum' (fun x : X₂ ↦ f x) := by
@@ -446,14 +446,14 @@ theorem Sum'.of_comp {X Y:Type} {f:X → ℝ} (hf: AbsConvergent' f) {φ: Y → 
   AbsConvergent' (f ∘ φ) ∧ Sum' f = Sum' (f ∘ φ) := by
   sorry
 
-/-- Лема 8.2.7 / Exercise 8.2.4 -/
+/-- Лема 8.2.7 / Вправа 8.2.4 -/
 theorem divergent_parts_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   (ha': ¬ (a:Series).absConverges) :
   ¬ AbsConvergent (fun n : {n | a n ≥ 0} ↦ a n) ∧ ¬ AbsConvergent (fun n : {n | a n < 0} ↦ a n)
   := by
   sorry
 
-/-- Theorem 8.2.8 (Riemann rearrangement theorem) / Exercise 8.2.5 -/
+/-- Theorem 8.2.8 (Riemann rearrangement theorem) / Вправа 8.2.5 -/
 theorem permute_convergesTo_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   (ha': ¬ (a:Series).absConverges) (L:ℝ) :
   ∃ f : ℕ → ℕ, Bijective f ∧ (a ∘ f:Series).convergesTo L

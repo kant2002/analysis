@@ -1108,4 +1108,4 @@ theorem RiemannIntegrableOn.eq_measure {I: BoundedInterval}
   {f: ℝ → ℝ} (hfint: RiemannIntegrableOn f I) :
   riemannIntegral f I = hfint.measurable_upper.measure - hfint.measurable_lower.measure := by sorry
 
-/- Exercise 1.1.26: Extend the definition of the Riemann and Darboux integrals to higher dimensions, in such a way that analogues of all the previous results hold; state and prove those analogues. -/
+/- Вправа 1.1.26: Extend the definition of the Riemann and Darboux integrals to higher dimensions, in such a way that analogues of all the previous results hold; state and prove those analogues. -/

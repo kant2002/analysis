@@ -61,7 +61,7 @@ theorem derivative_unique' (X: Set ℝ) {x₀ : ℝ}
   solve_by_elim [derivative_unique, DifferentiableWithinAt.hasDerivWithinAt]
 
 
-/-- Example 10.1.3 -/
+/-- Приклад 10.1.3 -/
 example (x₀:ℝ) : HasDerivWithinAt (fun x ↦ x^2) (2 * x₀) .univ x₀ := by
   sorry
 
@@ -117,7 +117,7 @@ theorem _root_.HasDerivWithinAt.iff_approx_linear (X: Set ℝ) (x₀ :ℝ) (f: �
   ∀ ε > 0, ∃ δ > 0, ∀ x ∈ X, |x - x₀| < δ → |f x - f x₀ - L * (x - x₀)| ≤ ε * |x - x₀| := by
   sorry
 
-/-- Proposition 10.1.10 / Exercise 10.1.3 -/
+/-- Твердження 10.1.10 / Вправа 10.1.3 -/
 theorem _root_.ContinuousWithinAt.of_differentiableWithinAt {X: Set ℝ} {x₀ : ℝ} {f: ℝ → ℝ}
   (h: DifferentiableWithinAt ℝ f X x₀) :
   ContinuousWithinAt f X x₀ := by

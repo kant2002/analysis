@@ -15,11 +15,11 @@ Main constructions and results of this section:
 
 - Ordering on the real line
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -82,34 +82,34 @@ theorem Real.isPos_def (x:Real) :
 theorem Real.isNeg_def (x:Real) :
     IsNeg x ↔ ∃ a:ℕ → ℚ, BoundedAwayNeg a ∧ (a:Sequence).IsCauchy ∧ x = LIM a := by rfl
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.trichotomous (x:Real) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_zero_pos (x:Real) : ¬(x = 0 ∧ x.IsPos) := by sorry
 
 theorem Real.nonzero_of_pos {x:Real} (hx: x.IsPos) : x ≠ 0 := by
   have := not_zero_pos x
   simpa [hx] using this
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_zero_neg (x:Real) : ¬(x = 0 ∧ x.IsNeg) := by sorry
 
 theorem Real.nonzero_of_neg {x:Real} (hx: x.IsNeg) : x ≠ 0 := by
   have := not_zero_neg x
   simpa [hx] using this
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.not_pos_neg (x:Real) : ¬(x.IsPos ∧ x.IsNeg) := by sorry
 
 /-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 @[simp]
 theorem Real.neg_iff_pos_of_neg (x:Real) : x.IsNeg ↔ (-x).IsPos := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1-/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1-/
 theorem Real.pos_add {x y:Real} (hx: x.IsPos) (hy: y.IsPos) : (x+y).IsPos := by sorry
 
-/-- Proposition 5.4.4 (basic properties of positive reals) / Exercise 5.4.1 -/
+/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
 theorem Real.pos_mul {x y:Real} (hx: x.IsPos) (hy: y.IsPos) : (x*y).IsPos := by sorry
 
 theorem Real.pos_of_coe (q:ℚ) : (q:Real).IsPos ↔ q > 0 := by sorry
@@ -171,7 +171,7 @@ theorem Real.not_gt_and_eq (x y:Real) : ¬ (x > y ∧ x = y):= by sorry
 /-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
 theorem Real.not_lt_and_eq (x y:Real) : ¬ (x < y ∧ x = y):= by sorry
 
-/-- Proposition 5.4.7(b) (order is anti-symmetric) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(b) (order is anti-symmetric) / Вправа 5.4.2 -/
 theorem Real.antisymm (x y:Real) : x < y ↔ y > x := by sorry
 
 /-- Твердження 5.4.7(c) (order is transitive) / Вправа 5.4.2 -/
@@ -180,11 +180,11 @@ theorem Real.lt_trans {x y z:Real} (hxy: x < y) (hyz: y < z) : x < z := by sorry
 /-- Твердження 5.4.7(d) (addition preserves order) / Вправа 5.4.2 -/
 theorem Real.add_lt_add_right {x y:Real} (z:Real) (hxy: x < y) : x + z < y + z := by sorry
 
-/-- Proposition 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
 theorem Real.mul_lt_mul_right {x y z:Real} (hxy: x < y) (hz: z.IsPos) : x * z < y * z := by
   rw [antisymm, gt_iff] at hxy ⊢; convert pos_mul hxy hz using 1; ring
 
-/-- Proposition 5.4.7(e) (positive multiplication preserves order) / Exercise 5.4.2 -/
+/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
 theorem Real.mul_le_mul_left {x y z:Real} (hxy: x ≤ y) (hz: z.IsPos) : z * x ≤ z * y := by sorry
 
 theorem Real.mul_pos_neg {x y:Real} (hx: x.IsPos) (hy: y.IsNeg) : (x * y).IsNeg := by
@@ -209,7 +209,7 @@ noncomputable instance Real.instLinearOrder : LinearOrder Real where
 -/
 theorem Real.abs_eq_abs (x:Real) : |x| = abs x := by sorry
 
-/-- Proposition 5.4.8 -/
+/-- Твердження 5.4.8 -/
 theorem Real.inv_of_pos {x:Real} (hx: x.IsPos) : x⁻¹.IsPos := by
   observe hnon: x ≠ 0
   observe hident : x⁻¹ * x = 1
@@ -246,7 +246,7 @@ instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   le_of_add_le_add_left := by sorry
   zero_le_one := by sorry
 
-/-- Proposition 5.4.9 (The non-negative reals are closed)-/
+/-- Твердження 5.4.9 (The non-negative reals are closed)-/
 theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:Sequence).IsCauchy) :
     LIM a ≥ 0 := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
@@ -285,7 +285,7 @@ theorem Real.LIM_mono_fail :
   use (fun n ↦ 1 - 1/((n:ℚ) + 1))
   sorry
 
-/-- Proposition 5.4.12 (Bounding reals by rationals) -/
+/-- Твердження 5.4.12 (Bounding reals by rationals) -/
 theorem Real.exists_rat_le_and_nat_gt {x:Real} (hx: x.IsPos) :
     (∃ q:ℚ, q > 0 ∧ (q:Real) ≤ x) ∧ ∃ N:ℕ, x < (N:Real) := by
   -- This proof is written to follow the structure of the original text.

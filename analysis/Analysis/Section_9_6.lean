@@ -81,7 +81,7 @@ theorem BddAboveOn.isMaxOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMaxOn f 
 
 theorem BddBelowOn.isMinOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMinOn f X x₀): BddBelowOn f X := by sorry
 
-/-- Proposition 9.6.7 (Maximum principle) -/
+/-- Твердження 9.6.7 (Maximum principle) -/
 theorem IsMaxOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) :
   ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by
   -- This proof is written to follow the structure of the original text.

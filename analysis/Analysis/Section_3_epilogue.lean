@@ -5,17 +5,17 @@ import Analysis.Tools.ExistsUnique
 import Analysis.Section_3_1
 
 /-!
-# Analysis I, Chapter 3 epilogue: Connections with ZFSet
+# Аналіз I, Розділ 3.6, Епілог: Зв’язки із ZFSet
 
-In this epilogue we show that the `ZFSet` type in Mathlib (derived as a quotient from the
-`PSet` type) can be used to create models of the `SetTheory' class studied in this chapter, so long as we work in a universe of level at
-least 1.  The constructions here are due to Edward van de Meent; see
+У цьому епілозі ми показуємо, що тип `ZFSet` у Mathlib (отриманий як частка від типу `PSet`)
+можна використовувати для створення моделей класу `SetTheory'`, вивченого в цьому розділі,
+за умови роботи у всесвіті рівня щонайменше 1. Конструкції тут належать Едварду ван де Менту; див.
 https://leanprover.zulipchat.com/#narrow/channel/113489-new-members/topic/Can.20this.20proof.20related.20to.20Set.20replacement.20be.20shorter.3F/near/527305173
 -/
 
 universe u
 
-/-- A preliminary lemma about `PSet`: their natural numbers are ordered by membership. -/
+/-- Вступна лема про `PSet`: їхні натуральні числа впорядковані за відношенням належності. -/
 lemma PSet.ofNat_mem_ofNat_of_lt (m n : ℕ) : n < m → ofNat n ∈ ofNat m := by
   intro h
   induction h with
@@ -28,8 +28,7 @@ lemma PSet.mem_ofNat_iff (n m : ℕ) : ofNat n ∈ ofNat m ↔ n < m := by
   · exact mem_asymm (ofNat_mem_ofNat_of_lt _ _ h)
   apply mem_irrefl
 
-/-- Another preliminary lemma: Natural numbers in `PSet` can only be equivalent
-if they are equal. -/
+/-- Ще одна вступна лема: натуральні числа в `PSet` можуть бути еквівалентними лише тоді, коли вони рівні. -/
 lemma PSet.eq_of_ofNat_equiv_ofNat (n m : ℕ): (ofNat.{u} n).Equiv (ofNat.{u} m) → n = m := by
   wlog hmn : m ≤ n generalizing n m
   · intro heq; rw [this _ _ _ heq.symm]; order
@@ -38,8 +37,8 @@ lemma PSet.eq_of_ofNat_equiv_ofNat (n m : ℕ): (ofNat.{u} n).Equiv (ofNat.{u} m
   order
 
 open PSet in
-/-- Using the above lemmas, we can create a bijection between `ZFSet.omega` and
-the natural numbers. -/
+/-- Використовуючи наведені вище леми, ми можемо створити бієкцію між `ZFSet.omega`
+  та натуральними числами. -/
 noncomputable def ZFSet.nat_equiv : ℕ ≃ omega.{u} := Equiv.ofBijective (fun n => ⟨mk (ofNat.{u} n),mk_mem_iff.mpr (Mem.mk _ (ULift.up n))⟩) (by
   constructor
   · intro _ _; simp [eq]; apply eq_of_ofNat_equiv_ofNat
@@ -48,10 +47,10 @@ noncomputable def ZFSet.nat_equiv : ℕ ≃ omega.{u} := Equiv.ofBijective (fun 
   )
 
 open Classical in
-/-- Show that ZFSet obeys the `Chapter3.SetTheory` axioms.  Most of these axioms were
-essentially already established in Mathlib and are relatively routine to transfer over;
-the equivalence of `ZF.omega` and `Nat` being the trickiest one in content (and the
-power set axiom also requiring some technical manipulation). -/
+/-- Покажіть, що `ZFSet` задовольняє аксіоми `Chapter3.SetTheory`. Більшість цих аксіом фактично
+  вже були встановлені в Mathlib і їх відносно легко перенести; найбільш складним за змістом є
+  еквівалентність `ZF.omega` та `Nat` (а аксіома множини всіх підмножин також потребує деяких
+  технічних маніпуляцій). -/
 noncomputable instance ZFSet.inst_SetTheory : Chapter3.SetTheory.{u + 1,u + 1} where
   Set := ZFSet
   Object := ZFSet

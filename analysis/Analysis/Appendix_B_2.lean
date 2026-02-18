@@ -84,7 +84,7 @@ theorem NNRealDecimal.surj (x:NNReal) : ∃ d:NNRealDecimal, x = d := by
     _ ≤ (x * 10^n) * (10:NNReal)^(-n:ℝ) := by gcongr; grind
     _ = x := by rw [mul_assoc, ←rpow_natCast, ←rpow_add]; simp; norm_num
 
-/-- Proposition B.2.2 -/
+/-- Твердження B.2.2 -/
 theorem NNRealDecimal.not_inj : (1:NNReal) = (mk 1 fun _ ↦ 0) ∧ (1:NNReal) = (mk 0 fun _ ↦ 9) := by
   -- This proof is written to follow the structure of the original text.
   simp [toNNReal]

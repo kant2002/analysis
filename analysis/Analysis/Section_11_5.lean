@@ -89,7 +89,7 @@ example : ¬ IntegrableOn (fun x:ℝ ↦ 1/x) (Icc 0 1) := by sorry
 
 open PiecewiseConstantOn ConstantOn in
 set_option maxHeartbeats 300000 in
-/-- Proposition 11.5.3-/
+/-- Твердження 11.5.3-/
 theorem integ_of_bdd_cts {I: BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn f I)
   (hf: ContinuousOn f I) : IntegrableOn f I := by
   -- This proof is written to follow the structure of the original text.
@@ -197,7 +197,7 @@ theorem integ_of_bdd_cts {I: BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn f I
 abbrev PiecewiseContinuousOn (f:ℝ → ℝ) (I:BoundedInterval) : Prop :=
   ∃ P: Partition I, ∀ J ∈ P.intervals, ContinuousOn f J
 
-/-- Example 11.5.5 -/
+/-- Приклад 11.5.5 -/
 noncomputable abbrev f_11_5_5 : ℝ → ℝ := fun x ↦
   if x < 2 then x^2
   else if x = 2 then 7
@@ -213,7 +213,7 @@ example : ContinuousOn f_11_5_5 (Ioc 2 3) := by sorry
 
 example : PiecewiseContinuousOn f_11_5_5 (Icc 1 3) := by sorry
 
-/-- Proposition 11.5.6 / Exercise 11.5.1 -/
+/-- Твердження 11.5.6 / Вправа 11.5.1 -/
 theorem integ_of_bdd_piecewise_cts {I: BoundedInterval} {f:ℝ → ℝ}
   (hbound: BddOn f I) (hf: PiecewiseContinuousOn f I) : IntegrableOn f I := by
   sorry

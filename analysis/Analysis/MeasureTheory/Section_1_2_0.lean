@@ -1488,7 +1488,7 @@ theorem Lebesgue_outer_measure_le_Jordan {d:ℕ} {E: Set (EuclideanSpace' d)} (h
           -- Use helper lemma: EReal.sInf_image_coe
           exact EReal.sInf_image_coe h_nonempty h_bdd
 
-/-- Example 1.2.1.  With the junk value conventions of this companion, the Jordan outer measure of the rationals is zero rather than infinite (I think). -/
+/-- Приклад 1.2.1.  With the junk value conventions of this companion, the Jordan outer measure of the rationals is zero rather than infinite (I think). -/
 -- The Jordan outer measure of the rationals in a bounded interval equals the interval length.
 example {R:ℝ} (hR: 0 < R) : Jordan_outer_measure (Real.equiv_EuclideanSpace' '' (Set.Icc (-R) R ∩ Set.range (fun q:ℚ ↦ (q:ℝ)))) = 2*R := by
   sorry

@@ -169,7 +169,7 @@ theorem Sequence.is_steady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
 theorem Sequence.is_eventuallySteady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
     ε.EventuallySteady a ↔ (ε:ℝ).EventuallySteady (a:Sequence) := by sorry
 
-/-- Proposition 6.1.4 -/
+/-- Твердження 6.1.4 -/
 theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.IsCauchy ↔ (a:Sequence).IsCauchy := by
   -- This proof is written to follow the structure of the original text.
   constructor
@@ -335,20 +335,20 @@ theorem Sequence.lim_harmonic :
       rw [inv_le_comm₀] <;> try positivity
       rw [←inv_eq_one_div _] at hN; order
 
-/-- Proposition 6.1.12 / Exercise 6.1.5 -/
+/-- Твердження 6.1.12 / Вправа 6.1.5 -/
 theorem Sequence.IsCauchy.convergent {a:Sequence} (h:a.Convergent) : a.IsCauchy := by
   sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ (0.1:ℝ).EventuallySteady ((fun n ↦ (-1:ℝ)^n):Sequence) := by sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).IsCauchy := by sorry
 
-/-- Example 6.1.13 -/
+/-- Приклад 6.1.13 -/
 example : ¬ ((fun n ↦ (-1:ℝ)^n):Sequence).Convergent := by sorry
 
-/-- Proposition 6.1.15 / Exercise 6.1.6 (Formal limits are genuine limits)-/
+/-- Твердження 6.1.15 / Вправа 6.1.6 (Formal limits are genuine limits)-/
 theorem Sequence.lim_eq_LIM {a:ℕ → ℚ} (h: (a:Chapter5.Sequence).IsCauchy) :
     ((a:Chapter5.Sequence):Sequence).TendsTo (Chapter5.Real.equivR (Chapter5.LIM a)) := by sorry
 
@@ -374,10 +374,10 @@ theorem Sequence.bounded_of_cauchy {a:Sequence} (h: a.IsCauchy) : a.IsBounded :=
 theorem Sequence.bounded_of_convergent {a:Sequence} (h: a.Convergent) : a.IsBounded := by
   sorry
 
-/-- Example 6.1.18 -/
+/-- Приклад 6.1.18 -/
 example : ¬ ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).IsBounded := by sorry
 
-/-- Example 6.1.18 -/
+/-- Приклад 6.1.18 -/
 example : ¬ ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).Convergent := by sorry
 
 instance Sequence.inst_add : Add Sequence where

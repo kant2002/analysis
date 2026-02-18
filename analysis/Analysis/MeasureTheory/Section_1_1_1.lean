@@ -990,7 +990,7 @@ theorem Box.measure_uniq' {d:ℕ} {T₁ T₂: Finset (Box d)}
  ∑ B ∈ T₁, |B|ᵥ = ∑ B ∈ T₂, |B|ᵥ := by
  sorry
 
-/-- Example: the measure of (1,2) ∪ [3,6] is 1 + 3 = 4. -/
+/-- Приклад: the measure of (1,2) ∪ [3,6] is 1 + 3 = 4. -/
 example :
   let E : Set (EuclideanSpace' 1) := Real.equiv_EuclideanSpace' '' ((Set.Ioo 1 2) ∪ (Set.Icc 3 6))
   ∃ hE : IsElementary E, hE.measure = 4 := by

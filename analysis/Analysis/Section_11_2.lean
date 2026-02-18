@@ -95,7 +95,7 @@ theorem PiecewiseConstantOn.congr {f g: ℝ → ℝ} {I: BoundedInterval} (h: �
 
 theorem PiecewiseConstantOn.congr' {f g: ℝ → ℝ} {I: BoundedInterval} (hf: PiecewiseConstantOn f I) (h: ∀ x ∈ (I:Set ℝ), f x = g x) : PiecewiseConstantOn g I := (congr h).mp hf
 
-/-- Example 11.2.4 / Example 11.2.6 -/
+/-- Приклад 11.2.4 / Example 11.2.6 -/
 noncomputable abbrev f_11_2_4 : ℝ → ℝ := fun x ↦
   if x < 1 then 0 else  -- junk value
     if x < 3 then 7 else
@@ -116,7 +116,7 @@ example : PiecewiseConstantOn f_11_2_4 (Icc 1 6) := by
   . sorry
   sorry
 
-/-- Example 11.2.6 -/
+/-- Приклад 11.2.6 -/
 theorem ConstantOn.piecewiseConstantOn {f:ℝ → ℝ} {I: BoundedInterval} (h: ConstantOn f (I:Set ℝ)) :
   PiecewiseConstantOn f I := by sorry
 
@@ -235,13 +235,13 @@ theorem PiecewiseConstantOn.integ_add {f g: ℝ → ℝ} {I: BoundedInterval}
   integ (f + g) I = integ f I + integ g I := by
   sorry
 
-/-- Theorem 11.2.16 (b) (Laws of integration) / Exercise 11.2.4 -/
+/-- Theorem 11.2.16 (b) (Laws of integration) / Вправа 11.2.4 -/
 theorem PiecewiseConstantOn.integ_smul {f: ℝ → ℝ} {I: BoundedInterval} (c:ℝ) (hf: PiecewiseConstantOn f I) :
   integ (c • f) I = c * integ f I
    := by
   sorry
 
-/-- Theorem 11.2.16 (c) (Laws of integration) / Exercise 11.2.4 -/
+/-- Theorem 11.2.16 (c) (Laws of integration) / Вправа 11.2.4 -/
 theorem PiecewiseConstantOn.integ_sub {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   integ (f - g) I = integ f I - integ g I := by

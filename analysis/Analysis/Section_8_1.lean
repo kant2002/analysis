@@ -109,17 +109,17 @@ example : CountablyInfinite (.univ \ {0}: Set ℕ) := by sorry
 example : CountablyInfinite ((fun n:ℕ ↦ 2*n) '' .univ) := by sorry
 
 
-/-- Proposition 8.1.4 (Well ordering principle / Exercise 8.1.2 -/
+/-- Твердження 8.1.4 (Well ordering principle / Вправа 8.1.2 -/
 theorem Nat.exists_unique_min {X : Set ℕ} (hX : X.Nonempty) :
   ∃! m ∈ X, ∀ n ∈ X, m ≤ n := by
   sorry
 
 def Int.exists_unique_min : Decidable (∀ (X : Set ℤ) (hX : X.Nonempty), ∃! m ∈ X, ∀ n ∈ X, m ≤ n) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def NNRat.exists_unique_min : Decidable (∀ (X : Set NNRat) (hX : X.Nonempty), ∃! m ∈ X, ∀ n ∈ X, m ≤ n) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 
@@ -145,7 +145,7 @@ open Classical in
 theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX := by
   symm; rw [Nat.find_eq_iff]; have := min_spec hX; grind
 
-/-- Proposition 8.1.5 -/
+/-- Твердження 8.1.5 -/
 theorem Nat.monotone_enum_of_infinite (X : Set ℕ) [Infinite X] : ∃! f : ℕ → X, Function.Bijective f ∧ StrictMono f := by
   -- This proof is written to follow the structure of the original text.
   let a : ℕ → ℕ := Nat.strongRec (fun n a ↦ min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m h })
@@ -209,15 +209,15 @@ theorem AtMostCountable.subset' {A: Type} {X Y: Set A} (hX: AtMostCountable X) (
   . intro ⟨ ⟨ _, _ ⟩, _ ⟩ ⟨ ⟨ _, _ ⟩, _ ⟩ _; simp_all
   intro ⟨ y, hy ⟩; use ⟨ ⟨ y, hY hy ⟩, by aesop ⟩
 
-/-- Proposition 8.1.8 / Exercise 8.1.4 -/
+/-- Твердження 8.1.8 / Вправа 8.1.4 -/
 theorem AtMostCountable.image_nat (Y: Type) (f: ℕ → Y) : AtMostCountable (f '' .univ) := by
   sorry
 
-/-- Corollary 8.1.9 / Exercise 8.1.5 -/
+/-- Corollary 8.1.9 / Вправа 8.1.5 -/
 theorem AtMostCountable.image {X:Type} (hX: CountablyInfinite X) {Y: Type} (f: X → Y) : AtMostCountable (f '' .univ) := by
   sorry
 
-/-- Proposition 8.1.10 / Exercise 8.1.7 -/
+/-- Твердження 8.1.10 / Вправа 8.1.7 -/
 theorem CountablyInfinite.union {A:Type} {X Y: Set A} (hX: CountablyInfinite X) (hY: CountablyInfinite Y) :
   CountablyInfinite (X ∪ Y: Set A) := by
   sorry
@@ -285,7 +285,7 @@ theorem CountablyInfinite.prod_nat : CountablyInfinite (ℕ × ℕ) := by
     convert union lower_diag upper_diag; ext ⟨ n, m ⟩; simp; omega
   exact (equiv (.univ _)).mp this
 
-/-- Corollary 8.1.14 / Exercise 8.1.8 -/
+/-- Corollary 8.1.14 / Вправа 8.1.8 -/
 theorem CountablyInfinite.prod {X Y:Type} (hX: CountablyInfinite X) (hY: CountablyInfinite Y) :
   CountablyInfinite (X × Y) := by
   sorry

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_3_1
 
 /-!
-# Аналіз I, Глава 3.4: Образи та прообрази
+# Аналіз I, Розділ 3.4: Образи та прообрази
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -83,7 +83,7 @@ theorem SetTheory.Set.mem_preimage {X Y:Set} (f:X → Y) (U: Set) (x:X) :
     x.val ∈ preimage f U ↔ (f x).val ∈ U := by rw [specification_axiom']
 
 /--
-  A version of mem_preimage that does not require x to be of type X.
+  Версія `mem_preimage`, яка не вимагає, щоб `x` був типу `X`.
 -/
 theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
     x ∈ preimage f U ↔ ∃ x': X, x'.val = x ∧ (f x').val ∈ U := by
@@ -125,9 +125,10 @@ instance SetTheory.Set.inst_pow : Pow Set Set where
 @[coe]
 def SetTheory.Set.coe_of_fun {X Y:Set} (f: X → Y) : Object := function_to_object X Y f
 
-/-- This coercion has to be a `CoeOut` rather than a
-`Coe` because the input type `X → Y` contains
-parameters not present in the output type `Output` -/
+/-- Це приведення має бути `CoeOut`, а не `Coe`, оскільки вхідний
+  тип `X → Y` містить параметри, яких немає у вихідному
+  типі `Output`.
+ -/
 instance SetTheory.Set.inst_coe_of_fun {X Y:Set} : CoeOut (X → Y) Object where
   coe := coe_of_fun
 
@@ -135,7 +136,7 @@ instance SetTheory.Set.inst_coe_of_fun {X Y:Set} : CoeOut (X → Y) Object where
 theorem SetTheory.Set.coe_of_fun_inj {X Y:Set} (f g:X → Y) : (f:Object) = (g:Object) ↔ f = g := by
   simp [coe_of_fun]
 
-/-- Axiom 3.11 (Power set axiom) --/
+/-- Axiom 3.11 (Аксіома потужності множини) --/
 @[simp]
 theorem SetTheory.Set.powerset_axiom {X Y:Set} (F:Object) :
     F ∈ (X ^ Y) ↔ ∃ f: Y → X, f = F := SetTheory.powerset_axiom X Y F
@@ -181,7 +182,7 @@ theorem SetTheory.Set.exists_powerset (X:Set) :
    ∃ (Z: Set), ∀ x, x ∈ Z ↔ ∃ Y:Set, x = Y ∧ Y ⊆ X := by
   use powerset X; apply mem_powerset
 
-/- As noted in errata, Exercise 3.4.6 (ii) is replaced by Exercise 3.5.11. -/
+/- Як зазначено в виправленнях, Вправа 3.4.6 (ii) замінюється на Вправу 3.5.11. -/
 
 /-- Ремарка 3.4.11 -/
 theorem SetTheory.Set.powerset_of_triple (a b c x:Object) :
@@ -271,11 +272,11 @@ theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) (hS: S ⊆ X) : sorry := by sorry
 
 /- Вправа 3.4.2.  Сформулюйте та доведіть твердження, що пов'язує `image f (preimage f U)` та `U`.
-Interestingly, it is not needed for U to be a subset of Y. -/
+Цікаво, що не обов’язково, щоб U було підмножиною Y. -/
 -- theorem SetTheory.Set.image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
 /- Вправа 3.4.2.  State and prove an assertion connecting `preimage f (image f (preimage f U))` and `preimage f U`.
-Interestingly, it is not needed for U to be a subset of Y.-/
+Цікаво, що не обов’язково, щоб U було підмножиною Y. -/
 -- theorem SetTheory.Set.preimage_of_image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
 /--
@@ -291,11 +292,11 @@ theorem SetTheory.Set.image_of_union {X Y:Set} (f:X → Y) (A B: Set) :
     image f (A ∪ B) = (image f A) ∪ (image f B) := by sorry
 
 def SetTheory.Set.image_of_inter' : Decidable (∀ X Y:Set, ∀ f:X → Y, ∀ A B: Set, image f (A ∩ B) = (image f A) ∩ (image f B)) := by
-  -- The first line of this construction should be either `apply isTrue` or `apply isFalse`
+  -- Перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def SetTheory.Set.image_of_diff' : Decidable (∀ X Y:Set, ∀ f:X → Y, ∀ A B: Set, image f (A \ B) = (image f A) \ (image f B)) := by
-  -- The first line of this construction should be either `apply isTrue` or `apply isFalse`
+  -- Перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа 3.4.4 -/
@@ -316,12 +317,12 @@ theorem SetTheory.Set.image_preimage_of_surj {X Y:Set} (f:X → Y) :
 theorem SetTheory.Set.preimage_image_of_inj {X Y:Set} (f:X → Y) :
     (∀ S, S ⊆ X → preimage f (image f S) = S) ↔ Function.Injective f := by sorry
 
-/-- Helper lemma for Exercise 3.4.7. -/
+/-- Допоміжна лема для Вправи 3.4.7. -/
 @[simp]
 lemma SetTheory.Set.mem_powerset' {S S' : Set} : (S': Object) ∈ S.powerset ↔ S' ⊆ S := by
   simp [mem_powerset]
 
-/-- Another helper lemma for Exercise 3.4.7. -/
+/-- Ігша допоміжна лема для Вправи 3.4.7. -/
 lemma SetTheory.Set.mem_union_powerset_replace_iff {S : Set} {P : S.powerset → Object → Prop} {hP : _} {x : Object} :
     x ∈ union (S.powerset.replace (P := P) hP) ↔
     ∃ (S' : S.powerset) (U : Set), P S' U ∧ x ∈ U := by

@@ -18,11 +18,11 @@ Main constructions and results of this section:
 - Construction of a real number type `Chapter5.Real`.
 - Basic arithmetic operations and properties.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -63,7 +63,7 @@ theorem CauchySequence.coe_to_sequence (a: CauchySequence) :
 @[simp]
 theorem CauchySequence.coe_coe {a:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) : mk' ha = a := by rfl
 
-/-- Proposition 5.3.3 / Exercise 5.3.1 -/
+/-- Твердження 5.3.3 / Вправа 5.3.1 -/
 theorem Sequence.equiv_trans {a b c:ℕ → ℚ} (hab: Equiv a b) (hbc: Equiv b c) :
   Equiv a c := by sorry
 
@@ -174,21 +174,21 @@ theorem Real.LIM_add {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Seque
   convert Quotient.liftOn₂_mk _ _ _ _
   rw [dif_pos]
 
-/-- Proposition 5.3.10 (Product of Cauchy sequences is Cauchy) -/
+/-- Твердження 5.3.10 (Product of Cauchy sequences is Cauchy) -/
 theorem Sequence.IsCauchy.mul {a b:ℕ → ℚ}  (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
     (a * b:Sequence).IsCauchy := by
   sorry
 
-/-- Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/-- Твердження 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (hb : (b:Sequence).IsCauchy) (haa': Equiv a a') :
   Equiv (a * b) (a' * b) := by
   sorry
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_right {b b':ℕ → ℚ} (a:ℕ → ℚ)  (ha : (a:Sequence).IsCauchy)  (hbb': Equiv b b') :
   Equiv (a * b) (a * b') := by simp_rw [mul_comm]; exact mul_equiv_left a ha hbb'
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Exercise 5.3.2 -/
+/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv
   {a b a' b':ℕ → ℚ}
   (ha : (a:Sequence).IsCauchy)
@@ -255,7 +255,7 @@ theorem Real.neg_LIM (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) : -LIM a = LIM 
 theorem Sequence.IsCauchy.neg (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) :
     ((-a:ℕ → ℚ):Sequence).IsCauchy := by sorry
 
-/-- Proposition 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (laws of algebra) -/
 noncomputable instance Real.addGroup_inst : AddGroup Real :=
   AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
@@ -271,18 +271,18 @@ theorem Real.LIM_sub {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Seque
 /-- ratCast distributes over subtraction -/
 theorem Real.ratCast_sub (a b:ℚ) : (a:Real) - (b:Real) = (a-b:ℚ) := by sorry
 
-/-- Proposition 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (laws of algebra) -/
 noncomputable instance Real.instAddCommGroup : AddCommGroup Real where
   add_comm := by sorry
 
-/-- Proposition 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (laws of algebra) -/
 noncomputable instance Real.instCommMonoid : CommMonoid Real where
   mul_comm := by sorry
   mul_assoc := by sorry
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Proposition 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (laws of algebra) -/
 noncomputable instance Real.instCommRing : CommRing Real where
   left_distrib := by sorry
   right_distrib := by sorry

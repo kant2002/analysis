@@ -68,11 +68,11 @@ theorem Sequence.lim_of_power_decay {k:ℕ} :
     convert Real.rpow_one _; field_simp
   simp [lim_eq, ha', pow_eq_zero hlim]
 
-/-- Лема 6.5.2 / Exercise 6.5.2 -/
+/-- Лема 6.5.2 / Вправа 6.5.2 -/
 theorem Sequence.lim_of_geometric {x:ℝ} (hx: |x| < 1) : ((fun (n:ℕ) ↦ x^n):Sequence).TendsTo 0 := by
   sorry
 
-/-- Лема 6.5.2 / Exercise 6.5.2 -/
+/-- Лема 6.5.2 / Вправа 6.5.2 -/
 theorem Sequence.lim_of_geometric' {x:ℝ} (hx: x = 1) : ((fun (n:ℕ) ↦ x^n):Sequence).TendsTo 1 := by
   sorry
 

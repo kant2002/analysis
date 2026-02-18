@@ -157,14 +157,14 @@ theorem LowerUnsignedLebesgueIntegral.eq_add {d:ℕ} {f: EuclideanSpace' d → E
 theorem LowerUnsignedLebesgueIntegral.eq_lim_vert_trunc {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedMeasurable f) : Filter.atTop.Tendsto (fun n:ℕ ↦ LowerUnsignedLebesgueIntegral (fun x ↦ min (f x) n)) (nhds (LowerUnsignedLebesgueIntegral f)) := by sorry
 
 def UpperUnsignedLebesgueIntegral.eq_lim_vert_trunc : Decidable (∀ (d:ℕ) (f: EuclideanSpace' d → EReal) (hf: UnsignedMeasurable f), Filter.atTop.Tendsto (fun n:ℕ ↦ UpperUnsignedLebesgueIntegral (fun x ↦ min (f x) n)) (nhds (UpperUnsignedLebesgueIntegral f))) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа 1.3.10(ix) (Horizontal truncation)-/
 theorem LowerUnsignedLebesgueIntegral.eq_lim_horiz_trunc {d:ℕ} {f: EuclideanSpace' d → EReal} (hf: UnsignedMeasurable f) : Filter.atTop.Tendsto (fun n:ℕ ↦ LowerUnsignedLebesgueIntegral (f * Real.toEReal ∘ (Metric.ball 0 n).indicator')) (nhds (LowerUnsignedLebesgueIntegral f)) := by sorry
 
 def UpperUnsignedLebesgueIntegral.eq_lim_horiz_trunc : Decidable (∀ (d:ℕ) (f: EuclideanSpace' d → EReal) (hf: UnsignedMeasurable f), Filter.atTop.Tendsto (fun n:ℕ ↦ UpperUnsignedLebesgueIntegral (f * Real.toEReal ∘ (Metric.ball 0 n).indicator')) (nhds (UpperUnsignedLebesgueIntegral f))) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Вправа 1.3.10(x) (Reflection) -/
@@ -182,11 +182,11 @@ theorem LowerUnsignedLebesgueIntegral.eq_upperIntegral {d:ℕ} {f: EuclideanSpac
     LowerUnsignedLebesgueIntegral f = UpperUnsignedLebesgueIntegral f := by sorry
 
 def LowerUnsignedLebesgueIntegral.eq_upperIntegral_unbounded : Decidable (∀ (d:ℕ) (f: EuclideanSpace' d → EReal) (hf: UnsignedMeasurable f) (hsupp: FiniteMeasureSupport f), LowerUnsignedLebesgueIntegral f = UpperUnsignedLebesgueIntegral f) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 def LowerUnsignedLebesgueIntegral.eq_upperIntegral_infinite_supp : Decidable (∀ (d:ℕ) (f: EuclideanSpace' d → EReal) (hf: UnsignedMeasurable f) (hbound: EReal.BoundedFunction f), LowerUnsignedLebesgueIntegral f = UpperUnsignedLebesgueIntegral f) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 /-- Multiplying an unsigned measurable function by a ball indicator preserves measurability.

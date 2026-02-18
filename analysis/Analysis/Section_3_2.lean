@@ -2,10 +2,10 @@ import Mathlib.Tactic
 import Analysis.Section_3_1
 
 /-!
-# Аналіз I, Глава 3.2: Парадокс Рассела
+# Аналіз I, Розділ 3.2: Парадокс Рассела
 
 У цій главі ми пропонуємо версію теорії множин Цермело-Франкеля (з атомами), яка намагається
-максимально точно наслідувати оригінальний тексту Аналізу I, Глава 3.2. Вся нумерація
+максимально точно наслідувати оригінальний тексту Аналізу I, Розділ 3.2. Вся нумерація
 посилається на оригінальний текст.
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
@@ -105,8 +105,8 @@ theorem SetTheory.Set.specify_exists (h: axiom_of_universal_specification) (A:Se
   sorry
 
 /--
-  Вправа 3.2.1. The spirit of the exercise is to establish these results without using either
-  Russell's paradox, or the replace operation.
+  Вправа 3.2.1. Суть вправи полягає в тому, щоб встановити ці результати, не використовуючи
+  ані парадокс Рассела, ані операцію заміни.
 -/
 theorem SetTheory.Set.replace_exists (h: axiom_of_universal_specification) (A:Set)
   (P: A → Object → Prop) (hP: ∀ x y y', P x y ∧ P x y' → y = y') :

@@ -148,7 +148,7 @@ theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
   (f ∘ x:Sequence).IsCauchy := by
   sorry
 
-/-- Example 9.9.13 -/
+/-- Приклад 9.9.13 -/
 example : ((fun n:ℕ ↦ 1/(n+1:ℝ)):Sequence).IsCauchy := by
   sorry
 
@@ -167,7 +167,7 @@ theorem UniformContinuousOn.limit_at_adherent  {X:Set ℝ} (f: ℝ → ℝ)
   ∃ L:ℝ, (nhdsWithin x₀ X).Tendsto f (nhds L) := by
   sorry
 
-/-- Proposition 9.9.15 / Exercise 9.9.5 -/
+/-- Твердження 9.9.15 / Вправа 9.9.5 -/
 theorem UniformContinuousOn.of_bounded {E X:Set ℝ} {f: ℝ → ℝ}
   (hf: UniformContinuousOn f X) (hEX: E ⊆ X) (hE: Bornology.IsBounded E) :
   Bornology.IsBounded (f '' E) := by

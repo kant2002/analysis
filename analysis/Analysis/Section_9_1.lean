@@ -60,7 +60,7 @@ example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
 /-- Визначення 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
-/-- Example 9.1.7 -/
+/-- Приклад 9.1.7 -/
 example : (0.5:ℝ).adherent' 1.1 (.Ioo 0 1) := by sorry
 
 example : ¬ (0.1:ℝ).adherent' 1.1 (.Ioo 0 1) := by sorry
@@ -231,7 +231,7 @@ theorem LimitPt.iff_AccPt (x:ℝ) (X: Set ℝ) : LimitPt x X ↔ AccPt x (.princ
 /-- Визначення 9.1.18 (Isolated points) -/
 abbrev IsolatedPt (x:ℝ) (X: Set ℝ) := x ∈ X ∧ ∃ ε>0, ∀ y ∈ X \ {x}, |x-y| > ε
 
-/-- Example 9.1.19 -/
+/-- Приклад 9.1.19 -/
 example : AdherentPt 3 ((.Ioo 1 2) ∪ {3}) := by sorry
 
 example : ¬ LimitPt 3 ((.Ioo 1 2) ∪ {3}) := by sorry
@@ -298,22 +298,22 @@ theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ 
     peel hC with x hx hC; rw [abs_le'] at hC; simp [hC.1]; linarith [le_max_left C 1]
   intro ⟨ M, hM, hXM ⟩; use M; intro x hx; specialize hXM hx; simp_all [abs_le']; linarith [hXM.1]
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Icc_bounded (a b:ℝ) : Bornology.IsBounded (.Icc a b) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Ici_unbounded (a: ℝ) : ¬ Bornology.IsBounded (.Ici a) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem N_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℕ ↦ (n:ℝ)) '' .univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Z_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℤ ↦ (n:ℝ)) '' .univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem Q_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℚ ↦ (n:ℝ)) '' .univ) := by sorry
 
-/-- Example 9.1.23 -/
+/-- Приклад 9.1.23 -/
 theorem R_unbounded (a: ℝ) : ¬ Bornology.IsBounded (.univ: Set ℝ) := by sorry
 
 /-- Теорема 9.1.24 / Вправа 9.1.13 (Heine-Borel theorem for the line)-/

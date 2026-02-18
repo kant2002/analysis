@@ -343,7 +343,7 @@ theorem VitaliSet.nonmeasurable : ¬ LebesgueMeasurable (Real.equiv_EuclideanSpa
     have h_three_ne_top : (3 : EReal) ≠ ⊤ := by decide
     exact h_three_ne_top (le_antisymm le_top h_le_three)
 
-/-- Proposition 1.2.18 -/
+/-- Твердження 1.2.18 -/
 theorem LebesgueMeasurable.nonmeasurable : ∃ E : Set (EuclideanSpace' 1), E ⊆ Real.equiv_EuclideanSpace' '' (Set.Icc 0 1) ∧ ¬ LebesgueMeasurable E := by
   use Real.equiv_EuclideanSpace' '' VitaliSet
   constructor

@@ -53,7 +53,7 @@ theorem left_limit.eq' {X: Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} (h: LeftLimitExi
   (nhdsWithin x₀ (X ∩ .Iio x₀)).Tendsto f (nhds (left_limit X f x₀)) := by
   simp [left_limit, h]; exact h.choose_spec
 
-/-- Example 9.5.2.  The second part of this example is no longer operative as we assign "junk" values to our functions instead of leaving them undefined. -/
+/-- Приклад 9.5.2.  The second part of this example is no longer operative as we assign "junk" values to our functions instead of leaving them undefined. -/
 example : right_limit .univ Real.sign 0 = 1 := by sorry
 
 example : left_limit .univ Real.sign 0 = -1 := by sorry

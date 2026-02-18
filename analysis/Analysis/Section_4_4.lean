@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Глава 4.4: gaps in the rational numbers
+# Аналіз I, Розділ 4.4: gaps in the rational numbers
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -16,11 +16,11 @@ Main constructions and results of this section:
 Many of the results here can be established more quickly by relying more heavily on the Mathlib
 API; one can set oneself the exercise of doing so.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -55,7 +55,7 @@ def Int.infinite_descent : Decidable (∃ a:ℕ → ℤ, ∀ n, a (n+1) < a n) :
 
 /-- Вправа 4.4.2 (b) -/
 def Rat.pos_infinite_descent : Decidable (∃ a:ℕ → {x: ℚ // 0 < x}, ∀ n, a (n+1) < a n) := by
-  -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
+  -- перший рядок цієї побудови має бути або `apply isTrue`, або `apply isFalse`.
   sorry
 
 #check even_iff_exists_two_mul

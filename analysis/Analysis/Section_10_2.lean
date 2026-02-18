@@ -44,7 +44,7 @@ example : IsMinOn f_10_2_3 (.Ioo (-1) 1) 0 := by sorry
 
 example : IsLocalMaxOn f_10_2_3 .univ 0 := by sorry
 
-/-- Example 10.2.4 -/
+/-- Приклад 10.2.4 -/
 example : ¬ ∃ x, IsMaxOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' .univ) x := by sorry
 
 example : ¬ ∃ x, IsMinOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' .univ) x := by sorry
@@ -79,13 +79,13 @@ theorem IsMaxOn.deriv_eq_zero_counter : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → �
   (hderiv: HasDerivWithinAt f L (.Icc a b) x₀), L ≠ 0 := by
   sorry
 
-/-- Theorem 10.2.7 (Rolle's theorem) / Exercise 10.2.4 -/
+/-- Theorem 10.2.7 (Rolle's theorem) / Вправа 10.2.4 -/
 theorem _root_.HasDerivWithinAt.exist_zero {a b:ℝ} (hab: a < b) {g:ℝ → ℝ}
   (hcont: ContinuousOn g (.Icc a b)) (hderiv: DifferentiableOn ℝ g (.Ioo a b))
   (hgab: g a = g b) : ∃ x ∈ Set.Ioo a b, HasDerivWithinAt g 0 (.Ioo a b) x := by
   sorry
 
-/-- Corollary 10.2.9 (Mean value theorem ) / Exercise 10.2.5 -/
+/-- Corollary 10.2.9 (Mean value theorem ) / Вправа 10.2.5 -/
 theorem _root_.HasDerivWithinAt.mean_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (.Icc a b)) (hderiv: DifferentiableOn ℝ f (.Ioo a b)) :
   ∃ x ∈ Set.Ioo a b, HasDerivWithinAt f ((f b - f a) / (b - a)) (.Ioo a b) x := by

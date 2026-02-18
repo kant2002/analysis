@@ -29,7 +29,7 @@ instance ConcreteBooleanAlgebra.instPartialOrder (X:Type*) : PartialOrder (Concr
 def ConcreteBooleanAlgebra.measurableSets {X:Type*} (B: ConcreteBooleanAlgebra X) : Set (Set X) :=
   { E | B.measurable E }
 
-/-- Example 1.4.3 -/
+/-- Приклад 1.4.3 -/
 instance ConcreteBooleanAlgebra.instOrderTop {X:Type*} : OrderTop (ConcreteBooleanAlgebra X) :=
   {
     top := {
@@ -41,7 +41,7 @@ instance ConcreteBooleanAlgebra.instOrderTop {X:Type*} : OrderTop (ConcreteBoole
     le_top := sorry
   }
 
-/-- Example 1.4.3 -/
+/-- Приклад 1.4.3 -/
 instance ConcreteBooleanAlgebra.instOrderBot {X:Type*} : OrderBot (ConcreteBooleanAlgebra X) :=
   {
     bot := {
@@ -62,7 +62,7 @@ def EuclideanSpace'.elementary_boolean_algebra (d:ℕ) : ConcreteBooleanAlgebra 
     union_mem := by sorry
   }
 
-/-- Example 1.4.4 (Jordan algebra) -/
+/-- Приклад 1.4.4 (Jordan algebra) -/
 def JordanMeasurable.boolean_algebra (d:ℕ) : ConcreteBooleanAlgebra (EuclideanSpace' d) :=
   {
     measurable := fun E => JordanMeasurable E ∨ JordanMeasurable Eᶜ
@@ -75,7 +75,7 @@ def JordanMeasurable.gt_elementary_boolean_algebra (d:ℕ) :
   JordanMeasurable.boolean_algebra d ≥ EuclideanSpace'.elementary_boolean_algebra d :=
   by sorry
 
-/-- Example 1.4.5 (Lebesgue algebra) -/
+/-- Приклад 1.4.5 (Lebesgue algebra) -/
 def LebesgueMeasurable.boolean_algebra (d:ℕ) : ConcreteBooleanAlgebra (EuclideanSpace' d) :=
   {
     measurable := fun E => LebesgueMeasurable E
@@ -88,7 +88,7 @@ def LebesgueMeasurable.gt_jordan_boolean_algebra (d:ℕ) :
   LebesgueMeasurable.boolean_algebra d ≥ JordanMeasurable.boolean_algebra d :=
   by sorry
 
-/-- Example 1.4.6 (Null algebra) -/
+/-- Приклад 1.4.6 (Null algebra) -/
 def IsNull.boolean_algebra (d:ℕ) : ConcreteBooleanAlgebra (EuclideanSpace' d) :=
   {
     measurable := fun E => IsNull E ∨ IsNull Eᶜ
@@ -137,7 +137,7 @@ def ConcreteBooleanAlgebra.toBooleanAlgebra {X:Type*} (B: ConcreteBooleanAlgebra
 
 def IsPartition {I X:Type*} (parts: I → Set X) : Prop := (Set.PairwiseDisjoint Set.univ parts) ∧ (⋃ i, parts i = Set.univ)
 
-/-- Example 1.4.7 (Atomic algebra) -/
+/-- Приклад 1.4.7 (Atomic algebra) -/
 def IsPartition.to_ConcreteBooleanAlgebra {I X: Type*} {atoms: I → Set X} (h_part: IsPartition atoms) : ConcreteBooleanAlgebra X :=
   {
     measurable := fun E => ∃ J: Set I, E = ⋃ i ∈ J, atoms i
@@ -175,7 +175,7 @@ def IsPartition.remove_empty_to_ConcreteBooleanAlgebra {I X:Type*} {parts: I →
 /-- A variant of DyadicCube with Ico intervals -/
 noncomputable def DyadicCube' {d:ℕ} (n:ℤ) (a: Fin d → ℤ) : Box d := { side := fun i ↦ BoundedInterval.Ico (a i/2^n) ((a i + 1)/2^n) }
 
-/-- Example 1.4.8 -/
+/-- Приклад 1.4.8 -/
 def DyadicCube'.partition (d n:ℕ) : IsPartition (fun (a: Fin d → ℤ) ↦ (DyadicCube' n a).toSet) :=
   by sorry
 
@@ -260,7 +260,7 @@ instance ConcreteBooleanAlgebra.instCompleteLattice {X:Type*} : CompleteLattice 
     le_sInf := sorry
   }
 
-/-- Example 1.4.11 -/
+/-- Приклад 1.4.11 -/
 instance ConcreteBooleanAlgebra.eq_generated_by_iff {X:Type*} (F: Set (Set X)) : ∃ (B : ConcreteBooleanAlgebra X), B.measurableSets = F ↔ (ConcreteBooleanAlgebra.generated_by F).measurableSets = F := by sorry
 
 /-- Вправа 1.4.7 (Generation by boxes) -/

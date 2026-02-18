@@ -431,7 +431,7 @@ theorem JordanMeasurable.nonneg {d:ℕ} {E : Set (EuclideanSpace' d)}
   (hE: JordanMeasurable E) : 0 ≤ hE.measure := by
   exact Jordan_inner_measure_nonneg E
 
-/- Exercise 1.1.6 (iii) (finite additivity) -/
+/- Вправа 1.1.6 (iii) (finite additivity) -/
 noncomputable section JordanFiniteAdditivityLemmas
 
 /-

@@ -3,7 +3,7 @@ import Analysis.Section_5_1
 
 
 /-!
-# Аналіз I, Глава 5.2: Equivalent Cauchy sequences
+# Аналіз I, Розділ 5.2: Equivalent Cauchy sequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -15,11 +15,11 @@ Main constructions and results of this section:
 - Notion of an ε-close and eventually ε-close sequences of rationals.
 - Notion of an equivalent Cauchy sequence of rationals.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -36,14 +36,14 @@ namespace Chapter5
 lemma Rat.closeSeq_def (ε: ℚ) (a b: Sequence) :
     ε.CloseSeq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n) := by rfl
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : (0.1:ℚ).CloseSeq ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence) := by sorry
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence) := by sorry
 
-/-- Example 5.2.2 -/
+/-- Приклад 5.2.2 -/
 example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence) := by sorry
 
 /-- Визначення 5.2.3 (Eventually ε-close sequences) -/
@@ -54,7 +54,7 @@ lemma Rat.eventuallyClose_def (ε: ℚ) (a b: Sequence) :
 lemma Rat.eventuallyClose_iff (ε: ℚ) (a b: ℕ → ℚ) :
     ε.EventuallyClose (a:Sequence) (b:Sequence) ↔ ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
 
-/-- Example 5.2.5 -/
+/-- Приклад 5.2.5 -/
 example : ¬ (0.1:ℚ).CloseSeq ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 

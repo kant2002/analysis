@@ -28,7 +28,7 @@ theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
 #check continuous_iff_continuousOn_univ
 #check continuousWithinAt_univ
 
-/-- Example 9.4.2 --/
+/-- Приклад 9.4.2 --/
 example (c x₀:ℝ) : ContinuousWithinAt (fun x ↦ c) .univ x₀ := by sorry
 
 example (c x₀:ℝ) : ContinuousAt (fun x ↦ c) x₀ := by sorry
@@ -112,7 +112,7 @@ theorem ContinuousWithinAt.div' {X:Set ℝ} (f g: ℝ → ℝ) {x₀:ℝ} (h : x
 theorem Continuous.exp {a:ℝ} (ha: a>0) : Continuous (fun x:ℝ ↦ a ^ x) := by
   sorry
 
-/-- Proposition 9.4.11 / Exercise 9.4.4 -/
+/-- Твердження 9.4.11 / Вправа 9.4.4 -/
 theorem Continuous.exp' (p:ℝ) : ContinuousOn (fun x:ℝ ↦ x ^ p) (.Ioi 0) := by
   sorry
 

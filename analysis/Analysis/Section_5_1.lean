@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_4_3
 
 /-!
-# Аналіз I, Глава 5.1: Cauchy sequences
+# Аналіз I, Розділ 5.1: Cauchy sequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -15,11 +15,11 @@ Main constructions and results of this section:
 - Notion of a sequence of rationals
 - Notions of `ε`-steadiness, eventual `ε`-steadiness, and Cauchy sequences
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 

@@ -16,11 +16,11 @@ Filling the sorries here requires both the Chapter5.Real API and the Mathlib API
 natural numbers `ℝ`.  As such, they are excellent exercises to prepare you for the aforementioned
 transition.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 -/
 
@@ -151,14 +151,14 @@ theorem Sequence.IsCauchy.to_IsCauSeq {a: ℕ → ℚ} (ha: IsCauchy a) : IsCauS
   sorry
 
 -- Convertion of an `IsCauchy` to a `CauSeq`
-abbrev Sequence.IsCauchy.CauSeq {a: ℕ → ℚ} : (ha: IsCauchy a) → CauSeq ℚ _root_.abs := 
+abbrev Sequence.IsCauchy.CauSeq {a: ℕ → ℚ} : (ha: IsCauchy a) → CauSeq ℚ _root_.abs :=
   (⟨a, ·.to_IsCauSeq⟩)
 
--- We then set up the conversion from Sequence.Equiv to CauSeq.LimZero because 
+-- We then set up the conversion from Sequence.Equiv to CauSeq.LimZero because
 -- it is the equivalence relation
 example {a b: CauSeq ℚ abs} : a ≈ b ↔ CauSeq.LimZero (a - b) := by rfl
 
-theorem Sequence.Equiv.LimZero {a b: ℕ → ℚ} (ha: IsCauchy a) (hb: IsCauchy b) (h:Equiv a b) 
+theorem Sequence.Equiv.LimZero {a b: ℕ → ℚ} (ha: IsCauchy a) (hb: IsCauchy b) (h:Equiv a b)
   : CauSeq.LimZero (ha.CauSeq - hb.CauSeq) := by
     sorry
 
@@ -167,7 +167,7 @@ theorem Real.mk_eq_mk {a b: ℕ → ℚ} (ha : Sequence.IsCauchy a) (hb : Sequen
   : Real.mk ha.CauSeq = Real.mk hb.CauSeq := Real.mk_eq.mpr (hab.LimZero ha hb)
 
 -- Both directions of the equivalence
-theorem Sequence.Equiv_iff_LimZero {a b: ℕ → ℚ} (ha: IsCauchy a) (hb: IsCauchy b) 
+theorem Sequence.Equiv_iff_LimZero {a b: ℕ → ℚ} (ha: IsCauchy a) (hb: IsCauchy b)
   : Equiv a b ↔ CauSeq.LimZero (ha.CauSeq - hb.CauSeq) := by
     refine ⟨(·.LimZero ha hb), ?_⟩
     sorry
@@ -182,13 +182,13 @@ theorem Sequence.difference_approaches_zero {a: ℕ → ℚ} (ha: Sequence.IsCau
     sorry
 
 -- There exists a Cauchy sequence entirely above the LIM
-theorem Real.exists_equiv_above {a: ℕ → ℚ} (ha: Sequence.IsCauchy a) 
-  : ∃(b: ℕ → ℚ), Sequence.IsCauchy b ∧ Sequence.Equiv a b ∧ ∀n, LIM a ≤ b n := by 
+theorem Real.exists_equiv_above {a: ℕ → ℚ} (ha: Sequence.IsCauchy a)
+  : ∃(b: ℕ → ℚ), Sequence.IsCauchy b ∧ Sequence.Equiv a b ∧ ∀n, LIM a ≤ b n := by
     sorry
 
 -- There exists a Cauchy sequence entirely below the LIM
-theorem Real.exists_equiv_below {a: ℕ → ℚ} (ha: Sequence.IsCauchy a) 
-  : ∃(b: ℕ → ℚ), Sequence.IsCauchy b ∧ Sequence.Equiv a b ∧ ∀n, b n ≤ LIM a := by 
+theorem Real.exists_equiv_below {a: ℕ → ℚ} (ha: Sequence.IsCauchy a)
+  : ∃(b: ℕ → ℚ), Sequence.IsCauchy b ∧ Sequence.Equiv a b ∧ ∀n, b n ≤ LIM a := by
     sorry
 
 ----
@@ -200,8 +200,8 @@ theorem Real.exists_equiv_below {a: ℕ → ℚ} (ha: Sequence.IsCauchy a)
 
 -- Transform a `Real` to an `ℝ` by going through Cauchy Sequences
 -- we can use the conversion of Real.mk_eq to use different sequences to show different parts
-theorem Real.equivR_eq' {a: ℕ → ℚ} (ha: Sequence.IsCauchy a) 
-  : (LIM a).equivR = Real.mk ha.CauSeq := by 
+theorem Real.equivR_eq' {a: ℕ → ℚ} (ha: Sequence.IsCauchy a)
+  : (LIM a).equivR = Real.mk ha.CauSeq := by
     by_cases hq: ∃(q: ℚ), q = LIM a
     · sorry
     show sSup (Rat.cast '' (LIM a).toSet_Rat) = _
@@ -215,8 +215,8 @@ theorem Real.equivR_eq' {a: ℕ → ℚ} (ha: Sequence.IsCauchy a)
     intro M hM
     sorry
 
-lemma Real.equivR_eq (x: Real) : ∃(a : ℕ → ℚ) (ha: Sequence.IsCauchy a), 
-  x = LIM a ∧ x.equivR = Real.mk ha.CauSeq := by 
+lemma Real.equivR_eq (x: Real) : ∃(a : ℕ → ℚ) (ha: Sequence.IsCauchy a),
+  x = LIM a ∧ x.equivR = Real.mk ha.CauSeq := by
     obtain ⟨a, ha, rfl⟩ := x.eq_lim
     exact ⟨a, ha, rfl, equivR_eq' ha⟩
 

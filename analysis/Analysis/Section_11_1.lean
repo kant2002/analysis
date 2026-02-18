@@ -74,7 +74,7 @@ example : (∅:Set ℝ).OrdConnected := by sorry
 
 example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 
-/-- Лема 11.1.4 / Exercise 11.1.1 -/
+/-- Лема 11.1.4 / Вправа 11.1.1 -/
 theorem Bornology.IsBounded.of_boundedInterval (I: BoundedInterval) : Bornology.IsBounded (I:Set ℝ) := by
   sorry
 
@@ -429,7 +429,7 @@ noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I
     }
 
 
-/-- Example 11.1.17 -/
+/-- Приклад 11.1.17 -/
 example : ∃ P P' : Partition (Icc 1 4), P.intervals = {Ico 1 3, Icc 3 4} ∧ P'.intervals = {Icc 1 2, Ioc 2 4} ∧
   (P' ⊔ P).intervals = {Icc 1 2, Ioo 2 3, Icc 3 4, ∅} := by
   sorry

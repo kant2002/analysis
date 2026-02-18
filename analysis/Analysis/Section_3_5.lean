@@ -4,7 +4,7 @@ import Analysis.Section_3_2
 import Analysis.Section_3_4
 
 /-!
-# Аналіз I, Глава 3.5: Декартови добутки
+# Аналіз I, Розділ 3.5: Декартови добутки
 
 Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
@@ -18,11 +18,11 @@ import Analysis.Section_3_4
 - Зліченний вибіру.
 - Зв'язок із Mathlib аналогами такими як `Set.pi` та `Set.prod`.
 
-## Tips from past users
+## Підказки від попередніх користувачів
 
-Users of the companion who have completed the exercises in this section are welcome to send their tips for future users in this section as PRs.
+Користувачі супровідного матеріалу, які виконали вправи в цьому розділі, можуть надсилати свої поради майбутнім користувачам цього розділу як PRи.
 
-- (Add tip here)
+- (Додайте підказку тут)
 
 --/
 
@@ -34,8 +34,8 @@ variable [SetTheory]
 
 open SetTheory.Set
 
-/-- Визначення 3.5.1 (Впорядкована пара).  One could also have used `Object × Object` to
-define `OrderedPair` here. -/
+/-- Визначення 3.5.1 (Впорядкована пара).  Тут також можна було використати `Object × Object`
+ для визначення `OrderedPair`. -/
 @[ext]
 structure OrderedPair where
   fst: Object
@@ -48,12 +48,12 @@ structure OrderedPair where
 theorem OrderedPair.eq (x y x' y' : Object) :
     (⟨ x, y ⟩ : OrderedPair) = (⟨ x', y' ⟩ : OrderedPair) ↔ x = x' ∧ y = y' := by aesop
 
-/-- Helper lemma for Вправа 3.5.1 -/
+/-- Вспоміжна лема для Вправи 3.5.1 -/
 lemma SetTheory.Set.pair_eq_singleton_iff {a b c: Object} : {a, b} = ({c}: Set) ↔
     a = c ∧ b = c := by
   sorry
 
-/-- Вправа 3.5.1, first part -/
+/-- Вправа 3.5.1, перша частина -/
 def OrderedPair.toObject : OrderedPair ↪ Object where
   toFun p := ({ (({p.fst}:Set):Object), (({p.fst, p.snd}:Set):Object) }:Set)
   inj' := by sorry
@@ -104,7 +104,7 @@ theorem SetTheory.Set.pair_eq_fst_snd {X Y:Set} (z:X ×ˢ Y) :
   obtain ⟨ x, hx: z.val = (⟨ x, snd z ⟩:OrderedPair)⟩ := (exists_comm.mp this).choose_spec
   simp_all [EmbeddingLike.apply_eq_iff_eq]
 
-/-- This equips an `OrderedPair` with proofs that `x ∈ X` and `y ∈ Y`. -/
+/-- Це надає `OrderedPair` докази того, що `x ∈ X` та `y ∈ Y`. -/
 def SetTheory.Set.mk_cartesian {X Y:Set} (x:X) (y:Y) : X ×ˢ Y :=
   ⟨(⟨ x, y ⟩:OrderedPair), by simp⟩
 
@@ -128,9 +128,9 @@ theorem SetTheory.Set.mk_cartesian_fst_snd_eq {X Y: Set} (z: X ×ˢ Y) :
   rw [mk_cartesian, Subtype.mk.injEq, pair_eq_fst_snd]
 
 /--
-  Connections with the Mathlib set product, which consists of Lean pairs like `(x, y)`
-  equipped with a proof that `x` is in the left set, and `y` is in the right set.
-  Lean pairs like `(x, y)` are similar to our `OrderedPair`, but more general.
+  Зв’язки з добутком множин у Mathlib, який складається з пар Lean на кшталт `(x, y)`,
+  озброєних доказом того, що `x` належить лівій множині, а `y` — правій.
+  Пари Lean на кшталт `(x, y)` подібні до нашого `OrderedPair`, але більш загальні.
 -/
 noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
     ((X ×ˢ Y):_root_.Set Object) ≃ (X:_root_.Set Object) ×ˢ (Y:_root_.Set Object) where
@@ -139,7 +139,7 @@ noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
   left_inv _ := by simp
   right_inv _ := by simp
 
-/-- Example 3.5.5 -/
+/-- Приклад 3.5.5 -/
 example : ({1, 2}: Set) ×ˢ ({3, 4, 5}: Set) = ({
   ((mk_cartesian (1: Nat) (3: Nat)): Object),
   ((mk_cartesian (1: Nat) (4: Nat)): Object),
@@ -149,23 +149,23 @@ example : ({1, 2}: Set) ×ˢ ({3, 4, 5}: Set) = ({
   ((mk_cartesian (2: Nat) (5: Nat)): Object)
 }: Set) := by ext; aesop
 
-/-- Example 3.5.5 / Exercise 3.6.5. There is a bijection between `X ×ˢ Y` and `Y ×ˢ X`. -/
+/-- Приклад 3.5.5 / Вправа 3.6.5. Існує бієкція між `X ×ˢ Y` та `Y ×ˢ X`. -/
 noncomputable abbrev SetTheory.Set.prod_commutator (X Y:Set) : X ×ˢ Y ≃ Y ×ˢ X where
   toFun := sorry
   invFun := sorry
   left_inv := sorry
   right_inv := sorry
 
-/-- Example 3.5.5. A function of two variables can be thought of as a function of a pair. -/
+/-- Приклад 3.5.5. Функцію двох змінних можна розглядати як функцію від пари. -/
 noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃ (X ×ˢ Y → Z) where
   toFun f z := f (fst z) (snd z)
   invFun f x y := f ⟨ (⟨ x, y ⟩:OrderedPair), by simp ⟩
   left_inv _ := by simp
   right_inv _ := by simp [←pair_eq_fst_snd]
 
-/-- Визначення 3.5.6.  The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
-    See Exercise 3.5.10 below for some connections betweeen this concept and the preceding notion
-    of Cartesian product and ordered pair.  -/
+/-- Визначення 3.5.6.  Індексуюча множина `I` відіграє роль `{ i : 1 ≤ i ≤ n }` у тексті.
+  Див. Вправу 3.5.10 нижче для деяких зв’язків між цим поняттям і попереднім поняттям декартового
+  добутку та впорядкованої пари. -/
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (x: ∀ i, X i) : Object :=
   ((fun i ↦ ⟨ x i, by rw [mem_iUnion]; use i; exact (x i).property ⟩):I → iUnion I X)
 
@@ -189,7 +189,7 @@ theorem SetTheory.Set.tuple_mem_iProd {I: Set} {X: I → Set} (x: ∀ i, X i) :
 theorem SetTheory.Set.tuple_inj {I:Set} {X: I → Set} (x y: ∀ i, X i) :
     tuple x = tuple y ↔ x = y := by sorry
 
-/-- Example 3.5.8. There is a bijection between `(X ×ˢ Y) ×ˢ Z` and `X ×ˢ (Y ×ˢ Z)`. -/
+/-- Приклад 3.5.8. Існує бієкція між `(X ×ˢ Y) ×ˢ Z` та `X ×ˢ (Y ×ˢ Z)`. -/
 noncomputable abbrev SetTheory.Set.prod_associator (X Y Z:Set) : (X ×ˢ Y) ×ˢ Z ≃ X ×ˢ (Y ×ˢ Z) where
   toFun p := mk_cartesian (fst (fst p)) (mk_cartesian (snd (fst p)) (snd p))
   invFun p := mk_cartesian (mk_cartesian (fst p) (fst (snd p))) (snd (snd p))
@@ -197,8 +197,8 @@ noncomputable abbrev SetTheory.Set.prod_associator (X Y Z:Set) : (X ×ˢ Y) ×ˢ
   right_inv _ := by simp
 
 /--
-  Example 3.5.10. I suspect most of the equivalences will require classical reasoning and only be
-  defined non-computably, but would be happy to learn of counterexamples.
+  Вправа 3.5.10. Я підозрюю, що більшість еквівалентностей вимагатиме класичного міркування
+  і будуть визначені неконструктивно, але буду радий дізнатися про контрприклади.
 -/
 noncomputable abbrev SetTheory.Set.singleton_iProd_equiv (i:Object) (X:Set) :
     iProd (fun _:({i}:Set) ↦ X) ≃ X where
@@ -222,7 +222,7 @@ noncomputable abbrev SetTheory.Set.iProd_of_const_equiv (I:Set) (X: Set) :
   left_inv := sorry
   right_inv := sorry
 
-/-- Example 3.5.10 -/
+/-- Приклад 3.5.10 -/
 noncomputable abbrev SetTheory.Set.iProd_equiv_prod (X: ({0,1}:Set) → Set) :
     iProd X ≃ (X ⟨ 0, by simp ⟩) ×ˢ (X ⟨ 1, by simp ⟩) where
   toFun := sorry
@@ -327,7 +327,7 @@ abbrev SetTheory.Set.Fin_embed (n N:ℕ) (h: n ≤ N) (i: Fin n) : Fin N := ⟨ 
   have := i.property; rw [mem_Fin] at *; grind
 ⟩
 
-/-- Connections with Mathlib's `Fin n` -/
+/-- Зв'язки із Mathlib-овським `Fin n` -/
 noncomputable abbrev SetTheory.Set.Fin.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin n where
   toFun m := _root_.Fin.mk m (toNat_lt m)
   invFun m := Fin_mk n m.val m.isLt
@@ -373,9 +373,9 @@ structure SetTheory.Set.Tuple (n:ℕ) where
   surj: Function.Surjective x
 
 /--
-  Custom extensionality lemma for Exercise 3.5.2.
-  Placing `@[ext]` on the structure would generate a lemma requiring proof of `t.x = t'.x`,
-  but these functions have different types when `t.X ≠ t'.X`. This lemma handles that part.
+  Користувацька лема екстенсіональності для Вправи 3.5.2.
+  Додавання `@[ext]` до структури створило б лему, що вимагала б доведення `t.x = t'.x`,
+  але ці функції мають різні типи, коли `t.X ≠ t'.X`. Ця лема обробляє цю частину.
 -/
 @[ext]
 lemma SetTheory.Set.Tuple.ext {n:ℕ} {t t':Tuple n}

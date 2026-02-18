@@ -82,11 +82,11 @@ abbrev Sequence.IsMonotone (a:Sequence) : Prop := ∀ n ≥ a.m, a (n+1) ≥ a n
 
 abbrev Sequence.IsAntitone (a:Sequence) : Prop := ∀ n ≥ a.m, a (n+1) ≤ a n
 
-/-- Proposition 6.3.8 / Exercise 6.3.3 -/
+/-- Твердження 6.3.8 / Вправа 6.3.3 -/
 theorem Sequence.convergent_of_monotone {a:Sequence} (hbound: a.BddAbove) (hmono: a.IsMonotone) :
     a.Convergent := by sorry
 
-/-- Proposition 6.3.8 / Exercise 6.3.3 -/
+/-- Твердження 6.3.8 / Вправа 6.3.3 -/
 theorem Sequence.lim_of_monotone {a:Sequence} (hbound: a.BddAbove) (hmono: a.IsMonotone) :
     lim a = a.sup := by sorry
 
@@ -105,13 +105,13 @@ theorem Sequence.bounded_iff_convergent_of_antitone {a:Sequence} (ha: a.IsAntito
 /-- Приклад 6.3.9 -/
 noncomputable abbrev Example_6_3_9 (n:ℕ) := ⌊ Real.pi * 10^n ⌋ / (10:ℝ)^n
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).IsMonotone := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).BddAboveBy 4 := by sorry
 
-/-- Example 6.3.9 -/
+/-- Приклад 6.3.9 -/
 example : (Example_6_3_9:Sequence).Convergent := by sorry
 
 /-- Приклад 6.3.9 -/

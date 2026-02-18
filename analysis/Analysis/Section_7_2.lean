@@ -205,7 +205,7 @@ theorem Series.add_coe (a b: ℕ → ℝ) : (a:Series) + (b:Series) = (fun n ↦
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HAdd.hAdd, Add.add]
 
-/-- Proposition 7.2.14 (a) (Series laws) / Exercise 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
+/-- Твердження 7.2.14 (a) (Series laws) / Вправа 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
 theorem Series.convergesTo.add {s t:Series} {L M: ℝ} (hs: s.convergesTo L) (ht: t.convergesTo M) :
     (s + t).convergesTo (L + M) := by
   sorry
@@ -224,7 +224,7 @@ theorem Series.smul_coe (a: ℕ → ℝ) (c: ℝ) : (c • a:Series) = (fun n �
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSMul.hSMul, SMul.smul]
 
-/-- Proposition 7.2.14 (b) (Series laws) / Exercise 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
+/-- Твердження 7.2.14 (b) (Series laws) / Вправа 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
 theorem Series.convergesTo.smul {s:Series} {L c: ℝ} (hs: s.convergesTo L) :
     (c • s).convergesTo (c * L) := by
   sorry
@@ -266,7 +266,7 @@ theorem Series.shift {s:Series} {x:ℝ} (h: s.convergesTo x) (L:ℤ) :
     (mk' (m := s.m + L) (fun n ↦ s.seq (n - L))).convergesTo x := by
   sorry
 
-/-- Лема 7.2.15 (telescoping series) / Exercise 7.2.6 -/
+/-- Лема 7.2.15 (telescoping series) / Вправа 7.2.6 -/
 theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.atTop.Tendsto a (nhds 0)) :
     ((fun n:ℕ ↦ a (n+1) - a n):Series).convergesTo (a 0) := by
   sorry
