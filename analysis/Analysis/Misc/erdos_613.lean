@@ -857,7 +857,7 @@ lemma exists_red_A2_of_block2_ge6
   | B2 _ => cases hA2
   | apex  => cases hA2
 
-/-- Corollary: under the “no blue star” hypothesis, there is a red neighbor of `apex`
+/-- Наслідок: under the “no blue star” hypothesis, there is a red neighbor of `apex`
 in the appropriate clique `A1` or `A2`. -/
 lemma exists_red_clique_neighbor
     (color : Sym2 V → Fin 2)

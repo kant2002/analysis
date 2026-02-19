@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Section 8.1: Countability
+# Аналіз I, Розділ 8.1: Countability
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -101,7 +101,7 @@ theorem CountablyInfinite.iff_image_inj {A:Type} (X: Set A) : CountablyInfinite 
   . rintro ⟨ x, hx ⟩ ⟨ y, hy ⟩ h; grind
   intro n; use ⟨ f n, by aesop ⟩; grind
 
-/-- Examples 8.1.3 -/
+/-- Приклади 8.1.3 -/
 example : CountablyInfinite ℕ := by sorry
 
 example : CountablyInfinite (.univ \ {0}: Set ℕ) := by sorry
@@ -147,7 +147,7 @@ theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX :=
 
 /-- Твердження 8.1.5 -/
 theorem Nat.monotone_enum_of_infinite (X : Set ℕ) [Infinite X] : ∃! f : ℕ → X, Function.Bijective f ∧ StrictMono f := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   let a : ℕ → ℕ := Nat.strongRec (fun n a ↦ min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m h })
   have ha : ∀ n, a n = min { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m } := Nat.strongRec.eq_def _
   have ha_infinite (n:ℕ) : Infinite { x ∈ X | ∀ (m:ℕ) (h:m < n), x ≠ a m } := by
@@ -188,15 +188,15 @@ theorem Nat.countable_of_infinite (X : Set ℕ) [Infinite X] : CountablyInfinite
   have := (monotone_enum_of_infinite X).exists
   exact EqualCard.symm ⟨ this.choose, this.choose_spec.1 ⟩
 
-/-- Corollary 8.1.6 -/
+/-- Наслідок 8.1.6 -/
 theorem Nat.atMostCountable_subset (X: Set ℕ) : AtMostCountable X := by
   obtain _ | _ := finite_or_infinite X
   . tauto
   simp [AtMostCountable, countable_of_infinite]
 
-/-- Corollary 8.1.7 -/
+/-- Наслідок 8.1.7 -/
 theorem AtMostCountable.subset {X: Type} (hX : AtMostCountable X) (Y: Set X) : AtMostCountable Y := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   obtain ⟨ f, hf ⟩ | hX := hX
   . let f' : Y → f '' Y := fun y ↦ ⟨ f y, by aesop ⟩
     have hf' : Function.Bijective f' := by
@@ -213,7 +213,7 @@ theorem AtMostCountable.subset' {A: Type} {X Y: Set A} (hX: AtMostCountable X) (
 theorem AtMostCountable.image_nat (Y: Type) (f: ℕ → Y) : AtMostCountable (f '' .univ) := by
   sorry
 
-/-- Corollary 8.1.9 / Вправа 8.1.5 -/
+/-- Наслідок 8.1.9 / Вправа 8.1.5 -/
 theorem AtMostCountable.image {X:Type} (hX: CountablyInfinite X) {Y: Type} (f: X → Y) : AtMostCountable (f '' .univ) := by
   sorry
 
@@ -222,9 +222,9 @@ theorem CountablyInfinite.union {A:Type} {X Y: Set A} (hX: CountablyInfinite X) 
   CountablyInfinite (X ∪ Y: Set A) := by
   sorry
 
-/-- Corollary 8.1.11 --/
+/-- Наслідок 8.1.11 --/
 theorem Int.countablyInfinite : CountablyInfinite ℤ := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have h1 : CountablyInfinite {n:ℤ | n ≥ 0} := by
     rw [CountablyInfinite.iff_image_inj]
     use ⟨ (↑·:ℕ → ℤ), by intro _ _ _; simp_all ⟩
@@ -241,7 +241,7 @@ theorem Int.countablyInfinite : CountablyInfinite ℤ := by
 
 /-- Лема 8.1.12 -/
 theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 ≤ n.1 } := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   let A := { n : ℕ × ℕ | n.2 ≤ n.1 }
   let a : ℕ → ℕ := fun n ↦ ∑ m ∈ .range (n+1), m
   have ha : StrictMono a := by
@@ -275,7 +275,7 @@ theorem CountablyInfinite.lower_diag : CountablyInfinite { n : ℕ × ℕ | n.2 
     sorry
   simp [AtMostCountable] at this; tauto
 
-/-- Corollary 8.1.13 -/
+/-- Наслідок 8.1.13 -/
 theorem CountablyInfinite.prod_nat : CountablyInfinite (ℕ × ℕ) := by
   have upper_diag : CountablyInfinite { n : ℕ × ℕ | n.1 ≤ n.2 } := by
     refine (equiv ⟨ fun ⟨ (n, m), _ ⟩ ↦ ⟨ (m, n), by aesop ⟩, ?_, ?_ ⟩).mp lower_diag
@@ -285,14 +285,14 @@ theorem CountablyInfinite.prod_nat : CountablyInfinite (ℕ × ℕ) := by
     convert union lower_diag upper_diag; ext ⟨ n, m ⟩; simp; omega
   exact (equiv (.univ _)).mp this
 
-/-- Corollary 8.1.14 / Вправа 8.1.8 -/
+/-- Наслідок 8.1.14 / Вправа 8.1.8 -/
 theorem CountablyInfinite.prod {X Y:Type} (hX: CountablyInfinite X) (hY: CountablyInfinite Y) :
   CountablyInfinite (X × Y) := by
   sorry
 
-/-- Corollary 8.1.15 -/
+/-- Наслідок 8.1.15 -/
 theorem Rat.countablyInfinite : CountablyInfinite ℚ := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have : CountablyInfinite { n:ℤ | n ≠ 0 } := by
     sorry
   apply Int.countablyInfinite.prod at this

@@ -4,7 +4,7 @@ import Analysis.Section_9_3
 import Analysis.Section_9_4
 
 /-!
-# Analysis I, Section 9.6: The maximum principle
+# Аналіз I, Розділ 9.6: The maximum principle
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -50,7 +50,7 @@ theorem why_7_6_3 {n: ℕ → ℕ} (hn: StrictMono n) (j:ℕ) : n j ≥ j := by 
 /-- Лема 9.6.3 -/
 theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b) ) :
   BddOn f (.Icc a b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_contra! hunbound; simp [BddOn] at hunbound
   set x := fun (n:ℕ) ↦ (hunbound n).choose
   have hx (n:ℕ) : a ≤ x n ∧ x n ≤ b ∧ n < |f (x n)| := (hunbound n).choose_spec
@@ -84,7 +84,7 @@ theorem BddBelowOn.isMinOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMinOn f 
 /-- Твердження 9.6.7 (Maximum principle) -/
 theorem IsMaxOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) :
   ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   choose M hM using BddOn.of_continuous_on_compact h hf
   set E := f '' (.Icc a b)
   have hE : E ⊆ .Icc (-M) M := by rintro _ ⟨ x, hx, rfl ⟩; simp [hM x hx, ←abs_le]

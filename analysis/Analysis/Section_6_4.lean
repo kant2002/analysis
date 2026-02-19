@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_3
 
 /-!
-# Analysis I, Section 6.4: Limsup, liminf, and limit points
+# Аналіз I, Розділ 6.4: Limsup, liminf, and limit points
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -156,7 +156,7 @@ theorem Sequence.lt_liminf_bounds {a:Sequence} {y:EReal} (h: y < a.liminf) :
 /-- Твердження 6.4.12(b) -/
 theorem Sequence.lt_limsup_bounds {a:Sequence} {x:EReal} (h: x < a.limsup) {N:ℤ} (hN: N ≥ a.m) :
     ∃ n ≥ N, a n > x := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have hx : x < a.upperseq N := by apply lt_of_lt_of_le h (sInf_le _); simp; use N
   choose n hn hxn _ using exists_between_lt_sup hx
   grind
@@ -272,7 +272,7 @@ theorem Sequence.finite_limsup_liminf_of_bounded {a:Sequence} (hbound: a.IsBound
 /-- Теорема 6.4.18 (Completeness of the reals) -/
 theorem Sequence.Cauchy_iff_convergent (a:Sequence) :
   a.IsCauchy ↔ a.Convergent := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   refine ⟨ ?_, IsCauchy.convergent ⟩; intro h
   have ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ L_minus, hL_minus ⟩ ⟩ :=
     finite_limsup_liminf_of_bounded (bounded_of_cauchy h)

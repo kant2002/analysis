@@ -3,7 +3,7 @@ import Mathlib.Topology.Instances.Irrational
 import Analysis.Section_11_6
 
 /-!
-# Analysis I, Section 11.8: The Riemann-Stieltjes integral
+# Аналіз I, Розділ 11.8: The Riemann-Stieltjes integral
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -250,7 +250,7 @@ theorem f_11_8_6_RS_integ : PiecewiseConstantWith.RS_integ f_11_8_6 P_11_8_6 (fu
 theorem PiecewiseConstantWith.RS_integ_eq_integ {f:ℝ → ℝ} {I: BoundedInterval} (P: Partition I) :RS_integ f P (fun x ↦ x) = integ f P := by
   sorry
 
-/-- Analogue of Proposition 11.2.13 -/
+/-- Аналог Твердження 11.2.13 -/
 theorem PiecewiseConstantWith.RS_integ_eq {f:ℝ → ℝ} {I: BoundedInterval} {P P': Partition I}
   (hP: PiecewiseConstantWith f P) (hP': PiecewiseConstantWith f P') (α:ℝ → ℝ): RS_integ f P α = RS_integ f P' α := by
   sorry

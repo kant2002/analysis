@@ -3,17 +3,17 @@ import Analysis.Section_5_1
 
 
 /-!
-# Аналіз I, Розділ 5.2: Equivalent Cauchy sequences
+# Аналіз I, Розділ 5.2: Еквівалентні послідовності Коші
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Notion of an ε-close and eventually ε-close sequences of rationals.
-- Notion of an equivalent Cauchy sequence of rationals.
+- Поняття ε-близьких та з часом ε-близьких послідовностей раціональних чисел.
+- Поняття еквівалентної послідовності Коші раціональних чисел.
 
 ## Підказки від попередніх користувачів
 
@@ -32,7 +32,7 @@ abbrev Rat.EventuallyClose (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
 
 namespace Chapter5
 
-/-- Визначення 5.2.1 ($ε$-close sequences) -/
+/-- Визначення 5.2.1 ($ε$-близькі послідовності) -/
 lemma Rat.closeSeq_def (ε: ℚ) (a b: Sequence) :
     ε.CloseSeq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n) := by rfl
 
@@ -46,11 +46,11 @@ example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence) := by sorr
 /-- Приклад 5.2.2 -/
 example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence) := by sorry
 
-/-- Визначення 5.2.3 (Eventually ε-close sequences) -/
+/-- Визначення 5.2.3 (З часом ε-близькі послідовності) -/
 lemma Rat.eventuallyClose_def (ε: ℚ) (a b: Sequence) :
     ε.EventuallyClose a b ↔ ∃ N, ε.CloseSeq (a.from N) (b.from N) := by rfl
 
-/-- Визначення 5.2.3 (Eventually ε-close sequences) -/
+/-- Визначення 5.2.3 (З часом ε-близькі послідовності) -/
 lemma Rat.eventuallyClose_iff (ε: ℚ) (a b: ℕ → ℚ) :
     ε.EventuallyClose (a:Sequence) (b:Sequence) ↔ ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
 
@@ -64,22 +64,22 @@ example : (0.1:ℚ).EventuallyClose ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Seq
 example : (0.01:ℚ).EventuallyClose ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):Sequence)
   ((fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)):Sequence) := by sorry
 
-/-- Визначення 5.2.6 (Equivalent sequences) -/
+/-- Визначення 5.2.6 (Еквівалентні послідовності) -/
 abbrev Sequence.Equiv (a b: ℕ → ℚ) : Prop :=
   ∀ ε > (0:ℚ), ε.EventuallyClose (a:Sequence) (b:Sequence)
 
-/-- Визначення 5.2.6 (Equivalent sequences) -/
+/-- Визначення 5.2.6 (Еквівалентні послідовності) -/
 lemma Sequence.equiv_def (a b: ℕ → ℚ) :
     Equiv a b ↔ ∀ (ε:ℚ), ε > 0 → ε.EventuallyClose (a:Sequence) (b:Sequence) := by rfl
 
-/-- Визначення 5.2.6 (Equivalent sequences) -/
+/-- Визначення 5.2.6 (Еквівалентні послідовності) -/
 lemma Sequence.equiv_iff (a b: ℕ → ℚ) : Equiv a b ↔ ∀ ε > 0, ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by
   sorry
 
 /-- Твердження 5.2.8 -/
 lemma Sequence.equiv_example :
-  -- This proof is perhaps more complicated than it needs to be; a shorter version may be
-  -- possible that is still faithful to the original text.
+  -- Це доведення, можливо, складніше, ніж потрібно; можлива коротша версія,
+  -- яка все ще відповідає оригінальному тексту.
   Equiv (fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)) (fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)) := by
   set a := fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)
   set b := fun n:ℕ ↦ (1:ℚ)-10^(-(n:ℤ)-1)

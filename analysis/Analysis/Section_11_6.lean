@@ -3,7 +3,7 @@ import Analysis.Section_9_8
 import Analysis.Section_11_5
 
 /-!
-# Analysis I, Section 11.6: Riemann integrability of monotone functions
+# Аналіз I, Розділ 11.6: Riemann integrability of monotone functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -135,7 +135,7 @@ theorem integ_of_antitone {a b:ℝ} {f:ℝ → ℝ} (hf: AntitoneOn f (Icc a b))
   IntegrableOn f (Icc a b) := by
   rw [←neg_neg f]; apply (integ_of_monotone _).neg.1; convert hf.neg using 1
 
-/-- Corollary 11.6.3 / Вправа 11.6.1 -/
+/-- Наслідок 11.6.3 / Вправа 11.6.1 -/
 theorem integ_of_bdd_monotone {I:BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn f I)
   (hf: MonotoneOn f I) : IntegrableOn f I := by
   sorry

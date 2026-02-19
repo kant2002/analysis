@@ -33,7 +33,7 @@ theorem NNRealDecimal.toNNReal_conv (d:NNRealDecimal) :
   sorry
 
 theorem NNRealDecimal.surj (x:NNReal) : ∃ d:NNRealDecimal, x = d := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_cases h : x = 0
   . use mk 0 fun _ ↦ 0; simp [h, toNNReal]
   let s : ℕ → ℕ := fun n ↦ ⌊ x * 10^n ⌋₊
@@ -86,7 +86,7 @@ theorem NNRealDecimal.surj (x:NNReal) : ∃ d:NNRealDecimal, x = d := by
 
 /-- Твердження B.2.2 -/
 theorem NNRealDecimal.not_inj : (1:NNReal) = (mk 1 fun _ ↦ 0) ∧ (1:NNReal) = (mk 0 fun _ ↦ 9) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   simp [toNNReal]
   have := (mk 0 fun _ ↦ 9).toNNReal_conv.tendsto_sum_tsum_nat
   simp at this

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_8_4
 
 /-!
-# Analysis I, Section 8.5: Ordered sets
+# Аналіз I, Розділ 8.5: Ordered sets
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -84,7 +84,7 @@ theorem IsMax.iff {X:Type} [PartialOrder X] (x:X) :
 theorem IsMin.iff {X:Type} [PartialOrder X] (x:X) :
   IsMin x ↔ ¬ ∃ y, x > y := by rw [isMin_iff_forall_not_lt]; grind
 
-/-- Examples 8.5.6 -/
+/-- Приклади 8.5.6 -/
 example : IsMin (⟨ {2}, by aesop ⟩ : X_8_5_4) := by sorry
 example : IsMax (⟨ {1,2}, by aesop ⟩ : X_8_5_4) := by sorry
 example : IsMax (⟨ {2,3,4}, by aesop ⟩ : X_8_5_4) := by sorry

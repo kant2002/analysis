@@ -5,7 +5,7 @@ import Analysis.Section_11_9
 
 
 /-!
-# Analysis I, Section 11.10: Consequences of the fundamental theorems
+# Аналіз I, Розділ 11.10: Consequences of the fundamental theorems
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the
 original text. When there is a choice between a more idiomatic Lean solution and a
@@ -75,7 +75,7 @@ theorem PiecewiseConstantOn.RS_integ_eq_integ_of_mul_deriv
             intros; solve_by_elim [DifferentiableWithinAt.hasDerivWithinAt]
       all_goals linarith
 
-/-- Corollary 11.10.3 -/
+/-- Наслідок 11.10.3 -/
 theorem RS_integ_eq_integ_of_mul_deriv
   {a b:ℝ} (hab: a < b) {α f:ℝ → ℝ} (hα: Monotone α)
   (hα_diff: DifferentiableOn ℝ α (Icc a b)) (hαcont: Continuous α)

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_4
 
 /-!
-# Analysis I, Section 6.5: Some standard limits
+# Аналіз I, Розділ 6.5: Some standard limits
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -49,7 +49,7 @@ lemma Sequence.pow_succ (a:Sequence) (k:ℕ): a^(k+1) = a^k * a := by
 /-- Наслідок 6.5.1 -/
 theorem Sequence.lim_of_power_decay {k:ℕ} :
     ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(1/(k+1:ℝ))):Sequence).TendsTo 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set a := ((fun (n:ℕ) ↦ 1/((n:ℝ)+1)^(1/(k+1:ℝ))):Sequence)
   have ha : a.BddBelow := by use 0; intro n _; simp [a]; positivity
   have ha' : a.IsAntitone := by

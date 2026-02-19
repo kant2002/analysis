@@ -4,7 +4,7 @@ import Mathlib.Data.Nat.Nth
 import Analysis.Section_9_6
 
 /-!
-# Analysis I, Section 9.9: Uniform continuity
+# Аналіз I, Розділ 9.9: Uniform continuity
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -177,7 +177,7 @@ theorem UniformContinuousOn.of_bounded {E X:Set ℝ} {f: ℝ → ℝ}
 theorem UniformContinuousOn.of_continuousOn {a b:ℝ} {f:ℝ → ℝ}
   (hcont: ContinuousOn f (.Icc a b)) :
   UniformContinuousOn f (.Icc a b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_contra h; rw [iff_preserves_equiv] at h
   simp [-Set.mem_Icc] at h
   choose x hx y hy hequiv ε hε h using h

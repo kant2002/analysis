@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_6_5
 
 /-!
-# Analysis I, Section 6.6: Subsequences
+# Аналіз I, Розділ 6.6: Subsequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -55,7 +55,7 @@ theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
 /-- Theorem 6.6.8 (Bolzano-Weierstrass theorem) -/
 theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).IsBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).Convergent := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   obtain ⟨ ⟨ L_plus, hL_plus ⟩, ⟨ _, _ ⟩ ⟩ := finite_limsup_liminf_of_bounded ha
   have := limit_point_of_limsup hL_plus
   rw [limit_point_iff_subseq] at this; peel 2 this; solve_by_elim

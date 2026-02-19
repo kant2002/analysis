@@ -2,18 +2,17 @@ import Mathlib.Tactic
 import Analysis.Section_4_3
 
 /-!
-# Аналіз I, Розділ 5.1: Cauchy sequences
+# Аналіз I, Розділ 5.1: Послідовності Коші
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні побудови та результати цього розділу:
 
-- Notion of a sequence of rationals
-- Notions of `ε`-steadiness, eventual `ε`-steadiness, and Cauchy sequences
+- Поняття послідовності раціональних чисел
+- Поняття `ε`-сталість, кінцевої `ε`-сталість та послідовностей Коші
 
 ## Підказки від попередніх користувачів
 
@@ -26,8 +25,8 @@ Main constructions and results of this section:
 namespace Chapter5
 
 /--
-  Визначення 5.1.1 (Sequence). To avoid some technicalities involving dependent types, we extend
-  sequences by zero to the left of the starting point `n₀`.
+  Визначення 5.1.1 (Послідовність). Щоб уникнути деяких технічних питань, пов’язаних із залежними типами, ми розширюємо
+послідовності нулями ліворуч від початкової точки `n₀`.
 -/
 @[ext]
 structure Sequence where
@@ -35,14 +34,14 @@ structure Sequence where
   seq : ℤ → ℚ
   vanish : ∀ n < n₀, seq n = 0
 
-/-- Sequences can be thought of as functions from ℤ to ℚ. -/
+/-- Послідовності можна розглядати як функції з ℤ у ℚ. -/
 instance Sequence.instCoeFun : CoeFun Sequence (fun _ ↦ ℤ → ℚ) where
   coe := fun a ↦ a.seq
 
 /--
-Functions from ℕ to ℚ can be thought of as sequences starting from 0; `ofNatFun` performs this conversion.
+Функції з ℕ у ℚ можна розглядати як послідовності, що починаються з 0; `ofNatFun` виконує це перетворення.
 
-The `coe` attribute allows the delaborator to print `Sequence.ofNatFun f` as `↑f`, which is more concise; you may safely remove this if you prefer the more explicit notation.
+Атрибут `coe` дозволяє делаборатору виводити `Sequence.ofNatFun f` як `↑f`, що є більш стислим; ви можете безпечно видалити його, якщо віддаєте перевагу більш явному позначенню.
 -/
 @[coe]
 def Sequence.ofNatFun (a : ℕ → ℚ) : Sequence where
@@ -54,7 +53,7 @@ def Sequence.ofNatFun (a : ℕ → ℚ) : Sequence where
 #check Sequence.ofNatFun (· ^ 2)
 
 /--
-If `a : ℕ → ℚ` is used in a context where a `Sequence` is expected, automatically coerce `a` to `Sequence.ofNatFun a` (which will be pretty-printed as `↑a`)
+Якщо `a : ℕ → ℚ` використовується в контексті, де очікується `Sequence`, автоматично перетворюйте `a` на `Sequence.ofNatFun a` (що буде гарно виведено як `↑a`).
 -/
 instance : Coe (ℕ → ℚ) Sequence where
   coe := Sequence.ofNatFun
@@ -94,13 +93,13 @@ abbrev Sequence.squares_from_three : Sequence := mk' 3 (·^2)
 /-- Приклад 5.1.2 -/
 example (n:ℤ) (hn: n ≥ 3) : Sequence.squares_from_three n = n^2 := Sequence.eval_mk _ hn
 
--- need to temporarily leave the `Chapter5` namespace to introduce the following notation
+-- потрібно тимчасово вийти з простору імен `Chapter5`, щоб ввести наступне позначення
 
 end Chapter5
 
 /--
-A slight generalization of Definition 5.1.3 - definition of ε-steadiness for a sequence with an
-arbitrary starting point n₀
+Невелике узагальнення Визначення 5.1.3 — визначення `ε`-сталості для послідовності
+з довільною початковою точкою `n₀`.
 -/
 abbrev Rat.Steady (ε: ℚ) (a: Chapter5.Sequence) : Prop :=
   ∀ n ≥ a.n₀, ∀ m ≥ a.n₀, ε.Close (a n) (a m)
@@ -111,7 +110,7 @@ lemma Rat.steady_def (ε: ℚ) (a: Chapter5.Sequence) :
 namespace Chapter5
 
 /--
-Definition 5.1.3 - definition of ε-steadiness for a sequence starting at 0
+Визначення 5.1.3 — визначення `ε`-сталості для послідовності, що починається з 0.
 -/
 lemma Rat.Steady.coe (ε : ℚ) (a:ℕ → ℚ) :
     ε.Steady a ↔ ∀ n m : ℕ, ε.Close (a n) (a m) := by
@@ -123,31 +122,31 @@ lemma Rat.Steady.coe (ε : ℚ) (a:ℕ → ℚ) :
   simp [h n m]
 
 /--
-Not in textbook: the sequence 3, 3 ... is 1-steady
-Intended as a demonstration of `Rat.Steady.coe`
+Не в підручнику: послідовність 3, 3, ... є 1-сталою
+Призначено для демонстрації `Rat.Steady.coe`
 -/
 example : (1:ℚ).Steady ((fun _:ℕ ↦ (3:ℚ)):Sequence) := by
   simp [Rat.Steady.coe, Rat.Close]
 
 /--
-Compare: if you need to work with `Rat.Steady` on the coercion directly, there will be side
-conditions `hn : n ≥ 0` and `hm : m ≥ 0` that you will need to deal with.
+Порівняйте: якщо потрібно працювати з `Rat.Steady` безпосередньо через перетворення типу, з’являться
+додаткові умови `hn : n ≥ 0` та `hm : m ≥ 0`, які доведеться враховувати.
 -/
 example : (1:ℚ).Steady ((fun _:ℕ ↦ (3:ℚ)):Sequence) := by
   intro n _ m _; simp_all [Sequence.n0_coe, Sequence.eval_coe_at_int, Rat.Close]
 
 /--
-Example 5.1.5: The sequence `1, 0, 1, 0, ...` is 1-steady.
+Приклад 5.1.5: Послідовність `1, 0, 1, 0, ...` є 1-сталою.
 -/
 example : (1:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by
   rw [Rat.Steady.coe]
   intro n m
-  -- Split into four cases based on whether n and m are even or odd
-  -- In each case, we know the exact value of a n and a m
+  -- Розділіть на чотири випадки залежно від того, чи є n та m парними або непарними
+  -- У кожному випадку ми знаємо точне значення a n та a m
   split_ifs <;> simp [Rat.Close]
 
 /--
-Приклад 5.1.5: The sequence `1, 0, 1, 0, ...` is not ½-steady.
+Приклад 5.1.5: Послідовність `1, 0, 1, 0, ...` не є ½-сталою.
 -/
 example : ¬ (0.5:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by
   rw [Rat.Steady.coe]
@@ -155,7 +154,7 @@ example : ¬ (0.5:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ
   norm_num at h
 
 /--
-Example 5.1.5: The sequence 0.1, 0.01, 0.001, ... is 0.1-steady.
+Приклад 5.1.5: Послідовність 0.1, 0.01, 0.001, ... є 0.1-сталою.
 -/
 example : (0.1:ℚ).Steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) := by
   rw [Rat.Steady.coe]
@@ -169,36 +168,36 @@ example : (0.1:ℚ).Steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) :
   linarith [show (10:ℚ) ^ (-(n:ℤ)-1) ≤ (10:ℚ) ^ (-(m:ℤ)-1) by gcongr; norm_num]
 
 /--
-Example 5.1.5: The sequence 0.1, 0.01, 0.001, ... is not 0.01-steady. Left as an exercise.
+Приклад 5.1.5: Послідовність 0.1, 0.01, 0.001, ... не є 0.01-сталою. Залишено як вправу.
 -/
 example : ¬(0.01:ℚ).Steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) := by sorry
 
-/-- Приклад 5.1.5: The sequence 1, 2, 4, 8, ... is not ε-steady for any ε. Left as an exercise.
+/-- Приклад 5.1.5: Послідовність 1, 2, 4, 8, ... не є ε-сталою для жодного ε. Залишено як вправу.
 -/
 example (ε:ℚ) : ¬ ε.Steady ((fun n:ℕ ↦ (2 ^ (n+1):ℚ) ):Sequence) := by sorry
 
-/-- Приклад 5.1.5:The sequence 2, 2, 2, ... is ε-steady for any ε > 0.
+/-- Приклад 5.1.5:Послідовність 2, 2, 2, ... є ε-стійкою для будь-якого ε > 0.
 -/
 example (ε:ℚ) (hε: ε>0) : ε.Steady ((fun _:ℕ ↦ (2:ℚ) ):Sequence) := by
   rw [Rat.Steady.coe]; simp [Rat.Close]; positivity
 
 /--
-The sequence 10, 0, 0, ... is 10-steady.
+Послідовність 10, 0, 0, ... є 10-стійкою.
 -/
 example : (10:ℚ).Steady ((fun n:ℕ ↦ if n = 0 then (10:ℚ) else (0:ℚ)):Sequence) := by
   rw [Rat.Steady.coe]; intro n m
-  -- Split into 4 cases based on whether n and m are 0 or not
+  -- Розділіть на 4 випадки залежно від того, чи n та m дорівнюють 0, чи ні.
   split_ifs <;> simp [Rat.Close]
 
 /--
-The sequence 10, 0, 0, ... is not ε-steady for any smaller value of ε.
+Послідовність 10, 0, 0, ... не є ε-стійкою для будь-якого меншого значення ε.
 -/
 example (ε:ℚ) (hε:ε<10):  ¬ ε.Steady ((fun n:ℕ ↦ if n = 0 then (10:ℚ) else (0:ℚ)):Sequence) := by
   contrapose! hε; rw [Rat.Steady.coe] at hε; specialize hε 0 1; simpa [Rat.Close] using hε
 
 /--
-  a.from n₁ starts `a:Sequence` from `n₁`.  It is intended for use when `n₁ ≥ n₀`, but returns
-  the "junk" value of the original sequence `a` otherwise.
+  a.Від n₁ починається `a:Sequence` з `n₁`. Його призначено для використання, коли `n₁ ≥ n₀`, але
+  в іншому випадку воно повертає "сміттєве" значення оригінальної послідовності `a`.
 -/
 abbrev Sequence.from (a:Sequence) (n₁:ℤ) : Sequence :=
   mk' (max a.n₀ n₁) (fun n ↦ a (n:ℤ))
@@ -208,7 +207,7 @@ lemma Sequence.from_eval (a:Sequence) {n₁ n:ℤ} (hn: n ≥ n₁) :
 
 end Chapter5
 
-/-- Визначення 5.1.6 (Eventually ε-steady) -/
+/-- Визначення 5.1.6 (ε-стійка з часом) -/
 abbrev Rat.EventuallySteady (ε: ℚ) (a: Chapter5.Sequence) : Prop := ∃ N ≥ a.n₀, ε.Steady (a.from N)
 
 lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
@@ -217,14 +216,14 @@ lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
 namespace Chapter5
 
 /--
-Приклад 5.1.7: The sequence 1, 1/2, 1/3, ... is not 0.1-steady
+Приклад 5.1.7: Послідовність 1, 1/2, 1/3, ... не є 0,1-стійкою.
 -/
 lemma Sequence.ex_5_1_7_a : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence) := by
   intro h; rw [Rat.Steady.coe] at h; specialize h 0 2; simp [Rat.Close] at h; norm_num at h
   rw [abs_of_nonneg] at h <;> grind
 
 /--
-Example 5.1.7: The sequence a_10, a_11, a_12, ... is 0.1-steady
+Приклад 5.1.7: Послідовність a_10, a_11, a_12, ... є 0.1-стійкою
 -/
 lemma Sequence.ex_5_1_7_b : (0.1:ℚ).Steady (((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence).from 10) := by
   rw [Rat.Steady]
@@ -243,15 +242,15 @@ lemma Sequence.ex_5_1_7_b : (0.1:ℚ).Steady (((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):S
   positivity
 
 /--
-Example 5.1.7: The sequence 1, 1/2, 1/3, ... is eventually 0.1-steady
+Приклад 5.1.7: Послідовність 1, 1/2, 1/3, ... з часом є 0,1-стійкою.
 -/
 lemma Sequence.ex_5_1_7_c : (0.1:ℚ).EventuallySteady ((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence) :=
   ⟨10, by simp, ex_5_1_7_b⟩
 
 /--
-Example 5.1.7
+Приклад 5.1.7
 
-The sequence 10, 0, 0, ... is eventually ε-steady for every ε > 0. Left as an exercise.
+Послідовність 10, 0, 0, ... з часом є ε-стійкою для будь-якого ε > 0. Залишено як вправу.
 -/
 lemma Sequence.ex_5_1_7_d {ε:ℚ} (hε:ε>0) :
     ε.EventuallySteady ((fun n:ℕ ↦ if n=0 then (10:ℚ) else (0:ℚ) ):Sequence) := by sorry
@@ -261,7 +260,7 @@ abbrev Sequence.IsCauchy (a:Sequence) : Prop := ∀ ε > (0:ℚ), ε.EventuallyS
 lemma Sequence.isCauchy_def (a:Sequence) :
   a.IsCauchy ↔ ∀ ε > (0:ℚ), ε.EventuallySteady a := by rfl
 
-/-- Визначення of Cauchy sequences, for a sequence starting at 0 -/
+/-- Визначення послідовностей Коші для послідовності, що починається з 0. -/
 lemma Sequence.IsCauchy.coe (a:ℕ → ℚ) :
     (a:Sequence).IsCauchy ↔ ∀ ε > (0:ℚ), ∃ N, ∀ j ≥ N, ∀ k ≥ N,
     Section_4_3.dist (a j) (a k) ≤ ε := by
@@ -297,22 +296,22 @@ lemma Sequence.IsCauchy.mk {n₀:ℤ} (a: {n // n ≥ n₀} → ℚ) :
 noncomputable def Sequence.sqrt_two : Sequence := (fun n:ℕ ↦ ((⌊ (Real.sqrt 2)*10^n ⌋ / 10^n):ℚ))
 
 /--
-  Приклад 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
+  Приклад 5.1.10. (Це вимагає ґрунтовного знайомства з API Mathlib для дійсних чисел.)
 -/
 theorem Sequence.ex_5_1_10_a : (1:ℚ).Steady sqrt_two := by sorry
 
 /--
-  Приклад 5.1.10. (This requires extensive familiarity with Mathlib's API for the real numbers.)
+  Приклад 5.1.10. (Це вимагає ґрунтовного знайомства з API Mathlib для дійсних чисел.)
 -/
 theorem Sequence.ex_5_1_10_b : (0.1:ℚ).Steady (sqrt_two.from 1) := by sorry
 
 theorem Sequence.ex_5_1_10_c : (0.1:ℚ).EventuallySteady sqrt_two := by sorry
 
-/-- Твердження 5.1.11. The harmonic sequence, defined as a₁ = 1, a₂ = 1/2, ... is a Cauchy sequence. -/
+/-- Твердження 5.1.11. Гармонічна послідовність, визначена як a₁ = 1, a₂ = 1/2, ... є послідовністю Коші. -/
 theorem Sequence.IsCauchy.harmonic : (mk' 1 (fun n ↦ (1:ℚ)/n)).IsCauchy := by
   rw [IsCauchy.mk]
   intro ε hε
-  -- We go by reverse from the book - first choose N such that N > 1/ε
+  -- Ми йдемо у зворотному порядку від книги — спочатку обираємо N таке, що N > 1/ε.
   obtain ⟨ N, hN : N > 1/ε ⟩ := exists_nat_gt (1 / ε)
   have hN' : N > 0 := by
     observe : (1/ε) > 0
@@ -328,10 +327,10 @@ theorem Sequence.IsCauchy.harmonic : (mk' 1 (fun n ↦ (1:ℚ)/n)).IsCauchy := b
   have hdist : Section_4_3.dist ((1:ℚ)/j) ((1:ℚ)/k) ≤ (1:ℚ)/N := by
     rw [Section_4_3.dist_eq, abs_le']
     /-
-    We establish the following bounds:
+    Ми встановлюємо такі межі:
     - 1/j ∈ [0, 1/N]
     - 1/k ∈ [0, 1/N]
-    These imply that the distance between 1/j and 1/k is at most 1/N - when they are as "far apart" as possible.
+    Це означає, що відстань між 1/j та 1/k не перевищує 1/N — коли вони максимально "рознесені".
     -/
     have : 1/j ≤ (1:ℚ)/N := by gcongr
     observe : (0:ℚ) ≤ 1/j
@@ -345,19 +344,19 @@ theorem Sequence.IsCauchy.harmonic : (mk' 1 (fun n ↦ (1:ℚ)/n)).IsCauchy := b
 abbrev BoundedBy {n:ℕ} (a: Fin n → ℚ) (M:ℚ) : Prop := ∀ i, |a i| ≤ M
 
 /--
-  Визначення 5.1.12 (bounded sequences). Here we start sequences from 0 rather than 1 to align
-  better with Mathlib conventions.
+  Визначення 5.1.12 (обмежені послідовності). Тут ми починаємо послідовності з 0 замість 1,
+  щоб краще узгоджуватись із конвенціями Mathlib.
 -/
 lemma boundedBy_def {n:ℕ} (a: Fin n → ℚ) (M:ℚ) : BoundedBy a M ↔ ∀ i, |a i| ≤ M := by rfl
 
 abbrev Sequence.BoundedBy (a:Sequence) (M:ℚ) : Prop := ∀ n, |a n| ≤ M
 
-/-- Визначення 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (обмежені послідовності) -/
 lemma Sequence.boundedBy_def (a:Sequence) (M:ℚ) : a.BoundedBy M ↔ ∀ n, |a n| ≤ M := by rfl
 
 abbrev Sequence.IsBounded (a:Sequence) : Prop := ∃ M ≥ 0, a.BoundedBy M
 
-/-- Визначення 5.1.12 (bounded sequences) -/
+/-- Визначення 5.1.12 (обмежені послідовності) -/
 lemma Sequence.isBounded_def (a:Sequence) : a.IsBounded ↔ ∃ M ≥ 0, a.BoundedBy M := by rfl
 
 /-- Приклад 5.1.13 -/
@@ -397,7 +396,7 @@ lemma IsBounded.finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M 
   . grind
   convert h2; simp
 
-/-- Лема 5.1.15 (Cauchy sequences are bounded) / Вправа 5.1.1 -/
+/-- Лема 5.1.15 (Послідовності Коші є обмеженими) / Вправа 5.1.1 -/
 lemma Sequence.isBounded_of_isCauchy {a:Sequence} (h: a.IsCauchy) : a.IsBounded := by
   sorry
 

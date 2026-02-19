@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Section 11.1: Partitions
+# Аналіз I, Розділ 11.1: Partitions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful

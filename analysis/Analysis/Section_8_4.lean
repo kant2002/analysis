@@ -3,7 +3,7 @@ import Analysis.Section_8_1
 import Analysis.Section_8_2
 
 /-!
-# Analysis I, Section 8.4: The axiom of choice
+# Аналіз I, Розділ 8.4: The axiom of choice
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -99,7 +99,7 @@ theorem axiom_of_countable_choice {I: Type} {X: I → Type} [Countable I] (h : �
 /-- Лема 8.4.5 -/
 theorem exist_tendsTo_sup {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) :
   ∃ a : ℕ → ℝ, (∀ n, a n ∈ E) ∧ Filter.atTop.Tendsto a (nhds (sSup E)) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set X : ℕ → Set ℝ := fun n ↦ { x ∈ E | sSup E - 1 / (n+1:ℝ) ≤ x ∧ x ≤ sSup E }
   have hX : ∀ n, Nonempty (X n) := by
     intro n

@@ -3,7 +3,7 @@ import Mathlib.Data.Real.Sign
 import Analysis.Section_9_1
 
 /-!
-# Analysis I, Section 9.3: Limiting values of functions
+# Аналіз I, Розділ 9.3: Limiting values of functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful

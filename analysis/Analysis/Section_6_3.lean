@@ -4,7 +4,7 @@ import Analysis.Section_6_2
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 
 /-!
-# Analysis I, Section 6.3: Suprema and infima of sequences
+# Аналіз I, Розділ 6.3: Suprema and infima of sequences
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -120,7 +120,7 @@ example : lim (Example_6_3_9:Sequence) ≤ 4 := by sorry
 /-- Твердження 6.3.1-/
 theorem lim_of_exp {x:ℝ} (hpos: 0 < x) (hbound: x < 1) :
     ((fun (n:ℕ) ↦ x^n):Sequence).Convergent ∧ lim ((fun (n:ℕ) ↦ x^n):Sequence) = 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set a := ((fun (n:ℕ) ↦ x^n):Sequence)
   have why : a.IsAntitone := sorry
   have hbound : a.BddBelowBy 0 := by intro n _; positivity

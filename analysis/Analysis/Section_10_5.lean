@@ -4,7 +4,7 @@ import Analysis.Section_10_1
 import Analysis.Section_10_2
 
 /-!
-# Analysis I, Section 10.5: L'Hôpital's rule
+# Аналіз I, Розділ 10.5: L'Hôpital's rule
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -37,7 +37,7 @@ theorem _root_.Filter.Tendsto.of_div' {a b L:ℝ} (hab: a < b) {f g f' g': ℝ �
   (hderiv: (nhdsWithin a (.Icc a b)).Tendsto (fun x ↦ f' x / g' x) (nhds L)) :
   (∀ x ∈ Set.Ioc a b, g x ≠ 0) ∧
   (nhdsWithin a (.Ioc a b)).Tendsto (fun x ↦ f x / g x) (nhds L) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   observe hfcon : ContinuousOn f (.Icc a b)
   observe hgcon : ContinuousOn g (.Icc a b)
   have (x:ℝ) (hx: x ∈ Set.Ioc a b) : g x ≠ 0 := by

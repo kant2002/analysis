@@ -86,7 +86,7 @@ theorem ENNReal.upward_continuous {x y:ℕ → ENNReal} (hx: Monotone x) (hy: Mo
  {x₀ y₀ : ENNReal} (hx_lim: atTop.Tendsto x (nhds x₀))
  (hy_lim: atTop.Tendsto y (nhds y₀)) :
   atTop.Tendsto (fun n ↦ x n * y n) (nhds (x₀ * y₀)) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have hx_lt : ∀ n, x n ≤ x₀ := hx.ge_of_tendsto hx_lim
   have hy_lt : ∀ n, y n ≤ y₀ := hy.ge_of_tendsto hy_lim
   have zero_conv : atTop.Tendsto (fun n:ℕ ↦ (0:ENNReal)) (nhds 0) := tendsto_const_nhds
@@ -247,6 +247,6 @@ noncomputable instance EReal.inst_negPart : NegPart EReal where
 noncomputable def Set.choose {A: Type*} {E: A → Type*} (hE: ∀ n, Nonempty (E n)) :
 ∀ n, E n := fun n ↦ (hE n).some
 
-/-- Corollary 0.0.5 (Axiom of countable choice) -/
+/-- Наслідок 0.0.5 (Axiom of countable choice) -/
 noncomputable def Countable.choose {E: ℕ → Type*} (hE: ∀ n, Nonempty (E n)) :
 ∀ n, E n := Set.choose hE

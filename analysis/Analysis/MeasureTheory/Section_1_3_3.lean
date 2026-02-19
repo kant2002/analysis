@@ -241,7 +241,7 @@ lemma LowerUnsignedLebesgueIntegral.add_of_finiteSupport {d : ℕ}
   · -- ≥ direction: direct from superadditivity
     exact LowerUnsignedLebesgueIntegral.superadditive hf hg
 
-/-- Corollary 1.3.14 (Finite additivity of Lebesgue integral )-/
+/-- Наслідок 1.3.14 (Finite additivity of Lebesgue integral )-/
 theorem LowerUnsignedLebesgueIntegral.add {d:ℕ} {f g: EuclideanSpace' d → EReal} (hf: UnsignedMeasurable f) (hg: UnsignedMeasurable g)
     (hfg: UnsignedMeasurable (f + g)) :
     LowerUnsignedLebesgueIntegral (f + g) = LowerUnsignedLebesgueIntegral f + LowerUnsignedLebesgueIntegral g := by

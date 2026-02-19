@@ -3,7 +3,7 @@ import Mathlib.Topology.Instances.Irrational
 import Analysis.Section_11_4
 
 /-!
-# Analysis I, Section 11.7: A non-Riemann integrable function
+# Аналіз I, Розділ 11.7: A non-Riemann integrable function
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful

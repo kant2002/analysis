@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_9_6
 
 /-!
-# Analysis I, Section 9.8: Monotonic functions
+# Аналіз I, Розділ 9.8: Monotonic functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -37,7 +37,7 @@ theorem AntitoneOn.iff {X: Set ℝ} (f: ℝ → ℝ) : AntitoneOn f X  ↔ ∀ x
 theorem StrictAntitone.iff {X: Set ℝ} (f: ℝ → ℝ) : StrictAntiOn f X  ↔ ∀ x ∈ X, ∀ y ∈ X, y > x → f y < f x := by
   constructor <;> intros <;> solve_by_elim
 
-/-- Examples 9.8.2 -/
+/-- Приклади 9.8.2 -/
 example : StrictMonoOn (fun x:ℝ ↦ x^2) (.Ici 0) := by sorry
 
 example : StrictAntiOn (fun x:ℝ ↦ x^2) (.Iic 0) := by sorry

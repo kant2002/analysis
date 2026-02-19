@@ -3,17 +3,16 @@ import Analysis.Section_5_4
 
 
 /-!
-# Analysis I, Section 5.5: The least upper bound property
+# Аналіз I, Розділ 5.5: Властивість найменшої верхньої межі
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Upper bound and least upper bound on the real line
+- Верхня межа та найменша верхня межа на дійсній прямій
 
 ## Підказки від попередніх користувачів
 
@@ -25,23 +24,23 @@ Main constructions and results of this section:
 
 namespace Chapter5
 
-/-- Визначення 5.5.1 (upper bounds).  Here we use the `upperBounds` set defined in Mathlib. -/
+/-- Визначення 5.5.1 (верхні межі).  Тут ми використовуємо множину `upperBounds`, визначену в Mathlib. -/
 theorem Real.upperBound_def (E: Set Real) (M: Real) : M ∈ upperBounds E ↔ ∀ x ∈ E, x ≤ M :=
   mem_upperBounds
 
 theorem Real.lowerBound_def (E: Set Real) (M: Real) : M ∈ lowerBounds E ↔ ∀ x ∈ E, x ≥ M :=
   mem_lowerBounds
 
-/-- API for Example 5.5.2 -/
+/-- API для Приклада 5.5.2 -/
 theorem Real.Icc_def (x y:Real) : .Icc x y = { z | x ≤ z ∧ z ≤ y } := rfl
 
-/-- API for Example 5.5.2 -/
+/-- API для Приклада 5.5.2 -/
 theorem Real.mem_Icc (x y z:Real) : z ∈ Set.Icc x y ↔ x ≤ z ∧ z ≤ y := by simp [Real.Icc_def]
 
 /-- Приклад 5.5.2 -/
 example (M: Real) : M ∈ upperBounds (.Icc 0 1) ↔ M ≥ 1 := by sorry
 
-/-- API for Example 5.5.3 -/
+/-- API для Приклада 5.5.3 -/
 theorem Real.Ioi_def (x:Real) : .Ioi x = { z | z > x } := rfl
 
 /-- Приклад 5.5.3 -/
@@ -53,7 +52,7 @@ example : ∀ M, M ∈ upperBounds (∅ : Set Real) := by sorry
 theorem Real.upperBound_upper {M M': Real} (h: M ≤ M') {E: Set Real} (hb: M ∈ upperBounds E) :
     M' ∈ upperBounds E := by sorry
 
-/-- Визначення 5.5.5 (least upper bound).  Here we use the `isLUB` predicate defined in Mathlib. -/
+/-- Визначення 5.5.5 (найменша верхня межа).  Тут ми використовуємо предикат `isLUB`, визначений у Mathlib. -/
 theorem Real.isLUB_def (E: Set Real) (M: Real) :
     IsLUB E M ↔ M ∈ upperBounds E ∧ ∀ M' ∈ upperBounds E, M' ≥ M := by rfl
 
@@ -66,10 +65,10 @@ example : IsLUB (.Icc 0 1) (1 : Real) := by sorry
 /-- Приклад 5.5.7 -/
 example : ¬∃ M, IsLUB (∅: Set Real) M := by sorry
 
-/-- Твердження 5.5.8 (Uniqueness of least upper bound)-/
+/-- Твердження 5.5.8 (Єдиність найменшої верхньої межі)-/
 theorem Real.LUB_unique {E: Set Real} {M M': Real} (h1: IsLUB E M) (h2: IsLUB E M') : M = M' := by grind [Real.isLUB_def]
 
-/-- Визначення of "bounded above", using Mathlib notation -/
+/-- Визначення "обмежено зверху" з використанням нотації Mathlib -/
 theorem Real.bddAbove_def (E: Set Real) : BddAbove E ↔ ∃ M, M ∈ upperBounds E := Set.nonempty_def
 
 theorem Real.bddBelow_def (E: Set Real) : BddBelow E ↔ ∃ M, M ∈ lowerBounds E := Set.nonempty_def
@@ -110,8 +109,8 @@ theorem Real.LIM_of_Cauchy {q:ℕ → ℚ} (hq: ∀ M, ∀ n ≥ M, ∀ n' ≥ M
     (q:Sequence).IsCauchy ∧ ∀ M, |q M - LIM q| ≤ 1 / (M+1) := by sorry
 
 /--
-The sequence m₁, m₂, … is well-defined.
-This proof uses a different indexing convention than the text
+Послідовність m₁, m₂, … визначена коректно.
+Цей доказ використовує іншу угоду щодо індексації, ніж у тексті.
 -/
 lemma Real.LUB_claim1 (n : ℕ) {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E)
 :  ∃! m:ℤ,
@@ -161,7 +160,7 @@ lemma Real.LUB_claim2 {E : Set Real} (N:ℕ) {a b: ℕ → ℚ}
     have bound3 : 1/((n+1):ℚ) ≤ 1/(N+1) := by gcongr
     linarith
 
-/-- Теорема 5.5.9 (Existence of least upper bound)-/
+/-- Теорема 5.5.9 (Існування найменшої верхньої межі)-/
 theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): ∃ S, IsLUB E S := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
   set x₀ := hE.some
@@ -186,17 +185,17 @@ theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): 
   have claim5 (n:ℕ) : y ≥ (a-b) n := by contrapose! hm2; use n; apply upperBound_upper _ hy; order
   rw [claim4]; apply LIM_of_le _ claim5; solve_by_elim [Sequence.IsCauchy.sub]
 
-/-- A bare-bones extended real class to define supremum. -/
+/-- Простий розширений клас дійсної величини для визначення супремуму. -/
 inductive ExtendedReal where
 | neg_infty : ExtendedReal
 | real (x:Real) : ExtendedReal
 | infty : ExtendedReal
 
-/-- Mathlib prefers ⊤ to denote the +∞ element. -/
+/-- Mathlib надає перевагу ⊤ для позначення елемента +∞. -/
 instance ExtendedReal.inst_Top : Top ExtendedReal where
   top := infty
 
-/-- Mathlib prefers ⊥ to denote the -∞ element.-/
+/-- Mathlib надає перевагу ⊥ для позначення елемента -∞.-/
 instance ExtendedReal.inst_Bot: Bot ExtendedReal where
   bot := neg_infty
 
@@ -220,19 +219,19 @@ theorem ExtendedReal.finite_eq_coe {X: ExtendedReal} (hX: X.IsFinite) :
   simp
 
 open Classical in
-/-- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Супремум)-/
 noncomputable abbrev ExtendedReal.sup (E: Set Real) : ExtendedReal :=
   if h1:E.Nonempty then (if h2:BddAbove E then ((Real.LUB_exist h1 h2).choose:Real) else ⊤) else ⊥
 
-/-- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Супремум)-/
 theorem ExtendedReal.sup_of_empty : sup ∅ = ⊥ := by simp [sup]
 
-/-- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Супремум)-/
 theorem ExtendedReal.sup_of_unbounded {E: Set Real} (hb: ¬ BddAbove E) : sup E = ⊤ := by
   have hE : E.Nonempty := by contrapose! hb; simp [hb]
   simp [sup, hE, hb]
 
-/-- Визначення 5.5.10 (Supremum)-/
+/-- Визначення 5.5.10 (Супремум)-/
 theorem ExtendedReal.sup_of_bounded {E: Set Real} (hnon: E.Nonempty) (hb: BddAbove E) :
     IsLUB E (sup E) := by
   simp [hnon, hb, sup]; exact (Real.LUB_exist hnon hb).choose_spec
@@ -299,7 +298,7 @@ theorem Real.exist_sqrt_two : ∃ x:Real, x^2 = 2 := by
 /-- Ремарка 5.5.13 -/
 theorem Real.exist_irrational : ∃ x:Real, ¬ ∃ q:ℚ, x = (q:Real) := by sorry
 
-/-- Helper lemma for Exercise 5.5.1. -/
+/-- Допоміжна лема для Вправи 5.5.1. -/
 theorem Real.mem_neg (E: Set Real) (x:Real) : x ∈ -E ↔ -x ∈ E := Set.mem_neg
 
 /-- Вправа 5.5.1-/
@@ -328,11 +327,11 @@ theorem ExtendedReal.inf_of_bounded_finite {E: Set Real} (hnon: E.Nonempty) (hb:
 theorem Real.irrat_between {x y:Real} (hxy: x < y) :
     ∃ z, x < z ∧ z < y ∧ ¬ ∃ q:ℚ, z = (q:Real) := by sorry
 
-/- Use the notion of supremum in this section to define a Mathlib `sSup` operation -/
+/- Використайте поняття супремуму в цьому розділі для визначення операції `sSup` в Mathlib -/
 noncomputable instance Real.inst_SupSet : SupSet Real where
   sSup E := ((ExtendedReal.sup E):Real)
 
-/-- Use the `sSup` operation to build a conditionally complete lattice structure on `Real`-/
+/-- Використайте операцію `sSup` для побудови умовно повної ґратчастої структури на `Real`-/
 noncomputable instance Real.inst_conditionallyCompleteLattice :
     ConditionallyCompleteLattice Real :=
   conditionallyCompleteLatticeOfLatticeOfsSup Real

@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
-# Analysis I, Section 10.1: Basic definitions
+# Аналіз I, Розділ 10.1: Basic definitions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful

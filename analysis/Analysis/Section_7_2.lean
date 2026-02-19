@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Field.Power
 
 /-!
-# Analysis I, Section 7.2: Infinite series
+# Аналіз I, Розділ 7.2: Infinite series
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -145,7 +145,7 @@ theorem Series.abs_le {s:Series} (h : s.absConverges) : |s.sum| ≤ s.abs.sum :=
 theorem Series.converges_of_alternating {m:ℤ} {a: { n // n ≥ m} → ℝ} (ha: ∀ n, a n ≥ 0)
   (ha': Antitone a) :
     ((mk' (fun n ↦ (-1)^(n:ℤ) * a n)).converges ↔ Filter.atTop.Tendsto a (nhds 0)) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   constructor
   . intro h; apply decay_of_converges at h
     rw [tendsto_iff_dist_tendsto_zero] at h ⊢

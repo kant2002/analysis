@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_9_6
 
 /-!
-# Analysis I, Section 10.2: Local maxima, local minima, and derivatives
+# Аналіз I, Розділ 10.2: Local maxima, local minima, and derivatives
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -85,7 +85,7 @@ theorem _root_.HasDerivWithinAt.exist_zero {a b:ℝ} (hab: a < b) {g:ℝ → ℝ
   (hgab: g a = g b) : ∃ x ∈ Set.Ioo a b, HasDerivWithinAt g 0 (.Ioo a b) x := by
   sorry
 
-/-- Corollary 10.2.9 (Mean value theorem ) / Вправа 10.2.5 -/
+/-- Наслідок 10.2.9 (Mean value theorem ) / Вправа 10.2.5 -/
 theorem _root_.HasDerivWithinAt.mean_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (.Icc a b)) (hderiv: DifferentiableOn ℝ f (.Ioo a b)) :
   ∃ x ∈ Set.Ioo a b, HasDerivWithinAt f ((f b - f a) / (b - a)) (.Ioo a b) x := by

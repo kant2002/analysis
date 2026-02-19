@@ -3,7 +3,7 @@ import Analysis.Section_9_9
 import Analysis.Section_11_4
 
 /-!
-# Analysis I, Section 11.5: Riemann integrability of continuous functions
+# Аналіз I, Розділ 11.5: Riemann integrability of continuous functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -24,7 +24,7 @@ open Chapter9
 /-- Theorem 11.5.1 -/
 theorem integ_of_uniform_cts {I: BoundedInterval} {f:ℝ → ℝ} (hf: UniformContinuousOn f I) :
   IntegrableOn f I := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have hfbound : BddOn f I := by
     rw [BddOn.iff']; exact hf.of_bounded subset_rfl (Bornology.IsBounded.of_boundedInterval I)
   refine ⟨ hfbound, ?_ ⟩
@@ -79,7 +79,7 @@ theorem integ_of_uniform_cts {I: BoundedInterval} {f:ℝ → ℝ} (hf: UniformCo
     linarith
   linarith
 
-/-- Corollary 11.5.2 -/
+/-- Наслідок 11.5.2 -/
 theorem integ_of_cts {a b:ℝ} {f:ℝ → ℝ} (hf: ContinuousOn f (Icc a b)) :
   IntegrableOn f (Icc a b) := integ_of_uniform_cts (UniformContinuousOn.of_continuousOn hf)
 
@@ -92,7 +92,7 @@ set_option maxHeartbeats 300000 in
 /-- Твердження 11.5.3-/
 theorem integ_of_bdd_cts {I: BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn f I)
   (hf: ContinuousOn f I) : IntegrableOn f I := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_cases hsing : |I|ₗ = 0
   . exact (integ_on_subsingleton hsing).1
   have hI : (I:Set ℝ).Nonempty := by by_contra!; rw [←BoundedInterval.length_of_subsingleton] at hsing; simp_all

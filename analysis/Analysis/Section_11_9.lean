@@ -10,7 +10,7 @@ import Analysis.Section_11_8
 
 
 /-!
-# Analysis I, Section 11.9: The two fundamental theorems of calculus
+# Аналіз I, Розділ 11.9: The two fundamental theorems of calculus
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the
 original text. When there is a choice between a more idiomatic Lean solution and a
@@ -28,7 +28,7 @@ open Chapter9 Chapter10 BoundedInterval
 /-- Theorem 11.9.1 (First Fundamental Theorem of Calculus)-/
 theorem cts_of_integ {a b:ℝ} {f:ℝ → ℝ} (hf: IntegrableOn f (Icc a b)) :
   ContinuousOn (fun x => integ f (Icc a x)) (.Icc a b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set F : ℝ → ℝ := fun x => integ f (Icc a x)
   choose M hM using hf.1
   have {x y:ℝ} (hxy: x < y) (hx: x ∈ Set.Icc a b) (hy: y ∈ Set.Icc a b) : |F y - F x| ≤ M * (y - x) := by
@@ -71,7 +71,7 @@ theorem cts_of_integ {a b:ℝ} {f:ℝ → ℝ} (hf: IntegrableOn f (Icc a b)) :
 theorem deriv_of_integ {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: IntegrableOn f (Icc a b))
   {x₀:ℝ} (hx₀ : x₀ ∈ Set.Icc a b) (hcts: ContinuousWithinAt f (Icc a b) x₀) :
   HasDerivWithinAt (fun x => integ f (Icc a x)) (f x₀) (.Icc a b) x₀ := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [HasDerivWithinAt.iff_approx_linear]
   simp [(ContinuousWithinAt.tfae _ f hx₀).out 0 2] at hcts
   peel hcts with ε hε δ hδ hconv; intro y hy hyδ
@@ -118,7 +118,7 @@ theorem AntiderivOn.mono {F f: ℝ → ℝ} {I J: BoundedInterval}
 theorem integ_eq_antideriv_sub {a b:ℝ} (h:a ≤ b) {f F: ℝ → ℝ}
   (hf: IntegrableOn f (Icc a b)) (hF: AntiderivOn F f (Icc a b)) :
   integ f (Icc a b) = F b - F a := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   obtain h | h := lt_or_eq_of_le h
   . have hF_cts : ContinuousOn F (.Icc a b) := by
       intro x hx; exact ContinuousWithinAt.of_differentiableWithinAt (hF.1 x hx)

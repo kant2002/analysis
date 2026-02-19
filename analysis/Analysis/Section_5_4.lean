@@ -3,17 +3,16 @@ import Analysis.Section_5_3
 
 
 /-!
-# Analysis I, Section 5.4: Ordering the reals
+# Аналіз I, Розділ 5.4: Впорядкування дійсних чисел
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Ordering on the real line
+- Порядок на дійсній прямій
 
 ## Підказки від попередніх користувачів
 
@@ -26,39 +25,39 @@ Main constructions and results of this section:
 namespace Chapter5
 
 /--
-  Визначення 5.4.1 (sequences bounded away from zero with sign). Sequences are indexed to start
-  from zero as this is more convenient for Mathlib purposes.
+  Визначення 5.4.1 (послідовності, обмежені від нуля з врахуванням знаку). Послідовності індексуються так, щоб
+  починатися з нуля, оскільки це зручніше для цілей Mathlib.
 -/
 abbrev BoundedAwayPos (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c
 
-/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (послідовності, обмежені від нуля з врахуванням знаку). -/
 abbrev BoundedAwayNeg (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c
 
-/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (послідовності, обмежені від нуля з врахуванням знаку). -/
 theorem boundedAwayPos_def (a:ℕ → ℚ) : BoundedAwayPos a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≥ c := by
   rfl
 
-/-- Визначення 5.4.1 (sequences bounded away from zero with sign). -/
+/-- Визначення 5.4.1 (послідовності, обмежені від нуля з врахуванням знаку). -/
 theorem boundedAwayNeg_def (a:ℕ → ℚ) : BoundedAwayNeg a ↔ ∃ (c:ℚ), c > 0 ∧ ∀ n, a n ≤ -c := by
   rfl
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : BoundedAwayPos (fun n ↦ 1 + 10^(-(n:ℤ)-1)) := ⟨ 1, by norm_num, by intros; simp; positivity ⟩
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : BoundedAwayNeg (fun n ↦ -1 - 10^(-(n:ℤ)-1)) := ⟨ 1, by norm_num, by intros; simp; positivity ⟩
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : ¬ BoundedAwayPos (fun n ↦ (-1)^n) := by
   intro ⟨ c, h1, h2 ⟩; specialize h2 1; grind
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : ¬ BoundedAwayNeg (fun n ↦ (-1)^n) := by
   intro ⟨ c, h1, h2 ⟩; specialize h2 0; grind
 
-/-- Examples 5.4.2 -/
+/-- Приклади 5.4.2 -/
 example : BoundedAwayZero (fun n ↦ (-1)^n) := ⟨ 1, by norm_num, by intros; simp ⟩
 
 theorem BoundedAwayZero.boundedAwayPos {a:ℕ → ℚ} (ha: BoundedAwayPos a) : BoundedAwayZero a := by
@@ -82,34 +81,34 @@ theorem Real.isPos_def (x:Real) :
 theorem Real.isNeg_def (x:Real) :
     IsNeg x ↔ ∃ a:ℕ → ℚ, BoundedAwayNeg a ∧ (a:Sequence).IsCauchy ∧ x = LIM a := by rfl
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 theorem Real.trichotomous (x:Real) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 theorem Real.not_zero_pos (x:Real) : ¬(x = 0 ∧ x.IsPos) := by sorry
 
 theorem Real.nonzero_of_pos {x:Real} (hx: x.IsPos) : x ≠ 0 := by
   have := not_zero_pos x
   simpa [hx] using this
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 theorem Real.not_zero_neg (x:Real) : ¬(x = 0 ∧ x.IsNeg) := by sorry
 
 theorem Real.nonzero_of_neg {x:Real} (hx: x.IsNeg) : x ≠ 0 := by
   have := not_zero_neg x
   simpa [hx] using this
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 theorem Real.not_pos_neg (x:Real) : ¬(x.IsPos ∧ x.IsNeg) := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 @[simp]
 theorem Real.neg_iff_pos_of_neg (x:Real) : x.IsNeg ↔ (-x).IsPos := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1-/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1-/
 theorem Real.pos_add {x y:Real} (hx: x.IsPos) (hy: y.IsPos) : (x+y).IsPos := by sorry
 
-/-- Твердження 5.4.4 (basic properties of positive reals) / Вправа 5.4.1 -/
+/-- Твердження 5.4.4 (базові властивості додатних дійсних чисел) / Вправа 5.4.1 -/
 theorem Real.pos_mul {x y:Real} (hx: x.IsPos) (hy: y.IsPos) : (x*y).IsPos := by sorry
 
 theorem Real.pos_of_coe (q:ℚ) : (q:Real).IsPos ↔ q > 0 := by sorry
@@ -117,32 +116,32 @@ theorem Real.pos_of_coe (q:ℚ) : (q:Real).IsPos ↔ q > 0 := by sorry
 theorem Real.neg_of_coe (q:ℚ) : (q:Real).IsNeg ↔ q < 0 := by sorry
 
 open Classical in
-/-- Need to use classical logic here because isPos and isNeg are not decidable -/
+/-- Тут потрібно використовувати класичну логіку, оскільки isPos і isNeg не є вирішуваними. -/
 noncomputable abbrev Real.abs (x:Real) : Real := if x.IsPos then x else (if x.IsNeg then -x else 0)
 
-/-- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (модуль) -/
 @[simp]
 theorem Real.abs_of_pos (x:Real) (hx: x.IsPos) : abs x = x := by
   simp [abs, hx]
 
-/-- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (модуль) -/
 @[simp]
 theorem Real.abs_of_neg (x:Real) (hx: x.IsNeg) : abs x = -x := by
   have : ¬x.IsPos := by have := not_pos_neg x; simpa [hx] using this
   simp [abs, hx, this]
 
-/-- Визначення 5.4.5 (absolute value) -/
+/-- Визначення 5.4.5 (модуль) -/
 @[simp]
 theorem Real.abs_of_zero : abs 0 = 0 := by
   have hpos: ¬(0:Real).IsPos := by have := not_zero_pos 0; simpa using this
   have hneg: ¬(0:Real).IsNeg := by have := not_zero_neg 0; simpa using this
   simp [abs, hpos, hneg]
 
-/-- Визначення 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Упорядкування дійсних чисел) -/
 instance Real.instLT : LT Real where
   lt x y := (x-y).IsNeg
 
-/-- Визначення 5.4.6 (Ordering of the reals) -/
+/-- Визначення 5.4.6 (Упорядкування дійсних чисел) -/
 instance Real.instLE : LE Real where
   le x y := (x < y) ∨ (x = y)
 
@@ -192,8 +191,8 @@ theorem Real.mul_pos_neg {x y:Real} (hx: x.IsPos) (hy: y.IsNeg) : (x * y).IsNeg 
 
 open Classical in
 /--
-  (Не в підручнику) Real has the structure of a linear ordering. The order is not computable,
-  and so classical logic is required to impose decidability.
+  (Не в підручнику) Дійсні числа мають структуру лінійного впорядкування. Це впорядкування не є обчислюваним,
+  тому для забезпечення розв'язності необхідна класична логіка.
 -/
 noncomputable instance Real.instLinearOrder : LinearOrder Real where
   le_refl := sorry
@@ -204,8 +203,8 @@ noncomputable instance Real.instLinearOrder : LinearOrder Real where
   toDecidableLE := Classical.decRel _
 
 /--
-  (Не в підручнику) Linear Orders come with a definition of absolute value |.|
-  Show that it agrees with our earlier definition.
+  (Не в підручнику) Лінійні впорядкування включають визначення абсолютного значення |·|.
+  Покажіть, що воно збігається з нашим попереднім визначенням.
 -/
 theorem Real.abs_eq_abs (x:Real) : |x| = abs x := by sorry
 
@@ -237,7 +236,7 @@ theorem Real.inv_of_gt {x y:Real} (hx: x.IsPos) (hy: y.IsPos) (hxy: x > y) : x�
     _ = _ := self_mul_inv hynon
   simp at this
 
-/-- (Не в підручнику) Real has the structure of a strict ordered ring. -/
+/-- (Не в підручнику) Дійсні числа мають структуру строго впорядкованого кільця. -/
 instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   add_le_add_left := by sorry
   add_le_add_right := by sorry
@@ -246,7 +245,7 @@ instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   le_of_add_le_add_left := by sorry
   zero_le_one := by sorry
 
-/-- Твердження 5.4.9 (The non-negative reals are closed)-/
+/-- Твердження 5.4.9 (Невід'ємні дійсні числа утворюють замкнену множину.)-/
 theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:Sequence).IsCauchy) :
     LIM a ≥ 0 := by
   -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
@@ -267,11 +266,11 @@ theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:
   simp_rw [x, LIM_eq_LIM hcauchy hb_cauchy] at hlim
   contradiction
 
-/-- Corollary 5.4.10 -/
+/-- Наслідок 5.4.10 -/
 theorem Real.LIM_mono {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy)
   (hmono: ∀ n, a n ≤ b n) :
     LIM a ≤ LIM b := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have := LIM_of_nonneg (a := b - a) (by intro n; simp [hmono n]) (Sequence.IsCauchy.sub hb ha)
   rw [←Real.LIM_sub hb ha] at this; linarith
 
@@ -285,10 +284,10 @@ theorem Real.LIM_mono_fail :
   use (fun n ↦ 1 - 1/((n:ℚ) + 1))
   sorry
 
-/-- Твердження 5.4.12 (Bounding reals by rationals) -/
+/-- Твердження 5.4.12 (Обмеження дійсних чисел раціональними) -/
 theorem Real.exists_rat_le_and_nat_gt {x:Real} (hx: x.IsPos) :
     (∃ q:ℚ, q > 0 ∧ (q:Real) ≤ x) ∧ ∃ N:ℕ, x < (N:Real) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [isPos_def] at hx; choose a hbound hcauchy heq using hx
   rw [boundedAwayPos_def] at hbound; choose q hq hbound using hbound
   have := Sequence.isBounded_of_isCauchy hcauchy
@@ -307,9 +306,9 @@ theorem Real.exists_rat_le_and_nat_gt {x:Real} (hx: x.IsPos) :
     _ < ((N:ℚ):Real) := by simp [hN]
     _ = N := rfl
 
-/-- Corollary 5.4.13 (Archimedean property ) -/
+/-- Наслідок 5.4.13 (Архімедова властивість ) -/
 theorem Real.le_mul {ε:Real} (hε: ε.IsPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M * ε > x := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   obtain rfl | hx | hx := trichotomous x
   . use 1; simpa [isPos_iff] using hε
   . choose N hN using (exists_rat_le_and_nat_gt (div_of_pos hx hε)).2
@@ -371,7 +370,7 @@ theorem Real.max_add (x y z:Real) : max (x + z) (y + z) = max x y + z := by sorr
 /-- Вправа 5.4.9 -/
 theorem Real.max_mul (x y :Real) {z:Real} (hz: z.IsPos) : max (x * z) (y * z) = max x y * z := by
   sorry
-/- Additional exercise: What happens if z is negative? -/
+/- Додаткова вправа: Що відбудеться, якщо z є від’ємним? -/
 
 /-- Вправа 5.4.9 -/
 theorem Real.min_comm (x y:Real) : min x y = min y x := by sorry
@@ -392,7 +391,7 @@ theorem Real.inv_max {x y :Real} (hx:x.IsPos) (hy:y.IsPos) : (max x y)⁻¹ = mi
 /-- Вправа 5.4.9 -/
 theorem Real.inv_min {x y :Real} (hx:x.IsPos) (hy:y.IsPos) : (min x y)⁻¹ = max x⁻¹ y⁻¹ := by sorry
 
-/-- Not from textbook: the rationals map as an ordered ring homomorphism into the reals. -/
+/-- Не з підручника: раціональні числа вкладаються в дійсні як гомоморфізм впорядкованих кілець. -/
 abbrev Real.ratCast_ordered_hom : ℚ →+*o Real where
   toRingHom := ratCast_hom
   monotone' := by sorry

@@ -3,7 +3,7 @@ import Analysis.Section_8_1
 import Analysis.Section_8_2
 
 /-!
-# Analysis I, Section 8.3: Uncountable sets
+# Аналіз I, Розділ 8.3: Uncountable sets
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -24,7 +24,7 @@ namespace Chapter8
 
 /-- Theorem 8.3.1 -/
 theorem EqualCard.power_set_false (X:Type) : ¬ EqualCard X (Set X) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_contra!; choose f hf using this
   set A := {x | x ∉ f x }; choose x hx using hf.2 A
   by_cases h : x ∈ A <;> have h' := h
@@ -41,9 +41,9 @@ theorem Uncountable.equiv {X Y: Type} (hXY : EqualCard X Y) :
   Uncountable X ↔ Uncountable Y := by
     simp [Uncountable.iff, AtMostCountable.equiv hXY]
 
-/-- Corollary 8.3.3 -/
+/-- Наслідок 8.3.3 -/
 theorem Uncountable.power_set_nat : Uncountable (Set ℕ) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [Uncountable.iff]
   unfold AtMostCountable
   have : ¬ CountablyInfinite (Set ℕ) := by
@@ -62,9 +62,9 @@ theorem Uncountable.power_set_nat : Uncountable (Set ℕ) := by
   tauto
 
 open Real in
-/-- Corollary 8.3.4 -/
+/-- Наслідок 8.3.4 -/
 theorem Uncountable.real : Uncountable ℝ := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set a : ℕ → ℝ := fun n ↦ (10:ℝ)^(-(n:ℝ))
   set f : Set ℕ → ℝ := fun A ↦ ∑' n:A, a n
   have hsummable (A: Set ℕ) : Summable (fun n:A ↦ a n) := by

@@ -5,7 +5,7 @@ import Mathlib.Topology.Instances.EReal.Lemmas
 import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 
 /-!
-# Analysis I, Section 7.5: The root and ratio tests
+# Аналіз I, Розділ 7.5: The root and ratio tests
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
 
@@ -24,7 +24,7 @@ open Filter Real EReal
 /-- Theorem 7.5.1(a) (Root test).  A technical condition is needed to ensure the limsup is finite. -/
 theorem Series.root_test_pos {s : Series}
   (h : atTop.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) < 1) : s.absConverges := by
-    -- This proof is written to follow the structure of the original text.
+    -- Доведення написане так, щоб відповідати структурі оригінального тексту.
     set α':EReal := atTop.limsup (fun n ↦ ↑(|s.seq n|^(1/(n:ℝ)):ℝ))
     have hpos : 0 ≤ α' := by
       apply le_limsup_of_frequently_le (Frequently.of_forall _) (by isBoundedDefault)
@@ -77,7 +77,7 @@ theorem Series.root_test_pos {s : Series}
 /-- Теорема 7.5.1(b) (Root test) -/
 theorem Series.root_test_neg {s : Series}
   (h : atTop.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) > 1) : s.diverges := by
-    -- This proof is written to follow the structure of the original text.
+    -- Доведення написане так, щоб відповідати структурі оригінального тексту.
     apply frequently_lt_of_lt_limsup (by isBoundedDefault) at h
     apply diverges_of_nodecay
     by_contra this; rw [LinearOrderedAddCommGroup.tendsto_nhds] at this; specialize this 1 (by positivity)
@@ -105,7 +105,7 @@ theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
   ∧ atTop.limsup (fun n ↦ (((c n)^(1/(n:ℝ)):ℝ):EReal)) ≤
     atTop.limsup (fun n ↦ ↑(c (n+1) / c n:ℝ))
     := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   refine ⟨ ?_, liminf_le_limsup ?_ ?_, ?_ ⟩ <;> try isBoundedDefault
   . sorry
   set L' := limsup (fun n ↦ ((c (n+1) / c n:ℝ):EReal)) .atTop

@@ -5,7 +5,7 @@ import Analysis.Section_7_4
 import Analysis.Section_8_1
 
 /-!
-# Analysis I, Section 8.2: Summation on infinite sets
+# Аналіз I, Розділ 8.2: Summation on infinite sets
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -458,7 +458,7 @@ theorem permute_convergesTo_of_divergent {a: ℕ → ℝ} (ha: (a:Series).conver
   (ha': ¬ (a:Series).absConverges) (L:ℝ) :
   ∃ f : ℕ → ℕ, Bijective f ∧ (a ∘ f:Series).convergesTo L
   := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   choose h1 h2 using divergent_parts_of_divergent ha ha'
   set A_plus := { n | a n ≥ 0 }
   set A_minus := {n | a n < 0 }

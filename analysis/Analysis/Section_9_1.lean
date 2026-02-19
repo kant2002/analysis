@@ -3,7 +3,7 @@ import Mathlib.Analysis.SpecificLimits.Basic
 import Analysis.Section_6_4
 
 /-!
-# Analysis I, Section 9.1: Subsets of the real line
+# Аналіз I, Розділ 9.1: Subsets of the real line
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text.  When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -107,7 +107,7 @@ theorem closure_of_subset_closure {X Y:Set ℝ} (h: X ⊆ Y) (h' : Y ⊆ closure
 
 /-- Лема 9.1.12 -/
 theorem closure_of_Ioo {a b:ℝ} (h:a < b) : closure (.Ioo a b) = .Icc a b := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   ext x; simp [closure_def, AdherentPt, Real.adherent']
   constructor
   . intro h; contrapose! h
@@ -177,40 +177,40 @@ theorem isClosed_def (X:Set ℝ): IsClosed X ↔ closure X = X :=
 theorem isClosed_def' (X:Set ℝ): IsClosed X ↔ ∀ x, AdherentPt x X → x ∈ X := by
   simp [isClosed_def, subset_antisymm_iff, subset_closure]; simp [closure_def]; rfl
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Icc_closed {a b:ℝ} : IsClosed (.Icc a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ici_closed (a:ℝ) : IsClosed (.Ici a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Iic_closed (a:ℝ) : IsClosed (.Iic a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem R_closed : IsClosed (.univ : Set ℝ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ico_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (.Ico a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioc_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (.Ioc a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioo_not_closed {a b:ℝ} (h: a < b) : ¬ IsClosed (.Ioo a b) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Ioi_not_closed (a:ℝ) : ¬ IsClosed (.Ioi a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Iio_not_closed (a:ℝ) : ¬ IsClosed (.Iio a) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem N_closed : IsClosed ((fun n:ℕ ↦ (n:ℝ)) '' .univ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Z_closed : IsClosed ((fun n:ℤ ↦ (n:ℝ)) '' .univ) := by sorry
 
-/-- Examples 9.1.16 -/
+/-- Приклади 9.1.16 -/
 theorem Q_not_closed : ¬ IsClosed ((fun n:ℚ ↦ (n:ℝ)) '' .univ) := by sorry
 
 /-- Наслідок 9.1.17 -/

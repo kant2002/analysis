@@ -3,7 +3,7 @@ import Analysis.Section_5_5
 import Analysis.Section_5_epilogue
 
 /-!
-# Analysis I, Section 6.2: The extended real number system
+# Аналіз I, Розділ 6.2: The extended real number system
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -54,19 +54,19 @@ theorem EReal.lt_iff (x y:EReal) : x < y ↔ x ≤ y ∧ x ≠ y := lt_iff_le_an
 
 #check EReal.coe_lt_coe_iff
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (3:EReal) ≤ (5:EReal) := by rw [le_iff]; left; use (3:ℝ), (5:ℝ); norm_cast
 
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (3:EReal) < ⊤ := by simp [lt_iff]; exact real_neq_infty 3
 
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : (⊥:EReal) < ⊤ := by simp
 
 
-/-- Examples 6.2.4 -/
+/-- Приклади 6.2.4 -/
 example : ¬ (3:EReal) ≤ ⊥ := by
   by_contra h
   simp at h

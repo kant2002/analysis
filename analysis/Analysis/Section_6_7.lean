@@ -3,7 +3,7 @@ import Analysis.Section_5_epilogue
 import Analysis.Section_6_6
 
 /-!
-# Analysis I, Section 6.7: Real exponentiation, part II
+# Аналіз I, Розділ 6.7: Real exponentiation, part II
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -81,7 +81,7 @@ lemma ratPow_lim_uniq {x α:ℝ} (hx: x > 0) {q q': ℕ → ℚ}
  (hq: ((fun n ↦ (q n:ℝ)):Sequence).TendsTo α)
  (hq': ((fun n ↦ (q' n:ℝ)):Sequence).TendsTo α) :
  lim ((fun n ↦ x^(q n:ℝ)):Sequence) = lim ((fun n ↦ x^(q' n:ℝ)):Sequence) := by
- -- This proof is written to follow the structure of the original text.
+ -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set r := q - q'
   suffices : (fun n ↦ x^(r n:ℝ):Sequence).TendsTo 1
   . rw [←mul_one (lim ((fun n ↦ x^(q' n:ℝ)):Sequence))]

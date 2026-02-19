@@ -4,7 +4,7 @@ import Analysis.Section_5_3
 import Analysis.Section_5_epilogue
 
 /-!
-# Analysis I, Section 6.1: Convergence and limit laws
+# Аналіз I, Розділ 6.1: Convergence and limit laws
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -171,7 +171,7 @@ theorem Sequence.is_eventuallySteady_of_rat (ε:ℚ) (a: Chapter5.Sequence) :
 
 /-- Твердження 6.1.4 -/
 theorem Sequence.isCauchy_of_rat (a: Chapter5.Sequence) : a.IsCauchy ↔ (a:Sequence).IsCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   constructor
   swap
   . intro h; rw [isCauchy_def] at h
@@ -232,7 +232,7 @@ theorem Sequence.tendsTo_iff (a:Sequence) (L:ℝ) :
 
 noncomputable def seq_6_1_6 : Sequence := (fun (n:ℕ) ↦ 1-(10:ℝ)^(-(n:ℤ)-1):Sequence)
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : (0.1:ℝ).CloseSeq seq_6_1_6 1 := by
   rw [seq_6_1_6, Real.CloseSeq.coe]
   intro n
@@ -245,20 +245,20 @@ example : (0.1:ℝ).CloseSeq seq_6_1_6 1 := by
   gcongr <;> grind
 
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : ¬ (0.01:ℝ).CloseSeq seq_6_1_6 1 := by
   intro h; specialize h 0 (by positivity); simp [seq_6_1_6] at h; norm_num at h
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : (0.01:ℝ).EventuallyClose seq_6_1_6 1 := by sorry
 
-/-- Examples 6.1.6 -/
+/-- Приклади 6.1.6 -/
 example : seq_6_1_6.TendsTo 1 := by sorry
 
 /-- Твердження 6.1.7 (Uniqueness of limits) -/
 theorem Sequence.tendsTo_unique (a:Sequence) {L L':ℝ} (h:L ≠ L') :
     ¬ (a.TendsTo L ∧ a.TendsTo L') := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_contra this
   choose hL hL' using this
   replace h : L - L' ≠ 0 := by grind
@@ -314,7 +314,7 @@ a.TendsTo L ↔ a.Convergent ∧ lim a = L := by
 /-- Твердження 6.1.11 -/
 theorem Sequence.lim_harmonic :
     ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence).Convergent ∧ lim ((fun (n:ℕ) ↦ (n+1:ℝ)⁻¹):Sequence) = 0 := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [←lim_eq, tendsTo_iff]
   intro ε hε
   choose N hN using exists_int_gt (1 / ε); use N; intro n hn
@@ -370,7 +370,7 @@ lemma Sequence.isBounded_def (a:Sequence) :
 theorem Sequence.bounded_of_cauchy {a:Sequence} (h: a.IsCauchy) : a.IsBounded := by
   sorry
 
-/-- Corollary 6.1.17 -/
+/-- Наслідок 6.1.17 -/
 theorem Sequence.bounded_of_convergent {a:Sequence} (h: a.Convergent) : a.IsBounded := by
   sorry
 

@@ -3,7 +3,7 @@ import Analysis.Section_9_6
 import Analysis.Section_11_3
 
 /-!
-# Analysis I, Section 11.4: Basic properties of the Riemann integral
+# Аналіз I, Розділ 11.4: Basic properties of the Riemann integral
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
@@ -101,7 +101,7 @@ lemma nonneg_of_le_const_mul_eps {x C:ℝ} (h: ∀ ε>0, x ≤ C * ε) : x ≤ 0
 /-- Theorem 11.4.3 (Max and min preserve integrability)-/
 theorem IntegrableOn.max {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I) :
   IntegrableOn (f ⊔ g) I  := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   unfold IntegrableOn at hf hg
   have hmax_bound : BddOn (f ⊔ g) I := by
     choose M hM using hf.1; choose M' hM' using hg.1
@@ -149,7 +149,7 @@ theorem IntegrableOn.min {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableO
   IntegrableOn (f ⊓ g) I  := by
   sorry
 
-/-- Corollary 11.4.4 -/
+/-- Наслідок 11.4.4 -/
 theorem IntegrableOn.abs {I: BoundedInterval} {f:ℝ → ℝ} (hf: IntegrableOn f I) :
   IntegrableOn (abs f) I := by
   have := (IntegrableOn.const 0 I).1
@@ -161,7 +161,7 @@ It is convenient to first establish the non-negative case.-/
 theorem integ_of_mul_nonneg {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I)
   (hf_nonneg: MajorizesOn f 0 I) (hg_nonneg: MajorizesOn g 0 I) :
   IntegrableOn (f * g) I := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_cases hI : (I:Set ℝ).Nonempty
   swap
   . apply (integ_on_subsingleton _).1
@@ -262,7 +262,7 @@ theorem integ_of_mul_nonneg {I: BoundedInterval} {f g:ℝ → ℝ} (hf: Integrab
 
 theorem integ_of_mul {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I) :
   IntegrableOn (f * g) I := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   set fplus := max f (fun _ ↦ 0)
   set fminus := -min f (fun _ ↦ 0)
   set gplus := max g (fun _ ↦ 0)

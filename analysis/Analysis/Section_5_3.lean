@@ -4,19 +4,18 @@ import Mathlib.Algebra.Group.MinimalAxioms
 
 
 /-!
-# Analysis I, Section 5.3: The construction of the real numbers
+# Аналіз I, Розділ 5.3: Побудова дійсних чисел
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Notion of a formal limit of a Cauchy sequence.
-- Construction of a real number type `Chapter5.Real`.
-- Basic arithmetic operations and properties.
+- Поняття формального границі послідовності Коші.
+- Побудова типу дійсних чисел `Chapter5.Real`.
+- Базові арифметичні операції та властивості.
 
 ## Підказки від попередніх користувачів
 
@@ -28,7 +27,7 @@ Main constructions and results of this section:
 
 namespace Chapter5
 
-/-- A class of Cauchy sequences that start at zero -/
+/-- Клас послідовностей Коші, що починаються з нуля -/
 @[ext]
 class CauchySequence extends Sequence where
   zero : n₀ = 0
@@ -38,7 +37,7 @@ theorem CauchySequence.ext' {a b: CauchySequence} (h: a.seq = b.seq) : a = b := 
   apply CauchySequence.ext _ h
   rw [a.zero, b.zero]
 
-/-- A sequence starting at zero that is Cauchy, can be viewed as a Cauchy sequence.-/
+/-- Послідовність, що починається з нуля і є Коші, можна розглядати як послідовність Коші.-/
 abbrev CauchySequence.mk' {a:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) : CauchySequence where
   n₀ := 0
   seq := (a:Sequence).seq
@@ -78,7 +77,7 @@ instance CauchySequence.instSetoid : Setoid CauchySequence where
 
 theorem CauchySequence.equiv_iff (a b: CauchySequence) : a ≈ b ↔ Sequence.Equiv a b := by rfl
 
-/-- Every constant sequence is Cauchy -/
+/-- Будь-яка стала послідовність є послідовністю Коші. -/
 theorem Sequence.IsCauchy.const (a:ℚ) : ((fun _:ℕ ↦ a):Sequence).IsCauchy := by sorry
 
 instance CauchySequence.instZero : Zero CauchySequence where
@@ -88,9 +87,9 @@ abbrev Real := Quotient CauchySequence.instSetoid
 
 open Classical in
 /--
-  It is convenient in Lean to assign the "dummy" value of 0 to `LIM a` when `a` is not Cauchy.
-  This requires Classical logic, because the property of being Cauchy is not computable or
-  decidable.
+  У Lean зручно присвоювати "порожнє" значення 0 для `LIM a`, коли `a` не є послідовністю Коші.
+  Це вимагає класичної логіки, оскільки властивість бути послідовністю Коші не є обчислюваною
+  або вирішуваною.
 -/
 noncomputable abbrev LIM (a:ℕ → ℚ) : Real :=
   Quotient.mk _ (if h : (a:Sequence).IsCauchy then CauchySequence.mk' h else (0:CauchySequence))
@@ -99,7 +98,7 @@ theorem LIM_def {a:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) :
     LIM a = Quotient.mk _ (CauchySequence.mk' ha) := by
   rw [LIM, dif_pos ha]
 
-/-- Визначення 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Дійсні числа) -/
 theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).IsCauchy ∧ x = LIM a := by
   apply Quotient.ind _ x; intro a; use (a:ℕ → ℚ)
   observe : ((a:ℕ → ℚ):Sequence) = a.toSequence
@@ -107,7 +106,7 @@ theorem Real.eq_lim (x:Real) : ∃ (a:ℕ → ℚ), (a:Sequence).IsCauchy ∧ x 
   refine ⟨ a.cauchy, ?_ ⟩
   congr; ext n; simp; replace := congr($this n); simp_all
 
-/-- Визначення 5.3.1 (Real numbers) -/
+/-- Визначення 5.3.1 (Дійсні числа) -/
 theorem Real.LIM_eq_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
   LIM a = LIM b ↔ Sequence.Equiv a b := by
   constructor
@@ -116,10 +115,10 @@ theorem Real.LIM_eq_LIM {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Se
   intro h; apply Quotient.sound
   rwa [dif_pos ha, dif_pos hb, CauchySequence.equiv_iff]
 
-/--Lemma 5.3.6 (Sum of Cauchy sequences is Cauchy)-/
+/--Лема 5.3.6 (Сума послідовностей Коші є послідовністю Коші.)-/
 theorem Sequence.IsCauchy.add {a b:ℕ → ℚ}  (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
     (a + b:Sequence).IsCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [coe] at *
   intro ε hε
   choose N1 ha using ha _ (half_pos hε)
@@ -132,10 +131,10 @@ theorem Sequence.IsCauchy.add {a b:ℕ → ℚ}  (ha: (a:Sequence).IsCauchy) (hb
   convert Section_4_3.add_close h1 h2
   linarith
 
-/--Lemma 5.3.7 (Sum of equivalent sequences is equivalent)-/
+/--Лема 5.3.7 (Сума еквівалентних послідовностей є еквівалентною.)-/
 theorem Sequence.add_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (haa': Equiv a a') :
     Equiv (a + b) (a' + b) := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   rw [equiv_def] at *
   peel 2 haa' with ε hε haa'
   rw [Rat.eventuallyClose_def] at *
@@ -146,17 +145,17 @@ theorem Sequence.add_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (haa': Equiv 
   convert Section_4_3.add_close haa' (Section_4_3.close_refl (b n.toNat))
   simp
 
-/--Lemma 5.3.7 (Sum of equivalent sequences is equivalent)-/
+/--Лема 5.3.7 (Сума еквівалентних послідовностей є еквівалентною)-/
 theorem Sequence.add_equiv_right {b b':ℕ → ℚ} (a:ℕ → ℚ) (hbb': Equiv b b') :
     Equiv (a + b) (a + b') := by simp_rw [add_comm]; exact add_equiv_left _ hbb'
 
-/--Lemma 5.3.7 (Sum of equivalent sequences is equivalent)-/
+/--Лема 5.3.7 (Сума еквівалентних послідовностей є еквівалентною)-/
 theorem Sequence.add_equiv {a b a' b':ℕ → ℚ} (haa': Equiv a a')
   (hbb': Equiv b b') :
     Equiv (a + b) (a' + b') :=
   equiv_trans (add_equiv_left _ haa') (add_equiv_right _ hbb')
 
-/-- Визначення 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Додавання дійсних чисел) -/
 noncomputable instance Real.add_inst : Add Real where
   add := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a + b)) (by
@@ -167,28 +166,28 @@ noncomputable instance Real.add_inst : Add Real where
       all_goals apply Sequence.IsCauchy.add <;> rw [CauchySequence.coe_to_sequence] <;> convert @CauchySequence.cauchy ?_
       )
 
-/-- Визначення 5.3.4 (Addition of reals) -/
+/-- Визначення 5.3.4 (Додавання дійсних чисел) -/
 theorem Real.LIM_add {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
   LIM a + LIM b = LIM (a + b) := by
   simp_rw [LIM_def ha, LIM_def hb, LIM_def (Sequence.IsCauchy.add ha hb)]
   convert Quotient.liftOn₂_mk _ _ _ _
   rw [dif_pos]
 
-/-- Твердження 5.3.10 (Product of Cauchy sequences is Cauchy) -/
+/-- Твердження 5.3.10 (Добуток послідовностей Коші є послідовністю Коші) -/
 theorem Sequence.IsCauchy.mul {a b:ℕ → ℚ}  (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
     (a * b:Sequence).IsCauchy := by
   sorry
 
-/-- Твердження 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
+/-- Твердження 5.3.10 (Добуток еквівалентних послідовностей є еквівалентним) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_left {a a':ℕ → ℚ} (b:ℕ → ℚ) (hb : (b:Sequence).IsCauchy) (haa': Equiv a a') :
   Equiv (a * b) (a' * b) := by
   sorry
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
+/--Proposition 5.3.10 (Добуток еквівалентних послідовностей є еквівалентним) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv_right {b b':ℕ → ℚ} (a:ℕ → ℚ)  (ha : (a:Sequence).IsCauchy)  (hbb': Equiv b b') :
   Equiv (a * b) (a * b') := by simp_rw [mul_comm]; exact mul_equiv_left a ha hbb'
 
-/--Proposition 5.3.10 (Product of equivalent sequences is equivalent) / Вправа 5.3.2 -/
+/--Proposition 5.3.10 (Добуток еквівалентних послідовностей є еквівалентним) / Вправа 5.3.2 -/
 theorem Sequence.mul_equiv
   {a b a' b':ℕ → ℚ}
   (ha : (a:Sequence).IsCauchy)
@@ -197,7 +196,7 @@ theorem Sequence.mul_equiv
   (hbb': Equiv b b') : Equiv (a * b) (a' * b') :=
     equiv_trans (mul_equiv_right _ ha hbb') (mul_equiv_left _ hb' haa')
 
-/-- Визначення 5.3.9 (Product of reals) -/
+/-- Визначення 5.3.9 (Добуток дійсних чисел) -/
 noncomputable instance Real.mul_inst : Mul Real where
   mul := fun x y ↦
     Quotient.liftOn₂ x y (fun a b ↦ LIM (a * b)) (by
@@ -237,19 +236,19 @@ theorem Real.LIM.zero : LIM (fun _ ↦ (0:ℚ)) = 0 := by rw [←ratCast_def 0];
 instance Real.instIntCast : IntCast Real where
   intCast n := ((n:ℚ):Real)
 
-/-- ratCast distributes over addition -/
+/-- ratCast розподіляється щодо додавання -/
 theorem Real.ratCast_add (a b:ℚ) : (a:Real) + (b:Real) = (a+b:ℚ) := by sorry
 
-/-- ratCast distributes over multiplication -/
+/-- ratCast розподіляється щодо множення -/
 theorem Real.ratCast_mul (a b:ℚ) : (a:Real) * (b:Real) = (a*b:ℚ) := by sorry
 
 noncomputable instance Real.instNeg : Neg Real where
   neg x := ((-1:ℚ):Real) * x
 
-/-- ratCast commutes with negation -/
+/-- ratCast комутує з запереченням -/
 theorem Real.neg_ratCast (a:ℚ) : -(a:Real) = (-a:ℚ) := by sorry
 
-/-- It may be possible to omit the Cauchy sequence hypothesis here. -/
+/-- Можливо, тут можна опустити гіпотезу про послідовність Коші. -/
 theorem Real.neg_LIM (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) : -LIM a = LIM (-a) := by sorry
 
 theorem Sequence.IsCauchy.neg (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) :
@@ -264,11 +263,11 @@ theorem Real.sub_eq_add_neg (x y:Real) : x - y = x + (-y) := rfl
 theorem Sequence.IsCauchy.sub {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
     ((a-b:ℕ → ℚ):Sequence).IsCauchy := by sorry
 
-/-- LIM distributes over subtraction -/
+/-- LIM розподіляється щодо віднімання -/
 theorem Real.LIM_sub {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Sequence).IsCauchy) :
   LIM a - LIM b = LIM (a - b) := by sorry
 
-/-- ratCast distributes over subtraction -/
+/-- ratCast розподіляється щодо віднімання -/
 theorem Real.ratCast_sub (a b:ℚ) : (a:Real) - (b:Real) = (a-b:ℚ) := by sorry
 
 /-- Твердження 5.3.11 (закони алгебри) -/
@@ -300,8 +299,8 @@ abbrev Real.ratCast_hom : ℚ →+* Real where
   map_mul' := by sorry
 
 /--
-  Definition 5.3.12 (sequences bounded away from zero). Sequences are indexed to start from zero
-  as this is more convenient for Mathlib purposes.
+  Визначення 5.3.12 (послідовності, обмежені від нуля). Послідовності індексуються так, щоб починатися з нуля,
+  оскільки це зручніше для цілей Mathlib.
 -/
 abbrev BoundedAwayZero (a:ℕ → ℚ) : Prop :=
   ∃ (c:ℚ), c > 0 ∧ ∀ n, |a n| ≥ c
@@ -309,29 +308,29 @@ abbrev BoundedAwayZero (a:ℕ → ℚ) : Prop :=
 theorem bounded_away_zero_def (a:ℕ → ℚ) : BoundedAwayZero a ↔
   ∃ (c:ℚ), c > 0 ∧ ∀ n, |a n| ≥ c := by rfl
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : BoundedAwayZero (fun n ↦ (-1)^n) := by use 1; simp
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ¬ BoundedAwayZero (fun n ↦ 10^(-(n:ℤ)-1)) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ¬ BoundedAwayZero (fun n ↦ 1 - 10^(-(n:ℤ))) := by sorry
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : BoundedAwayZero (fun n ↦ 10^(n+1)) := by
   use 1, by norm_num
   intro n; dsimp
   rw [abs_of_nonneg (by positivity), show (1:ℚ) = 10^0 by norm_num]
   gcongr <;> grind
 
-/-- Examples 5.3.13 -/
+/-- Приклади 5.3.13 -/
 example : ¬ ((fun (n:ℕ) ↦ (10:ℚ)^(n+1)):Sequence).IsBounded := by sorry
 
 /-- Лема 5.3.14 -/
 theorem Real.boundedAwayZero_of_nonzero {x:Real} (hx: x ≠ 0) :
     ∃ a:ℕ → ℚ, (a:Sequence).IsCauchy ∧ BoundedAwayZero a ∧ x = LIM a := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   obtain ⟨ b, hb, rfl ⟩ := eq_lim x
   simp only [←LIM.zero, ne_eq] at hx
   rw [LIM_eq_LIM hb (by convert Sequence.IsCauchy.const 0), Sequence.equiv_iff] at hx
@@ -350,8 +349,8 @@ theorem Real.boundedAwayZero_of_nonzero {x:Real} (hx: x ≠ 0) :
   grind
 
 /--
-  This result was not explicitly stated in the text, but is needed in the theory. It's a good
-  exercise, so I'm setting it as such.
+  Цей результат не був явно зазначений у тексті, але потрібен у теорії.
+  Це гарна вправа, тож я залишаю її як таку.
 -/
 theorem Real.lim_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) :
@@ -364,7 +363,7 @@ theorem Real.nonzero_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a) 
 theorem Real.inv_isCauchy_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) :
     ((a⁻¹:ℕ → ℚ):Sequence).IsCauchy := by
-  -- This proof is written to follow the structure of the original text.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   have ha' (n:ℕ) : a n ≠ 0 := nonzero_of_boundedAwayZero ha n
   rw [bounded_away_zero_def] at ha; choose c hc ha using ha
   simp_rw [Sequence.IsCauchy.coe, Section_4_3.dist_eq] at ha_cauchy ⊢
@@ -378,7 +377,7 @@ theorem Real.inv_isCauchy_of_boundedAwayZero {a:ℕ → ℚ} (ha: BoundedAwayZer
     _ ≤ (c^2 * ε) / c^2 := by gcongr
     _ = ε := by field_simp [hc]
 
-/-- Лема 5.3.17 (Reciprocation is well-defined) -/
+/-- Лема 5.3.17 (Операція взяття оберненого числа визначена коректно) -/
 theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) (hb: BoundedAwayZero b)
   (hb_cauchy: (b:Sequence).IsCauchy) (hlim: LIM a = LIM b) :
@@ -399,8 +398,8 @@ theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: BoundedAwayZero a)
 
 open Classical in
 /--
-  Визначення 5.3.16 (Reciprocation of real numbers).  Requires classical logic because we need to
-  assign a "junk" value to the inverse of 0.
+  Визначення 5.3.16 (Взяття оберненого числа дійсних чисел).  Вимагає класичної логіки, оскільки потрібно
+  присвоїти "сміттєве" значення оберненому 0.
 -/
 noncomputable instance Real.instInv : Inv Real where
   inv x := if h: x ≠ 0 then LIM (boundedAwayZero_of_nonzero h).choose⁻¹ else 0
@@ -430,7 +429,7 @@ theorem Real.inv_ratCast (q:ℚ) : (q:Real)⁻¹ = (q⁻¹:ℚ) := by
   . rw [h, ← show (0:Real) = (0:ℚ) by norm_cast]; norm_num; norm_cast
   simp_rw [ratCast_def, inv_def (BoundedAwayZero.const h) (by apply Sequence.IsCauchy.const)]; congr
 
-/-- Default definition of division -/
+/-- Стандартне визначення ділення -/
 noncomputable instance Real.instDivInvMonoid : DivInvMonoid Real where
 
 theorem Real.div_eq (x y:Real) : x/y = x * y⁻¹ := rfl
@@ -453,8 +452,8 @@ theorem Real.IsBounded.equiv {a b:ℕ → ℚ} (ha: (a:Sequence).IsBounded) (hab
     (b:Sequence).IsBounded := by sorry
 
 /--
-  Same as `Sequence.IsCauchy.harmonic` but reindexing the sequence as a₀ = 1, a₁ = 1/2, ...
-  This form is more convenient for the upcoming proof of Theorem 5.5.9.
+  Те саме, що `Sequence.IsCauchy.harmonic`, але з перенумерацією послідовності як a₀ = 1, a₁ = 1/2, ...
+  Ця форма зручніша для майбутнього доведення Теореми 5.5.9.
 -/
 theorem Sequence.IsCauchy.harmonic' : ((fun n ↦ 1/((n:ℚ)+1): ℕ → ℚ):Sequence).IsCauchy := by
   rw [coe]; intro ε hε; choose N h1 h2 using (mk _).mp harmonic ε hε
