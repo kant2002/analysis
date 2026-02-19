@@ -106,7 +106,7 @@ theorem Nat.add_mul (a b c: Nat) : (a + b)*c = a*c + b*c := by
 theorem Nat.mul_assoc (a b c: Nat) : (a * b) * c = a * (b * c) := by
   sorry
 
-/-- (Не із книги)  Nat є комутативним півкільцем.
+/-- (Не в підручнику)  Nat є комутативним півкільцем.
     Це дозволяє застосовувати такі тактики, як `ring`, до натуральних чисел Розділу 2. -/
 instance Nat.instCommSemiring : CommSemiring Nat where
   left_distrib := mul_add
@@ -162,7 +162,7 @@ lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.IsPos) : a = b
   apply ne_of_gt at hgt
   contradiction
 
-/-- (Не із книги) Nat є впорядкованим півкільцем.
+/-- (Не в підручнику) Nat є впорядкованим півкільцем.
 Це дозволяє застосовувати такі тактики, як `gcongr`, до натуральних чисел Розділу 2. -/
 instance Nat.isOrderedRing : IsOrderedRing Nat where
   zero_le_one := by sorry

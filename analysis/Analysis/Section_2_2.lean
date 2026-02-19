@@ -112,7 +112,7 @@ theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   exact ih hbc
 
 
-/-- (Не із книги) Типу Nat можна дати структуру комутативного адітивного моноїда. -/
+/-- (Не в підручнику) Типу Nat можна дати структуру комутативного адітивного моноїда. -/
 instance Nat.addCommMonoid : AddCommMonoid Nat where
   add_assoc := add_assoc
   add_comm := add_comm
@@ -316,7 +316,7 @@ theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   tauto
 
 /--
-  (Не із книги) Встановіть алгоритмічну розв'язність для цього порядку обчислювальним шляхом.
+  (Не в підручнику) Встановіть алгоритмічну розв'язність для цього порядку обчислювальним шляхом.
   Частина доказу, що стосується розв'язності, наведена; решта `sorry` стосуються тверджень
   про натуральні числа. Цей результат також можна було б встановити за допомогою тактики `classical`
   з подальшим використанням `exact Classical.decRel _`, але це зробило б це визначення
@@ -344,7 +344,7 @@ def Nat.decLe : (a b : Nat) → Decidable (a ≤ b)
 
 instance Nat.decidableRel : DecidableRel (· ≤ · : Nat → Nat → Prop) := Nat.decLe
 
-/-- (Не із книги) Nat має структуру лінійне впорядкування. Це дозволяє
+/-- (Не в підручнику) Nat має структуру лінійне впорядкування. Це дозволяє
   застосовувати такі тактики, як `order` і `calc`, до натуральних чисел Розділу 2. -/
 instance Nat.instLinearOrder : LinearOrder Nat where
   le_refl := ge_refl

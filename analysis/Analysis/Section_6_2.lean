@@ -179,7 +179,7 @@ theorem EReal.inf_ge_upper (E: Set EReal) {M:EReal} (hM: M ∈ lowerBounds E) : 
 #check isLUB_iff_sSup_eq
 #check isGLB_iff_sInf_eq
 
-/-- Not in textbook: identify the Chapter 5 extended reals with the Mathlib extended reals.
+/-- Не в підручнику: identify the Chapter 5 extended reals with the Mathlib extended reals.
 -/
 noncomputable abbrev Chapter5.ExtendedReal.toEReal (x:ExtendedReal) : EReal := match x with
   | real r => ((Real.equivR r):EReal)

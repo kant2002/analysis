@@ -72,7 +72,7 @@ instance Int.decidableEq : DecidableEq Int := by
     exact decEq _ _
   exact Quotient.recOnSubsingleton₂ a b this
 
-/-- Визначення 4.1.1 (Integers) -/
+/-- Визначення 4.1.1 (Цілі числа) -/
 theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by apply n.ind _; intro ⟨ a, b ⟩; use a, b
 /-- Лема 4.1.3 (Додавання чітко визначене) -/
 instance Int.instAdd : Add Int where
@@ -144,7 +144,7 @@ example : 3 = 3 —— 0 := rfl
 
 example : 3 = 4 —— 1 := by rw [Int.ofNat_eq, Int.eq]
 
-/-- (Не із книги) 0 is the only natural whose cast is 0 -/
+/-- (Не в підручнику) 0 це єдине натуральне число, чия цифра дорівнює 0 -/
 lemma Int.cast_eq_0_iff_eq_0 (n : ℕ) : (n : Int) = 0 ↔ n = 0 := by sorry
 
 /-- Визначення 4.1.4 (Протилежність цілих чисел) / Вправа 4.1.2 -/
@@ -266,7 +266,7 @@ theorem Int.not_gt_and_eq (a b:Int) : ¬ (a > b ∧ a = b):= by sorry
 /-- Лема 4.1.11(f) (Тріхотомія порядку) / Вправа 4.1.7 -/
 theorem Int.not_lt_and_eq (a b:Int) : ¬ (a < b ∧ a = b):= by sorry
 
-/-- (Не із книги) Встановимо алгорітмічну розв'язність цього порядку. -/
+/-- (Не в підручнику) Встановимо алгорітмічну розв'язність цього порядку. -/
 instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := by
   intro n m
   have : ∀ (n:PreInt) (m: PreInt),
@@ -282,10 +282,10 @@ instance Int.decidableRel : DecidableRel (· ≤ · : Int → Int → Prop) := b
         sorry
   exact Quotient.recOnSubsingleton₂ n m this
 
-/-- (Не із книги) 0 єдиний нейтральний елемент додавання-/
+/-- (Не в підручнику) 0 єдиний нейтральний елемент додавання-/
 lemma Int.is_additive_identity_iff_eq_0 (b : Int) : (∀ a, a = a + b) ↔ b = 0 := by sorry
 
-/-- (Не із книги) Int має структуру лінійного упорядкування. -/
+/-- (Не в підручнику) Int має структуру лінійного упорядкування. -/
 instance Int.instLinearOrder : LinearOrder Int where
   le_refl := sorry
   le_trans := sorry

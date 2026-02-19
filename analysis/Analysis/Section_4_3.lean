@@ -3,22 +3,21 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Розділ 4.3: Абсолютні значення та піднесення до степеня
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні побудови та результати цього розділу:
 
-- Basic properties of absolute value and exponentiation on the rational numbers (here we use the
-  Mathlib rational numbers `ℚ` rather than the Section 4.2 rational numbers).
+- Базові властивості абсолютного значення та піднесення до степеня для раціональних чисел
+  (тут ми використовуємо раціональні числа Mathlib `ℚ`, а не раціональні числа розділу 4.2).
 
-Note: to avoid notational conflict, we are using the standard Mathlib definitions of absolute
-value and exponentiation.  As such, it is possible to solve several of the exercises here rather
-easily using the Mathlib API for these operations.  However, the spirit of the exercises is to
-solve these instead using the API provided in this section, as well as more basic Mathlib API for
-the rational numbers that does not reference either absolute value or exponentiation.
+Примітка: щоб уникнути конфлікту позначень, ми використовуємо стандартні визначення Mathlib
+для абсолютного значення та піднесення до степеня. Через це кілька вправ можна досить легко розв’язати
+за допомогою API Mathlib для цих операцій. Однак дух вправ полягає в тому, щоб розв’язувати їх,
+використовуючи API, наданий у цьому розділі, а також більш базовий API Mathlib для раціональних
+чисел, який не посилається на абсолютне значення чи піднесення до степеня.
 
 ## Підказки від попередніх користувачів
 
@@ -30,27 +29,27 @@ the rational numbers that does not reference either absolute value or exponentia
 
 
 /--
-  This definition needs to be made outside of the Section 4.3 namespace for technical reasons.
+  Це визначення потрібно зробити поза простором імен Розділу 4.3 з технічних причин.
 -/
 def Rat.Close (ε : ℚ) (x y:ℚ) := |x-y| ≤ ε
 
 
 namespace Section_4_3
 
-/-- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Абсолютне значення) -/
 abbrev abs (x:ℚ) : ℚ := if x > 0 then x else (if x < 0 then -x else 0)
 
 theorem abs_of_pos {x: ℚ} (hx: 0 < x) : abs x = x := by grind
 
-/-- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Абсолютне значення) -/
 theorem abs_of_neg {x: ℚ} (hx: x < 0) : abs x = -x := by grind
 
-/-- Визначення 4.3.1 (Absolute value) -/
+/-- Визначення 4.3.1 (Абсолютне значення) -/
 theorem abs_of_zero : abs 0 = 0 := rfl
 
 /--
-  (Не із книги) This definition of absolute value agrees with the Mathlib one.
-  Henceforth we use the Mathlib absolute value.
+  (Не в підручнику) Це визначення абсолютного значення збігається з визначенням у Mathlib.
+  Надалі ми використовуємо абсолютне значення Mathlib.
 -/
 theorem abs_eq_abs (x: ℚ) : abs x = |x| := by
   sorry
@@ -58,8 +57,8 @@ theorem abs_eq_abs (x: ℚ) : abs x = |x| := by
 abbrev dist (x y : ℚ) := |x - y|
 
 /--
-  Визначення 4.2 (Distance).
-  We avoid the Mathlib notion of distance here because it is real-valued.
+  Визначення 4.2 (Відстань).
+  Тут ми уникаємо поняття відстані з Mathlib, оскільки воно має дійсні значення.
 -/
 theorem dist_eq (x y: ℚ) : dist x y = |x-y| := rfl
 
@@ -98,9 +97,9 @@ theorem dist_symm (x y:ℚ) : dist x y = dist y x := by sorry
 theorem dist_le (x y z:ℚ) : dist x z ≤ dist x y + dist y z := by sorry
 
 /--
-  Визначення 4.3.4 (eps-closeness).  In the text the notion is undefined for ε zero or negative,
-  but it is more convenient in Lean to assign a "junk" definition in this case.  But this also
-  allows some relaxations of hypotheses in the lemmas that follow.
+  Визначення 4.3.4 (ε-близькість).  У тексті це поняття не визначене для ε, що дорівнює нулю або є від’ємним,
+  але в Lean зручніше призначити в цьому випадку «сміттєве» визначення. Це також
+  дозволяє деяке послаблення гіпотез у наступних лемах.
 -/
 theorem close_iff (ε x y:ℚ): ε.Close x y ↔ |x - y| ≤ ε := by rfl
 
@@ -133,7 +132,7 @@ theorem add_close {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z w) :
 theorem sub_close {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z w) :
     (ε + δ).Close (x-z) (y-w) := by sorry
 
-/-- Твердження 4.3.7(e) / Вправа 4.3.2, slightly strengthened -/
+/-- Твердження 4.3.7(e) / Вправа 4.3.2, трохи посилена -/
 theorem close_mono {ε ε' x y:ℚ} (hxy: ε.Close x y) (hε: ε' ≥  ε) :
     ε'.Close x y := by sorry
 
@@ -148,9 +147,8 @@ theorem close_mul_right {ε x y z:ℚ} (hxy: ε.Close x y) :
 /-- Твердження 4.3.7(h) / Вправа 4.3.2 -/
 theorem close_mul_mul {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z w) :
     (ε*|z|+δ*|x|+ε*δ).Close (x * z) (y * w) := by
-  -- The proof is written to follow the structure of the original text, though
-  -- non-negativity of ε and δ are implied and don't need to be provided as
-  -- explicit hypotheses.
+  -- Доведення написане так, щоб відповідати структурі оригінального тексту, хоча
+  -- невід’ємність ε та δ є очевидною і не потребує явного зазначення в гіпотезах.
   have hε : ε ≥ 0 := le_trans (abs_nonneg _) hxy
   set a := y-x
   have ha : y = x + a := by grind
@@ -167,50 +165,50 @@ theorem close_mul_mul {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z w
     _ = |a| * |z| + |b| * |x| + |a| * |b| := by grind [abs_mul]
     _ ≤ _ := by gcongr
 
-/-- This variant of Proposition 4.3.7(h) was not in the textbook, but can be useful
-in some later exercises. -/
+/-- Ця варіація Твердження 4.3.7(h) не містилася в підручнику, але може бути корисною
+у деяких наступних вправах. -/
 theorem close_mul_mul' {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z w) :
     (ε*|z|+δ*|y|).Close (x * z) (y * w) := by
     sorry
 
-/-- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Визначення 4.3.9 (піднесення до степеня).  Тут ми використовуємо визначення з Mathlib.-/
 lemma pow_zero (x:ℚ) : x^0 = 1 := rfl
 
 example : (0:ℚ)^0 = 1 := pow_zero 0
 
-/-- Визначення 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Визначення 4.3.9 (піднесення до степеня).  Тут ми використовуємо визначення з Mathlib.-/
 lemma pow_succ (x:ℚ) (n:ℕ) : x^(n+1) = x^n * x := _root_.pow_succ x n
 
-/-- Твердження 4.3.10(a) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(a) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_add (x:ℚ) (m n:ℕ) : x^n * x^m = x^(n+m) := by sorry
 
-/-- Твердження 4.3.10(a) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(a) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_mul (x:ℚ) (m n:ℕ) : (x^n)^m = x^(n*m) := by sorry
 
-/-- Твердження 4.3.10(a) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(a) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem mul_pow (x y:ℚ) (n:ℕ) : (x*y)^n = x^n * y^n := by sorry
 
-/-- Твердження 4.3.10(b) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(b) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_eq_zero (x:ℚ) (n:ℕ) (hn : 0 < n) : x^n = 0 ↔ x = 0 := by sorry
 
-/-- Твердження 4.3.10(c) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(c) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_nonneg {x:ℚ} (n:ℕ) (hx: x ≥ 0) : x^n ≥ 0 := by sorry
 
-/-- Твердження 4.3.10(c) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(c) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_pos {x:ℚ} (n:ℕ) (hx: x > 0) : x^n > 0 := by sorry
 
-/-- Твердження 4.3.10(c) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(c) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_ge_pow (x y:ℚ) (n:ℕ) (hxy: x ≥ y) (hy: y ≥ 0) : x^n ≥ y^n := by sorry
 
-/-- Твердження 4.3.10(c) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(c) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_gt_pow (x y:ℚ) (n:ℕ) (hxy: x > y) (hy: y ≥ 0) (hn: n > 0) : x^n > y^n := by sorry
 
-/-- Твердження 4.3.10(d) (Properties of exponentiation, I) / Вправа 4.3.3 -/
+/-- Твердження 4.3.10(d) (Властивості піднесення до степеня, I) / Вправа 4.3.3 -/
 theorem pow_abs (x:ℚ) (n:ℕ) : |x|^n = |x^n| := by sorry
 
 /--
-  Визначення 4.3.11 (Exponentiation to a negative number).
-  Here we use the Mathlib notion of integer exponentiation
+  Визначення 4.3.11 (Піднесення до степеня з від’ємним показником).
+  Тут ми використовуємо поняття піднесення до степеня з цілим показником із Mathlib.
 -/
 theorem zpow_neg (x:ℚ) (n:ℕ) : x^(-(n:ℤ)) = 1/(x^n) := by simp
 
@@ -220,29 +218,29 @@ example (x:ℚ): x^(-3:ℤ) = 1/(x*x*x) := by convert zpow_neg x 3; ring
 
 theorem pow_eq_zpow (x:ℚ) (n:ℕ): x^(n:ℤ) = x^n := zpow_natCast x n
 
-/-- Твердження 4.3.12(a) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(a) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_add (x:ℚ) (n m:ℤ) (hx: x ≠ 0): x^n * x^m = x^(n+m) := by sorry
 
-/-- Твердження 4.3.12(a) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(a) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_mul (x:ℚ) (n m:ℤ) : (x^n)^m = x^(n*m) := by sorry
 
-/-- Твердження 4.3.12(a) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(a) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem mul_zpow (x y:ℚ) (n:ℤ) : (x*y)^n = x^n * y^n := by sorry
 
-/-- Твердження 4.3.12(b) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(b) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_pos {x:ℚ} (n:ℤ) (hx: x > 0) : x^n > 0 := by sorry
 
-/-- Твердження 4.3.12(b) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(b) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_ge_zpow {x y:ℚ} {n:ℤ} (hxy: x ≥ y) (hy: y > 0) (hn: n > 0): x^n ≥ y^n := by sorry
 
 theorem zpow_ge_zpow_ofneg {x y:ℚ} {n:ℤ} (hxy: x ≥ y) (hy: y > 0) (hn: n < 0) : x^n ≤ y^n := by
   sorry
 
-/-- Твердження 4.3.12(c) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(c) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_inj {x y:ℚ} {n:ℤ} (hx: x > 0) (hy : y > 0) (hn: n ≠ 0) (hxy: x^n = y^n) : x = y := by
   sorry
 
-/-- Твердження 4.3.12(d) (Properties of exponentiation, II) / Вправа 4.3.4 -/
+/-- Твердження 4.3.12(d) (Властивості піднесення до степеня, II) / Вправа 4.3.4 -/
 theorem zpow_abs (x:ℚ) (n:ℤ) : |x|^n = |x^n| := by sorry
 
 /-- Вправа 4.3.5 -/

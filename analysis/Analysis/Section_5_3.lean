@@ -255,7 +255,7 @@ theorem Real.neg_LIM (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) : -LIM a = LIM 
 theorem Sequence.IsCauchy.neg (a:ℕ → ℚ) (ha: (a:Sequence).IsCauchy) :
     ((-a:ℕ → ℚ):Sequence).IsCauchy := by sorry
 
-/-- Твердження 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (закони алгебри) -/
 noncomputable instance Real.addGroup_inst : AddGroup Real :=
   AddGroup.ofLeftAxioms (by sorry) (by sorry) (by sorry)
 
@@ -271,18 +271,18 @@ theorem Real.LIM_sub {a b:ℕ → ℚ} (ha: (a:Sequence).IsCauchy) (hb: (b:Seque
 /-- ratCast distributes over subtraction -/
 theorem Real.ratCast_sub (a b:ℚ) : (a:Real) - (b:Real) = (a-b:ℚ) := by sorry
 
-/-- Твердження 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (закони алгебри) -/
 noncomputable instance Real.instAddCommGroup : AddCommGroup Real where
   add_comm := by sorry
 
-/-- Твердження 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (закони алгебри) -/
 noncomputable instance Real.instCommMonoid : CommMonoid Real where
   mul_comm := by sorry
   mul_assoc := by sorry
   one_mul := by sorry
   mul_one := by sorry
 
-/-- Твердження 5.3.11 (laws of algebra) -/
+/-- Твердження 5.3.11 (закони алгебри) -/
 noncomputable instance Real.instCommRing : CommRing Real where
   left_distrib := by sorry
   right_distrib := by sorry

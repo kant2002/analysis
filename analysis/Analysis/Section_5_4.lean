@@ -159,32 +159,32 @@ theorem Real.gt_of_coe (q q':ℚ): q > q' ↔ (q:Real) > (q':Real) := Real.lt_of
 theorem Real.isPos_iff (x:Real) : x.IsPos ↔ x > 0 := by sorry
 theorem Real.isNeg_iff (x:Real) : x.IsNeg ↔ x < 0 := by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(a) (трихотомія порядку) / Вправа 5.4.2 -/
 theorem Real.trichotomous' (x y:Real) : x > y ∨ x < y ∨ x = y := by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(a) (трихотомія порядку) / Вправа 5.4.2 -/
 theorem Real.not_gt_and_lt (x y:Real) : ¬ (x > y ∧ x < y):= by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(a) (трихотомія порядку) / Вправа 5.4.2 -/
 theorem Real.not_gt_and_eq (x y:Real) : ¬ (x > y ∧ x = y):= by sorry
 
-/-- Твердження 5.4.7(a) (order trichotomy) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(a) (трихотомія порядку) / Вправа 5.4.2 -/
 theorem Real.not_lt_and_eq (x y:Real) : ¬ (x < y ∧ x = y):= by sorry
 
-/-- Твердження 5.4.7(b) (order is anti-symmetric) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(b) (порядок є антисиметричним) / Вправа 5.4.2 -/
 theorem Real.antisymm (x y:Real) : x < y ↔ y > x := by sorry
 
-/-- Твердження 5.4.7(c) (order is transitive) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(c) (порядок є транзитивним) / Вправа 5.4.2 -/
 theorem Real.lt_trans {x y z:Real} (hxy: x < y) (hyz: y < z) : x < z := by sorry
 
-/-- Твердження 5.4.7(d) (addition preserves order) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(d) (додавання зберігає порядок) / Вправа 5.4.2 -/
 theorem Real.add_lt_add_right {x y:Real} (z:Real) (hxy: x < y) : x + z < y + z := by sorry
 
-/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(e) (множення на додатне число зберігає порядок) / Вправа 5.4.2 -/
 theorem Real.mul_lt_mul_right {x y z:Real} (hxy: x < y) (hz: z.IsPos) : x * z < y * z := by
   rw [antisymm, gt_iff] at hxy ⊢; convert pos_mul hxy hz using 1; ring
 
-/-- Твердження 5.4.7(e) (positive multiplication preserves order) / Вправа 5.4.2 -/
+/-- Твердження 5.4.7(e) (множення на додатне число зберігає порядок) / Вправа 5.4.2 -/
 theorem Real.mul_le_mul_left {x y z:Real} (hxy: x ≤ y) (hz: z.IsPos) : z * x ≤ z * y := by sorry
 
 theorem Real.mul_pos_neg {x y:Real} (hx: x.IsPos) (hy: y.IsNeg) : (x * y).IsNeg := by
@@ -192,7 +192,7 @@ theorem Real.mul_pos_neg {x y:Real} (hx: x.IsPos) (hy: y.IsNeg) : (x * y).IsNeg 
 
 open Classical in
 /--
-  (Не із книги) Real has the structure of a linear ordering. The order is not computable,
+  (Не в підручнику) Real has the structure of a linear ordering. The order is not computable,
   and so classical logic is required to impose decidability.
 -/
 noncomputable instance Real.instLinearOrder : LinearOrder Real where
@@ -204,7 +204,7 @@ noncomputable instance Real.instLinearOrder : LinearOrder Real where
   toDecidableLE := Classical.decRel _
 
 /--
-  (Not from textbook) Linear Orders come with a definition of absolute value |.|
+  (Не в підручнику) Linear Orders come with a definition of absolute value |.|
   Show that it agrees with our earlier definition.
 -/
 theorem Real.abs_eq_abs (x:Real) : |x| = abs x := by sorry
@@ -237,7 +237,7 @@ theorem Real.inv_of_gt {x y:Real} (hx: x.IsPos) (hy: y.IsPos) (hxy: x > y) : x�
     _ = _ := self_mul_inv hynon
   simp at this
 
-/-- (Не із книги) Real has the structure of a strict ordered ring. -/
+/-- (Не в підручнику) Real has the structure of a strict ordered ring. -/
 instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
   add_le_add_left := by sorry
   add_le_add_right := by sorry

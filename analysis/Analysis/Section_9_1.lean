@@ -170,7 +170,7 @@ theorem limit_of_AdherentPt (X: Set ℝ) (x:ℝ) :
 theorem AdherentPt.of_mem {X: Set ℝ} {x: ℝ} (h: x ∈ X) : AdherentPt x X := by
   rw [limit_of_AdherentPt]; use fun _ ↦ x; simp [h]
 
-/-- Визначення 9.1.15.  Here we use the Mathlib definition. -/
+/-- Визначення 9.1.15.  Тут ми використовуємо визначення з Mathlib. -/
 theorem isClosed_def (X:Set ℝ): IsClosed X ↔ closure X = X :=
   closure_eq_iff_isClosed.symm
 
