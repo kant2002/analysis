@@ -5,13 +5,12 @@ import Analysis.Section_11_2
 /-!
 # Аналіз I, Розділ 11.3: Upper and lower Riemann integrals
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 - The upper and lower Riemann integral; the Riemann integral.
 - Upper and lower Riemann sums.
 
@@ -136,7 +135,7 @@ theorem integ_of_piecewise_const {f:ℝ → ℝ} {I: BoundedInterval} (hf: Piece
   IntegrableOn f I ∧ integ f I = hf.integ' := by
   sorry
 
-/-- Ремарка 11.3.8 -/
+/-- Зауваження 11.3.8 -/
 theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ = 0) :
   IntegrableOn f I ∧ integ f I = 0 := by
   observe : Subsingleton I.toSet

@@ -3,16 +3,15 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Розділ 7.1: Finite series
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Technical note: it is convenient in Lean to extend finite sequences (usually by zero) to be
 functions on the entire integers.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 -/
 
 -- This makes available the convenient notation `∑ n ∈ A, f n` to denote summation of `f n` for
@@ -64,7 +63,7 @@ example (a: ℤ → ℝ) (m:ℤ) : ∑ i ∈ Icc m (m+1), a i = a m + a (m+1) :=
 
 example (a: ℤ → ℝ) (m:ℤ) : ∑ i ∈ Icc m (m+2), a i = a m + a (m+1) + a (m+2) := by sorry
 
-/-- Ремарка 7.1.3 -/
+/-- Зауваження 7.1.3 -/
 example (a: ℤ → ℝ) (m n:ℤ) : ∑ i ∈ Icc m n, a i = ∑ j ∈ Icc m n, a j := rfl
 
 /-- Лема 7.1.4(a) / Вправа 7.1.1 -/

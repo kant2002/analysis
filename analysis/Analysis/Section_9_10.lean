@@ -9,7 +9,7 @@ translation, I have generally chosen the latter.  In particular, there will be p
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 - Bare-bones API for the Mathlib versions of adherent at infinity, and limits at infinity.
 -/
 

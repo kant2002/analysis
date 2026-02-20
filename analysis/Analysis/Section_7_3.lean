@@ -11,7 +11,7 @@ import Analysis.Section_7_2
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Equivalent characterizations of convergence of nonnegative series.
 - Cauchy condensation test.
@@ -162,7 +162,7 @@ theorem Series.converges_qseries (q: ℝ) (hq: q > 0) : (mk' (m := 1) fun n ↦ 
   rw [abs_of_nonneg, rpow_lt_one_iff_of_pos] <;> try positivity
   simp
 
-/-- Ремарка 7.3.8 -/
+/-- Зауваження 7.3.8 -/
 theorem Series.zeta_eq {q:ℝ} (hq: q > 1) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series).sum = riemannZeta q := by
   -- `riemannZeta` is defined over the complex numbers, so some preliminary work is needed to specialize to the reals.
   set L := ∑' n:ℕ, 1 / (n+1:ℝ)^q

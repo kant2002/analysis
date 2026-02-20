@@ -12,7 +12,7 @@ translation, I have generally chosen the latter.  In particular, there will be p
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 - Continuous functions on closed and bounded intervals are bounded.
 - Continuous functions on closed and bounded intervals attain their maximum and minimum.
 -/
@@ -76,7 +76,7 @@ theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: 
 #check isMaxOn_iff
 #check isMinOn_iff
 
-/-- Ремарка 9.6.6 -/
+/-- Зауваження 9.6.6 -/
 theorem BddAboveOn.isMaxOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMaxOn f X x₀): BddAboveOn f X := by sorry
 
 theorem BddBelowOn.isMinOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMinOn f X x₀): BddBelowOn f X := by sorry

@@ -11,7 +11,7 @@ translation, I have generally chosen the latter.  In particular, there will be p
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Review of Mathlib intervals.
 - Adherent points, limit points, isolated points.
@@ -238,7 +238,7 @@ example : ¬ LimitPt 3 ((.Ioo 1 2) ∪ {3}) := by sorry
 
 example : IsolatedPt 3 ((.Ioo 1 2) ∪ {3}) := by sorry
 
-/-- Ремарка 9.1.20 -/
+/-- Зауваження 9.1.20 -/
 theorem LimitPt.iff_limit (x:ℝ) (X: Set ℝ) :
   LimitPt x X ↔ ∃ a : ℕ → ℝ, (∀ n, a n ∈ X \ {x}) ∧ Filter.atTop.Tendsto a (nhds x) := by
   simp [limit_of_AdherentPt]

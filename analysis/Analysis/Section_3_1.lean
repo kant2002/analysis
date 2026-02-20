@@ -7,9 +7,9 @@ import Mathlib.Tactic
 максимально точно наслідувати оригінальний тексту Аналізу I, Розділ 3.1. Вся нумерація
 посилається на оригінальний текст.
 
-Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
-Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
-зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
@@ -221,16 +221,16 @@ theorem SetTheory.Set.mem_pair (x a b:Object) : x ∈ ({a,b}:Set) ↔ (x = a ∨
 theorem SetTheory.Set.mem_triple (x a b c:Object) : x ∈ ({a,b,c}:Set) ↔ (x = a ∨ x = b ∨ x = c) := by
   simp [Insert.insert, mem_union, mem_singleton]
 
-/-- Ремарка 3.1.9 -/
+/-- Зауваження 3.1.9 -/
 theorem SetTheory.Set.singleton_uniq (a:Object) : ∃! (X:Set), ∀ x, x ∈ X ↔ x = a := by sorry
 
-/-- Ремарка 3.1.9 -/
+/-- Зауваження 3.1.9 -/
 theorem SetTheory.Set.pair_uniq (a b:Object) : ∃! (X:Set), ∀ x, x ∈ X ↔ x = a ∨ x = b := by sorry
 
-/-- Ремарка 3.1.9 -/
+/-- Зауваження 3.1.9 -/
 theorem SetTheory.Set.pair_comm (a b:Object) : ({a,b}:Set) = {b,a} := by sorry
 
-/-- Ремарка 3.1.9 -/
+/-- Зауваження 3.1.9 -/
 @[simp]
 theorem SetTheory.Set.pair_self (a:Object) : ({a,a}:Set) = {a} := by
   sorry
@@ -340,7 +340,7 @@ theorem SetTheory.Set.subset_def (X Y:Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x �
 -/
 theorem SetTheory.Set.ssubset_def (X Y:Set) : X ⊂ Y ↔ (X ⊆ Y ∧ X ≠ Y) := by rfl
 
-/-- Ремарка 3.1.15 -/
+/-- Зауваження 3.1.15 -/
 theorem SetTheory.Set.subset_congr_left {A A' B:Set} (hAA':A = A') (hAB: A ⊆ B) : A' ⊆ B := by sorry
 
 /-- Приклади 3.1.16 -/
