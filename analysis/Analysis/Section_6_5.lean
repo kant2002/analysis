@@ -2,17 +2,16 @@ import Mathlib.Tactic
 import Analysis.Section_6_4
 
 /-!
-# Аналіз I, Розділ 6.5: Some standard limits
+# Аналіз I, Розділ 6.5: Деякі стандартні границі
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Some standard limits, including limits of sequences of the form 1/n^α, x^n, and x^(1/n).
+- Деякі стандартні границі, включно з границями послідовностей виду 1/n^α, x^n та x^(1/n).
 
 -/
 

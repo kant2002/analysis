@@ -12,7 +12,7 @@ translation, I have generally chosen the latter.  In particular, there will be p
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 - API for Mathlib's `UniformContinuousOn`.
 - Continuous functions on compact intervals are uniformly continuous.
 
@@ -89,7 +89,7 @@ abbrev Real.EventuallyCloseSeqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
 abbrev Chapter6.Sequence.equiv (a b: Sequence) : Prop :=
   ∀ ε > (0:ℝ), ε.EventuallyCloseSeqs a b
 
-/-- Ремарка 9.9.6 -/
+/-- Зауваження 9.9.6 -/
 theorem Chapter6.Sequence.equiv_iff_rat (a b: Sequence) :
   a.equiv b ↔ ∀ ε > (0:ℚ), (ε:ℝ).EventuallyCloseSeqs a b := by
   sorry

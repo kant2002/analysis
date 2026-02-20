@@ -5,9 +5,9 @@ import Analysis.Tools.ExistsUnique
 /-!
 # Аналіз I, Розділ 3.3: Функції
 
-Я *(пр.перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
-Коли є вибір між більш ідіоматичним рішенням Lean та більш точним перекладом, я
-зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підбуцнути",
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
@@ -298,7 +298,7 @@ example : ¬ Function.Injective (fun (n:ℤ) ↦ n^2) := by
 example : Function.Injective (fun (n:ℕ) ↦ n^2) := by
   intro _ _ _; rwa [← pow_left_inj₀ (by norm_num) (by norm_num) (show 2 ≠ 0 by norm_num)]
 
-/-- Ремарка 3.3.19 -/
+/-- Зауваження 3.3.19 -/
 theorem SetTheory.Set.two_to_one {X Y: Set} {f: Function X Y} (h: ¬ f.one_to_one) :
     ∃ x x': X, x ≠ x' ∧ f x = f x' := by
   rw [Function.one_to_one] at h; aesop
@@ -369,7 +369,7 @@ example : ¬ Function.Bijective (fun n ↦ n+1) := by
   use 0; intros
   symm; apply Nat.zero_ne_add_one
 
-/-- Ремарка 3.3.27 -/
+/-- Зауваження 3.3.27 -/
 theorem Function.bijective_incorrect_def :
     ∃ X Y: Set, ∃ f: Function X Y, (∀ x: X, ∃! y: Y, y = f x) ∧ ¬ f.bijective := by
   use Nat, Nat

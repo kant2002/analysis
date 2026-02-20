@@ -4,13 +4,12 @@ import Mathlib.Algebra.Field.Power
 /-!
 # Аналіз I, Розділ 7.2: Infinite series
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
 - Formal series and their limits.
 - Absolute convergence; basic series laws.
@@ -76,7 +75,7 @@ noncomputable abbrev Series.sum (s : Series) : ℝ := if h : s.converges then h.
 theorem Series.converges_of_convergesTo {s : Series} {L:ℝ} (h: s.convergesTo L) :
     s.converges := by use L
 
-/-- Ремарка 7.2.3 -/
+/-- Зауваження 7.2.3 -/
 theorem Series.sum_of_converges {s : Series} {L:ℝ} (h: s.convergesTo L) : s.sum = L := by
   simp [sum, converges_of_convergesTo h]
   exact tendsto_nhds_unique ((converges_of_convergesTo h).choose_spec) h

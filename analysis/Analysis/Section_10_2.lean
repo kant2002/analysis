@@ -10,7 +10,7 @@ translation, I have generally chosen the latter.  In particular, there will be p
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 - Relation between local extrema and derivatives.
 - Rolle's theorem.
 - mean value theorem.
@@ -53,7 +53,7 @@ example (n:ℤ) : IsMaxOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' .univ) n
 
 example (n:ℤ) : IsMinOn (· : ℝ → ℝ)  ((↑· : ℤ → ℝ) '' .univ) n := by sorry
 
-/-- Ремарка 10.2.5 -/
+/-- Зауваження 10.2.5 -/
 theorem IsLocalMaxOn.of_restrict {X Y:Set ℝ} (hXY: Y ⊆ X) (f:ℝ → ℝ) (x₀:ℝ)
   (h: IsLocalMaxOn f X x₀) : IsLocalMaxOn f Y x₀ := by
   sorry

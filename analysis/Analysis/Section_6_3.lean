@@ -4,17 +4,16 @@ import Analysis.Section_6_2
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 
 /-!
-# Аналіз I, Розділ 6.3: Suprema and infima of sequences
+# Аналіз I, Розділ 6.3: Супремуми та інфімуми послідовностей
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Suprema and infima of sequences.
+- Супремуми та інфімуми послідовностей.
 
 -/
 
@@ -58,23 +57,23 @@ theorem Sequence.sup_of_bounded {a:Sequence} (h: a.IsBounded) : a.sup.IsFinite :
 
 theorem Sequence.inf_of_bounded {a:Sequence} (h: a.IsBounded) : a.inf.IsFinite := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
+/-- Твердження 6.3.6 (Властивість найменшої верхньої межі) / Вправа 6.3.2 -/
 theorem Sequence.le_sup {a:Sequence} {n:ℤ} (hn: n ≥ a.m) : a n ≤ a.sup := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
+/-- Твердження 6.3.6 (Властивість найменшої верхньої межі) / Вправа 6.3.2 -/
 theorem Sequence.sup_le_upper {a:Sequence} {M:EReal} (h: ∀ n ≥ a.m, a n ≤ M) : a.sup ≤ M := by sorry
 
-/-- Твердження 6.3.6 (Least upper bound property) / Вправа 6.3.2 -/
+/-- Твердження 6.3.6 (Властивість найменшої верхньої межі) / Вправа 6.3.2 -/
 theorem Sequence.exists_between_lt_sup {a:Sequence} {y:EReal} (h: y < a.sup ) :
     ∃ n ≥ a.m, y < a n ∧ a n ≤ a.sup := by sorry
 
-/-- Ремарка 6.3.7 -/
+/-- Зауваження 6.3.7 -/
 theorem Sequence.ge_inf {a:Sequence} {n:ℤ} (hn: n ≥ a.m) : a n ≥ a.inf := by sorry
 
-/-- Ремарка 6.3.7 -/
+/-- Зауваження 6.3.7 -/
 theorem Sequence.inf_ge_lower {a:Sequence} {M:EReal} (h: ∀ n ≥ a.m, a n ≥ M) : a.inf ≥ M := by sorry
 
-/-- Ремарка 6.3.7 -/
+/-- Зауваження 6.3.7 -/
 theorem Sequence.exists_between_gt_inf {a:Sequence} {y:EReal} (h: y > a.inf ) :
     ∃ n ≥ a.m, y > a n ∧ a n ≥ a.inf := by sorry
 

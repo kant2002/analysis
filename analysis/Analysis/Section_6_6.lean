@@ -2,17 +2,16 @@ import Mathlib.Tactic
 import Analysis.Section_6_5
 
 /-!
-# Аналіз I, Розділ 6.6: Subsequences
+# Аналіз I, Розділ 6.6: Підпослідовності
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Definition of a subsequence.
+- Визначення підпослідовності.
 -/
 
 namespace Chapter6
@@ -20,7 +19,7 @@ namespace Chapter6
 /-- Визначення 6.6.1 -/
 abbrev Sequence.subseq (a b: ℕ → ℝ) : Prop := ∃ f : ℕ → ℕ, StrictMono f ∧ ∀ n, b n = a (f n)
 
-/- Example 6.6.2 -/
+/- Приклад 6.6.2 -/
 example (a:ℕ → ℝ) : Sequence.subseq a (fun n ↦ a (2 * n)) := by sorry
 
 example {f: ℕ → ℕ} (hf: StrictMono f) : Function.Injective f := by sorry
@@ -52,7 +51,7 @@ theorem Sequence.limit_point_iff_subseq (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).LimitPoint L ↔ ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).TendsTo L := by
   sorry
 
-/-- Theorem 6.6.8 (Bolzano-Weierstrass theorem) -/
+/-- Теорема 6.6.8 (Теорема Болцано-Вейерштрасса) -/
 theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence).IsBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence).Convergent := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
@@ -64,12 +63,12 @@ theorem Sequence.convergent_of_subseq_of_bounded {a:ℕ→ ℝ} (ha: (a:Sequence
 
 def Sequence.exist_subseq_of_subseq :
   Decidable (∃ a b : ℕ → ℝ, a ≠ b ∧ Sequence.subseq a b ∧ Sequence.subseq b a) := by
-    -- The first line of this construction should be `apply isTrue` or `apply isFalse`.
+    -- Перший рядок цієї конструкції має бути `apply isTrue` або `apply isFalse`.
     sorry
 
 /--
-  Вправа 6.6.3.  You may find the API around Mathlib's `Nat.find` to be useful
-  (and `open Classical` to avoid any decidability issues)
+  Вправа 6.6.3. Може стати в пригоді API `Nat.find` з Mathlib
+  (та `open Classical`, щоб уникнути проблем з вирішуваністю).
 -/
 theorem Sequence.subseq_of_unbounded {a:ℕ → ℝ} (ha: ¬ (a:Sequence).IsBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence)⁻¹.TendsTo 0 := by

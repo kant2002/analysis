@@ -3,34 +3,33 @@ import Analysis.Section_5_epilogue
 import Analysis.Section_6_6
 
 /-!
-# Аналіз I, Розділ 6.7: Real exponentiation, part II
+# Аналіз I, Розділ 6.7: Піднесення до дійсного степеня, частина II
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Real exponentiation.
+- Піднесення до дійсного степеня.
 
-Because the Chapter 5 reals have been deprecated in favor of the Mathlib reals, and Mathlib real
-exponentiation is defined without first going through rational exponentiation, we will adopt a
-somewhat awkward compromise, in that we will initially accept the Mathlib exponentiation operation
-(with all its API) when the exponent is a rational, and use this to define a notion of real
-exponentiation which in the epilogue to this chapter we will show is identical to the Mathlib operation.
+Оскільки дійсні числа з Розділу 5 застаріли на користь дійсних чисел із Mathlib, а операція піднесення до
+степеня в Mathlib визначена без попереднього введення раціональних степенів, ми приймемо дещо
+незручну компромісну позицію: спочатку використовуватимемо операцію піднесення з Mathlib
+(та її API), коли показник є раціональним, а цим скористаємось для визначення піднесення до
+дійсного степеня, і в епілозі до цього розділу ми покажемо, що збігається з операцією Mathlib.
 -/
 
 namespace Chapter6
 
 open Sequence Real
 
-/-- Лема 6.7.1 (Continuity of exponentiation) -/
+/-- Лема 6.7.1 (Неперервність піднесення до степеня) -/
 lemma ratPow_continuous {x α:ℝ} (hx: x > 0) {q: ℕ → ℚ}
  (hq: ((fun n ↦ (q n:ℝ)):Sequence).TendsTo α) :
  ((fun n ↦ x^(q n:ℝ)):Sequence).Convergent := by
-  -- This proof is rearranged slightly from the original text.
+  -- Доказ дещо переставлено порівняно з оригінальним текстом.
   choose M hM hbound using bounded_of_convergent ⟨ α, hq ⟩
   obtain h | rfl | h := lt_trichotomy x 1
   . sorry
@@ -126,7 +125,7 @@ theorem Real.eq_lim_of_rat (α:ℝ) : ∃ q: ℕ → ℚ, ((fun n ↦ (q n:ℝ))
   simp only [←hLIM, Equiv.apply_symm_apply] at hcauchy
   convert hcauchy; aesop
 
-/-- Визначення 6.7.2 (Exponentiation to a real exponent) -/
+/-- Визначення 6.7.2 (Піднесення до дійсного показника) -/
 noncomputable abbrev Real.rpow (x:ℝ) (α:ℝ) :ℝ := lim ((fun n ↦ x^((eq_lim_of_rat α).choose n:ℝ)):Sequence)
 
 lemma Real.rpow_eq_lim_ratPow {x α:ℝ} (hx: x > 0) {q: ℕ → ℚ}

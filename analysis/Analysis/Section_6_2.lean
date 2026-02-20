@@ -3,18 +3,17 @@ import Analysis.Section_5_5
 import Analysis.Section_5_epilogue
 
 /-!
-# Аналіз I, Розділ 6.2: The extended real number system
+# Аналіз I, Розділ 6.2: Розширена система дійсних чисел
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where the
-Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
-Main constructions and results of this section:
+Основні конструкції та результати цього розділу:
 
-- Some API for Mathlib's extended reals `EReal`, particularly with regard to the supremum
-  operation `sSup` and infimum operation `sInf`.
+- Інтерфейс (API) для розширених дійсних Mathlib `EReal`, зокрема щодо операцій супремуму
+  `sSup` та інфімуму `sInf`.
 
 -/
 
@@ -38,18 +37,18 @@ abbrev EReal.IsInfinite (x:EReal) : Prop := x = ⊤ ∨ x = ⊥
 theorem EReal.infinite_iff_not_finite (x:EReal): x.IsInfinite ↔ ¬ x.IsFinite := by
   obtain ⟨ y, rfl ⟩ | rfl | rfl := EReal.def x <;> simp [IsFinite, IsInfinite]
 
-/-- Визначення 6.2.2 (Negation of extended reals) -/
+/-- Визначення 6.2.2 (Негація розширених дійсних) -/
 theorem EReal.neg_of_real (x:Real) : -(x:EReal) = (-x:ℝ) := rfl
 
 #check EReal.neg_top
 #check EReal.neg_bot
 
-/-- Визначення 6.2.3 (Ordering of extended reals) -/
+/-- Визначення 6.2.3 (Порядок на розширених дійсних) -/
 theorem EReal.le_iff (x y:EReal) :
     x ≤ y ↔ (∃ (x' y':Real), x = x' ∧ y = y' ∧ x' ≤ y') ∨ y = ⊤ ∨ x = ⊥ := by
   obtain ⟨ x', rfl ⟩ | rfl | rfl := EReal.def x <;> obtain ⟨ y', rfl ⟩ | rfl | rfl := EReal.def y <;> simp
 
-/-- Визначення 6.2.3 (Ordering of extended reals) -/
+/-- Визначення 6.2.3 (Порядок на розширених дійсних) -/
 theorem EReal.lt_iff (x y:EReal) : x < y ↔ x ≤ y ∧ x ≠ y := lt_iff_le_and_ne
 
 #check EReal.coe_lt_coe_iff
@@ -179,8 +178,7 @@ theorem EReal.inf_ge_upper (E: Set EReal) {M:EReal} (hM: M ∈ lowerBounds E) : 
 #check isLUB_iff_sSup_eq
 #check isGLB_iff_sInf_eq
 
-/-- Не в підручнику: identify the Chapter 5 extended reals with the Mathlib extended reals.
--/
+/-- Не в підручнику: ототожнення розширених дійсних Розділу 5 із `EReal` з Mathlib. -/
 noncomputable abbrev Chapter5.ExtendedReal.toEReal (x:ExtendedReal) : EReal := match x with
   | real r => ((Real.equivR r):EReal)
   | infty => ⊤
