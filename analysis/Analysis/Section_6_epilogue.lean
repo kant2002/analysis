@@ -12,7 +12,7 @@ import Analysis.Section_6_7
 
 open Filter
 
-/-- Ідентифікація з підтримкою Коші-послідовностей у Mathlib/Algebra/Order/CauSeq/Basic -/
+/-- Зпівставлення із підтримкою Коші-послідовностей у Mathlib/Algebra/Order/CauSeq/Basic -/
 theorem Chapter6.Sequence.isCauchy_iff_isCauSeq (a: ℕ → ℝ) :
     (a:Sequence).IsCauchy ↔ IsCauSeq _root_.abs a := by
   simp_rw [IsCauchy.coe, Real.dist_eq, IsCauSeq]
@@ -24,13 +24,13 @@ theorem Chapter6.Sequence.isCauchy_iff_isCauSeq (a: ℕ → ℝ) :
     _ ≤ ε/2 + ε/2 := by grind
     _ = _ := by linarith
 
-/-- Ідентифікація з CauchySeq у Mathlib/Topology/UniformSpace/Cauchy -/
+/-- Зпівставлення із CauchySeq у Mathlib/Topology/UniformSpace/Cauchy -/
 theorem Chapter6.Sequence.Cauchy_iff_CauchySeq (a: ℕ → ℝ) :
     (a:Sequence).IsCauchy ↔ CauchySeq a := by
   rw [isCauchy_iff_isCauSeq]
   convert isCauSeq_iff_cauchySeq
 
-/-- Ідентифікація з `Filter.Tendsto` -/
+/-- Зпівставлення із `Filter.Tendsto` -/
 theorem Chapter6.Sequence.tendsto_iff_Tendsto (a: ℕ → ℝ) (L:ℝ) :
     (a:Sequence).TendsTo L ↔ atTop.Tendsto a (nhds L) := by
   rw [Metric.tendsto_atTop, tendsTo_iff]
@@ -58,7 +58,7 @@ theorem Chapter6.Sequence.converges_iff_Tendsto' (a: Sequence) :
 /-- Технічна деталь: `CauSeq.IsComplete ℝ` було встановлено для `_root_.abs`, але не для `norm`. -/
 instance inst_real_complete : CauSeq.IsComplete ℝ norm := by convert Real.instIsCompleteAbs
 
-/-- Ідентифікація з `CauSeq.lim` -/
+/-- Зпівставлення із `CauSeq.lim` -/
 theorem Chapter6.Sequence.lim_eq_CauSeq_lim (a:ℕ → ℝ) (ha: (a:Sequence).IsCauchy) :
     Chapter6.lim (a:Sequence) = CauSeq.lim  ⟨ a, (isCauchy_iff_isCauSeq a).mp ha⟩ := by
   have h1 := CauSeq.tendsto_limit ⟨ a, (isCauchy_iff_isCauSeq a).mp ha⟩
@@ -66,12 +66,12 @@ theorem Chapter6.Sequence.lim_eq_CauSeq_lim (a:ℕ → ℝ) (ha: (a:Sequence).Is
   rw [←tendsto_iff_Tendsto] at h1
   by_contra! h; apply (a:Sequence).tendsTo_unique at h; tauto
 
-/-- Ідентифікація з `limUnder` -/
+/-- Зпівставлення із `limUnder` -/
 theorem Chapter6.Sequence.lim_eq_limUnder (a:ℕ → ℝ) (ha: (a:Sequence).Convergent) :
     Chapter6.lim (a:Sequence) = limUnder Filter.atTop a := by
     sorry
 
-/-- Ідентифікація з `Bornology.IsBounded` -/
+/-- Зпівставлення із `Bornology.IsBounded` -/
 theorem Chapter6.Sequence.isBounded_iff_isBounded_range (a:ℕ → ℝ):
     (a:Sequence).IsBounded ↔ Bornology.IsBounded (Set.range a) := by
   simp [isBounded_def, boundedBy_def, Metric.isBounded_iff]
@@ -107,7 +107,7 @@ theorem Chapter6.Sequence.Monotone_iff (a:ℕ → ℝ): (a:Sequence).IsMonotone 
 
 theorem Chapter6.Sequence.Antitone_iff (a:ℕ → ℝ): (a:Sequence).IsAntitone ↔ Antitone a := by sorry
 
-/-- Ідентифікація з `MapClusterPt` -/
+/-- Зпівставлення із `MapClusterPt` -/
 theorem Chapter6.Sequence.limit_point_iff (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).LimitPoint L ↔ MapClusterPt L .atTop a := by
   simp_rw [limit_point_def, mapClusterPt_iff_frequently, frequently_atTop, Metric.mem_nhds_iff]
@@ -123,13 +123,13 @@ theorem Chapter6.Sequence.limit_point_iff (a:ℕ → ℝ) (L:ℝ) :
   refine ⟨ n, by rwa [ge_iff_le, ←Int.toNat_le], ?_ ⟩
   simp [Real.dist_eq, hn] at *; linarith
 
-/-- Ідентифікація з `Filter.limsup` -/
+/-- Зпівставлення із `Filter.limsup` -/
 theorem Chapter6.Sequence.limsup_eq (a:ℕ → ℝ) :
     (a:Sequence).limsup = atTop.limsup (fun n ↦ (a n:EReal)) := by
   simp_rw [Filter.limsup_eq, eventually_atTop]
   sorry
 
-/-- Ідентифікація з `Filter.liminf` -/
+/-- Зпівставлення із `Filter.liminf` -/
 theorem Chapter6.Sequence.liminf_eq (a:ℕ → ℝ) :
     (a:Sequence).liminf = atTop.liminf (fun n ↦ (a n:EReal)) := by
   simp_rw [Filter.liminf_eq, eventually_atTop]
