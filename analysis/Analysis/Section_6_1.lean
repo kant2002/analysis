@@ -89,11 +89,11 @@ abbrev Real.Steady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
 lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.Steady a ↔ ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m) := by rfl
 
-/-- Визначення 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Зрештою ε-стала) -/
 abbrev Real.EventuallySteady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∃ N ≥ a.m, ε.Steady (a.from N)
 
-/-- Визначення 6.1.3 (Eventually ε-steady) -/
+/-- Визначення 6.1.3 (Зрештою ε-стала) -/
 lemma Real.eventuallySteady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.EventuallySteady a ↔ ∃ N, (N ≥ a.m) ∧ ε.Steady (a.from N) := by rfl
 
