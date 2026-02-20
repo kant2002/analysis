@@ -75,7 +75,7 @@ theorem Sequence.limit_point_of_limit {a:Sequence} {x:ℝ} (h: a.TendsTo x) : a.
   Технічне зауваження, виявлене під час формалізації: верхні та нижні послідовності дійсної
   послідовності набувають значень у розширених дійсних числах (EReal), а не в дійсних, тому
   відповідні визначення потрібно скоригувати.
---/
+-/
 noncomputable abbrev Sequence.upperseq (a:Sequence) : ℤ → EReal := fun N ↦ (a.from N).sup
 
 noncomputable abbrev Sequence.limsup (a:Sequence) : EReal :=
@@ -245,7 +245,7 @@ theorem Sequence.tendsTo_zero_iff (a:Sequence) :
 /--
   Ця допоміжна лема, неявна в доказах у підручнику для Теорем 6.4.18 та 6.6.8, тут зроблена
   явною.
---/
+-/
 theorem Sequence.finite_limsup_liminf_of_bounded {a:Sequence} (hbound: a.IsBounded) :
     (∃ L_plus:ℝ, a.limsup = L_plus) ∧ (∃ L_minus:ℝ, a.liminf = L_minus) := by
   choose M hMpos hbound using hbound

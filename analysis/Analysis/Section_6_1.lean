@@ -26,7 +26,7 @@ abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
 /--
   Визначення 6.1.2 (ε-близькість). Це схоже на попереднє поняття ε-близькості, але всі
   величини тут дійсні, а не раціональні.
---/
+-/
 theorem Real.close_def (ε x y : ℝ) : ε.Close x y ↔ dist x y ≤ ε := by rfl
 
 namespace Chapter6
@@ -35,7 +35,7 @@ namespace Chapter6
   Визначення 6.1.3 (Послідовність). Це схоже на послідовність з Розділу 5, за винятком того,
   що тепер послідовність із дійсними значенням. Як і в Розділі 5, послідовності за замовчуванням
   починаються з 0.
---/
+-/
 @[ext]
 structure Sequence where
   m : ℤ
@@ -54,7 +54,7 @@ abbrev Sequence.ofNatFun (a:ℕ → ℝ) : Sequence :=
     vanish := by simp_all
  }
 
-  /-- Функції з ℕ у ℝ можна розглядати як послідовності. -/
+/-- Функції з ℕ у ℝ можна розглядати як послідовності. -/
 instance Sequence.instCoe : Coe (ℕ → ℝ) Sequence where
   coe := ofNatFun
 
@@ -292,7 +292,7 @@ theorem Sequence.divergent_def (a:Sequence) : a.Divergent ↔ ¬ a.Convergent :=
 open Classical in
 /--
   Визначення 6.1.8. Ми присвоюємо границі послідовності «сміттєве» значення 0, якщо вона не збігається.
---/
+-/
 noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.Convergent then h.choose else 0
 
 /-- Визначення 6.1.8 -/
