@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Field.Power
 
 /-!
-# Аналіз I, Розділ 7.2: Infinite series
+# Аналіз I, Розділ 7.2: Нескінченні ряди
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,8 +11,8 @@ import Mathlib.Algebra.Field.Power
 
 Основні конструкції та результати цього розділу:
 
-- Formal series and their limits.
-- Absolute convergence; basic series laws.
+- Формальні ряди та їхні границі.
+- Абсолютна збіжність; основні закони для рядів.
 
 -/
 
@@ -21,8 +21,8 @@ namespace Chapter7
 open BigOperators
 
 /--
-  Визначення 7.2.1 (Formal infinite series). This is similar to Chapter 6 sequence, but is
-  manipulated differently. As with Chapter 5, we will start series from 0 by default.
+  Визначення 7.2.1 (Формальні нескінченні ряди). Це схоже на послідовності з Розділу 6,
+  але ними оперують інакше. Як і в Розділі 5, за замовчуванням початок ряду беремо з 0.
 -/
 @[ext]
 structure Series where
@@ -30,7 +30,7 @@ structure Series where
   seq : ℤ → ℝ
   vanish : ∀ n < m, seq n = 0
 
-/-- Functions from ℕ to ℝ can be thought of as series. -/
+/-- Функції з ℕ у ℝ можна розглядати як ряди. -/
 instance Series.instCoe : Coe (ℕ → ℝ) Series where
   coe := fun a ↦ {
     m := 0
@@ -49,7 +49,7 @@ abbrev Series.mk' {m:ℤ} (a: { n // n ≥ m } → ℝ) : Series where
 theorem Series.eval_mk' {m:ℤ} (a : { n // n ≥ m } → ℝ) {n : ℤ} (h:n ≥ m) :
     (Series.mk' a).seq n = a ⟨ n, h ⟩ := by simp [h]
 
-/-- Визначення 7.2.2 (Convergence of series) -/
+/-- Визначення 7.2.2 (Збігання рядів) -/
 abbrev Series.partial (s : Series) (N:ℤ) : ℝ := ∑ n ∈ Finset.Icc s.m N, s.seq n
 
 theorem Series.partial_succ (s : Series) {N:ℤ} (h: N ≥ s.m-1) : s.partial (N+1) = s.partial N + s.seq (N+1) := by
@@ -108,7 +108,7 @@ theorem Series.converges_iff_tail_decay (s:Series) :
     s.converges ↔ ∀ ε > 0, ∃ N ≥ s.m, ∀ p ≥ N, ∀ q ≥ N, |∑ n ∈ Finset.Icc p q, s.seq n| ≤ ε := by
   sorry
 
-/-- Наслідок 7.2.6 (Zero test) / Вправа 7.2.3 -/
+/-- Наслідок 7.2.6 (Ознака нуля) / Вправа 7.2.3 -/
 theorem Series.decay_of_converges {s:Series} (h: s.converges) :
     Filter.atTop.Tendsto s.seq (nhds 0) := by
   sorry
@@ -126,21 +126,21 @@ theorem Series.example_7_2_7' : ((fun n:ℕ ↦ (-1:ℝ)^n):Series).diverges := 
   apply diverges_of_nodecay
   sorry
 
-/-- Визначення 7.2.8 (Absolute convergence) -/
+/-- Визначення 7.2.8 (Абсолютна збіжність) -/
 abbrev Series.abs (s:Series) : Series := mk' (m:=s.m) (fun n ↦ |s.seq n|)
 
 abbrev Series.absConverges (s:Series) : Prop := s.abs.converges
 
 abbrev Series.condConverges (s:Series) : Prop := s.converges ∧ ¬ s.absConverges
 
-/-- Твердження 7.2.9 (Absolute convergence test) / Example 7.2.4 -/
+/-- Твердження 7.2.9 (Критерій абсолютної збіжності) / Приклад 7.2.4 -/
 theorem Series.converges_of_absConverges {s:Series} (h : s.absConverges) : s.converges := by
   sorry
 
 theorem Series.abs_le {s:Series} (h : s.absConverges) : |s.sum| ≤ s.abs.sum := by
   sorry
 
-/-- Твердження 7.2.12 (Alternating series test) -/
+/-- Твердження 7.2.12 (Ознака знакозмінного ряду) -/
 theorem Series.converges_of_alternating {m:ℤ} {a: { n // n ≥ m} → ℝ} (ha: ∀ n, a n ≥ 0)
   (ha': Antitone a) :
     ((mk' (fun n ↦ (-1)^(n:ℤ) * a n)).converges ↔ Filter.atTop.Tendsto a (nhds 0)) := by
@@ -204,7 +204,7 @@ theorem Series.add_coe (a b: ℕ → ℝ) : (a:Series) + (b:Series) = (fun n ↦
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HAdd.hAdd, Add.add]
 
-/-- Твердження 7.2.14 (a) (Series laws) / Вправа 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
+/-- Твердження 7.2.14 (a) (Закони для рядів) / Вправа 7.2.5. Форма `convergesTo` може бути зручнішою для застосувань. -/
 theorem Series.convergesTo.add {s t:Series} {L M: ℝ} (hs: s.convergesTo L) (ht: t.convergesTo M) :
     (s + t).convergesTo (L + M) := by
   sorry
@@ -223,7 +223,7 @@ theorem Series.smul_coe (a: ℕ → ℝ) (c: ℝ) : (c • a:Series) = (fun n �
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSMul.hSMul, SMul.smul]
 
-/-- Твердження 7.2.14 (b) (Series laws) / Вправа 7.2.5.  The `convergesTo` form can be more convenient for applications. -/
+/-- Твердження 7.2.14 (b) (Закони для рядів) / Вправа 7.2.5. Форма `convergesTo` може бути зручнішою для застосувань. -/
 theorem Series.convergesTo.smul {s:Series} {L c: ℝ} (hs: s.convergesTo L) :
     (c • s).convergesTo (c * L) := by
   sorry
@@ -231,7 +231,7 @@ theorem Series.convergesTo.smul {s:Series} {L c: ℝ} (hs: s.convergesTo L) :
 theorem Series.smul {c:ℝ} {s:Series} (hs: s.converges) :
     (c • s).converges ∧ (c • s).sum = c * s.sum := by sorry
 
-/-- The corresponding API for subtraction was not in the textbook, but is useful in later sections, so is included here. -/
+/-- Відповідного API для віднімання не було в підручнику, але воно корисне у наступних розділах, тому додається тут. -/
 instance Series.inst_sub : Sub Series where
   sub a b := {
     m := max a.m b.m
@@ -252,7 +252,7 @@ theorem Series.sub {s t:Series} (hs: s.converges) (ht: t.converges) :
 
 abbrev Series.from (s:Series) (m₁:ℤ) : Series := mk' (m := max s.m m₁) (fun n ↦ s.seq (n:ℤ))
 
-/-- Твердження 7.2.14 (c) (Series laws) / Вправа 7.2.5 -/
+/-- Твердження 7.2.14 (c) (Закони для рядів) / Вправа 7.2.5 -/
 theorem Series.converges_from (s:Series) (k:ℕ) : s.converges ↔ (s.from (s.m+k)).converges := by
   sorry
 
@@ -260,12 +260,12 @@ theorem Series.sum_from {s:Series} (k:ℕ) (h: s.converges) :
     s.sum = ∑ n ∈ Finset.Ico s.m (s.m+k), s.seq n + (s.from (s.m+k)).sum := by
   sorry
 
-/-- Твердження 7.2.14 (d) (Series laws) / Вправа 7.2.5 -/
+/-- Твердження 7.2.14 (d) (Закони для рядів) / Вправа 7.2.5 -/
 theorem Series.shift {s:Series} {x:ℝ} (h: s.convergesTo x) (L:ℤ) :
     (mk' (m := s.m + L) (fun n ↦ s.seq (n - L))).convergesTo x := by
   sorry
 
-/-- Лема 7.2.15 (telescoping series) / Вправа 7.2.6 -/
+/-- Лема 7.2.15 (Телескопічний ряд) / Вправа 7.2.6 -/
 theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.atTop.Tendsto a (nhds 0)) :
     ((fun n:ℕ ↦ a (n+1) - a n):Series).convergesTo (a 0) := by
   sorry
@@ -274,7 +274,7 @@ theorem Series.telescope {a:ℕ → ℝ} (ha: Filter.atTop.Tendsto a (nhds 0)) :
 
 def Series.exercise_7_2_1_convergent :
   Decidable ( (mk' (m := 1) (fun n ↦ (-1:ℝ)^(n:ℤ))).converges ) := by
-  -- The first line of this proof should be `apply isTrue` or `apply isFalse`.
+  -- Перший рядок цього доказу має бути `apply isTrue` або `apply isFalse`.
   sorry
 
 

@@ -162,7 +162,7 @@ lemma Real.LUB_claim2 {E : Set Real} (N:ℕ) {a b: ℕ → ℚ}
 
 /-- Теорема 5.5.9 (Існування найменшої верхньої межі)-/
 theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): ∃ S, IsLUB E S := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   set x₀ := hE.some
   have hx₀ : x₀ ∈ E := hE.some_mem
   set m : ℕ → ℤ := fun n ↦ (LUB_claim1 n hE hbound).exists.choose
@@ -241,7 +241,7 @@ theorem ExtendedReal.sup_of_bounded_finite {E: Set Real} (hnon: E.Nonempty) (hb:
 
 /-- Твердження 5.5.12 -/
 theorem Real.exist_sqrt_two : ∃ x:Real, x^2 = 2 := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   set E := { y:Real | y ≥ 0 ∧ y^2 < 2 }
   have claim1: 2 ∈ upperBounds E := by
     rw [upperBound_def]

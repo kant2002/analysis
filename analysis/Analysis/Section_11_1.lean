@@ -307,7 +307,7 @@ theorem Partition.exist_right {I: BoundedInterval} (hI: I.a < I.b) (hI': I.b ∉
 /-- Theorem 11.1.13 (Length is finitely additive). -/
 theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   ∑ J ∈ P.intervals, |J|ₗ = |I|ₗ := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   generalize hcard: P.intervals.card = n
   revert I; induction' n with n hn <;> intro I P hcard
   . rw [Finset.card_eq_zero] at hcard

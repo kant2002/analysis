@@ -39,7 +39,7 @@ instance PreInt.instSetoid : Setoid PreInt where
     refl := by sorry
     symm := by sorry
     trans := by
-      -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+      -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
       intro ⟨ a,b ⟩ ⟨ c,d ⟩ ⟨ e,f ⟩ h1 h2; simp_all
       have h3 := congrArg₂ (· + ·) h1 h2; simp at h3
       have : (a + f) + (c + d) = (e + b) + (c + d) := calc
@@ -197,7 +197,7 @@ instance Int.instAddCommGroup : AddCommGroup Int where
 instance Int.instCommMonoid : CommMonoid Int where
   mul_comm := by sorry
   mul_assoc := by
-    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+    -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
     intro x y z
     obtain ⟨ a, b, rfl ⟩ := eq_diff x
     obtain ⟨ c, d, rfl ⟩ := eq_diff y

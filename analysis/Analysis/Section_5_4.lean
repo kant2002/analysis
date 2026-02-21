@@ -248,7 +248,7 @@ instance Real.instIsStrictOrderedRing : IsStrictOrderedRing Real where
 /-- Твердження 5.4.9 (Невід'ємні дійсні числа утворюють замкнену множину.)-/
 theorem Real.LIM_of_nonneg {a: ℕ → ℚ} (ha: ∀ n, a n ≥ 0) (hcauchy: (a:Sequence).IsCauchy) :
     LIM a ≥ 0 := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra! hlim
   set x := LIM a
   rw [←isNeg_iff, isNeg_def] at hlim; choose b hb hb_cauchy hlim using hlim

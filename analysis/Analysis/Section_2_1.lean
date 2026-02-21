@@ -100,7 +100,7 @@ theorem Nat.succ_ne_succ (n m:Nat) : n ≠ m → n++ ≠ m++ := by
 
 /-- Твердження 2.1.8 (6 не дорівнює 2) -/
 theorem Nat.six_ne_two : (6:Nat) ≠ 2 := by
--- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+-- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra h
   change 5++ = 1++ at h
   apply succ_cancel at h
@@ -144,7 +144,7 @@ theorem Nat.eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) :
     (a 0 = c ∧ ∀ n, a (n++) = f n (a n)) ↔ a = recurse f c := by
   constructor
   . intro ⟨ h0, hsucc ⟩
-    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+    -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
     apply funext; apply induction
     . exact h0
     intro n hn
