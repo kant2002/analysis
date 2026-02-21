@@ -109,7 +109,7 @@ theorem SetTheory.Set.Example_3_6_7b {a b c d:Object} (hab: a ≠ b) (hac: a ≠
 
 /-- Лема 3.6.9 -/
 theorem SetTheory.Set.pos_card_nonempty {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n) : X ≠ ∅ := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra! this
   have hnon : Fin n ≠ ∅ := by
     apply nonempty_of_inhabited (x := 0); rw [mem_Fin]; use 0, (by omega); rfl
@@ -146,7 +146,7 @@ theorem SetTheory.Set.card_erase {n:ℕ} (h: n ≥ 1) {X:Set} (hX: X.has_card n)
 
 /-- Твердження 3.6.8 (Унікальність потужності) -/
 theorem SetTheory.Set.card_uniq {X:Set} {n m:ℕ} (h1: X.has_card n) (h2: X.has_card m) : n = m := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert X m; induction' n with n hn
   . intro _ _ h1 h2; rw [has_card_zero] at h1; contrapose! h1
     apply pos_card_nonempty _ h2; omega
@@ -197,7 +197,7 @@ theorem SetTheory.Set.bounded_on_finite {n:ℕ} (f: Fin n → nat) : ∃ M, ∀ 
 
 /-- Теорема 3.6.12 -/
 theorem SetTheory.Set.nat_infinite : infinite nat := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra this; choose n hn using this
   simp [has_card] at hn; symm at hn; simp [HasEquiv.Equiv, Setoid.r, EqualCard] at hn
   choose f hf using hn; choose M hM using bounded_on_finite f

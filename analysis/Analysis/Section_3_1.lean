@@ -166,7 +166,7 @@ theorem SetTheory.Set.empty_unique : ∃! (X:Set), ∀ x, x ∉ X := by
 
 /-- Лема 3.1.5 (Одиничний вибір) -/
 lemma SetTheory.Set.nonempty_def {X:Set} (h: X ≠ ∅) : ∃ x, x ∈ X := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra! this
   have claim (x:Object) : x ∈ X ↔ x ∈ (∅:Set) := by simp [this, not_mem_empty]
   apply ext at claim
@@ -277,7 +277,7 @@ theorem SetTheory.Set.union_comm (A B:Set) : A ∪ B = B ∪ A := by sorry
 
 /-- Лема 3.1.12 (Основні властивості об'єднань) / Вправа 3.1.3 -/
 theorem SetTheory.Set.union_assoc (A B C:Set) : (A ∪ B) ∪ C = A ∪ (B ∪ C) := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   ext x
   constructor
   . intro hx; rw [mem_union] at hx

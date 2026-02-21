@@ -139,7 +139,7 @@ example : Example_6_4_9.liminf = ⊤ := by sorry
 /-- Твердження 6.4.12(a) -/
 theorem Sequence.gt_limsup_bounds {a:Sequence} {x:EReal} (h: x > a.limsup) :
     ∃ N ≥ a.m, ∀ n ≥ N, a n < x := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   simp [limsup, sInf_lt_iff] at h
   obtain ⟨_, ⟨ N, ⟨ hN, rfl ⟩ ⟩, ha ⟩ := h; use N
   simp [hN, upperseq] at ha ⊢; intro n _

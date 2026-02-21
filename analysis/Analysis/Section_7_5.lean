@@ -5,15 +5,20 @@ import Mathlib.Topology.Instances.EReal.Lemmas
 import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 
 /-!
-# Аналіз I, Розділ 7.5: The root and ratio tests
+# Аналіз I, Розділ 7.5: Ознаки кореня та відношення
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
 
-- The root and ratio tests/
+- Ознаки кореня та відношення
 
-A point that is only implicitly stated in the text is that for the root and ratio tests, the lim inf and lim sup should be interpreted within the extended reals.  The Lean formalizations below make this point more explicit.
+Одне, що лише імпліцитно вказане в тексті, — це те, що для ознаки кореня та ознаки відношення
+нижню та верхню границі (lim inf і lim sup) слід розуміти в розширених дійсних числах.
+Формалізації в Lean нижче роблять це твердження більш явним.
 
 -/
 
@@ -21,7 +26,7 @@ namespace Chapter7
 
 open Filter Real EReal
 
-/-- Theorem 7.5.1(a) (Root test).  A technical condition is needed to ensure the limsup is finite. -/
+/-- Твердження 7.5.1(a) (Ознака кореня). Потрібна технічна умова для забезпечення скінченності limsup. -/
 theorem Series.root_test_pos {s : Series}
   (h : atTop.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) < 1) : s.absConverges := by
     -- Доведення написане так, щоб відповідати структурі оригінального тексту.
@@ -74,7 +79,7 @@ theorem Series.root_test_pos {s : Series}
     by_cases hn: n ≥ N <;> simp [hn] <;> grind
 
 
-/-- Теорема 7.5.1(b) (Root test) -/
+/-- Теорема 7.5.1(b) (Ознака кореня) -/
 theorem Series.root_test_neg {s : Series}
   (h : atTop.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) > 1) : s.diverges := by
     -- Доведення написане так, щоб відповідати структурі оригінального тексту.
@@ -86,12 +91,12 @@ theorem Series.root_test_neg {s : Series}
     rw [show (1:EReal) = (1:ℝ) by simp, EReal.coe_lt_coe_iff] at hs
     linarith
 
-/-- Теорема 7.5.1(c) (Root test) / Вправа 7.5.3 -/
+/-- Теорема 7.5.1(c) (Ознака кореня) / Вправа 7.5.3 -/
 theorem Series.root_test_inconclusive: ∃ s:Series,
   atTop.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Теорема 7.5.1 (Root test) / Вправа 7.5.3 -/
+/-- Теорема 7.5.1 (Ознака кореня) / Вправа 7.5.3 -/
 theorem Series.root_test_inconclusive' : ∃ s:Series,
   atTop.Tendsto (fun n ↦ |s.seq n|^(1/(n:ℝ))) (nhds 1) ∧ s.absConverges := by
     sorry
@@ -175,7 +180,7 @@ theorem Series.ratio_ineq {c:ℤ → ℝ} (m:ℤ) (hpos: ∀ n ≥ m, c n > 0) :
       . apply (continuous_const_rpow (by positivity)).tendsto'; simp
       exact tendsto_inv_atTop_zero.comp tendsto_intCast_atTop_atTop
 
-/-- Наслідок 7.5.3 (Ratio test)-/
+/-- Наслідок 7.5.3 (Ознака відношення) -/
 theorem Series.ratio_test_pos {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
   (h : atTop.limsup (fun n ↦ ((|s.seq (n+1)| / |s.seq n|:ℝ):EReal)) < 1) : s.absConverges := by
     apply Series.root_test_pos (lt_of_le_of_lt _ h)
@@ -183,26 +188,26 @@ theorem Series.ratio_test_pos {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
     convert hnon using 1 with n
     simp
 
-/-- Наслідок 7.5.3 (Ratio test)-/
+/-- Наслідок 7.5.3 (Ознака відношення) -/
 theorem Series.ratio_test_neg {s : Series} (hnon: ∀ n ≥ s.m, s.seq n ≠ 0)
   (h : atTop.liminf (fun n ↦ ((|s.seq (n+1)| / |s.seq n|:ℝ):EReal)) > 1) : s.diverges := by
     apply Series.root_test_neg (lt_of_lt_of_le h _)
     convert (ratio_ineq s.m _).1.trans (ratio_ineq s.m _).2.1 with n; rfl
     all_goals convert hnon using 1 with n; simp
 
-/-- Наслідок 7.5.3 (Ratio test) / Вправа 7.5.3 -/
+/-- Наслідок 7.5.3 (Ознака відношення) / Вправа 7.5.3 -/
 theorem Series.ratio_test_inconclusive: ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   atTop.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) (nhds 1) ∧ s.diverges := by
     sorry
 
-/-- Наслідок 7.5.3 (Ratio test) / Вправа 7.5.3 -/
+/-- Наслідок 7.5.3 (Ознака відношення) / Вправа 7.5.3 -/
 theorem Series.ratio_test_inconclusive' : ∃ s:Series, (∀ n ≥ s.m, s.seq n ≠ 0) ∧
   atTop.Tendsto (fun n ↦ |s.seq n+1| / |s.seq n|) (nhds 1) ∧ s.absConverges := by
     sorry
 
 /-- Твердження 7.5.4 -/
 theorem Series.root_self_converges : (fun (n:ℕ) ↦ (n:ℝ)^(1 / n : ℝ) : Series).convergesTo 1 := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   sorry
 
 /-- Вправа 7.5.2 -/

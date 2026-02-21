@@ -382,7 +382,7 @@ theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: BoundedAwayZero a)
   (ha_cauchy: (a:Sequence).IsCauchy) (hb: BoundedAwayZero b)
   (hb_cauchy: (b:Sequence).IsCauchy) (hlim: LIM a = LIM b) :
     LIM a⁻¹ = LIM b⁻¹ := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   set P := LIM a⁻¹ * LIM a * LIM b⁻¹
   have hainv_cauchy := Real.inv_isCauchy_of_boundedAwayZero ha ha_cauchy
   have hbinv_cauchy := Real.inv_isCauchy_of_boundedAwayZero hb hb_cauchy

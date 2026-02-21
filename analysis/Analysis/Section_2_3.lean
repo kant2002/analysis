@@ -88,7 +88,7 @@ lemma Nat.mul_eq_zero (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
 /-- Твердження 2.3.4 (Дістрібутивність)
 Порівняйте із Mathlib-івської `Nat.mul_add` -/
 theorem Nat.mul_add (a b c: Nat) : a * (b + c) = a * b + a * c := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert c; apply induction
   . rw [add_zero]
     rw [mul_zero, add_zero]
@@ -125,7 +125,7 @@ example (a b c d:ℕ) : (a+b)*1*(c+d) = d*b+a*c+c*b+a*d+0 := by ring
 /-- Твердження 2.3.6 (Множення зберігає порядок)
 Порівняйте із Mathlib-івським `Nat.mul_lt_mul_of_pos_right` -/
 theorem Nat.mul_lt_mul_of_pos_right {a b c: Nat} (h: a < b) (hc: c.IsPos) : a * c < b * c := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   rw [lt_iff_add_pos] at h
   choose d hdpos hd using h
   replace hd := congr($hd * c)
@@ -151,7 +151,7 @@ theorem Nat.mul_gt_mul_of_pos_left {a b c: Nat} (h: a > b) (hc: c.IsPos) :
 /-- Наслідок 2.3.7 (Властивість скорочення)
 Порівняйте із Mathlib-овським `Nat.mul_right_cancel` -/
 lemma Nat.mul_cancel_right {a b c: Nat} (h: a * c = b * c) (hc: c.IsPos) : a = b := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   have := trichotomous a b
   obtain hlt | rfl | hgt := this
   . replace hlt := mul_lt_mul_of_pos_right hlt hc

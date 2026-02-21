@@ -62,7 +62,7 @@ example : (2:Nat) + 3 = 5 := by
 /-- Лема 2.2.2 (n + 0 = n). Порівняйте із Mathlib-овським `Nat.add_zero` -/
 @[simp]
 lemma Nat.add_zero (n:Nat) : n + 0 = n := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert n; apply induction
   . exact zero_add 0
   intro n ih
@@ -72,7 +72,7 @@ lemma Nat.add_zero (n:Nat) : n + 0 = n := by
 
 /-- Лема 2.2.3 (n+(m++) = (n+m)++). Порівняйте із Mathlib-овським `Nat.add_succ` -/
 lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert n; apply induction
   . rw [zero_add, zero_add]
   intro n ih
@@ -86,7 +86,7 @@ theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
 
 /-- Твердження 2.2.4 (Додавання комутативне). Порівняйте із Mathlib-овським `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert n; apply induction
   . rw [zero_add, add_zero]
   intro n ih
@@ -101,7 +101,7 @@ theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
 /-- Твердження 2.2.6 (Властивість скорочення)
     Порівняйте із Mathlib-овським `Nat.add_left_cancel` -/
 theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert a; apply induction
   . intro hbc
     rwa [zero_add, zero_add] at hbc
@@ -131,7 +131,7 @@ theorem Nat.isPos_iff (n:Nat) : n.IsPos ↔ n ≠ 0 := by rfl
 /-- Твердження 2.2.8 (Додатне плюс натуральне число буде додатним).
     Порівняйте із Mathlib-овським `Nat.add_pos_left` -/
 theorem Nat.add_pos_left {a:Nat} (b:Nat) (ha: a.IsPos) : (a + b).IsPos := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert b; apply induction
   . rwa [add_zero]
   intro b hab
@@ -149,7 +149,7 @@ theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.IsPos) : (b + a).IsPos := by
 /-- Наслідок 2.2.9 (якщо сума дорівнює нулю, тоді доданки дорівнюють нулю).
     Порівняйте із Mathlib-овським `Nat.add_eq_zero` -/
 theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   by_contra h
   simp only [not_and_or, ←ne_eq] at h
   obtain ha | hb := h
@@ -300,7 +300,7 @@ theorem Nat.zero_le (a:Nat) : 0 ≤ a := by
 /-- Твердження 2.2.13 (Тріхотомія порядку для натуральних чисел) / Вправа 2.2.4
     Порівняйте із Mathlib-овським `trichotomous` -/
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   revert a; apply induction
   . observe why : 0 ≤ b
     rw [le_iff_lt_or_eq] at why

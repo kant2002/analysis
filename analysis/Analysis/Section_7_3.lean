@@ -7,14 +7,17 @@ import Analysis.Section_6_epilogue
 import Analysis.Section_7_2
 
 /-!
-# Аналіз I, Розділ 7.3: Sums of non-negative numbers
+# Аналіз I, Розділ 7.3: Суми невід'ємних чисел
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
 
-- Equivalent characterizations of convergence of nonnegative series.
-- Cauchy condensation test.
+- Еквівалентні характеристики збіжності невід'ємних рядів.
+- Критерій конденсації Коші.
 
 -/
 
@@ -28,7 +31,8 @@ abbrev Series.partial_of_nonneg {s: Series} (h: s.nonneg) : Monotone s.partial :
 
 /-- Твердження 7.3.1 -/
 theorem Series.converges_of_nonneg_iff {s: Series} (h: s.nonneg) : s.converges ↔ ∃ M, ∀ N, s.partial N ≤ M := by
-  -- This broadly follows the argument in the text, though for one direction I choose to use Mathlib routines rather than Chapter6 results.
+  -- Доказ загалом слідує аргументації в тексті; для одного напрямку я обрав
+  -- використання засобів Mathlib замість результатів Розділу 6.
   constructor
   . intro hconv
     set S : Chapter6.Sequence := ⟨ s.m, s.partial, by intro n hn; simp [Series.partial, hn] ⟩
@@ -56,7 +60,7 @@ theorem Series.partial_le_sum_of_nonneg {s: Series} (hnon: s.nonneg) (hconv: s.c
   apply (partial_of_nonneg hnon).ge_of_tendsto
   simp [sum, hconv]; exact hconv.choose_spec
 
-/-- Some useful nonnegativity lemmas for later applications. -/
+/-- Декілька корисних лем про невід'ємність для подальших застосувань. -/
 theorem Series.partial_nonneg {s: Series} (hnon: s.nonneg) (N : ℤ) : 0 ≤ s.partial N := by
   simp [Series.partial]; apply Finset.sum_nonneg; aesop
 
@@ -64,12 +68,12 @@ theorem Series.sum_of_nonneg {s:Series} (hnon: s.nonneg) : 0 ≤ s.sum := by
   by_cases h: s.converges <;> simp [Series.sum, h]
   exact ge_of_tendsto' h.choose_spec (partial_nonneg hnon)
 
-/-- Наслідок 7.3.2 (Comparison test) / Вправа 7.3.1 -/
+/-- Наслідок 7.3.2 (Ознака порівняння) / Вправа 7.3.1 -/
 theorem Series.converges_of_le {s t: Series} (hm: s.m = t.m) (hcomp: ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hconv : t.converges) : s.absConverges ∧ |s.sum| ≤ s.abs.sum ∧ s.abs.sum ≤ t.sum := by sorry
 
 theorem Series.diverges_of_ge {s t: Series} (hm: s.m = t.m) (hcomp: ∀ n ≥ s.m, |s.seq n| ≤ t.seq n) (hdiv: ¬ s.absConverges) : t.diverges := by sorry
 
-/-- Лема 7.3.3 (Geometric series) / Вправа 7.3.2 -/
+/-- Лема 7.3.3 (Геометричний ряд) / Вправа 7.3.2 -/
 theorem Series.converges_geom {x: ℝ} (hx: |x| < 1) : (fun n ↦ x ^ n : Series).convergesTo (1 / (1 - x)) := by sorry
 
 theorem Series.absConverges_geom {x: ℝ} (hx: |x| < 1) : (fun n ↦ x ^ n : Series).absConverges := by sorry
@@ -78,9 +82,9 @@ theorem Series.diverges_geom {x: ℝ} (hx: |x| ≥ 1) : (fun n ↦ x ^ n : Serie
 
 theorem Series.converges_geom_iff (x: ℝ) : (fun n ↦ x ^ n : Series).converges ↔ |x| < 1 := by sorry
 
-/-- Твердження 7.3.4 (Cauchy criterion) -/
+/-- Твердження 7.3.4 (Критерій Коші) -/
 theorem Series.cauchy_criterion {s:Series} (hm: s.m = 1) (hs:s.nonneg) (hmono: ∀ n ≥ 1, s.seq (n+1) ≤ s.seq n) : s.converges ↔ (fun k ↦ 2^k * s.seq (2^k): Series).converges := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   set t := (fun k ↦ 2^k * s.seq (2^k):Series)
   have ht: t.nonneg := by intro n; by_cases h: n ≥ 0 <;> simp [t,h]; grind
   have hmono' : ∀ n ≥ 1, ∀ m ≥ n, s.seq m ≤ s.seq n := by
@@ -164,7 +168,8 @@ theorem Series.converges_qseries (q: ℝ) (hq: q > 0) : (mk' (m := 1) fun n ↦ 
 
 /-- Зауваження 7.3.8 -/
 theorem Series.zeta_eq {q:ℝ} (hq: q > 1) : (mk' (m := 1) fun n ↦ 1 / (n:ℝ) ^ q : Series).sum = riemannZeta q := by
-  -- `riemannZeta` is defined over the complex numbers, so some preliminary work is needed to specialize to the reals.
+  -- `riemannZeta` визначена над комплексними числами, тому потрібна попередня
+  -- робота, щоб звузити її до дійсних чисел.
   set L := ∑' n:ℕ, 1 / (n+1:ℝ)^q
   have hL : L = riemannZeta q := by
     rw [zeta_eq_tsum_one_div_nat_add_one_cpow (by norm_cast)]

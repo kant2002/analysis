@@ -159,7 +159,7 @@ theorem Rat.inv_zero : (0:Rat)⁻¹ = 0 := rfl
 /-- Твердження 4.2.4 (закони алгебри) / Вправа 4.2.3 -/
 instance Rat.addGroup_inst : AddGroup Rat :=
 AddGroup.ofLeftAxioms (by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   intro x y z
   obtain ⟨ a, b, hb, rfl ⟩ := eq_diff x
   obtain ⟨ c, d, hd, rfl ⟩ := eq_diff y

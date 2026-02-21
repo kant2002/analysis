@@ -101,7 +101,7 @@ theorem Convergesto.comp {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Adh
 /-- Наслідок 9.3.13 -/
 theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hf': Convergesto E f L' x₀) : L = L' := by
-  -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+  -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
   let ⟨ a, ha, hconv ⟩ := (limit_of_AdherentPt _ _).mp h
   exact tendsto_nhds_unique (hf.comp h ha hconv) (hf'.comp h ha hconv)
 
@@ -109,7 +109,7 @@ theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: 
 theorem Convergesto.add {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f + g) (L + M) x₀ := by
-    -- цей доказ написан так, щоб співпадати із структурою орігінального тексту.
+    -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
     rw [iff_conv _ _ h] at hf hg ⊢
     intro a ha hconv; specialize hf a ha hconv; specialize hg a ha hconv
     convert hf.add hg using 1
