@@ -3,7 +3,7 @@ import Mathlib.Topology.Instances.Irrational
 import Analysis.Section_11_4
 
 /-!
-# Аналіз I, Розділ 11.7: A non-Riemann integrable function
+# Аналіз I, Розділ 11.7: Функція, яка не інтегровна за Ріманом
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,7 +11,7 @@ import Analysis.Section_11_4
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- An example of a bounded function on a compact interval that is not Riemann integrable.
+- Приклад обмеженої функції на компактному проміжку, яка не інтегровна за Ріманом.
 
 -/
 
@@ -20,7 +20,7 @@ open BoundedInterval Chapter9
 
 /-- Твердження 11.7.1 -/
 theorem not_integrable : BddOn f_9_3_21 (Icc 0 1) ∧ ¬ IntegrableOn f_9_3_21 (Icc 0 1) := by
-  -- This proof is adapted from the structure of the original text.
+  -- Цей доказ адаптовано з структури оригінального тексту.
   have hbdd: BddOn f_9_3_21 (Icc 0 1):= by
     use 1; intro x _; by_cases h: ∃ y:ℚ, y = x <;> simp [f_9_3_21, h]
   refine ⟨ hbdd, ?_ ⟩

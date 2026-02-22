@@ -3,7 +3,7 @@ import Analysis.Section_9_8
 import Analysis.Section_11_5
 
 /-!
-# Аналіз I, Розділ 11.6: Riemann integrability of monotone functions
+# Аналіз I, Розділ 11.6: Ріманова інтегровність монотонних функцій
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,7 +11,7 @@ import Analysis.Section_11_5
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Riemann integrability of monotone functions.
+- Ріманова інтегровність монотонних функцій.
 
 -/
 
@@ -22,7 +22,7 @@ set_option maxHeartbeats 300000 in
 /-- Твердження 11.6.1 -/
 theorem integ_of_monotone {a b:ℝ} {f:ℝ → ℝ} (hf: MonotoneOn f (Icc a b)) :
   IntegrableOn f (Icc a b) := by
-  -- This proof is adapted from the structure of the original text.
+  -- Цей доказ адаптовано з структури оригінального тексту.
   by_cases hab : 0 < b-a
   swap
   . apply (integ_on_subsingleton _).1; rw [←BoundedInterval.length_of_subsingleton]; aesop
@@ -143,14 +143,14 @@ theorem integ_of_bdd_antitone {I:BoundedInterval} {f:ℝ → ℝ} (hbound: BddOn
   (hf: AntitoneOn f I) : IntegrableOn f I := by
   sorry
 
-/-- Твердження 11.6.4 (Integral test) -/
+/-- Твердження 11.6.4 (Ознака інтегрування) -/
 theorem summable_iff_integ_of_antitone {f:ℝ → ℝ} (hnon: ∀ x ≥ 0, f x ≥ 0)
   (hf: AntitoneOn f (.Ici 0)) :
   Summable f ↔ ∃ M, ∀ N ≥ 0, integ f (Icc 0 N) ≤ M := by
   sorry
 
--- Exercise 11.6.2: Formulate a reasonable notion of a piecewise monotone function, and then
--- show that all bounded piecewise monotone functions are Riemann integrable.
+-- Вправа 11.6.2: Сформулюйте розумне поняття кусочно монотонної функції, а потім
+-- покажіть, що всі обмежені кусочно монотонні функції є інтегровними по Ріману.
 
 /-- Вправа 11.6.4 -/
 example : ∃ (f:ℝ → ℝ) (hnon: ∀ x ≥ 0, f x ≥ 0), Summable f ∧ ¬ ∃ M, ∀ N ≥ 0, integ f (Icc 0 N) ≤ M := by

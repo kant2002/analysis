@@ -11,22 +11,22 @@ import Analysis.Section_11_2
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- The upper and lower Riemann integral; the Riemann integral.
-- Upper and lower Riemann sums.
+- Верхній та нижній інтеграл Рімана; інтеграл Рімана.
+- Верхні та нижні суми Рімана.
 
 -/
 
 namespace Chapter11
 open BoundedInterval Chapter9
 
-/-- Визначення 11.3.1 (Majorization of functions) -/
+/-- Визначення 11.3.1 (Мажоризація функцій) -/
 abbrev MajorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), f x ≤ g x
 
 abbrev MinorizesOn (g f:ℝ → ℝ) (I: BoundedInterval) : Prop := ∀ x ∈ (I:Set ℝ), g x ≤ f x
 
 theorem MinorizesOn.iff (g f:ℝ → ℝ) (I: BoundedInterval) : MinorizesOn g f I ↔ MajorizesOn f g I := by rfl
 
-/-- Визначення 11.3.2 (Uppper and lower Riemann integrals )-/
+/-- Визначення 11.3.2 (Верхній та нижній інтеграли Рімана) -/
 noncomputable abbrev upper_integral (f:ℝ → ℝ) (I: BoundedInterval) : ℝ :=
   sInf ((PiecewiseConstantOn.integ · I) '' {g | MajorizesOn g f I ∧ PiecewiseConstantOn g I})
 
@@ -77,7 +77,7 @@ lemma integral_bound_above {f:ℝ → ℝ} {I: BoundedInterval} (h: BddOn f I) :
     rw [bddAbove_def]; use (integral_bound_upper_nonempty h).some
     intro b hb; exact integral_bound_lower_le_upper (integral_bound_upper_nonempty h).some_mem hb
 
-/-- Лема 11.3.3.  The proof has been reorganized somewhat from the textbook. -/
+/-- Лема 11.3.3. Доказ дещо реорганізовано порівняно з підручником. -/
 lemma le_lower_integral {f:ℝ → ℝ} {I: BoundedInterval} {M:ℝ} (h: ∀ x ∈ (I:Set ℝ), |f x| ≤ M) :
   -M * |I|ₗ ≤ lower_integral f I :=
   ConditionallyCompleteLattice.le_csSup _ _
@@ -120,8 +120,8 @@ lemma gt_of_lt_lower_integral {f:ℝ → ℝ} {I: BoundedInterval} (hf: BddOn f 
   choose Y hY hYX using exists_lt_of_lt_csSup (integral_bound_lower_nonempty hf) hX
   simp at hY; peel hY; simp_all; tauto
 
-/-- Визначення 11.3.4 (Riemann integral)
-As we permit junk values, the simplest definition for the Riemann integral is the upper integral.-/
+/-- Визначення 11.3.4 (Інтеграл Рімана)
+Оскільки ми дозволяємо сміттеві значення, найпростіше визначення інтегралу Рімана — верхній інтеграл. -/
 noncomputable abbrev integ (f:ℝ → ℝ) (I: BoundedInterval) : ℝ := upper_integral f I
 
 theorem integ_congr {f g:ℝ → ℝ} {I: BoundedInterval} (h: Set.EqOn f g I) :
@@ -143,7 +143,7 @@ theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ =
   convert integ_of_piecewise_const hconst.piecewiseConstantOn
   simp [PiecewiseConstantOn.integ_const' hconst, hI]
 
-/-- Визначення 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
+/-- Визначення 11.3.9 (Суми Рімана). Обмеження до інтервалів позитивної довжини J не потрібно завдяки різним конвенціям щодо сміттевих значень. -/
 noncomputable abbrev upper_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sSup (f '' (J:Set ℝ))) * |J|ₗ
 
