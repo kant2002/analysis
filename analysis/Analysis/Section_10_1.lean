@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
-# Аналіз I, Розділ 10.1: Basic definitions
+# Аналіз I, Розділ 10.1: Базові визначення
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -10,12 +10,11 @@ import Mathlib.Analysis.Calculus.Deriv.Basic
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- API for Mathlib's `HasDerivWithinAt`, `derivWithin`, and `DifferentiableWithinAt`.
+- API для `HasDerivWithinAt`, `derivWithin` і `DifferentiableWithinAt` з Mathlib.
 
-Note that the Mathlib conventions differ slightly from that in the text, in that
-differentiability is defined even at points that are not limit points of the domain;
-derivatives in such cases may not be unique, but `derivWithin` still selects one such
-derivative in such cases (or `0`, if no derivative exists).
+Зауважте, що конвенції Mathlib дещо відрізняються від тих, що в тексті: диференційовність
+визначена навіть у точках, які не є точками границі домену; похідні у таких випадках
+можуть бути неунікальними, але `derivWithin` все одно вибирає одну з них (або `0`, якщо похідної не існує).
 
 -/
 
@@ -23,8 +22,8 @@ namespace Chapter10
 
 variable (x₀ : ℝ)
 
-/-- Визначення 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
-hypothesis that `x₀` is a limit point is not needed. -/
+/-- Визначення 10.1.1 (Диференційовність у точці). Для поняття `HasDerivWithinAt` з Mathlib
+гіпотеза про те, що `x₀` є граничною точкою, не потрібна. -/
 theorem _root_.HasDerivWithinAt.iff (X: Set ℝ) (x₀ : ℝ) (f: ℝ → ℝ)
   (L:ℝ) :
   HasDerivWithinAt f L X x₀ ↔ (nhdsWithin x₀ (X \ {x₀})).Tendsto (fun x ↦ (f x - f x₀) / (x - x₀))
@@ -110,7 +109,7 @@ example : DifferentiableWithinAt ℝ f_10_1_6 (.Iio 0) 0 := by
 example : derivWithin f_10_1_6 (.Iio 0) 0 = -1 := by
   sorry
 
-/-- Твердження 10.1.7 (Newton's approximation) / Вправа 10.1.2 -/
+/-- Твердження 10.1.7 (Ньютонівське наближення) / Вправа 10.1.2 -/
 theorem _root_.HasDerivWithinAt.iff_approx_linear (X: Set ℝ) (x₀ :ℝ) (f: ℝ → ℝ) (L:ℝ) :
   HasDerivWithinAt f L X x₀ ↔
   ∀ ε > 0, ∃ δ > 0, ∀ x ∈ X, |x - x₀| < δ → |f x - f x₀ - L * (x - x₀)| ≤ ε * |x - x₀| := by
@@ -122,7 +121,7 @@ theorem _root_.ContinuousWithinAt.of_differentiableWithinAt {X: Set ℝ} {x₀ :
   ContinuousWithinAt f X x₀ := by
   sorry
 
-/-Definition 10.1.11 (Differentiability on a domain)-/
+/-Визначення 10.1.11 (Диференційовність на області)-/
 #check DifferentiableOn.eq_1
 
 /-- Наслідок 10.1.12 -/
@@ -131,45 +130,45 @@ theorem _root_.ContinuousOn.of_differentiableOn {X: Set ℝ} {f: ℝ → ℝ}
   ContinuousOn f X := by
   solve_by_elim [ContinuousWithinAt.of_differentiableWithinAt]
 
-/-- Теорема 10.1.13 (a) (Differential calculus) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (a) (Диференціальне числення) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_const (X: Set ℝ) (x₀ : ℝ) (c:ℝ) :
   HasDerivWithinAt (fun x ↦ c) 0 X x₀ := by sorry
 
-/-- Теорема 10.1.13 (b) (Differential calculus) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (b) (Диференціальне числення) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_id (X: Set ℝ) (x₀ : ℝ) :
   HasDerivWithinAt (fun x ↦ x) 1 X x₀ := by sorry
 
-/-- Теорема 10.1.13 (c) (Sum rule) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (c) (Правило суми) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_add {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f + g) (f'x₀ + g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (d) (Product rule) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (d) (Правило добутку) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_mul {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f * g) (f'x₀ * (g x₀) + (f x₀) * g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (e) (Differential calculus) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (e) (Диференціальне числення) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_smul {X: Set ℝ} {x₀ f'x₀: ℝ} (c:ℝ)
   {f: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) :
   HasDerivWithinAt (c • f) (c * f'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (f) (Difference rule) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (f) (Правило різниці) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_sub {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (f - g) (f'x₀ - g'x₀) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (g) (Differential calculus) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (g) (Диференціальне числення) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_inv {X: Set ℝ} {x₀ g'x₀: ℝ}
   {g: ℝ → ℝ} (hgx₀ : g x₀ ≠ 0) (hg: HasDerivWithinAt g g'x₀ X x₀) :
   HasDerivWithinAt (1/g) (-g'x₀ / (g x₀)^2) X x₀ := by
   sorry
 
-/-- Теорема 10.1.13 (h) (Quotient rule) / Вправа 10.1.4 -/
+/-- Теорема 10.1.13 (h) (Правило частки) / Вправа 10.1.4 -/
 theorem _root_.HasDerivWithinAt.of_div {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
   {f g: ℝ → ℝ} (hgx₀ : g x₀ ≠ 0) (hf: HasDerivWithinAt f f'x₀ X x₀)
   (hg: HasDerivWithinAt g g'x₀ X x₀) :
@@ -179,7 +178,7 @@ theorem _root_.HasDerivWithinAt.of_div {X: Set ℝ} {x₀ f'x₀ g'x₀: ℝ}
 example (x₀:ℝ) (hx₀: x₀ ≠ 1): HasDerivWithinAt (fun x ↦ (x-2)/(x-1)) (1 /(x₀-1)^2) (.univ \ {1}) x₀ := by
   sorry
 
-/-- Теорема 10.1.15 (Chain rule) / Вправа 10.1.7 -/
+/-- Теорема 10.1.15 (Правило складання) / Вправа 10.1.7 -/
 theorem _root_.HasDerivWithinAt.of_comp {X Y: Set ℝ} {x₀ y₀ f'x₀ g'y₀: ℝ}
   {f g: ℝ → ℝ} (hfx₀: f x₀ = y₀) (hfX : ∀ x ∈ X, f x ∈ Y)
   (hf: HasDerivWithinAt f f'x₀ X x₀) (hg: HasDerivWithinAt g g'y₀ Y y₀) :

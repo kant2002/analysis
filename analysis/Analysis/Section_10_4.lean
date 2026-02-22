@@ -4,7 +4,7 @@ import Analysis.Section_9_4
 import Analysis.Section_10_1
 
 /-!
-# Аналіз I, Розділ 10.4: Inverse functions and derivatives
+# Аналіз I, Розділ 10.4: Обернені функції та похідні
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -12,7 +12,7 @@ import Analysis.Section_10_1
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- The inverse function theorem.
+- Теорема про обернену функцію.
 
 -/
 
@@ -51,7 +51,7 @@ theorem _root_.HasDerivWithinAt.of_inverse_of_zero_deriv {X Y: Set ℝ} {f: ℝ 
 
 example : ¬ DifferentiableWithinAt ℝ (fun x:ℝ ↦ x^(1/3:ℝ)) (.Ici 0) 0 := by sorry
 
-/-- Теорема 10.4.2 (Inverse function theorem) -/
+/-- Теорема 10.4.2 (Теорема про обернену функцію) -/
 theorem inverse_function_theorem {X Y: Set ℝ} {f: ℝ → ℝ} {g:ℝ → ℝ}
   (hfXY: ∀ x ∈ X, f x ∈ Y) (hgYX: ∀ y ∈ Y, g y ∈ X)
   (hgf: ∀ x ∈ X, g (f x) = x) (hfg: ∀ y ∈ Y, f (g y) = y)
