@@ -114,7 +114,7 @@ def ConcreteBooleanAlgebra.restrict_iff {X:Type*} {B: ConcreteBooleanAlgebra X} 
   (B.restrict A).measurable E ↔ B.measurable A :=
   by sorry
 
-/-- Remark 1.4.2: ConcreteBooleanAlgebras are BooleanAlgebras -/
+/-- Зауваження 1.4.2: ConcreteBooleanAlgebras are BooleanAlgebras -/
 def ConcreteBooleanAlgebra.toBooleanAlgebra {X:Type*} (B: ConcreteBooleanAlgebra X) : BooleanAlgebra (B.measurableSets) :=
 {
    sup := sorry

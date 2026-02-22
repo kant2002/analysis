@@ -3535,7 +3535,7 @@ end Remark_1_2_8
 --  End of Helpers for remark 1.2.8 -/
 -- ========================================================================
 
-/-- Remark 1.2.8: There exists a bounded open set that is not Jordan measurable.
+/-- Зауваження 1.2.8: There exists a bounded open set that is not Jordan measurable.
     Proof sketch: Take U = ⋃_{n} (q_n - ε/2^{n+1}, q_n + ε/2^{n+1}) where {q_n} enumerates ℚ ∩ [0,1].
     U is open and bounded. By countable subadditivity, m*(U) ≤ 2ε.
     By density of ℚ, closure(U) ⊇ [0,1], so m*,J(U) ≥ 1.
@@ -3593,7 +3593,7 @@ example : ∃ (E: Set (EuclideanSpace' 1)), Bornology.IsBounded E ∧
   -- Contradiction: 1 ≤ Jordan_inner ≤ 2/3 is impossible
   linarith
 
-/-- Remark 1.2.8: The complement of U in [-2,2] is compact but not Jordan measurable. -/
+/-- Зауваження 1.2.8: The complement of U in [-2,2] is compact but not Jordan measurable. -/
 example : ∃ (E: Set (EuclideanSpace' 1)), Bornology.IsBounded E ∧
     IsCompact E ∧ ¬ JordanMeasurable E := by
   -- Let B = [-2, 2] lifted to EuclideanSpace' 1
@@ -4283,7 +4283,7 @@ theorem Lebesgue_outer_measure.univ {d:ℕ} {hd: 0 < d} : Lebesgue_outer_measure
     _ = (N : EReal) := EReal.coe_coe_eq_natCast N
     _ ≤ Lebesgue_outer_measure (Set.univ : Set (EuclideanSpace' d)) := h_arb_large N
 
-/-- Remark 1.2.10 -/
+/-- Зауваження 1.2.10 -/
 theorem Box.sum_volume_eq {d:ℕ} (B B': ℕ → Box d) (hdisj: Pairwise (Function.onFun AlmostDisjoint B)) (hdisj': Pairwise (Function.onFun AlmostDisjoint B')) (hcover: (⋃ n, (B n).toSet) = (⋃ n, (B' n).toSet)) :
     ∑' n, (B n).volume = ∑' n, (B' n).volume := by
   -- Establish outer measure equality using union_of_almost_disjoint (Lemma 1.2.9)

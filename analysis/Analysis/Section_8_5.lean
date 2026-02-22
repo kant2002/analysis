@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_8_4
 
 /-!
-# Аналіз I, Розділ 8.5: Ordered sets
+# Аналіз I, Розділ 8.5: Упорядковані множини
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,15 +11,15 @@ import Analysis.Section_8_4
 
 Основні конструкції та результати цього розділу:
 
-- Review of `PartialOrder`, `LinearOrder`, and `WellFoundedLT`, with some API.
-- Strong induction.
-- Zorn's lemma.
+- Огляд `PartialOrder`, `LinearOrder` та `WellFoundedLT` з деякими API.
+- Сильна індукція.
+- Лема Цорна.
 
 -/
 
 namespace Chapter8
 
-/-- Визначення 8.5.1 - Here we just review the Mathlib `PartialOrder` class. -/
+/-- Визначення 8.5.1 - Тут ми коротко переглядаємо клас `PartialOrder` з Mathlib. -/
 
 example {X:Type} [PartialOrder X] (x:X) : x ≤ x := le_refl x
 example {X:Type} [PartialOrder X] {x y:X} (h₁: x ≤ y) (h₂: y ≤ x) : x = y := antisymm h₁ h₂
@@ -40,7 +40,7 @@ def PartialOrder.mk {X:Type} [LE X]
 example {X:Type} : PartialOrder (Set X) := by infer_instance
 example {X:Type} (A B: Set X) : A ≤ B ↔ A ⊆ B := by rfl
 
-/-- Визначення 8.5.3.  Here we just review the Mathlib `LinearOrder` class. -/
+/-- Визначення 8.5.3. Тут ми коротко переглядаємо клас `LinearOrder` з Mathlib. -/
 example {X:Type} [LinearOrder X] : PartialOrder X := by infer_instance
 def IsTotal (X:Type) [PartialOrder X] : Prop := ∀ x y:X, x ≤ y ∨ y ≤ x
 example {X:Type} [LinearOrder X] : IsTotal X := le_total
@@ -53,7 +53,7 @@ noncomputable def LinearOrder.mk {X:Type} [PartialOrder X]
    toDecidableLE := decRel LE.le
 }
 
-/- Examples 8.5.4 -/
+/- Приклади 8.5.4 -/
 #check inferInstanceAs (LinearOrder ℕ)
 #check inferInstanceAs (LinearOrder ℚ)
 #check inferInstanceAs (LinearOrder ℝ)
@@ -95,7 +95,7 @@ example : IsMin (0:ℕ) := by sorry
 example (n:ℕ) : ¬ IsMax n := by sorry
 example (n:ℤ): ¬ IsMin n ∧ ¬ IsMax n := by sorry
 
-/-- Визначення 8.5.8.  We use `[LinearOrder X] [WellFoundedLT X]` to describe well-ordered sets. -/
+/-- Визначення 8.5.8. Ми використовуємо `[LinearOrder X] [WellFoundedLT X]` для опису добре впорядкованих множин. -/
 theorem WellFoundedLT.iff (X:Type) [LinearOrder X] :
   WellFoundedLT X ↔ ∀ A:Set X, A.Nonempty → ∃ x:A, IsMin x := by
   unfold WellFoundedLT IsMin
@@ -143,11 +143,11 @@ theorem WellFoundedLT.strong_induction {X:Type} [LinearOrder X] [WellFoundedLT X
   (h: ∀ n, (∀ m < n, P m) → P n) : ∀ n, P n := by
   sorry
 
-/-- Визначення 8.5.12 (Upper bounds and strict upper bounds) -/
+/-- Визначення 8.5.12 (Верхні межі та точні верхні межі) -/
 abbrev IsUpperBound {X:Type} [PartialOrder X] (A:Set X) (x:X) : Prop :=
   ∀ y ∈ A, y ≤ x
 
-/-- Connection with Mathlib's `upperBounds` -/
+/-- Зв'язок із Mathlib-овським `upperBounds` -/
 theorem IsUpperBound.iff {X:Type} [PartialOrder X] (A:Set X) (x:X) :
   IsUpperBound A x ↔ x ∈ upperBounds A := by simp [IsUpperBound, upperBounds]
 
@@ -167,7 +167,7 @@ example : ¬ IsStrictUpperBound (.Icc 1 2: Set ℝ) 2 := by sorry
 
 example : IsStrictUpperBound (.Icc 1 2: Set ℝ) 3 := by sorry
 
-/-- A convenient way to simplify the notion of having `x₀` as a minimal element.-/
+/-- Зручний спосіб спростити поняття наявності `x₀` як мінімального елемента.-/
 theorem IsMin.iff_lowerbound {X:Type} [PartialOrder X] {Y: Set X} (hY: IsTotal Y) (x₀ : X) : (∃ hx₀ : x₀ ∈ Y, IsMin (⟨ x₀, hx₀ ⟩:Y)) ↔ x₀ ∈ Y ∧ ∀ x ∈ Y, x₀ ≤ x := by
   constructor
   . rintro ⟨ hx₀, hmin ⟩; simp [IsMin, hx₀] at *
@@ -186,11 +186,11 @@ example {X:Type} [PartialOrder X] {Y Y':Set X} (hY: IsTotal Y) (hY': IsTotal Y')
 
 /-- Лема 8.5.14-/
 theorem WellFoundedLT.partialOrder {X:Type} [PartialOrder X] (x₀ : X) : ∃ Y : Set X, IsTotal Y ∧ WellFoundedLT Y ∧ (∃ hx₀ : x₀ ∈ Y, IsMin (⟨ x₀, hx₀ ⟩: Y)) ∧ ¬ ∃ x, IsStrictUpperBound Y x := by
-  -- This proof is based on the original text with some technical simplifications.
+  -- Доказ базується на оригінальному тексті з деякими технічними спрощеннями.
 
-  -- The class of well-ordered subsets `Y` of `X` that contain `x₀` as a minimal element is not named in the text,
-  -- but it is convenient to give it a name (`Ω₀`) for the formalization.  Here we use `IsMin.iff_lowerbound` to
-  -- simplify the notion of minimality.
+  -- Клас добре впорядкованих підмножин `Y` множини `X`, які містять `x₀` як мінімальний елемент,
+  -- у тексті не позначений окремою назвою, але для формалізації зручно ввести позначення `Ω₀`.
+  -- Тут ми використовуємо `IsMin.iff_lowerbound` для спрощення поняття мінімальності.
   let Ω₀ := { Y : Set X | IsTotal Y ∧ WellFoundedLT Y ∧ x₀ ∈ Y ∧ ∀ x ∈ Y, x₀ ≤ x}
   suffices : ∃ Y ∈ Ω₀, ¬ ∃ x, IsStrictUpperBound Y x
   . have ⟨ Y, ⟨ hY, hY'⟩, hstrict ⟩ := this; use Y, hY
@@ -205,9 +205,9 @@ theorem WellFoundedLT.partialOrder {X:Type} [PartialOrder X] (x₀ : X) : ∃ Y 
     simp [Ω₀, htotal]; apply WellFoundedLT.ofFinite
   let pt : Ω₀ := ⟨ _, hpt ⟩
 
-  -- The operation of sending a set `Y` in `Ω₀` to the smaller set `{y ∈ Y.val | y < x}`, which is also
-  -- in `Ω₀` if `x ∈ Y.val \ {x₀}`, is not named explicitly in the text, but we give it a name `F` for
-  -- the formalization.
+  -- Операція, яка відправляє множину `Y` з `Ω₀` у меншу множину `{y ∈ Y.val | y < x}`, що також
+  -- належить `Ω₀`, якщо `x ∈ Y.val \ {x₀}`, у тексті не називається явно, тому для формалізації
+  -- ми позначаємо її як `F`.
   have hF {Y:Set X} (hY: Y ∈ Ω₀) {x:X} (hxy : x ∈ Y \ {x₀}) : {y ∈ Y | y < x} ∈ Ω₀ := by
     simp [Ω₀, IsTotal] at hY ⊢; choose _ hmin using hY.2.2; simp_all
     split_ands
@@ -220,12 +220,12 @@ theorem WellFoundedLT.partialOrder {X:Type} [PartialOrder X] (x₀ : X) : ∃ Y 
   replace hF {Y : Ω₀} {x : X} (hxy : x ∈ (Y:Set X) \ {x₀}) : F Y x = { y ∈ (Y:Set X) | y < x } := by
     simp_all [F]
 
-  -- The set `Ω` captures the notion of a `good set`.
+  -- Множина `Ω` фіксує поняття `гарної множини`.
   set Ω := { Y : Ω₀ | ∀ x ∈ (Y:Set X) \ {x₀}, x = s (F Y x) }
   have hΩ : pt ∈ Ω := by
     sorry
 
-  -- Exercise 8.5.13
+  -- Вправа 8.5.13
   have ex_8_5_13 {Y Y':Ω} (x:X) (h: x ∈ (Y':Set X) \ Y) : IsStrictUpperBound Y x := by
     sorry
 
@@ -300,7 +300,7 @@ theorem WellFoundedLT.partialOrder {X:Type} [PartialOrder X] (x₀ : X) : ∃ Y 
   specialize hs _ hs_mem; order
 
 
-/-- Лема 8.5.15 (Zorn's lemma) / Вправа 8.5.14 -/
+/-- Лема 8.5.15 (Лема Цорна) / Вправа 8.5.14 -/
 theorem Zorns_lemma {X:Type} [PartialOrder X] [Nonempty X]
   (hchain: ∀ Y:Set X, IsTotal Y ∧ Y.Nonempty → ∃ x, IsUpperBound Y x) : ∃ x:X, IsMax x := by
   sorry
@@ -336,7 +336,7 @@ example {X Y:Type} [PartialOrder Y] (f:X → Y) : ∃ h₀: PartialOrder X, h₀
 def Ex_8_5_5_b : Decidable (∀ (X Y:Type) (h: LinearOrder Y) (f:X → Y), ∃ h₀: LinearOrder X, h₀.le = (fun x y ↦ f x < f y ∨ x = y)) := by
   sorry
 
--- Final part of Exercise 8.5.5; if the answer to the previous part is "no", modify the hypotheses to make it true.
+-- Остання частина Вправи 8.5.5; якщо відповідь на попередню частину — "ні", змініть гіпотези, щоб зробити її істинною.
 
 /-- Вправа 8.5.6 -/
 abbrev OrderIdeals (X: Type) [PartialOrder X] : Set (Set X) := .Iic '' (.univ : Set X)
@@ -360,9 +360,9 @@ example {Y:Type} [PartialOrder Y] {x y:Y} (hx: IsMax x) (hy: IsMax y) : x = y :=
 example {X:Type} [LinearOrder X] (hmin: ∀ Y: Set X, Y.Nonempty → ∃ x:Y, IsMin x) (hmax: ∀ Y: Set X, Y.Nonempty → ∃ x:Y, IsMax x) : Finite X := by sorry
 
 
-/-- Вправа 8.5.12.  Here we make a copy of Mathlib's `Lex` wrapper for lexicographical orderings.  This wrapper is needed
-because products `X × Y` of ordered sets are given the default instance of the product partial order instead of
-the lexicographical one. -/
+/-- Вправа 8.5.12. Тут ми робимо копію обгортки `Lex` з Mathlib для лексикографічних упорядкувань.
+-- Ця обгортка потрібна, оскільки добутки `X × Y` упорядкованих множин за замовчуванням
+-- отримують інстанцію добуткового часткового порядку, а не лексикографічного. -/
 def Lex' (α : Type) := α
 
 instance Lex'.partialOrder {X Y: Type} [PartialOrder X] [PartialOrder Y] : PartialOrder (Lex' (X × Y)) := {

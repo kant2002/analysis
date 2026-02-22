@@ -5,7 +5,7 @@ import Analysis.Section_7_4
 import Analysis.Section_8_1
 
 /-!
-# Аналіз I, Розділ 8.2: Summation on infinite sets
+# Аналіз I, Розділ 8.2: Підсумовування на нескінченних множинах
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -14,30 +14,31 @@ import Analysis.Section_8_1
 
 Основні конструкції та результати цього розділу:
 
-- Absolute convergence and summation on countably infinite or general sets.
-- Зв'язки із Mathlib-овським `Summable` and `tsum`.
-- The Riemann rearrangement theorem.
+- Абсолютна збіжність та підсумовування на зліченних нескінченних або загальних множинах.
+- Зв'язки з Mathlib-овськими `Summable` та `tsum`.
+- Теорема Рімана про перетворення рядів.
 
-Some non-trivial API is provided beyond what is given in the textbook in order connect these
-notions with existing summation notions.
+Надано деякі нетривіальні API, що доповнюють матеріал підручника і пов'язують ці
+поняття з існуючими поняттями підсумовування.
 
-After this section, the summation notation developed here will be deprecated in favor of Mathlib's API for `Summable` and `tsum`.
+Після цього розділу позначення для підсумовування, розроблене тут, буде застаріле на користь API Mathlib для `Summable` і `tsum`.
 
 -/
 
 namespace Chapter8
 open Chapter7 Chapter7.Series Finset Function Filter
 
-/-- Визначення 8.2.1 (Series on countable sets).  Note that with this definition, functions defined
-on finite sets will not be absolutely convergent; one should use `AbsConvergent'` instead for such
-cases.-/
+/-- Визначення 8.2.1 (Ряди на лічильних множинах). Зверніть увагу, що з цією дефініцією функції,
+визначені на скінчених множинах, не будуть абсолютно збіжними; для таких випадків слід використовувати
+випадки `AbsConvergent'`.-/
 abbrev AbsConvergent {X:Type} (f: X → ℝ) : Prop := ∃ g: ℕ → X, Bijective g ∧ (f ∘ g: Series).absConverges
 
 theorem AbsConvergent.mk {X: Type} {f:X → ℝ} {g:ℕ → X} (h: Bijective g) (hfg: (f ∘ g:Series).absConverges) : AbsConvergent f := by use g
 
 open Classical in
-/-- The definition has been chosen to give a sensible value when `X` is finite, even though
-`AbsConvergent` is by definition false in this context. -/
+/-- Дефініція була обрана таким чином, щоб давати змістовне значення, коли `X` скінченна,
+навіть якщо `AbsConvergent` за визначенням є хибним у цьому контексті.
+ -/
 noncomputable abbrev Sum {X:Type} (f: X → ℝ) : ℝ := if h: AbsConvergent f then (f ∘ h.choose:Series).sum else
   if _hX: Finite X then (∑ x ∈ @univ X (Fintype.ofFinite X), f x) else 0
 
@@ -84,7 +85,7 @@ theorem Finset.Icc_eq_cast (N:ℕ) : Icc 0 (N:ℤ) = map Nat.castEmbedding (.Icc
 theorem Finset.Icc_empty {N:ℤ} (h: ¬ N ≥ 0) : Icc 0 N = ∅ := by
   ext; simp; intros; contrapose! h; linarith
 
-/-- Theorem 8.2.2, preliminary version.  The arguments here are rearranged slightly from the text. -/
+/-- Теорема 8.2.2, попередня версія. Аргументи тут трохи переставлені порівняно з текстом. -/
 theorem sum_of_sum_of_AbsConvergent_nonneg {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) (hpos: ∀ n m, 0 ≤ f (n, m)) :
   (∀ n, ((fun m ↦ f (n, m)):Series).converges) ∧
   (fun n ↦ ((fun m ↦ f (n, m)):Series).sum:Series).convergesTo (Sum f) := by
@@ -149,7 +150,7 @@ theorem sum_of_sum_of_AbsConvergent_nonneg {f:ℕ × ℕ → ℝ} (hf:AbsConverg
       _ ≤ _ := partial_le_sum_of_nonneg hnon' hconv' _
   simp [a, hconv, ← this, Series.convergesTo_sum hconv']
 
-/-- Theorem 8.2.2, second version -/
+/-- Теорема 8.2.2, друга версія -/
 theorem sum_of_sum_of_AbsConvergent {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) :
   (∀ n, ((fun m ↦ f (n, m)):Series).absConverges) ∧
   (fun n ↦ ((fun m ↦ f (n, m)):Series).sum:Series).convergesTo (Sum f) := by
@@ -166,7 +167,7 @@ theorem sum_of_sum_of_AbsConvergent {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) 
   . intro n
     sorry
   convert convergesTo.sub hfplus_sum hfminus_sum using 1
-  . -- encountered surprising difficulty with definitional equivalence here
+  . -- зустрів несподівані труднощі з визначальною еквівалентністю тут.
     simp [hdiff]
     change (fun n ↦ ((fun m ↦ (fplus - fminus) (n, m)):Series).sum:Series) =
       (fun n ↦ ((fun m ↦ fplus (n, m)):Series).sum:Series)
@@ -187,7 +188,7 @@ theorem sum_of_sum_of_AbsConvergent {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) 
   convert (convergesTo.sub hplus hminus) using 3 with n
   split_ifs with h <;> simp [h, hdiff, HSub.hSub, Sub.sub]
 
-/-- Theorem 8.2.2, third version -/
+/-- Теорема 8.2.2, третя версія -/
 theorem sum_of_sum_of_AbsConvergent' {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) :
   (∀ m, ((fun n ↦ f (n, m)):Series).absConverges) ∧
   (fun m ↦ ((fun n ↦ f (n, m)):Series).sum:Series).convergesTo (Sum f) := by
@@ -199,7 +200,7 @@ theorem sum_of_sum_of_AbsConvergent' {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f)
   refine ⟨ _, hπ.comp hg, ?_ ⟩
   convert hconv using 2
 
-/-- Theorem 8.2.2, fourth version -/
+/-- Теорема 8.2.2, четверта версія -/
 theorem sum_comm {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) :
   (fun n ↦ ((fun m ↦ f (n, m)):Series).sum:Series).sum = (fun m ↦ ((fun n ↦ f (n, m)):Series).sum:Series).sum := by
   simp [sum_of_converges (sum_of_sum_of_AbsConvergent hf).2,
@@ -216,7 +217,7 @@ theorem AbsConvergent'.of_finite {X:Type} [Finite X] (f:X → ℝ) : AbsConverge
   have _ := Fintype.ofFinite X
   simp [bddAbove_def]; use ∑ x, |f x|; intro A; apply Finset.sum_le_univ_sum_of_nonneg; simp
 
-/-- Not in textbook, but should have been included. -/
+/-- Не в підручнику, але мала б бути включена. -/
 theorem AbsConvergent'.of_countable {X:Type} (hX:CountablyInfinite X) {f:X → ℝ} :
   AbsConvergent' f ↔ AbsConvergent f := by
   constructor
@@ -246,11 +247,11 @@ theorem AbsConvergent'.subtype {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (A:
   intro z hz; simp at *; choose A hA using hz
   use A.map (Embedding.subtype _); simp [hA]
 
-/-- A generalized sum.  Note that this will give junk values if `f` is not `AbsConvergent'`. -/
+/-- Узагальнена сума. Зверніть увагу, що це дасть некоректні значення, якщо `f` не є `AbsConvergent'`. -/
 noncomputable abbrev Sum' {X:Type} (f: X → ℝ) : ℝ := Sum (fun x : { x | f x ≠ 0 } ↦ f x)
 
-/-- Not in textbook, but should have been included (the series laws are significantly harder
-to establish without this) -/
+/-- Не в підручнику, але мала б бути включена (закони рядів значно важче встановити
+без цього). -/
 theorem Sum'.of_finsupp {X:Type} {f:X → ℝ} {A: Finset X} (h: ∀ x ∉ A, f x = 0) : Sum' f = ∑ x ∈ A, f x := by
   unfold Sum'
   set E := { x | f x ≠ 0 }
@@ -261,8 +262,8 @@ theorem Sum'.of_finsupp {X:Type} {f:X → ℝ} {A: Finset X} (h: ∀ x ∉ A, f 
   replace hE : E' ⊆ A := by aesop
   apply sum_subset hE; aesop
 
-/-- Not in textbook, but should have been included (the series laws are significantly harder
-to establish without this) -/
+/-- Не в підручнику, але мала б бути включена (закони рядів значно важче встановити
+без цього). -/
 theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyInfinite A)
   (hfA : ∀ x ∉ A, f x = 0) (hconv: AbsConvergent' f):
   AbsConvergent' (fun x:A ↦ f x) ∧ Sum' f = Sum (fun x:A ↦ f x) := by
@@ -272,9 +273,9 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
   rw [AbsConvergent'.of_countable hA]
   refine ⟨ hconv', ?_ ⟩
   set E := { x | f x ≠ 0 }
-  -- The main challenge here is to relate a sum on E with a sum on A.  First, we show containment.
+  -- Ми можемо адаптувати доведення `AbsConvergent'.of_countable`, щоб встановити абсолютну збіжність на A.
   have hE : E ⊆ A := by intro _; simp [E]; by_contra!; aesop
-  -- Now, we map A back to the natural numbers, thus identifying E with a subset E' of ℕ.
+  -- Тепер ми відображаємо A назад на натуральні числа, таким чином ідентифікуючи E з підмножиною E' множини ℕ.
   choose g hg using hA.symm
   have hsum := Sum.eq hg (hconv'.comp hg)
   set E' := { n | ↑(g n) ∈ E }
@@ -283,10 +284,10 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
     split_ands
     . intro ⟨ _, _ ⟩ ⟨ _, _ ⟩ h; simp [ι, E', Subtype.val_inj] at *; exact hg.1 h
     . intro ⟨ x, hx ⟩; choose n hn using hg.2 ⟨ _, hE hx ⟩; use ⟨ n, by aesop ⟩; grind
-  -- The cases of infinite and finite E' are handled separately.
+  -- Випадки нескінченного та скінченного E' розглядаються окремо.
   obtain hE' | hE' := Nat.atMostCountable_subset E'
-  . --   use Nat.monotone_enum_of_infinite to enumerate E'
-    --   show the partial sums of E' are a subsequence of the partial sums of A
+  . --   використайте `Nat.monotone_enum_of_infinite`, щоб перелічити E'
+    --   покажіть, що часткові суми E' є підпослідовністю часткових сум A
     set hinf : Infinite E' := hE'.toInfinite
     choose a ha_bij ha_mono using (Nat.monotone_enum_of_infinite E').exists
     have : atTop.Tendsto (Nat.cast ∘ Subtype.val ∘ a: ℕ → ℤ) atTop := by
@@ -313,8 +314,7 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
       _ = _ := by
         apply sum_image
         intro _ _ _ _ h; simp [Subtype.val_inj] at h; exact ha_bij.1 h
-  -- When E' is finite, we show that all sufficiently large partial sums of A are equal to
-  -- the sum of E'.
+  -- Коли E' скінченне, ми показуємо, що всі достатньо великі часткові суми A рівні сумі E'.
   let hEfin : Finite E := hι.finite_iff.mp hE'
   let hE'fintype : Fintype E' := .ofFinite _
   let hEfintype : Fintype E := .ofFinite _
@@ -336,8 +336,8 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
     _ = ∑ n, f (ι n) := sum_congr rfl (by grind)
     _ = _ := hι.sum_comp (g := fun x ↦ f x)
 
-/-- Connection with Mathlib's `Summable` property. Some version of this might be suitable
-    for Mathlib? -/
+/-- Зв'язок з властивістю `Summable` Mathlib. Можлива якась версія доказу може бути підходящою
+    для Mathlib? -/
 theorem AbsConvergent'.iff_Summable {X:Type} (f:X → ℝ) : AbsConvergent' f ↔ Summable f := by
   simp [←summable_abs_iff, AbsConvergent']
   simp [summable_iff_vanishing_norm]
@@ -364,7 +364,7 @@ theorem AbsConvergent'.iff_Summable {X:Type} (f:X → ℝ) : AbsConvergent' f �
       . exact inter_subset_right
       apply le_of_lt (lt_of_abs_lt (hS _ disjoint_sdiff_self_left))
 
-/-- Maybe suitable for porting to Mathlib?-/
+/-- Можливо, підходить для перенесення в Mathlib?-/
 theorem Filter.Eventually.int_natCast_atTop (p: ℤ → Prop) :
   (∀ᶠ n in .atTop, p n) ↔ ∀ᶠ n:ℕ in .atTop, p ↑n := by
   refine ⟨ Eventually.natCast_atTop, ?_ ⟩
@@ -381,7 +381,7 @@ atTop.Tendsto f l ↔ atTop.Tendsto (f ∘ Nat.cast) l := by
   convert Eventually.int_natCast_atTop _
 
 
-/-- Connection with Mathlib's `tsum` (or `Σ'`) operation -/
+/-- Зв'язок з операцією `tsum` (або `Σ'`) Mathlib. -/
 theorem Sum'.eq_tsum {X:Type} (f:X → ℝ) (h: AbsConvergent' f) :
   Sum' f = ∑' x, f x := by
   set E := {x | f x ≠ 0}
@@ -410,17 +410,17 @@ theorem Sum'.eq_tsum {X:Type} (f:X → ℝ) (h: AbsConvergent' f) :
   all_goals simp [E]
 
 
-/-- Твердження 8.2.6 (a) (Absolutely convergent series laws) / Вправа 8.2.3 -/
+/-- Твердження 8.2.6 (a) (Закони для абсолютно збіжних рядів) / Вправа 8.2.3 -/
 theorem Sum'.add {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConvergent' g) :
   AbsConvergent' (f+g) ∧ Sum' (f + g) = Sum' f + Sum' g := by
   sorry
 
-/-- Твердження 8.2.6 (b) (Absolutely convergent series laws) / Вправа 8.2.3 -/
+/-- Твердження 8.2.6 (b) (Закони для абсолютно збіжних рядів) / Вправа 8.2.3 -/
 theorem Sum'.smul {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (c: ℝ) :
   AbsConvergent' (c • f) ∧ Sum' (c • f) = c * Sum' f := by
   sorry
 
-/-- This law is not explicitly stated in Proposition 8.2.6, but follows easily from parts (a) and (b).-/
+/-- Цей закон не вказаний явно в Твердженні 8.2.6, але легко випливає з частин (a) та (b).-/
 theorem Sum'.sub {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConvergent' g) :
   AbsConvergent' (f-g) ∧ Sum' (f - g) = Sum' f - Sum' g := by
   convert add hf (smul hg (-1)).1 using 2
@@ -428,14 +428,14 @@ theorem Sum'.sub {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConverg
   . congr; simp; abel
   rw [(smul hg (-1)).2]; ring
 
-/-- Твердження 8.2.6 (c) (Absolutely convergent series laws) / Вправа 8.2.3.  The first
-    part of this proposition has been moved to `AbsConvergent'.subtype`. -/
+/-- Твердження 8.2.6 (c) (Закони для абсолютно збіжних рядів) / Вправа 8.2.3.  Перша частина
+    цього твердження була переміщена до `AbsConvergent'.subtype`.
+ -/
 theorem Sum'.of_disjoint_union {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) {X₁ X₂ : Set X} (hdisj: Disjoint X₁ X₂):
   Sum' (fun x: (X₁ ∪ X₂: Set X) ↦ f x) = Sum' (fun x : X₁ ↦ f x) + Sum' (fun x : X₂ ↦ f x) := by
   sorry
 
-/-- This technical claim, the analogue of `tsum_univ`, is required due to the way Mathlib handles
-    sets.-/
+/-- Це технічне твердження, аналог `tsum_univ`, необхідне через те, як Mathlib обробляє множини.-/
 theorem Sum'.of_univ {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) :
   Sum' (fun x: (.univ : Set X) ↦ f x) = Sum' f := by
   sorry
@@ -452,7 +452,7 @@ theorem divergent_parts_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   := by
   sorry
 
-/-- Theorem 8.2.8 (Riemann rearrangement theorem) / Вправа 8.2.5 -/
+/-- Теорема 8.2.8 (Теорема Рімана про перестановку) / Вправа 8.2.5 -/
 theorem permute_convergesTo_of_divergent {a: ℕ → ℝ} (ha: (a:Series).converges)
   (ha': ¬ (a:Series).absConverges) (L:ℝ) :
   ∃ f : ℕ → ℕ, Bijective f ∧ (a ∘ f:Series).convergesTo L

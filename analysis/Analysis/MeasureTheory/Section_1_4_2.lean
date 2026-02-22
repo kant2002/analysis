@@ -127,7 +127,7 @@ theorem ConcreteSigmaAlgebra.generated_by_le {X:Type*} (F: Set (Set X)) : Concre
 
 example : ∃ (X:Type*) (F: Set (Set X)), ConcreteBooleanAlgebra.generated_by F ≠ (ConcreteSigmaAlgebra.generated_by F).toConcreteBooleanAlgebra := by sorry
 
-/-- Remark 1.4.15 -/
+/-- Зауваження 1.4.15 -/
 theorem ConcreteSigmaAlgebra.induction {X:Type*} {F: Set (Set X)} {P: Set X → Prop}
   (h1: P ∅) (h2: ∀ E ∈ F, P E) (h3: ∀ E, P E → P Eᶜ)
   (h4: ∀ (E : ℕ → Set X), (∀ n, P (E n)) → P (⋃ n, E n)) : ∀ E, (ConcreteSigmaAlgebra.generated_by F).measurable E → P E :=

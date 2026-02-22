@@ -3110,7 +3110,7 @@ lemma exists_nonmeasurable_with_cantor_image :
 
 end Remark_1_3_10
 
-/-- Remark 1.3.10: The inverse image of a Lebesgue measurable set by a measurable function
+/-- Зауваження 1.3.10: The inverse image of a Lebesgue measurable set by a measurable function
     need not be Lebesgue measurable.
     Proof: Let f = binaryToTernary (maps [0,1] → Cantor set), F ⊆ [0,1] non-measurable (Vitali).
     Set E = f(F) ⊆ Cantor set. Then E is null (⊆ null set) hence measurable, but f⁻¹(E) = F

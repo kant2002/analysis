@@ -3,7 +3,7 @@ import Analysis.Section_8_1
 import Analysis.Section_8_2
 
 /-!
-# Аналіз I, Розділ 8.3: Uncountable sets
+# Аналіз I, Розділ 8.3: Незліченні множини
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -12,16 +12,16 @@ import Analysis.Section_8_2
 
 Основні конструкції та результати цього розділу:
 
-- Uncountable sets.
+- Незліченні множини.
 
-Some non-trivial API is provided beyond what is given in the textbook in order connect these
-notions with existing summation notions.
+Надано деякий нетривіальний API, який доповнює матеріал підручника і пов'язує ці
+поняття з наявними поняттями підсумовування.
 
 -/
 
 namespace Chapter8
 
-/-- Theorem 8.3.1 -/
+/-- Теорема 8.3.1 -/
 theorem EqualCard.power_set_false (X:Type) : ¬ EqualCard X (Set X) := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
   by_contra!; choose f hf using this
@@ -159,7 +159,7 @@ example {X:Type} [Finite X] : Nat.card (Set X) = 2 ^ Nat.card X := by
   sorry
 
 open Classical in
-/-- Вправа 8.3.2.  Some subtle type changes due to how sets are implemented in Mathlib. Also we shift the sequence `D` by one so that we can work in `Set A` rather than `Set B`. -/
+/-- Вправа 8.3.2.  Дещо тонкі зміни типів через спосіб реалізації множин у Mathlib. Також ми зсуваємо послідовність `D` на одиницю, щоб працювати у `Set A` замість `Set B`. -/
 theorem Schroder_Bernstein_lemma {X: Type} {A B C: Set X} (hAB: A ⊆ B) (hBC: B ⊆ C) (f: C ↪ A) :
   let D : ℕ → Set A := Nat.rec ((f.image ∘ ((B.embeddingOfSubset _ hBC).image)) {x:B | ↑x ∉ A}) (fun _ ↦ (f.image ∘ ((B.embeddingOfSubset _ hBC).image) ∘ (A.embeddingOfSubset _ hAB).image))
   Set.univ.PairwiseDisjoint D ∧

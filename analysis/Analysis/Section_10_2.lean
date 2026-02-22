@@ -79,7 +79,7 @@ theorem IsMaxOn.deriv_eq_zero_counter : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → �
   (hderiv: HasDerivWithinAt f L (.Icc a b) x₀), L ≠ 0 := by
   sorry
 
-/-- Theorem 10.2.7 (Rolle's theorem) / Вправа 10.2.4 -/
+/-- Теорема 10.2.7 (Rolle's theorem) / Вправа 10.2.4 -/
 theorem _root_.HasDerivWithinAt.exist_zero {a b:ℝ} (hab: a < b) {g:ℝ → ℝ}
   (hcont: ContinuousOn g (.Icc a b)) (hderiv: DifferentiableOn ℝ g (.Ioo a b))
   (hgab: g a = g b) : ∃ x ∈ Set.Ioo a b, HasDerivWithinAt g 0 (.Ioo a b) x := by

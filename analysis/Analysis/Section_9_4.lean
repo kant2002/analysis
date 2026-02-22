@@ -66,7 +66,7 @@ theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x�
   ].TFAE := by
   sorry
 
-/-- Remark 9.4.8 --/
+/-- Зауваження 9.4.8 --/
 theorem _root_.Filter.Tendsto.comp_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} (h : x₀ ∈ X)
   (h_cont: ContinuousWithinAt f X x₀) {a: ℕ → ℝ} (ha: ∀ n, a n ∈ X)
   (hconv: Filter.atTop.Tendsto a (nhds x₀)):

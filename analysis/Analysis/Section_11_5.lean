@@ -20,7 +20,7 @@ namespace Chapter11
 open BoundedInterval
 open Chapter9
 
-/-- Theorem 11.5.1 -/
+/-- Теорема 11.5.1 -/
 theorem integ_of_uniform_cts {I: BoundedInterval} {f:ℝ → ℝ} (hf: UniformContinuousOn f I) :
   IntegrableOn f I := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
