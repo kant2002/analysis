@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix B.1: The decimal representation of natural numbers
+# Аналіз I, Додаток B.1: The decimal representation of natural numbers
 
 Am implementation of the decimal representation of Mathlib's natural numbers `ℕ`.
 

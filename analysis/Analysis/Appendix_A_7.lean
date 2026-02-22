@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Analysis I, Appendix A.7: Рівність
+# Аналіз I, Додаток A.7: Рівність
 
 Вступ до рівності в Lean
 

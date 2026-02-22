@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Appendix_B_1
 
 /-!
-# Analysis I, Appendix B.2: The decimal representation of real numbers
+# Аналіз I, Додаток B.2: The decimal representation of real numbers
 
 An implementation of the decimal representation of Mathlib's real numbers `ℝ`.
 
