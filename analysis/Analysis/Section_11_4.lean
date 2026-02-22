@@ -3,7 +3,7 @@ import Analysis.Section_9_6
 import Analysis.Section_11_3
 
 /-!
-# Аналіз I, Розділ 11.4: Basic properties of the Riemann integral
+# Аналіз I, Розділ 11.4: Основні властивості інтегралу Рімана
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,7 +11,7 @@ import Analysis.Section_11_3
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Basic properties of the Riemann integral.
+- Основні властивості інтегралу Рімана.
 
 -/
 
@@ -72,24 +72,24 @@ theorem IntegrableOn.of_extend' {I J: BoundedInterval} (hIJ: I ⊆ J)
   integ (fun x ↦ if x ∈ I then f x else 0) J = integ f I := by
   sorry
 
-/-- Теорема 11.4.1 (h) (Laws of integration) / Вправа 11.4.1 -/
+/-- Теорема 11.4.1 (h) (Закони інтегрування) / Вправа 11.4.1 -/
 theorem IntegrableOn.join {I J K: BoundedInterval} (hIJK: K.joins I J)
   {f: ℝ → ℝ} (h: IntegrableOn f K) :
   IntegrableOn f I ∧ IntegrableOn f J ∧ integ f K = integ f I + integ f J := by
   sorry
 
-/-- A variant of Theorem 11.4.1(h) that will be useful in later sections. -/
+/-- Варіант теореми 11.4.1(h), корисний у наступних розділах. -/
 theorem IntegrableOn.mono' {I J: BoundedInterval} (hIJ: J ⊆ I)
   {f: ℝ → ℝ} (h: IntegrableOn f I) : IntegrableOn f J := by
   sorry
 
-/-- A further variant of Theorem 11.4.1(h) that will be useful in later sections. -/
+/-- Ще один варіант теореми 11.4.1(h), корисний у наступних розділах. -/
 theorem IntegrableOn.eq {I J: BoundedInterval} (hIJ: J ⊆ I)
   (ha: J.a = I.a) (hb: J.b = I.b)
   {f: ℝ → ℝ} (h: IntegrableOn f I) : integ f J = integ f I := by
   sorry
 
-/-- A handy little lemma for "epsilon of room" type arguments -/
+/-- Невелика корисна лема для міркувань типу «ε в запасі» -/
 lemma nonneg_of_le_const_mul_eps {x C:ℝ} (h: ∀ ε>0, x ≤ C * ε) : x ≤ 0 := by
   by_cases hC: C > 0
   . by_contra!
@@ -97,7 +97,7 @@ lemma nonneg_of_le_const_mul_eps {x C:ℝ} (h: ∀ ε>0, x ≤ C * ε) : x ≤ 0
     linarith
   specialize h 1 ?_ <;> grind
 
-/-- Теорема 11.4.3 (Max and min preserve integrability)-/
+/-- Теорема 11.4.3 (Максимум і мінімум зберігають інтегровність)-/
 theorem IntegrableOn.max {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I) :
   IntegrableOn (f ⊔ g) I  := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
@@ -143,7 +143,7 @@ theorem IntegrableOn.max {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableO
 
 
 
-/-- Теорема 11.4.5 / Вправа 11.4.3.  The objective here is to create a shorter proof than the one above.-/
+/-- Теорема 11.4.5 / Вправа 11.4.3. Мета тут — отримати коротший доказ, ніж наведений вище. -/
 theorem IntegrableOn.min {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I) :
   IntegrableOn (f ⊓ g) I  := by
   sorry
@@ -155,8 +155,8 @@ theorem IntegrableOn.abs {I: BoundedInterval} {f:ℝ → ℝ} (hf: IntegrableOn 
   convert ((hf.max this).sub (hf.min this)).1 using 1
   ext x; obtain h | h := (show f x ≤ 0 ∨ f x ≥ 0 by grind) <;> simp [h]
 
-/-- Теорема 11.4.5 (Products preserve Riemann integrability).
-It is convenient to first establish the non-negative case.-/
+/-- Теорема 11.4.5 (Добутки зберігають інтегровність Рімана).
+Зручніше спочатку розглянути випадок невід'ємних функцій. -/
 theorem integ_of_mul_nonneg {I: BoundedInterval} {f g:ℝ → ℝ} (hf: IntegrableOn f I) (hg: IntegrableOn g I)
   (hf_nonneg: MajorizesOn f 0 I) (hg_nonneg: MajorizesOn g 0 I) :
   IntegrableOn (f * g) I := by

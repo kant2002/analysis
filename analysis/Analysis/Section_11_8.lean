@@ -3,7 +3,7 @@ import Mathlib.Topology.Instances.Irrational
 import Analysis.Section_11_6
 
 /-!
-# Аналіз I, Розділ 11.8: The Riemann-Stieltjes integral
+# Аналіз I, Розділ 11.8: Інтеграл Рімана–Стєльтьєса
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -11,33 +11,32 @@ import Analysis.Section_11_6
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Definition of α-length.
-- The piecewise constant Riemann-Stieltjes integral.
-- The full Riemann-Stieltjes integral.
+- Визначення α-довжини.
+- Кусочно постійний інтеграл Рімана–Стєльтьєса.
+- Повний інтеграл Рімана–Стєльтьєса.
 
-Technical notes:
-- In Lean it is more convenient to make definitions such as α-length and the Riemann-Stieltjes
-  integral totally defined, thus assigning "junk" values to the cases where the definition is
-  not intended to be applied. For the definition of α-length, the definition is intended to be
-  applied in contexts where left and right limits exist, and the function is extended by
-  constants to the left and right of its intended domain of definition; for instance, if a
-  function `f` is defined on `Icc 0 1`, then it is intended that `f x = f 1` for all `x ≥ 1`
-  and `f x = f 0` for all `x ≤ 0`; in particular, at a right endpoint, the value of a function
-  is intended to agree with its right limit, and similarly for the left endpoint, although we
-  do not enforce this in our definition of α-length. (For functions defined on open intervals,
-  the extension is immaterial.)
-- The notion of α-length and piecewise constant Riemann-Stieltjes integral is intended for
-  situations where left and right limits exist, such as for monotone functions or continuous
-  functions, though technically they make sense without these hypotheses. The full Riemann-Stieltjes
-  integral is intended for functions that are of bounded variation, though we shall restrict
-  attention to the special case of monotone increasing functions for the most part.
+Технічні примітки:
+- У Lean зручніше робити визначення, такі як α-довжина та інтеграл Рімана–Стєльтьєса, повністю
+  визначеними, призначаючи «сміттеві» значення у випадках, коли визначення не призначене для
+  застосування. Для визначення α-довжини його передбачається застосовувати в контекстах, де існують
+  ліві та праві границі, а функція продовжується константами ліворуч і праворуч від своєї
+  передбаченої області визначення; наприклад, якщо функція `f` визначена на `Icc 0 1`, то передбачається,
+  що `f x = f 1` для всіх `x ≥ 1` і `f x = f 0` для всіх `x ≤ 0`; зокрема, на правому кінці
+  відрізка значення функції повинно збігатися з її правим границею, і аналогічно для лівого кінця,
+  хоча ми цього не вимагаємо у нашому визначенні α-довжини. (Для функцій, визначених на відкритих
+  проміжках, таке продовження не має значення.)
+- Поняття α-довжини та кусочно постійного інтегралу Рімана–Стєльтьєса передбачено для випадків,
+  де існують ліві та праві границі, наприклад, для монотонних або неперервних функцій, хоча технічно
+  вони мають сенс і без цих припущень. Повний інтеграл Рімана–Стєльтьєса призначений для функцій
+  обмеженої варіації, хоча ми переважно зосередимося на спеціальному випадку монотонно зростаючих
+  функцій.
 -/
 
 namespace Chapter11
 
 open BoundedInterval Chapter9
 
-/-- Left and right limits. A junk value is assigned if the limit does not exist. -/
+/-- Ліві та праві границі. Якщо границя не існує, призначається «сміттеве» значення. -/
 noncomputable abbrev right_lim (f: ℝ → ℝ) (x₀:ℝ) : ℝ := lim ((nhdsWithin x₀ (.Ioi x₀)).map f)
 
 noncomputable abbrev left_lim (f: ℝ → ℝ) (x₀:ℝ) : ℝ := lim ((nhdsWithin x₀ (.Iio x₀)).map f)
@@ -53,7 +52,7 @@ theorem left_lim_def {f: ℝ → ℝ} {x₀ L:ℝ} (h: Convergesto (.Iio x₀) f
 noncomputable abbrev jump (f: ℝ → ℝ) (x₀:ℝ) : ℝ :=
   right_lim f x₀ - left_lim f x₀
 
-/-- Right limits exist for continuous functions -/
+/-- Праві границі існують для неперервних функцій. -/
 theorem right_lim_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ}
   (h : ∃ ε>0, .Ico x₀ (x₀+ε) ⊆ X) (hf: ContinuousWithinAt f X x₀) :
   right_lim f x₀ = f x₀ := by
@@ -70,7 +69,7 @@ theorem right_lim_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ}
     apply Ioo_mem_nhds <;> linarith
   rw [←nhdsWithin_inter_of_mem h1]; congr 1; simp [Set.Ioo_subset_Ioi_self]
 
-/-- Left limits exist for continuous functions -/
+/-- Ліві границі існують для неперервних функцій -/
 theorem left_lim_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ}
   (h : ∃ ε>0, .Ioc (x₀-ε) x₀ ⊆ X) (hf: ContinuousWithinAt f X x₀) :
   left_lim f x₀ = f x₀ := by
@@ -88,7 +87,7 @@ theorem left_lim_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ}
   rw [←nhdsWithin_inter_of_mem h1]
   congr 1; simp [Set.Ioo_subset_Iio_self]
 
-/-- No jump for continuous functions -/
+/-- Для неперервних функцій стрибків немає. -/
 theorem jump_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x₀:ℝ}
   (h : X ∈ nhds x₀) (hf: ContinuousWithinAt f X x₀) :
   jump f x₀ = 0 := by
@@ -110,7 +109,7 @@ theorem right_lim_of_monotone {f: ℝ → ℝ} (x₀:ℝ) (hf: Monotone f) :
 theorem right_lim_of_monotone' {f: ℝ → ℝ} (x₀:ℝ) (hf: Monotone f) :
   right_lim f x₀ = sInf (f '' .Ioi x₀) := right_lim_def (right_lim_of_monotone x₀ hf)
 
-/-- Left limits exist for monotone functions -/
+/-- Ліві границі існують для монотонних функцій -/
 theorem left_lim_of_monotone {f: ℝ → ℝ} (x₀:ℝ) (hf: Monotone f) :
   Convergesto (.Iio x₀) f (sSup (f '' .Iio x₀)) x₀ := by
   rw [Convergesto.iff]
@@ -198,7 +197,7 @@ example : (fun x ↦ x^2)[Ioo 2 2]ₗ = 0 := by
 theorem α_len_of_id (I: BoundedInterval) : (fun x ↦ x)[I]ₗ = |I|ₗ := by
   sorry
 
-/-- An improved version of BoundedInterval.joins that also controls α-length. -/
+/-- Покращена версія BoundedInterval.joins, яка також контролює α-довжину. -/
 abbrev BoundedInterval.joins' (K I J: BoundedInterval) : Prop :=  K.joins I J ∧ ∀ α:ℝ → ℝ, α[K]ₗ = α[I]ₗ + α[J]ₗ
 
 theorem BoundedInterval.join_Icc_Ioc' {a b c:ℝ} (hab: a ≤ b) (hbc: b ≤ c) : (Icc a c).joins' (Icc a b) (Ioc b c) := ⟨ join_Icc_Ioc hab hbc,
@@ -231,7 +230,7 @@ theorem Partition.sum_of_α_length  {I: BoundedInterval} (P: Partition I) (α: �
   ∑ J ∈ P.intervals, α[J]ₗ = α[I]ₗ := by
   sorry
 
-/-- Визначення 11.8.5 (Piecewise constant RS integral)-/
+/-- Визначення 11.8.5 (Кусочно постійний інтеграл Рімана–Стєльтьєса)-/
 noncomputable abbrev PiecewiseConstantWith.RS_integ (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) (α: ℝ → ℝ)   :
   ℝ := ∑ J ∈ P.intervals, constant_value_on f (J:Set ℝ) * α[J]ₗ
 
@@ -263,77 +262,77 @@ theorem PiecewiseConstantOn.RS_integ_def {f:ℝ → ℝ} {I: BoundedInterval} {P
   have h' : PiecewiseConstantOn f I := by use P
   simp [RS_integ, h']; exact PiecewiseConstantWith.RS_integ_eq h'.choose_spec h α
 
-/-- α-length non-negative when α monotone -/
+/-- α-довжина невід’ємна, якщо α монотонна -/
 theorem α_length_nonneg_of_monotone {α:ℝ → ℝ}  (hα: Monotone α) (I: BoundedInterval):
   0 ≤ α[I]ₗ := by
   sorry
 
-/-- Analogue of Theorem 11.2.16 (a) (Laws of integration) / Вправа 11.8.3 -/
+/-- Аналог теореми 11.2.16 (a) (Закони інтегрування) / Вправа 11.8.3 -/
 theorem PiecewiseConstantOn.RS_integ_add {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) {α:ℝ → ℝ} (hα: Monotone α):
   RS_integ (f + g) I α = RS_integ f I α + RS_integ g I α := by
   sorry
 
-/-- Analogue of Theorem 11.2.16 (b) (Laws of integration) / Вправа 11.8.3 -/
+/-- Аналог теореми 11.2.16 (b) (Закони інтегрування) / Вправа 11.8.3 -/
 theorem PiecewiseConstantOn.RS_integ_smul {f: ℝ → ℝ} {I: BoundedInterval} (c:ℝ)
   (hf: PiecewiseConstantOn f I) {α:ℝ → ℝ} (hα: Monotone α) :
   RS_integ (c • f) I α = c * RS_integ f I α
    := by
   sorry
 
-/-- Теорема 11.8.8 (c) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (c) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_sub {f g: ℝ → ℝ} {I: BoundedInterval}
   {α:ℝ → ℝ} (hα: Monotone α)
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   RS_integ (f - g) I α = RS_integ f I α - RS_integ g I α := by
   sorry
 
-/-- Теорема 11.8.8 (d) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (d) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_of_nonneg {f: ℝ → ℝ} {I: BoundedInterval}
   {α:ℝ → ℝ} (hα: Monotone α)
   (h: ∀ x ∈ I, 0 ≤ f x) (hf: PiecewiseConstantOn f I) :
   0 ≤ RS_integ f I α := by
   sorry
 
-/-- Теорема 11.8.8 (e) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (e) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_mono {f g: ℝ → ℝ} {I: BoundedInterval}
   {α:ℝ → ℝ} (hα: Monotone α)
   (h: ∀ x ∈ I, f x ≤ g x) (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   RS_integ f I α ≤ RS_integ g I α := by
   sorry
 
-/-- Теорема 11.8.8 (f) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (f) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_const (c: ℝ) (I: BoundedInterval) {α:ℝ → ℝ} (hα: Monotone α) :
   RS_integ (fun _ ↦ c) I α = c * α[I]ₗ := by
   sorry
 
-/-- Теорема 11.8.8 (f) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (f) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_const' {f:ℝ → ℝ} {I: BoundedInterval}
   {α:ℝ → ℝ} (hα: Monotone α) (h: ConstantOn f I) :
   RS_integ f I α = (constant_value_on f I) * α[I]ₗ := by
   sorry
 
 open Classical in
-/-- Теорема 11.8.8 (g) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (g) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_of_extend {I J: BoundedInterval} (hIJ: I ⊆ J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) {α:ℝ → ℝ} (hα: Monotone α):
   PiecewiseConstantOn (fun x ↦ if x ∈ I then f x else 0) J := by
   sorry
 
 open Classical in
-/-- Теорема 11.8.8 (g) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (g) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_of_extend {I J: BoundedInterval} (hIJ: I ⊆ J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f I) {α:ℝ → ℝ} (hα: Monotone α):
   RS_integ (fun x ↦ if x ∈ I then f x else 0) J α = RS_integ f I α := by
   sorry
 
-/-- Теорема 11.8.8 (h) (Laws of RS integration) / Вправа 11.8.8 -/
+/-- Теорема 11.8.8 (h) (Закони інтегрування Рімана–Стєльтьєса) / Вправа 11.8.8 -/
 theorem PiecewiseConstantOn.RS_integ_of_join {I J K: BoundedInterval} (hIJK: K.joins' I J)
   {f: ℝ → ℝ} (h: PiecewiseConstantOn f K) {α:ℝ → ℝ} (hα: Monotone α):
   RS_integ f K α = RS_integ f I α + RS_integ f J α := by
   sorry
 
-/-- Analogue of Definition 11.3.2 (Uppper and lower Riemann integrals )-/
+/-- Аналог визначення 11.3.2 (Верхній та нижній інтеграли Рімана )-/
 noncomputable abbrev upper_RS_integral (f:ℝ → ℝ) (I: BoundedInterval) (α: ℝ → ℝ): ℝ :=
   sInf ((PiecewiseConstantOn.RS_integ · I α) '' {g | MajorizesOn g f I ∧ PiecewiseConstantOn g I})
 
@@ -432,13 +431,13 @@ lemma gt_of_lt_lower_RS_integral {f:ℝ → ℝ} {I: BoundedInterval} (hf: BddOn
   have ⟨ Y, hY, hYX ⟩ := exists_lt_of_lt_csSup (RS_integral_bound_lower_nonempty hf hα) hX
   simp at hY; have ⟨ h, ⟨ hmin, hhp ⟩, hhi ⟩ := hY; exact ⟨ h, hmin, hhp, by rwa [hhi] ⟩
 
-/-- Analogue of Definition 11.3.4 -/
+/-- Аналог визначення 11.3.4 -/
 noncomputable abbrev RS_integ (f:ℝ → ℝ) (I: BoundedInterval) (α:ℝ → ℝ) : ℝ := upper_RS_integral f I α
 
 noncomputable abbrev RS_IntegrableOn (f:ℝ → ℝ) (I: BoundedInterval) (α: ℝ → ℝ) : Prop :=
   BddOn f I ∧ lower_RS_integral f I α = upper_RS_integral f I α
 
-/-- Analogue of various components of Lemma 11.3.3 -/
+/-- Аналог різних складових Леми 11.3.3 -/
 theorem upper_RS_integral_eq_upper_integral (f:ℝ → ℝ) (I: BoundedInterval) :
   upper_RS_integral f I (fun x ↦ x) = upper_integral f I := by
   sorry
@@ -465,7 +464,7 @@ theorem RS_integ_of_uniform_cts {I: BoundedInterval} {f:ℝ → ℝ} (hf: Unifor
 theorem RS_integ_with_sign (f:ℝ → ℝ) (hf: ContinuousOn f (.Icc (-1) 1)) : RS_IntegrableOn f (Icc (-1) 1) Real.sign ∧ RS_integ f (Icc (-1) 1) (fun x ↦ -Real.sign x) = 2 * f 0 := by
   sorry
 
-/-- Analogue of Lemma 11.3.7 -/
+/-- Аналог леми 11.3.7 -/
 theorem RS_integ_of_piecewise_const {f:ℝ → ℝ} {I: BoundedInterval} (hf: PiecewiseConstantOn f I)
   {α: ℝ → ℝ} (hα: Monotone α):
   RS_IntegrableOn f I α ∧ RS_integ f I α = PiecewiseConstantOn.RS_integ f I α := by
