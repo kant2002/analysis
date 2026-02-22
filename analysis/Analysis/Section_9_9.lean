@@ -111,7 +111,7 @@ theorem UniformContinuousOn.iff_preserves_equiv {X:Set ℝ} (f: ℝ → ℝ) :
   (f ∘ x:Sequence).equiv (f ∘ y:Sequence) := by
   sorry
 
-/-- Remark 9.9.9 -/
+/-- Зауваження 9.9.9 -/
 theorem Chapter6.Sequence.equiv_const (x₀: ℝ) (x:ℕ → ℝ) : atTop.Tendsto x (nhds x₀) ↔
   (x:Sequence).equiv (fun n:ℕ ↦ x₀:Sequence) := by
   sorry
@@ -173,7 +173,7 @@ theorem UniformContinuousOn.of_bounded {E X:Set ℝ} {f: ℝ → ℝ}
   Bornology.IsBounded (f '' E) := by
   sorry
 
-/-- Theorem 9.9.16 -/
+/-- Теорема 9.9.16 -/
 theorem UniformContinuousOn.of_continuousOn {a b:ℝ} {f:ℝ → ℝ}
   (hcont: ContinuousOn f (.Icc a b)) :
   UniformContinuousOn f (.Icc a b) := by

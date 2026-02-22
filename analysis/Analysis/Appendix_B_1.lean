@@ -128,7 +128,7 @@ instance PosintDecimal.instCoeNat : Coe PosintDecimal Nat where
 
 example : (PosintDecimal.mk' 3 [1, 4] (by decide):ℕ) = 314 := by decide
 
-/-- Remark B.1.3 -/
+/-- Зауваження B.1.3 -/
 @[simp]
 theorem PosintDecimal.ten_eq_ten : (mk' 1 [0] (by decide):ℕ) = 10 := by
   simp [toNat, mk', Digit.toNat]
@@ -183,7 +183,7 @@ theorem PosintDecimal.eq_append {p:PosintDecimal} (h: 2 ≤ p.digits.length) : �
   convert (List.dropLast_append_getLast _).symm using 2; grind
   simp [←List.length_pos_iff]; omega
 
-/-- Theorem B.1.4 (Uniqueness and existence of decimal representations) -/
+/-- Теорема B.1.4 (Uniqueness and existence of decimal representations) -/
 theorem PosintDecimal.exists_unique (n:ℕ) : n > 0 → ∃! p:PosintDecimal, (p:ℕ) = n := by
   -- this proof is written to follow the structure of the original text.
   apply n.case_strong_induction_on

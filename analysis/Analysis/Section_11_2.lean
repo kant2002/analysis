@@ -234,13 +234,13 @@ theorem PiecewiseConstantOn.integ_add {f g: ℝ → ℝ} {I: BoundedInterval}
   integ (f + g) I = integ f I + integ g I := by
   sorry
 
-/-- Theorem 11.2.16 (b) (Laws of integration) / Вправа 11.2.4 -/
+/-- Теорема 11.2.16 (b) (Laws of integration) / Вправа 11.2.4 -/
 theorem PiecewiseConstantOn.integ_smul {f: ℝ → ℝ} {I: BoundedInterval} (c:ℝ) (hf: PiecewiseConstantOn f I) :
   integ (c • f) I = c * integ f I
    := by
   sorry
 
-/-- Theorem 11.2.16 (c) (Laws of integration) / Вправа 11.2.4 -/
+/-- Теорема 11.2.16 (c) (Laws of integration) / Вправа 11.2.4 -/
 theorem PiecewiseConstantOn.integ_sub {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn g I) :
   integ (f - g) I = integ f I - integ g I := by

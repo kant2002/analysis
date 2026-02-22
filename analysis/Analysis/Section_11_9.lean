@@ -25,7 +25,7 @@ have consciously avoided doing so.
 namespace Chapter11
 open Chapter9 Chapter10 BoundedInterval
 
-/-- Theorem 11.9.1 (First Fundamental Theorem of Calculus)-/
+/-- Теорема 11.9.1 (First Fundamental Theorem of Calculus)-/
 theorem cts_of_integ {a b:ℝ} {f:ℝ → ℝ} (hf: IntegrableOn f (Icc a b)) :
   ContinuousOn (fun x => integ f (Icc a x)) (.Icc a b) := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
@@ -114,7 +114,7 @@ theorem AntiderivOn.mono {F f: ℝ → ℝ} {I J: BoundedInterval}
   (h: AntiderivOn F f I) (hIJ: J ⊆ I) : AntiderivOn F f J :=
   ⟨ h.1.mono hIJ, by intro x hx; rw [subset_iff] at hIJ; exact (h.2 x (hIJ hx)).mono hIJ ⟩
 
-/-- Theorem 11.9.4 (Second Fundamental Theorem of Calculus) -/
+/-- Теорема 11.9.4 (Second Fundamental Theorem of Calculus) -/
 theorem integ_eq_antideriv_sub {a b:ℝ} (h:a ≤ b) {f F: ℝ → ℝ}
   (hf: IntegrableOn f (Icc a b)) (hF: AntiderivOn F f (Icc a b)) :
   integ f (Icc a b) = F b - F a := by

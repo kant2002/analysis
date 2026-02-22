@@ -7,7 +7,7 @@ A companion to (the introduction to) Section 1.3.5 of the book "An introduction 
 
 -/
 
-/-- Theorem 1.3.20(i) Approximation of $L^1$ functions by simple functions -/
+/-- Теорема 1.3.20(i) Approximation of $L^1$ functions by simple functions -/
 theorem ComplexAbsolutelyIntegrable.approx_by_simple {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf : ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
   ∃ (g : EuclideanSpace' d → ℂ), ComplexSimpleFunction g ∧ ComplexAbsolutelyIntegrable g ∧
@@ -24,7 +24,7 @@ def ComplexStepFunction {d:ℕ} (f: EuclideanSpace' d → ℂ) : Prop :=
 def RealStepFunction {d:ℕ} (f: EuclideanSpace' d → ℝ) : Prop :=
   ∃ (S: Finset (Box d)) (c: S → ℝ), f = ∑ B, (c B • (B.val.toSet).indicator')
 
-/-- Theorem 1.3.20(ii) Approximation of $L^1$ functions by step functions -/
+/-- Теорема 1.3.20(ii) Approximation of $L^1$ functions by step functions -/
 theorem ComplexAbsolutelyIntegrable.approx_by_step {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf : ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
   ∃ (g : EuclideanSpace' d → ℂ), ComplexStepFunction g ∧ ComplexAbsolutelyIntegrable g ∧
@@ -38,7 +38,7 @@ theorem RealAbsolutelyIntegrable.approx_by_step {d:ℕ} {f: EuclideanSpace' d �
 def CompactlySupported {X Y:Type*} [TopologicalSpace X] [Zero Y] (f: X → Y) : Prop :=
   ∃ (K: Set X), IsCompact K ∧ ∀ x, x ∉ K → f x = 0
 
-/-- Theorem 1.3.20(iii) Approximation of $L^1$ functions by continuous compactly supported functions -/
+/-- Теорема 1.3.20(iii) Approximation of $L^1$ functions by continuous compactly supported functions -/
 theorem ComplexAbsolutelyIntegrable.approx_by_continuous_compact {d:ℕ} {f: EuclideanSpace' d → ℂ} (hf : ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
   ∃ (g : EuclideanSpace' d → ℂ), Continuous g ∧ CompactlySupported g ∧
@@ -57,7 +57,7 @@ def UniformlyConvergesToOn {X Y:Type*} [PseudoMetricSpace Y] (f: ℕ → X → Y
 def LocallyUniformlyConvergesTo {X Y:Type*} [PseudoMetricSpace X] [PseudoMetricSpace Y] (f: ℕ → X → Y) (g: X → Y) : Prop :=
   ∀ (K: Set X), Bornology.IsBounded K → UniformlyConvergesToOn f g K
 
-/-- Remark 1.3.22 -/
+/-- Зауваження 1.3.22 -/
 theorem LocallyUniformlyConvergesTo.iff {d:ℕ} {Y:Type*} [PseudoMetricSpace Y] (f: ℕ → EuclideanSpace' d → Y) (g: EuclideanSpace' d → Y) :
   LocallyUniformlyConvergesTo f g ↔
   ∀ x₀, ∃ U: Set (EuclideanSpace' d), x₀ ∈ U ∧ IsOpen U → UniformlyConvergesToOn f g U := by sorry
@@ -82,7 +82,7 @@ example : PointwiseConvergesTo (fun n (x:EuclideanSpace' 1) ↦ if x.toReal > 0 
 
 example : ¬ LocallyUniformlyConvergesTo (fun n (x:EuclideanSpace' 1) ↦ if x.toReal > 0 then 1 / (n * x.toReal) else 0) (fun x ↦ 0) := by sorry
 
-/-- Theorem 1.3.26 (Egorov's theorem)-/
+/-- Теорема 1.3.26 (Egorov's theorem)-/
 theorem PointwiseAeConvergesTo.locallyUniformlyConverges_outside_small {d:ℕ} {f : ℕ → EuclideanSpace' d → ℂ} {g : EuclideanSpace' d → ℂ}
   (hf: ∀ n, ComplexMeasurable (f n))
   (hfg: PointwiseAeConvergesTo f g)
@@ -99,7 +99,7 @@ example : ∃ (d:ℕ) (f : ℕ → EuclideanSpace' d → ℝ) (g : EuclideanSpac
       Lebesgue_measure E = 0 →
       ¬ LocallyUniformlyConvergesToOn f g Eᶜ := by sorry
 
-/-- Remark 1.3.27: Local uniform convergence in Egorov's theorem cannot be upgraded to uniform convergence -/
+/-- Зауваження 1.3.27: Local uniform convergence in Egorov's theorem cannot be upgraded to uniform convergence -/
 example : ∃ (d:ℕ) (f : ℕ → EuclideanSpace' d → ℝ) (g : EuclideanSpace' d → ℝ),
     (∀ n, RealMeasurable (f n)) ∧
     PointwiseAeConvergesTo f g ∧
@@ -119,7 +119,7 @@ theorem PointwiseAeConvergesTo.uniformlyConverges_outside_small {d:ℕ} {f : ℕ
     Lebesgue_measure E ≤ ε ∧
     UniformlyConvergesToOn f g (Sᶜ ∪ E) := by sorry
 
-/-- Theorem 1.3.28 (Lusin's theorem) -/
+/-- Теорема 1.3.28 (Lusin's theorem) -/
 theorem ComplexAbsolutelyIntegrable.approx_by_continuous_outside_small {d:ℕ} {f : EuclideanSpace' d → ℂ}
   (hf: ComplexAbsolutelyIntegrable f)
   (ε : ℝ) (hε : 0 < ε) :
@@ -155,7 +155,7 @@ theorem ComplexMeasurable.iff_pointwiseae_of_continuous {d:ℕ} {f : EuclideanSp
   ComplexMeasurable f ↔
   ∃ (g : ℕ → EuclideanSpace' d → ℂ), (∀ n, Continuous (g n)) ∧ PointwiseAeConvergesTo g f := by sorry
 
-/-- Remark 1.3.29 -/
+/-- Зауваження 1.3.29 -/
 theorem UnsignedMeasurable.approx_by_continuous_outside_small {d:ℕ} {f : EuclideanSpace' d → EReal}
   (hf: UnsignedMeasurable f) (hfin: AlmostAlways (fun x ↦ f x < ⊤))
   (ε : ℝ) (hε : 0 < ε) :

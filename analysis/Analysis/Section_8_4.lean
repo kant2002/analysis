@@ -3,7 +3,7 @@ import Analysis.Section_8_1
 import Analysis.Section_8_2
 
 /-!
-# Аналіз I, Розділ 8.4: The axiom of choice
+# Аналіз I, Розділ 8.4: Аксіома вибору
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -12,33 +12,33 @@ import Analysis.Section_8_2
 
 Основні конструкції та результати цього розділу:
 
-- Review of Mathlib's dependent product type `∀ α, X α`.
-- The axiom of choice in various equivalent forms, as well as the countable axiom of choice.
+- Огляд типу залежного добутку Mathlib `∀ α, X α`.
+- Аксіома вибору в різних еквівалентних формах, а також її рахункова версія.
 
-As the Chapter 3 set theory has been deprecated for many chapters at this point, we will not insert the axiom of choice directly into that theory in this text; but this could be accomplished if desired
-(e.g., by extending the `Chapter3.SetTheory` class to a `Chapter3.SetTheoryWithChoice` class), and
-students are welcome to attempt this separately.  Instead, we will use Mathlib's native
-`Classical.choice` axiom.  Technically, this axiom has already been used quite frequently in the
-text already, in large part because Mathlib uses `Classical.choice` to derive many weaker statements,
-such as the law of the excluded middle.  So the distinctions made in the original text regarding
-whether a given statement or not uses the axiom of choice are somewhat blurred in this formalization.
-It is theoretically possible to restore this distinction by removing the reliance on Mathlib and
-working throughout with custom structures such as `Chapter3.SetTheory` and
-`Chapter3.SetTheoryWithChoice`, but this would be extremely tedious and not attempted here.
+Оскільки розділ 3, присвячений теорії множин, у багатьох місцях вже не використовується, ми не будемо
+вставляти аксіому вибору безпосередньо в цю теорію у цьому тексті; проте це можна зробити за бажання
+(наприклад, розширивши клас `Chapter3.SetTheory` до `Chapter3.SetTheoryWithChoice`), і студентам
+можна запропонувати зробити це окремо. Натомість ми використовуватимемо вбудовану в Mathlib
+аксіому `Classical.choice`. Технічно ця аксіома вже досить часто використовувалась у тексті, оскільки
+Mathlib використовує `Classical.choice` для виведення багатьох слабших тверджень, наприклад закону виключеного третього.
+Тож розмежування, зроблене в оригінальному тексті щодо того, чи використовує конкретне твердження
+аксіому вибору, у цій формалізації дещо розмито. Теоретично можна відновити це розмежування,
+прибравши залежність від Mathlib і працюючи з власними структурами типу
+`Chapter3.SetTheory` і `Chapter3.SetTheoryWithChoice`, але це було б дуже трудомістким і тут не розглядається.
 -/
 
 namespace Chapter8
 
-/-- Визначення 8.4.1 (Infinite Cartesian products).  We will avoid using this definition in favor
-of the Mathlib form `∀ α, X α` which we will shortly show is equivalent to (or more precisely,
-generalizes) this one.
+/-- Визначення 8.4.1 (Нескінченні декартові добутки). Ми уникатимемо використання цієї
+дефініції на користь форми Mathlib `∀ α, X α`, яка, як незабаром покажемо є еквівалентною (або,
+точніше, такою, що узагальнює) цю.
 
-Because Lean does not allow unrestricted unions of types, we cheat slightly here by assuming all the
-`X α` are sets in a common universe `U`.  Note that the Mathlib definition does not have this
-restriction. -/
+Оскільки Lean не дозволяє необмежених об'єднань типів, ми дещо обходимо це, припускаючи,
+що всі `X α` є підмножинами в спільній універсі `U`. Зауважте, що визначення в Mathlib не має
+цього обмеження. -/
 abbrev CartesianProduct {I U: Type} (X : I → Set U) := { x : I → ⋃ α, X α // ∀ α, ↑(x α) ∈ X α }
 
-/-- Equivalence with Mathlib's product -/
+/-- Еквівалентність з добутком у Mathlib -/
 def CartesianProduct.equiv {I U: Type} (X : I → Set U) :
   CartesianProduct X ≃ ∀ α, X α := {
   toFun x α := ⟨ x.val α, by aesop ⟩
@@ -88,7 +88,7 @@ def product_three_equiv {X: Fin 3 → Type} : (∀ i:Fin 3, X i) ≃ (X 0 × X 1
   right_inv f := rfl
 }
 
-/-- Axiom 8.1 (Choice) -/
+/-- Аксіома 8.1 (Аксіома вибору) -/
 theorem axiom_of_choice {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := by use fun i ↦ (h i).some
 
@@ -114,7 +114,7 @@ theorem exist_tendsTo_sup {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) :
   . exact tendsto_const_nhds
   all_goals intro n; have := (a n).property; simp_all [X]
 
-/-- Remark 8.4.6.  This special case of Lemma 8.4.5 avoids (countable) choice. -/
+/-- Зауваження 8.4.6. Цей спеціальний випадок Леми 8.4.5 обходиться без (рахункової) аксіоми вибору. -/
 theorem exist_tendsTo_sup_of_closed {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) (hclosed: IsClosed E) :
   ∃ a : ℕ → ℝ, (∀ n, a n ∈ E) ∧ Filter.atTop.Tendsto a (nhds (sSup E)) := by
   set X : ℕ → Set ℝ := fun n ↦ { x ∈ E | sSup E - 1 / (n+1:ℝ) ≤ x ∧ x ≤ sSup E }
@@ -142,9 +142,8 @@ theorem exists_function {X Y : Type} {P : X → Y → Prop} (h: ∀ x, ∃ y, P 
   ∃ f : X → Y, ∀ x, P x (f x) := by
   sorry
 
-/-- Вправа 8.4.1.  The spirit of the question here is to establish this result directly
-from `exists_function`, avoiding previous results that relied more explicitly
-on the axiom of choice. -/
+/-- Вправа 8.4.1. Сенс цього завдання — встановити цей результат прямо з `exists_function`,
+уникаючи попередніх результатів, що більш явно покладалися на аксіому вибору. -/
 theorem axiom_of_choice_from_exists_function {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := ⟨ fun i ↦ (h i).some ⟩
 
@@ -154,9 +153,8 @@ theorem exists_set_singleton_intersect {I U:Type} {X: I → Set U} (h: Set.Pairw
   ∃ Y : Set U, ∀ α, Nat.card (Y ∩ X α : Set U) = 1 := by
   sorry
 
-/-- Вправа 8.4.2.  The spirit of the question here is to establish this result directly
-from `exists_set_singleton_intersect`, avoiding previous results that relied more explicitly
-on the axiom of choice. -/
+/-- Вправа 8.4.2. Сенс цього завдання — встановити цей результат прямо з `exists_set_singleton_intersect`,
+уникаючи попередніх результатів, що більш явно покладалися на аксіому вибору. -/
 theorem axiom_of_choice_from_exists_set_singleton_intersect {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := by
   sorry
@@ -166,9 +164,8 @@ theorem Function.Injective.inv_surjective {A B:Type} {g: B → A} (hg: Function.
   ∃ f : A → B, Function.Injective f ∧ Function.RightInverse f g := by
   sorry
 
-/-- Вправа 8.4.3.  The spirit of the question here is to establish this result directly
-from `Function.Injective.inv_surjective`, avoiding previous results that relied more explicitly
-on the axiom of choice. -/
+/-- Вправа 8.4.3. Сенс цього завдання — встановити цей результат прямо з `Function.Injective.inv_surjective`,
+уникаючи попередніх результатів, що більш явно покладалися на аксіому вибору. -/
 theorem axiom_of_choice_from_function_injective_inv_surjective {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
   Nonempty (∀ i, X i) := by
   sorry

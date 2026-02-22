@@ -304,7 +304,7 @@ theorem Partition.exist_right {I: BoundedInterval} (hI: I.a < I.b) (hI': I.b ∉
   : ∃ c ∈ Set.Ico I.a I.b, Ioo c I.b ∈ P ∨ Ico c I.b ∈ P := by
   sorry
 
-/-- Theorem 11.1.13 (Length is finitely additive). -/
+/-- Теорема 11.1.13 (Length is finitely additive). -/
 theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   ∑ J ∈ P.intervals, |J|ₗ = |I|ₗ := by
   -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.

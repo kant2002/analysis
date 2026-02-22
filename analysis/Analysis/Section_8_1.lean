@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Розділ 8.1: Countability
+# Аналіз I, Розділ 8.1: Зліченість
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -10,28 +10,29 @@ import Mathlib.Tactic
 
 Основні конструкції та результати цього розділу:
 
-- Custom notions for "equal cardinality", "countable", and "at most countable".  Note that Mathlib's
-`Countable` typeclass corresponds to what we call "at most countable" in this text.
-- Countability of the integers and rationals.
+- Власні означення для «рівної кардинальності», «зліченості» та «не більше ніж злічено». Зауважте, що
+  тип-класи `Countable` у Mathlib відповідає тому, що в цьому тексті називається «не більше ніж злічена».
+- Зліченість цілих чисел та раціональних чисел.
 
-Note that as the Chapter 3 set theory has been deprecated, we will not re-use relevant constructions from that theory here, replacing them with Mathlib counterparts instead.
+Зауважте, що оскільки теорія множин з Розділу 3 більше не використовується, ми не будемо повторно
+використовувати відповідні конструкції з тієї теорії тут, натомість замінюючи їх відповідниками з Mathlib.
 
 -/
 
 namespace Chapter8
 
-/-- The definition of equal cardinality. For simplicity we restrict attention to the Type 0 universe.
-This is analogous to `Chapter3.SetTheory.Set.EqualCard`, but we are not using the latter since
-the Chapter 3 set theory is deprecated. -/
+/-- Визначення рівної кардинальності. З міркувань простоти ми обмежуємось універсумом Type 0.
+Це аналогічно `Chapter3.SetTheory.Set.EqualCard`, але ми не використовуємо останній, оскільки
+теорія множин з Розділу 3 застаріла. -/
 abbrev EqualCard (X Y : Type) : Prop := ∃ f : X → Y, Function.Bijective f
 
-/-- Relation with Mathlib's `Equiv` concept -/
+/-- Взаємозв'язок з концепцією `Equiv` у Mathlib -/
 theorem EqualCard.iff {X Y : Type} : EqualCard X Y ↔ Nonempty (X ≃ Y) := by
   simp [EqualCard]; constructor
   . intro ⟨ f, hf ⟩; exact ⟨ .ofBijective f hf ⟩
   intro ⟨ e ⟩; exact ⟨ e.toFun, e.bijective ⟩
 
-/-- Equivalence with Mathlib's `Cardinal.mk` concept -/
+/-- Еквівалентність з поняттям `Cardinal.mk` у Mathlib -/
 theorem EqualCard.iff' {X Y : Type} : EqualCard X Y ↔ Cardinal.mk X = Cardinal.mk Y := by
   simp [Cardinal.eq, iff]
 
@@ -62,14 +63,13 @@ theorem Finite.equiv {X Y: Type} (hXY : EqualCard X Y) :
 theorem AtMostCountable.equiv {X Y: Type} (hXY : EqualCard X Y) :
   AtMostCountable X ↔ AtMostCountable Y := by
   simp [AtMostCountable, CountablyInfinite.equiv hXY, Finite.equiv hXY]
-
-/-- Equivalence with Mathlib's `Denumerable` concept (cf. Remark 8.1.2) -/
+/-- Еквівалентність з поняттям `Denumerable` у Mathlib (див. зауваження 8.1.2) -/
 theorem CountablyInfinite.iff (X : Type) : CountablyInfinite X ↔ Nonempty (Denumerable X) := by
   simp [CountablyInfinite, EqualCard.iff]; constructor
   . intro ⟨ e ⟩; exact ⟨ Denumerable.mk' e ⟩
   intro ⟨ h ⟩; exact ⟨ h.eqv X ⟩
 
-/-- Equivalence with Mathlib's `Countable` typeclass -/
+/-- Еквівалентність з типкласом `Countable` у Mathlib -/
 theorem CountablyInfinite.iff' (X : Type) : CountablyInfinite X ↔ Countable X ∧ Infinite X := by
   rw [iff, nonempty_denumerable_iff]
 
@@ -108,7 +108,7 @@ example : CountablyInfinite (.univ \ {0}: Set ℕ) := by sorry
 example : CountablyInfinite ((fun n:ℕ ↦ 2*n) '' .univ) := by sorry
 
 
-/-- Твердження 8.1.4 (Well ordering principle / Вправа 8.1.2 -/
+/-- Твердження 8.1.4 (Принцип цілкового впорядкування / Вправа 8.1.2) -/
 theorem Nat.exists_unique_min {X : Set ℕ} (hX : X.Nonempty) :
   ∃! m ∈ X, ∀ n ∈ X, m ≤ n := by
   sorry
@@ -140,7 +140,7 @@ theorem Nat.min_eq_sInf {X : Set ℕ} (hX : X.Nonempty) : min X = sInf X := by
   sorry
 
 open Classical in
-/-- Equivalence with Mathlib's `Nat.find` method -/
+/-- Еквівалентність з методом `Nat.find` у Mathlib -/
 theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX := by
   symm; rw [Nat.find_eq_iff]; have := min_spec hX; grind
 
@@ -320,7 +320,7 @@ example (A: Type) : AtMostCountable A ↔ ∃ f : A → ℕ, Function.Injective 
 example {I X:Type} (hI: AtMostCountable I) (A: I → Set X) (hA: ∀ i, AtMostCountable (A i)) :
   AtMostCountable (⋃ i, A i) := by sorry
 
-/-- Вправа 8.1.10.  Note the lack of the `noncomputable` keyword in the `abbrev`. -/
+/-- Вправа 8.1.10. Зауважте відсутність ключового слова `noncomputable` в `abbrev`. -/
 abbrev explicit_bijection : ℕ → ℚ := sorry
 
 theorem explicit_bijection_spec : Function.Bijective explicit_bijection := by sorry
