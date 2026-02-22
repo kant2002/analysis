@@ -2,7 +2,7 @@ import Mathlib.Tactic
 import Analysis.Section_9_6
 
 /-!
-# Аналіз I, Розділ 10.2: Local maxima, local minima, and derivatives
+# Аналіз I, Розділ 10.2: Локальні максимуми, локальні мінімуми та похідні
 
 Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
 Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
@@ -10,16 +10,16 @@ import Analysis.Section_9_6
 щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Relation between local extrema and derivatives.
-- Rolle's theorem.
-- mean value theorem.
+- Зв'язок між локальними екстремумами та похідними.
+- Теорема Ролля.
+- Теорема середнього значення.
 
 -/
 
 open Chapter9
 namespace Chapter10
 
-/-- Визначення 10.2.1 (Local maxima and minima).  Here we use Mathlib's `IsLocalMaxOn` type. -/
+/-- Визначення 10.2.1 (Локальні максимуми та мінімуми). Тут ми використовуємо тип `IsLocalMaxOn` з Mathlib. -/
 theorem IsLocalMaxOn.iff (X:Set ℝ) (f:ℝ → ℝ) (x₀:ℝ) :
   IsLocalMaxOn f X x₀ ↔
   ∃ δ > 0, IsMaxOn f (X ∩ .Ioo (x₀ - δ) (x₀ + δ)) x₀ := by
@@ -61,7 +61,7 @@ theorem IsLocalMinOn.of_restrict {X Y:Set ℝ} (hXY: Y ⊆ X) (f:ℝ → ℝ) (x
   (h: IsLocalMinOn f X x₀) : IsLocalMinOn f Y x₀ := by
   sorry
 
-/-- Твердження 10.2.6 (Local extrema are stationary) / Вправа 10.2.1 -/
+/-- Твердження 10.2.6 (Локальні екстремуми стаціонарні) / Вправа 10.2.1 -/
 theorem IsLocalMaxOn.deriv_eq_zero {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} {x₀:ℝ}
   (hx₀: x₀ ∈ Set.Ioo a b) (h: IsLocalMaxOn f (.Ioo a b) x₀) {L:ℝ}
   (hderiv: HasDerivWithinAt f L (.Ioo a b) x₀) : L = 0 := by
@@ -78,13 +78,13 @@ theorem IsMaxOn.deriv_eq_zero_counter : ∃ (a b:ℝ) (hab: a < b) (f:ℝ → �
   (hderiv: HasDerivWithinAt f L (.Icc a b) x₀), L ≠ 0 := by
   sorry
 
-/-- Теорема 10.2.7 (Rolle's theorem) / Вправа 10.2.4 -/
+/-- Теорема 10.2.7 (Теорема Ролля) / Вправа 10.2.4 -/
 theorem _root_.HasDerivWithinAt.exist_zero {a b:ℝ} (hab: a < b) {g:ℝ → ℝ}
   (hcont: ContinuousOn g (.Icc a b)) (hderiv: DifferentiableOn ℝ g (.Ioo a b))
   (hgab: g a = g b) : ∃ x ∈ Set.Ioo a b, HasDerivWithinAt g 0 (.Ioo a b) x := by
   sorry
 
-/-- Наслідок 10.2.9 (Mean value theorem ) / Вправа 10.2.5 -/
+/-- Наслідок 10.2.9 (Теорема середнього значення) / Вправа 10.2.5 -/
 theorem _root_.HasDerivWithinAt.mean_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ}
   (hcont: ContinuousOn f (.Icc a b)) (hderiv: DifferentiableOn ℝ f (.Ioo a b)) :
   ∃ x ∈ Set.Ioo a b, HasDerivWithinAt f ((f b - f a) / (b - a)) (.Ioo a b) x := by
