@@ -4,21 +4,20 @@ import Analysis.Section_9_3
 import Analysis.Section_9_4
 
 /-!
-# Аналіз I, Розділ 9.5: Left and right limits
+# Аналіз I, Розділ 9.5: Ліві та праві границі
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Left and right limits.
+- Ліві та праві односторонні границі.
 -/
 
 namespace Chapter9
 
-/-- Визначення 9.5.1.  We give left and right limits the "junk" value of 0 if the limit does not exist. -/
+/-- Визначення 9.5.1. Ми надаємо лівим і правим границям «сміттеве» значення 0, якщо границя не існує. -/
 abbrev RightLimitExists (X: Set ℝ) (f: ℝ → ℝ) (x₀:ℝ) : Prop := ∃ L, (nhdsWithin x₀ (X ∩ .Ioi x₀)).Tendsto f (nhds L)
 
 open Classical in
@@ -53,7 +52,7 @@ theorem left_limit.eq' {X: Set ℝ} {f: ℝ → ℝ} {x₀:ℝ} (h: LeftLimitExi
   (nhdsWithin x₀ (X ∩ .Iio x₀)).Tendsto f (nhds (left_limit X f x₀)) := by
   simp [left_limit, h]; exact h.choose_spec
 
-/-- Приклад 9.5.2.  The second part of this example is no longer operative as we assign "junk" values to our functions instead of leaving them undefined. -/
+/-- Приклад 9.5.2. Друга частина цього прикладу вже не діє, оскільки ми призначаємо нашим функціям «сміттеві» значення замість того, щоб залишати їх невизначеними. -/
 example : right_limit .univ Real.sign 0 = 1 := by sorry
 
 example : left_limit .univ Real.sign 0 = -1 := by sorry
@@ -117,7 +116,7 @@ example : ¬ HasRemovableDiscontinuity .univ (fun x ↦ 1/x) 0 := by sorry
 
 example : ¬ HasJumpDiscontinuity .univ (fun x ↦ 1/x) 0 := by sorry
 
-/- Вправа 9.5.1: Write down a definition of what it would mean for a limit of a function to be `+∞` or `-∞`, apply to `fun x ↦ 1/x`, and state and prove a version of Proposition 9.3.9. -/
+/- Вправа 9.5.1: Запишіть визначення того, що означає, коли границя функції дорівнює `+∞` або `-∞`; застосуйте до `fun x ↦ 1/x`; сформулюйте й доведіть варіант Твердження 9.3.9. -/
 
 
 end Chapter9

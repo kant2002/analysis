@@ -4,22 +4,21 @@ import Mathlib.Topology.ContinuousOn
 import Analysis.Section_9_3
 
 /-!
-# Аналіз I, Розділ 9.4: Continuous functions
+# Аналіз I, Розділ 9.4: Неперервні функції
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Continuity of functions, using the Mathlib notions
+- Неперервність функцій із використанням понять Mathlib
 
 -/
 
 namespace Chapter9
 
-/-- Визначення 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
+/-- Визначення 9.4.1. Тут ми використовуємо визначення неперервності з Mathlib. Гіпотеза `x ∈ X` не потрібна! -/
 theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
   ContinuousWithinAt f X x₀ ↔ Convergesto X f (f x₀) x₀ := by
   rw [ContinuousWithinAt.eq_1, Convergesto.iff, nhdsWithin.eq_1]
@@ -57,7 +56,7 @@ example : ¬ ContinuousAt f_9_4_6 0 := by sorry
 
 example : ContinuousWithinAt f_9_4_6 (.Ici 0) 0 := by sorry
 
-/-- Твердження 9.4.7 / Вправа 9.4.1.  It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
+/-- Твердження 9.4.7 / Вправа 9.4.1. Можливо, гіпотеза `x₀ ∈ X` не є необхідною. -/
 theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X) :
   [
     ContinuousWithinAt f X x₀,
@@ -74,7 +73,7 @@ theorem _root_.Filter.Tendsto.comp_of_continuous {X:Set ℝ} {f: ℝ → ℝ} {x
   have := (ContinuousWithinAt.tfae X f h).out 0 1
   grind
 
-/- Proposition 9.4.9 -/
+/- Твердження 9.4.9 -/
 theorem ContinuousWithinAt.add {X:Set ℝ} (f g: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X)
   (hf: ContinuousWithinAt f X x₀) (hg: ContinuousWithinAt g X x₀) :
   ContinuousWithinAt (f + g) X x₀ := by

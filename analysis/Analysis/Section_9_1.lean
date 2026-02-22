@@ -3,20 +3,19 @@ import Mathlib.Analysis.SpecificLimits.Basic
 import Analysis.Section_6_4
 
 /-!
-# Аналіз I, Розділ 9.1: Subsets of the real line
+# Аналіз I, Розділ 9.1: Підмножини дійсної прямої
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
 
-- Review of Mathlib intervals.
-- Adherent points, limit points, isolated points.
-- Closed sets and closure.
-- The Heine-Borel theorem for the real line.
+- Огляд інтервалів у Mathlib.
+- Адерентні точки, граничні точки, ізольовані точки.
+- Замкнені множини та замикання.
+- Теорема Гейне—Бореля для дійсної прямої.
 
 -/
 
@@ -57,7 +56,7 @@ example {a b: EReal} (h: a ≥ b) : Set.Ioo a b = ∅ := by
 example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
   sorry
 
-/-- Визначення 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
+/-- Визначення 9.1.5.  Зауважте, що трохи інша версія `Real.adherent` була визначена в Розділі 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
 /-- Приклад 9.1.7 -/
@@ -77,7 +76,7 @@ example : AdherentPt 1 (.Ioo 0 1) := by sorry
 
 example : ¬ AdherentPt 2 (.Ioo 0 1) := by sorry
 
-/-- Визначення 9.1.10 (Closure).  Here we identify this definition with the Mathilb version. -/
+/-- Визначення 9.1.10 (Замикання). Тут ми ототожнюємо це означення з версією Mathlib. -/
 theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
   ext; simp [Real.mem_closure_iff, AdherentPt, Real.adherent']
   constructor <;> intro h ε hε
@@ -86,7 +85,7 @@ theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
 theorem closure_def' (X:Set ℝ) (x :ℝ) : x ∈ closure X ↔ AdherentPt x X := by
   simp [closure_def]
 
-/-- identification of `AdherentPt` with Mathlib's `ClusterPt` -/
+/-- Ідентифікація `AdherentPt` з `ClusterPt` у Mathlib -/
 theorem AdherentPt_def (x:ℝ) (X:Set ℝ) : AdherentPt x X = ClusterPt x (.principal X) := by
   rw [←closure_def', mem_closure_iff_clusterPt]
 
@@ -224,7 +223,7 @@ theorem isClosed_iff_limits_mem (X: Set ℝ) :
 /-- Визначення 9.1.18 (Limit points) -/
 abbrev LimitPt (x:ℝ) (X: Set ℝ) := AdherentPt x (X \ {x})
 
-/-- Identification with Mathlib's `AccPt`-/
+/-- Ідентифікація з `AccPt` у Mathlib -/
 theorem LimitPt.iff_AccPt (x:ℝ) (X: Set ℝ) : LimitPt x X ↔ AccPt x (.principal X) := by
   rw [accPt_principal_iff_clusterPt,←AdherentPt_def]
 
@@ -288,7 +287,7 @@ theorem mem_Iio_isLimit {a x:ℝ} (hx: x ∈ Set.Iio a) : LimitPt x (.Iio a) := 
 theorem mem_R_isLimit {x:ℝ} : LimitPt x (.univ) := by
   sorry
 
-/-- Визначення 9.1.22.  We use here Mathlib's `Bornology.IsBounded`-/
+/-- Визначення 9.1.22. Тут ми використовуємо `Bornology.IsBounded` з Mathlib. -/
 
 theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ .Icc (-M) M := by
   simp [isBounded_iff_forall_norm_le]
@@ -316,7 +315,7 @@ theorem Q_unbounded (a: ℝ) : ¬ Bornology.IsBounded ((fun n:ℚ ↦ (n:ℝ)) '
 /-- Приклад 9.1.23 -/
 theorem R_unbounded (a: ℝ) : ¬ Bornology.IsBounded (.univ: Set ℝ) := by sorry
 
-/-- Теорема 9.1.24 / Вправа 9.1.13 (Heine-Borel theorem for the line)-/
+/-- Теорема 9.1.24 / Вправа 9.1.13 (Теорема Гейне—Бореля для дійсної прямої) -/
 theorem Heine_Borel (X: Set ℝ) :
   IsClosed X ∧ Bornology.IsBounded X ↔ ∀ a : ℕ → ℝ, (∀ n, a n ∈ X) →
   (∃ n : ℕ → ℕ, StrictMono n
@@ -363,7 +362,7 @@ example {X:Set ℝ} (hX: X ≠ ∅) : Bornology.IsBounded X ↔
 example {X:Set ℝ} (hX: Bornology.IsBounded X) : Bornology.IsBounded (closure X) := by
   sorry
 
-/-- Вправа 9.1.12.  As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
+/-- Вправа 9.1.12.  Як продовження: доведіть або спростуйте цю вправу після видалення `[Fintype I]`. -/
 example {I:Type} [Fintype I] (X: I → Set ℝ) (hX: ∀ i, Bornology.IsBounded (X i)) :
   Bornology.IsBounded (⋃ i, X i) := by
   sorry

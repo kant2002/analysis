@@ -3,19 +3,18 @@ import Mathlib.Tactic
 /-!
 # Аналіз I, Розділ 9.10: Limits at infinity
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Bare-bones API for the Mathlib versions of adherent at infinity, and limits at infinity.
+- Базовий набір API для версій Mathlib щодо збіжності до нескінченності та границь на нескінченності.
 -/
 
 namespace Chapter9
 
-/-- Визначення 9.10.1 (Infinite adherent point).  We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
+/-- Визначення 9.10.1 (Нескінченна точка дотику). Ми використовуємо `¬ BddAbove X` як позначення того, що `+∞` є точкою дотику множини X. -/
 theorem BddAbove.unbounded_iff (X:Set ℝ) : ¬ BddAbove X ↔ ∀ M, ∃ x ∈ X, x > M := by
   simp [bddAbove_def]
 
@@ -36,7 +35,7 @@ theorem BddBelow.unbounded_iff' (X:Set ℝ) : ¬ BddBelow X ↔ sInf ((fun x:ℝ
     use x, hx; revert M; simp [EReal.forall]
   intro h M; specialize h (M:EReal) ?_ <;>simp_all
 
-/-- Визначення 9.10.13 (Limit at infinity) -/
+/-- Визначення 9.10.13 (Границя на нескінченності) -/
 theorem Filter.Tendsto.AtTop.iff {X: Set ℝ} (f:ℝ → ℝ) (L:ℝ) : Filter.Tendsto f (.atTop ⊓ .principal X) (nhds L) ↔ ∀ ε > (0:ℝ), ∃ M, ∀ x ∈ X ∩ .Ici M, |f x - L| < ε := by
   rw [LinearOrderedAddCommGroup.tendsto_nhds]
   peel with ε hε
