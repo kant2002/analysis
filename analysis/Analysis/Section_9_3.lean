@@ -3,26 +3,24 @@ import Mathlib.Data.Real.Sign
 import Analysis.Section_9_1
 
 /-!
-# Аналіз I, Розділ 9.3: Limiting values of functions
+# Аналіз I, Розділ 9.3: Граничні значення функцій
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
 
-- Limits of continuous functions
-- Connection with Mathilb's filter convergence concepts
-- Limit laws for functions
+- Границі неперервних функцій
+- Зв'язок із поняттями збіжності фільтрів у Mathlib
+- Закони щодо границь для функцій
 
-Technical point: in the text, the functions `f` studied are defined only on subsets `X` of `ℝ`, and
-left undefined elsewhere.  However, in Lean, this then creates some fiddly conversions when trying
-to restrict `f` to various subsets of `X` (which, technically, are not precisely subsets of `ℝ`,
-though they can be coerced to such).  To avoid this issue we will deviate from the text by having
-our functions defined on all of `ℝ` (with the understanding that they are assigned "junk" values
-outside of the domain `X` of interest).
+Технічна заувага: у тексті функції `f`, які розглядаються, визначені лише на підмножинах `X` множини `ℝ`
+і не визначені поза ними. Проте в Lean це призводить до незручних приведень типів при спробах
+обмежити `f` до різних підмножин `X` (які технічно не є безпосередньо підмножинами `ℝ`, хоча їх можна
+привести до таких). Щоб уникнути цієї проблеми, ми відходимо від тексту й вважаємо, що наші
+функції визначені на всьому `ℝ` (зрозуміло, що їм присвоюються "сміттеві" значення поза областю `X`).
 -/
 
 /-- Визначення 9.3.1 -/
@@ -57,10 +55,10 @@ example: ¬(0.1:ℝ).CloseFn (.Icc 1 3) (fun x ↦ x^2) 9 := by
 example: (0.1:ℝ).CloseNear (.Icc 1 3) (fun x ↦ x^2) 9 3 := by
   sorry
 
-/-- Визначення 9.3.6 (Convergence of functions at a point)-/
+/-- Визначення 9.3.6 (Збіжність функцій у точці) -/
 abbrev Convergesto (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) : Prop := ∀ ε > (0:ℝ), ε.CloseNear X f L x₀
 
-/-- Connection with Mathlib filter convergence concepts -/
+/-- Зв'язок із поняттями збіжності фільтрів у Mathlib -/
 theorem Convergesto.iff (X:Set ℝ) (f: ℝ → ℝ) (L:ℝ) (x₀:ℝ) :
   Convergesto X f L x₀ ↔ (nhdsWithin x₀ X).Tendsto f (nhds L) := by
   unfold Convergesto Real.CloseNear Real.CloseFn nhdsWithin
@@ -96,7 +94,7 @@ theorem Convergesto.comp {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Adh
   Filter.atTop.Tendsto (fun n ↦ f (a n)) (nhds L) := by
   rw [iff_conv f L h] at hf; solve_by_elim
 
--- Ремарка 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems.  This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
+-- Ремарка 9.3.11: можливо, що це зауваження неточне — гіпотезу `AdherentPt x₀ E` може виявитися безпечно видалити в наведених вище теоремах. Формалізація може це прояснити! Якщо так, цю гіпотезу також можна буде видалити в кількох теоремах нижче.
 
 /-- Наслідок 9.3.13 -/
 theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
@@ -105,7 +103,7 @@ theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: 
   let ⟨ a, ha, hconv ⟩ := (limit_of_AdherentPt _ _).mp h
   exact tendsto_nhds_unique (hf.comp h ha hconv) (hf'.comp h ha hconv)
 
-/-- Твердження 9.3.14 (Limit laws for functions) -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) -/
 theorem Convergesto.add {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f + g) (L + M) x₀ := by
@@ -114,25 +112,25 @@ theorem Convergesto.add {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: 
     intro a ha hconv; specialize hf a ha hconv; specialize hg a ha hconv
     convert hf.add hg using 1
 
-/-- Твердження 9.3.14 (Limit laws for functions) / Вправа 9.3.2 -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) / Вправа 9.3.2 -/
 theorem Convergesto.sub {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f - g) (L - M) x₀ := by
     sorry
 
-/-- Твердження 9.3.14 (Limit laws for functions) / Вправа 9.3.2 -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) / Вправа 9.3.2 -/
 theorem Convergesto.max {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (max f g) (max L M) x₀ := by
     sorry
 
-/-- Твердження 9.3.14 (Limit laws for functions) / Вправа 9.3.2 -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) / Вправа 9.3.2 -/
 theorem Convergesto.min {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (min f g) (min L M) x₀ := by
     sorry
 
-/-- Твердження 9.3.14 (Limit laws for functions) / Вправа 9.3.2 -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) / Вправа 9.3.2 -/
 theorem Convergesto.smul {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
   (hf: Convergesto E f L x₀) (c:ℝ) :
   Convergesto E (c • f) (c * L) x₀ := by
@@ -144,7 +142,7 @@ theorem Convergesto.mul {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: 
   Convergesto E (f * g) (L * M) x₀ := by
     sorry
 
-/-- Твердження 9.3.14 (Limit laws for functions) / Вправа 9.3.2.  The hypothesis in the book that g is non-vanishing on E can be dropped. -/
+/-- Твердження 9.3.14 (Закони щодо границь функцій) / Вправа 9.3.2. Гіпотезу в книзі про те, що `g` не звертається в нулі на `E`, можна опустити. -/
 theorem Convergesto.div {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E) (hM: M ≠ 0)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f / g) (L / M) x₀ := by
@@ -195,7 +193,7 @@ theorem Convergesto.local {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Ad
   Convergesto E f L x₀ ↔ Convergesto (E ∩ .Ioo (x₀-δ) (x₀+δ)) f L x₀ := by
     sorry
 
-/-- Приклад 9.3.19.  The point of this example is somewhat blunted by the ability to remove the hypothesis that `g` is non-zero from the relevant part of Proposition 9.3.14 -/
+/-- Приклад 9.3.19. Суть цього прикладу дещо втрачається через можливість прибрати гіпотезу про ненульовість `g` у відповідній частині твердження 9.3.14 -/
 example : Convergesto .univ (fun x ↦ (x+2)/(x+1)) (4/3:ℝ) 2 := by sorry
 
 /-- Приклад 9.3.20 -/
@@ -211,9 +209,9 @@ example : Filter.atTop.Tendsto (fun n ↦ f_9_3_21 ((Real.sqrt 2)/n:ℝ)) (nhds 
 
 example : ¬ ∃ L, Convergesto .univ f_9_3_21 L 0 := by sorry
 
-/- Вправа 9.3.4: State a definition of limit superior and limit inferior for functions, and prove an analogue of Proposition 9.3.9 for those definitions. -/
+/- Вправа 9.3.4: Сформулюйте визначення верхньої та нижньої границі (limit superior і limit inferior) для функцій і доведіть аналог твердження 9.3.9 для цих визначень. -/
 
-/-- Вправа 9.3.5 (Continuous version of squeeze test) -/
+/-- Вправа 9.3.5 (Неперервна версія принципу стискування) -/
 theorem Convergesto.squeeze {E:Set ℝ} {f g h: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (had: AdherentPt x₀ E)
   (hfg: ∀ x ∈ E, f x ≤ g x) (hgh: ∀ x ∈ E, g x ≤ h x)
   (hf: Convergesto E f L x₀) (hh: Convergesto E h L x₀) :

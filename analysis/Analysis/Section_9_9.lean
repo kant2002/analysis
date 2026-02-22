@@ -6,15 +6,14 @@ import Analysis.Section_9_6
 /-!
 # Аналіз I, Розділ 9.9: Uniform continuity
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- API for Mathlib's `UniformContinuousOn`.
-- Continuous functions on compact intervals are uniformly continuous.
+- API для `UniformContinuousOn` з Mathlib.
+- Неперервні функції на компактних відрізках є рівномірно неперервними.
 
 -/
 
@@ -44,7 +43,7 @@ example (x:ℝ) :
   let x₀ : ℝ := 0.1
   let δ : ℝ := 1/1010
   |x-x₀| ≤ δ → |f x - f x₀| ≤ ε := by
-  extract_lets -merge f ε x₀ δ -- need the `-merge` flag due to the collision of `ε` and `x₀`
+  extract_lets -merge f ε x₀ δ -- Потрібен прапорець `-merge` через конфлікт `ε` та `x₀`.
   sorry
 
 example (x:ℝ) :
@@ -64,7 +63,7 @@ example (x₀ x : ℝ) :
   extract_lets g ε δ
   sorry
 
-/-- Визначення 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
+/-- Визначення 9.9.2. Тут ми використовуємо термін `UniformContinuousOn` із Mathlib. -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
   ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.Close x x₀ → ε.Close (f x) (f x₀) := by
   simp_rw [Metric.uniformContinuousOn_iff_le, Real.Close]
@@ -79,7 +78,7 @@ example : ¬ UniformContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
 
 end Chapter9
 
-/-- Визначення 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
+/-/ Визначення 9.9.5. Це схоже, але не тотожно з `Real.close_seq` з Розділу 6.1. -/
 abbrev Real.CloseSeqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
   (a.m = b.m) ∧ ∀ n ≥ a.m, ε.Close (a n) (b n)
 

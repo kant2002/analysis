@@ -1,17 +1,16 @@
 import Mathlib.Tactic
 
 /-!
-# Аналіз I, Розділ 9.2: The algebra of real-valued functions
+# Аналіз I, Розділ 9.2: Алгебра дійснозначних функцій
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
 
-- Recalling basic pointwise operations on functions.
+- Нагадування базових поелементних операцій над функціями.
 
 -/
 
@@ -20,7 +19,7 @@ namespace Chapter9
 open Classical in
 noncomputable abbrev function_example : ℝ → ℝ := fun x ↦ if x ∈ ((fun y:ℚ ↦ (y:ℝ)) '' .univ) then 1 else 0
 
-/-- Визначення 9.2.1 (Arithmetic operations on functions)-/
+/-- Визначення 9.2.1 (Арифметичні операції над функціями)-/
 theorem add_func_eval (f g: ℝ → ℝ) (x: ℝ) : (f + g) x = f x + g x := rfl
 
 theorem sub_func_eval (f g: ℝ → ℝ) (x: ℝ) : (f - g) x = f x - g x := rfl
@@ -54,19 +53,19 @@ example : g_9_2_2 ∘ f_9_2_2 = fun x ↦ 2*x^2 := by grind
 /- Вправа 9.2.1.  -/
 
 def Exercise_9_2_1a : Decidable (∀ (f g h : ℝ → ℝ), (f+g) ∘ h = f ∘ h + g ∘ h) := by
-  -- The first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- Перший рядок цього конструктора повинен бути `apply isTrue` або `apply isFalse`.
   sorry
 
 def Exercise_9_2_1b : Decidable (∀ (f g h : ℝ → ℝ), f ∘ (g + h) = f ∘ g + f ∘ h) := by
-  -- The first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- Перший рядок цього конструктора повинен бути `apply isTrue` або `apply isFalse`.
   sorry
 
 def Exercise_9_2_1c : Decidable (∀ (f g h : ℝ → ℝ), (f+g) * h = f * h + g * h) := by
-  -- The first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- Перший рядок цього конструктора повинен бути `apply isTrue` або `apply isFalse`.
   sorry
 
 def Exercise_9_2_1d : Decidable (∀ (f g h : ℝ → ℝ), f * (g+h) = f * g + f * h) := by
-  -- The first line of this construction should be `apply isTrue` or `apply isFalse`.
+  -- Перший рядок цього конструктора повинен бути `apply isTrue` або `apply isFalse`.
   sorry
 
 end Chapter9

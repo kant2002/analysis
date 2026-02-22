@@ -6,19 +6,18 @@ import Analysis.Section_9_4
 /-!
 # Аналіз I, Розділ 9.7: The intermediate value theorem
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- The intermediate value theorem.
+- Теорема про проміжне значення.
 -/
 
 namespace Chapter9
 
-/-- Теорема 9.7.1 (Intermediate value theorem) -/
+/-- Теорема 9.7.1 (Теорема про проміжне значення) -/
 theorem intermediate_value {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) {y:ℝ} (hy: y ∈ Set.Icc (f a) (f b) ∨ y ∈ Set.Icc (f a) (f b)) :
   ∃ c ∈ Set.Icc a b, f c = y := by
   -- цей доказ написан так, щоб співпадати із структурою оригінального тексту.
@@ -112,7 +111,7 @@ example : f_9_7_2 1 = 0 := by sorry
 /-- Зауваження 9.7.3 -/
 example : ∃ x:ℝ, 0 ≤ x ∧ x ≤ 2 ∧ x^2 = 2 := by sorry
 
-/-- Наслідок 9.7.4 (Images of continuous functions) / Вправа 9.7.1 -/
+/-- Наслідок 9.7.4 (Образи неперервних функцій) / Вправа 9.7.1 -/
 theorem continuous_image_Icc {a b:ℝ} (hab: a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) {y:ℝ} (hy: sInf (f '' .Icc a b) ≤ y ∧ y ≤ sSup (f '' .Icc a b)) : ∃ c ∈ Set.Icc a b, f c = y := by
   sorry
 

@@ -4,17 +4,16 @@ import Analysis.Section_9_3
 import Analysis.Section_9_4
 
 /-!
-# Аналіз I, Розділ 9.6: The maximum principle
+# Аналіз I, Розділ 9.6: Принцип максимуму
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
-the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
-doing so.
+Я *(прим. перекл. Терренс Тао)* намагався зробити переклад якомога точнішим перефразуванням оригінального тексту.
+Коли є вибір між більш ідіоматичним підходом Lean та більш точним перекладом, я
+зазвичай обирав останній. Зокрема, будуть місця, де код Lean можна було б "підправити",
+щоб зробити його більш елегантним та ідіоматичним, але я свідомо уникав цього вибору.
 
 Основні конструкції та результати цього розділу:
-- Continuous functions on closed and bounded intervals are bounded.
-- Continuous functions on closed and bounded intervals attain their maximum and minimum.
+- Неперервні функції на замкнутих і обмежених відрізках є обмеженими.
+- Неперервні функції на замкнутих і обмежених відрізках досягають своїх максимуму та мінімуму.
 -/
 
 namespace Chapter9
@@ -72,7 +71,7 @@ theorem BddOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: 
   have : n j ≥ (j:ℝ) := by simp [why j]
   linarith
 
-/- Визначення 9.6.5.  Use the Mathlib `IsMaxOn` type. -/
+/- Визначення 9.6.5. Використовуйте тип `IsMaxOn` із Mathlib. -/
 #check isMaxOn_iff
 #check isMinOn_iff
 
@@ -81,7 +80,7 @@ theorem BddAboveOn.isMaxOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMaxOn f 
 
 theorem BddBelowOn.isMinOn {f:ℝ → ℝ} {X:Set ℝ} {x₀:ℝ} (h: IsMinOn f X x₀): BddBelowOn f X := by sorry
 
-/-- Твердження 9.6.7 (Maximum principle) -/
+/-- Твердження 9.6.7 (Принцип максимуму) -/
 theorem IsMaxOn.of_continuous_on_compact {a b:ℝ} (h:a < b) {f:ℝ → ℝ} (hf: ContinuousOn f (.Icc a b)) :
   ∃ xmax ∈ Set.Icc a b, IsMaxOn f (.Icc a b) xmax := by
   -- Доведення написане так, щоб відповідати структурі оригінального тексту.
