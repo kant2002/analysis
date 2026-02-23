@@ -2,12 +2,13 @@ import Mathlib.Tactic
 import Analysis.Appendix_B_1
 
 /-!
-# Аналіз I, Додаток B.2: The decimal representation of real numbers
+# Аналіз I, Додаток B.2: Десяткове подання дійсних чисел
 
-An implementation of the decimal representation of Mathlib's real numbers `ℝ`.
+Реалізація десяткового подання дійсних чисел `ℝ` з Mathlib.
 
-This is separate from the way decimal numerals are already represented in Mathlib.  We also represent the integer part of the natural numbers just by `ℕ`, avoiding using the decimal representation from the
-previous section, although we still retain the `Digit` class.
+Це відокремлено від способу, у який десяткові числівники вже представлені
+в Mathlib. Ми також подаємо цілу частину натуральних чисел просто як `ℕ`,
+уникаючи використання десяткового подання з попереднього розділу, хоча й зберігаємо клас `Digit`.
 -/
 
 namespace AppendixB
@@ -132,7 +133,7 @@ theorem RealDecimal.not_inj_terminating {x:ℝ} (hx: TerminatingDecimal x) : ∃
 
 theorem RealDecimal.inj_nonterminating {x:ℝ} (hx: ¬TerminatingDecimal x) : ∃! d:RealDecimal, d = x := by sorry
 
-/-- Вправа B.2.4.  This is Corollary 8.3.4, but the intent is to rewrite the proof using the decimal system. -/
+/-- Вправа B.2.4.  Це наслідок 8.3.4, але мета полягає в тому, щоб переписати доведення, використовуючи десяткову систему. -/
 example : Uncountable ℝ := by sorry
 
 
