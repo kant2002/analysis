@@ -88,5 +88,5 @@ open Verso Genre Blog
 - [Додаток A.5: Вкладені квантифікатори](./secA5/)
 - [Додаток A.6: Деякі приклади доказів та квантифікаторів](./secA6/)
 - [Додаток A.7: Рівність](./secA7/)
-- [Додаток B.1: The decimal representation of natural numbers](./appB1/)
-- [Додаток B.2: The decimal representation of real numbers](./appB2/)
+- [Додаток B.1: Десяткове подання натуральних чисел](./appB1/)
+- [Додаток B.2: Десяткове подання дійсних чисел](./appB2/)
